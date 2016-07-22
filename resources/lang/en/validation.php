@@ -109,8 +109,13 @@ return [
     */
 
     'attributes' => [
+        'role' => 'Role',
+        'username' => 'User Name',
+        'region' => 'Region',
         'email' => 'E-mail',
+        'company' => 'Company',
         'password' => 'Password',
+        'activity' => 'Activity',
     ],
 
 ];

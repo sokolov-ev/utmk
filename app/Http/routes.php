@@ -20,9 +20,15 @@ Route::post('/administration/login','Adminauth\AuthController@postLogin');
 Route::group(['middleware' => ['admin']], function () {
     Route::get('/administration/logout','Adminauth\AuthController@logout');
 
-    Route::get('/administration', 'Admin\Employee@view');
-    Route::get('/administration/moderators', 'Admin\Employee@moderators');
-    Route::get('/administration/clients', 'Admin\Employee@view');
+    Route::get('/administration', 'Admin\EmployeeController@view');
+    Route::get('/administration/clients', 'Admin\EmployeeController@view');
+
+    Route::group(['middleware' => 'isAdmin'], function() {
+        Route::get('/administration/moderators', 'Admin\EmployeeController@moderators');
+
+        Route::get('/administration/get-moderators', 'Admin\ServiceController@getModerators');
+        Route::post('/administration/add-moderator','Adminauth\AuthController@registerNew');
+    });
 });
 
 

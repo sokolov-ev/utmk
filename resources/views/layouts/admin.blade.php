@@ -17,6 +17,8 @@
 
     <link href="{{ elixir('css/all.css') }}" rel="stylesheet">
 
+    @yield('css')
+
     <link rel="apple-touch-icon" sizes="57x57" href="/images/icons/apple-touch-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="/images/icons/apple-touch-icon-60x60.png">
     <link rel="apple-touch-icon" sizes="72x72" href="/images/icons/apple-touch-icon-72x72.png">
@@ -137,8 +139,15 @@ desired effect
                             </a>
                             <ul class="treeview-menu">
                                 <li><a href="{{ url('/administration/moderators') }}">Менеджеры</a></li>
-                                <li><a href="{{ url('/administration/clients') }}">Пользователи</a></li>
+                                <li><a href="{{ url('/administration/clients') }}">Клиенты</a></li>
                             </ul>
+                        </li>
+                    @else
+                        <li>
+                            <a href="{{ url('/administration/clients') }}">
+                                <i class="fa fa-users"></i>
+                                <span>Клиенты</span>
+                            </a>
                         </li>
                     @endif
                     <li>
@@ -170,6 +179,8 @@ desired effect
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
 
+            @include('partial.flash-messages')
+
             @yield('content')
 
         </div>
@@ -196,10 +207,10 @@ desired effect
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js" integrity="sha384-I6F5OKECLVtK/BL+8iSLDEHowSAfUo76ZL9+kGAgTRdiByINKJaqTPH/QVNS1VDb" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
-    @yield('scripts')
-
     <!-- AdminLTE App -->
     <script src="{{ elixir('js/all.js') }}"></script>
+
+    @yield('scripts')
 
 </body>
 </html>

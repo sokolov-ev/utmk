@@ -10,7 +10,7 @@ use Auth;
 use App\Admin;
 use App\User;
 
-class Service extends Controller
+class EmployeeController extends Controller
 {
 
 
@@ -19,11 +19,8 @@ class Service extends Controller
         $this->middleware('admin');
     }
 
-    public function getModerators(Request $request)
+    public function view()
     {
-        if (Auth::guard()->) {
-
-        }
         $user = Auth::guard('admin')->user();
         return view('admin.home', ['user' => $user]);
     }
@@ -48,4 +45,8 @@ class Service extends Controller
     {
         return view('admin.home');
     }
+
+
+
+
 }

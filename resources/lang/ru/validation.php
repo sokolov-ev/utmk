@@ -126,8 +126,13 @@ return [
     */
 
     'attributes' => [
+        'role' => 'Роль',
+        'username' => 'Имя пользователя',
+        'region' => 'Область',
         'email' => 'E-mail',
+        'company' => 'Компания',
         'password' => 'Пароль',
+        'activity' => 'Активность',
     ],
 
 ];

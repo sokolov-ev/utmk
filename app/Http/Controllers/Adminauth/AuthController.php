@@ -6,6 +6,7 @@ use App\Admin;
 use Validator;
 use JsValidator;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use Auth;
@@ -48,9 +49,30 @@ class AuthController extends Controller
         return view('admin.login', ['validator' => $validator]);
     }
 
-    public function showRegistrationForm()
+    // public function showRegistrationForm()
+    // {
+    //     return view('auth.register');
+    // }
+
+    public function registerNew(Request $request)
     {
-        return view('auth.register');
+        $validator = $this->validator($request->all());
+
+        if ($validator->fails()) {
+            session()->flash('error', 'Возникла ошибка при добавлении нового менеджера.');
+
+            $this->throwValidationException(
+                $request, $validator
+            );
+        }
+
+        if ($this->create($request->all())) {
+            session()->flash('success', 'Новый менеджер успешно добавлен.');
+        } else {
+            session()->flash('error', 'Возникла ошибка при добавлении нового менеджера.');
+        }
+
+        return redirect(url()->previous());
     }
 
     public function logout()
@@ -63,16 +85,17 @@ class AuthController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
+            // 'region' => '',
             'username' => 'required|max:255',
             'email' => 'required|email|max:255|unique:admins',
-            'password' => 'required|min:6|confirmed',
+            'password' => 'required|min:6',
         ]);
     }
 
     protected function create(array $data)
     {
         return Admin::create([
-            'role' => 'Admin',
+            'role' => 'Moderator',
             'region' => 1,
             'username' => $data['username'],
             'email' => $data['email'],
