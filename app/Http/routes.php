@@ -11,18 +11,25 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/administration/login','Adminauth\AuthController@showLoginForm');
+Route::post('/administration/login','Adminauth\AuthController@postLogin');
 
-Route::get('/admin/login','Adminauth\AuthController@showLoginForm');
-Route::post('/admin/login','Adminauth\AuthController@login');
+// Route::get('/administration/register','Adminauth\AuthController@showRegistrationForm');
+// Route::post('/administration/register','Adminauth\AuthController@postRegister');
 
 Route::group(['middleware' => ['admin']], function () {
-    Route::get('/admin/logout','Adminauth\AuthController@logout');
+    Route::get('/administration/logout','Adminauth\AuthController@logout');
 
-    Route::get('/admin', 'Admin\Employee@index');
+    Route::get('/administration', 'Admin\Employee@view');
+    Route::get('/administration/moderators', 'Admin\Employee@moderators');
+    Route::get('/administration/clients', 'Admin\Employee@view');
 });
+
+
+
+// ФРОНТЕНД
+
+
 
 Route::group(['middleware' => 'web'], function () {
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Adminauth;
 
 use App\Admin;
 use Validator;
+use JsValidator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
@@ -16,8 +17,8 @@ class AuthController extends Controller
     | Registration & Login Controller
     |--------------------------------------------------------------------------
     |
-    | This controller handles the registration of new users, as well as the
-    | authentication of existing users. By default, this controller uses
+    | This controller handles the registration of new admins, as well as the
+    | authentication of existing admins. By default, this controller uses
     | a simple trait to add these behaviors. Why don't you explore it?
     |
     */
@@ -25,12 +26,12 @@ class AuthController extends Controller
     use AuthenticatesAndRegistersUsers, ThrottlesLogins;
 
     /**
-     * Where to redirect users after login / registration.
+     * Where to redirect admins after login / registration.
      *
      * @var string
      */
 
-    protected $redirectTo = '/admin';
+    protected $redirectTo = '/administration';
     protected $guard = 'admin';
 
     public function showLoginForm()
@@ -39,21 +40,43 @@ class AuthController extends Controller
             return redirect('/admin');
         }
 
-        return view('admin.login');
+        $validator = JsValidator::make([
+            'email' => 'required|email',
+            'password' => 'required|min:6',
+        ]);
+
+        return view('admin.login', ['validator' => $validator]);
     }
 
-    // public function showRegistrationForm()
-    // {
-    //     return view('admin.auth.register');
-    // }
+    public function showRegistrationForm()
+    {
+        return view('auth.register');
+    }
 
-    // public function resetPassword()
-    // {
-    //     return view('admin.auth.passwords.email');
-    // }
-
-    public function logout(){
+    public function logout()
+    {
         Auth::guard('admin')->logout();
-        return redirect('/admin/login');
+        return redirect('/administration/login');
+    }
+
+    // обязательные методы!!!
+    protected function validator(array $data)
+    {
+        return Validator::make($data, [
+            'username' => 'required|max:255',
+            'email' => 'required|email|max:255|unique:admins',
+            'password' => 'required|min:6|confirmed',
+        ]);
+    }
+
+    protected function create(array $data)
+    {
+        return Admin::create([
+            'role' => 'Admin',
+            'region' => 1,
+            'username' => $data['username'],
+            'email' => $data['email'],
+            'password' => bcrypt($data['password']),
+        ]);
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Support\Facades\Auth;
+use App\Admin;
 
 class RedirectIfNotAdmin
 {
@@ -18,8 +19,10 @@ class RedirectIfNotAdmin
     public function handle($request, Closure $next, $guard = 'admin')
     {
         if (!Auth::guard($guard)->check()) {
-            return redirect('/admin/login');
+            return redirect('/administration/login');
         }
+
+        Admin::where('id', Auth::guard($guard)->user()->id)->update(['activity' => time()]);
 
         return $next($request);
     }

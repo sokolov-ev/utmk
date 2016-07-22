@@ -12,5 +12,21 @@ var elixir = require('laravel-elixir');
  */
 
 elixir(function(mix) {
-    mix.sass('app.scss');
+
+    mix.styles([
+        'admin.css',
+        'AdminLTE.css',
+        'skins/skin-blue.min.css',
+    ]).version('public/css/all.css');
+
+    mix.scripts([
+        'app.js'
+    ]).version('public/js/all.js');
+
+    //version control & cache
+    mix.version(["css/all.css", "js/all.js"]);
+
+    mix.browserSync({
+        proxy: 'metallvsem.dev'
+    });
 });
