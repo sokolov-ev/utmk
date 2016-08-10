@@ -19,9 +19,11 @@ class CreateAdminTable extends Migration
             $table->string('username')->unique();
             $table->string('email')->unique();
             $table->integer('activity');
+            $table->smallInteger('status');
             $table->string('password');
             $table->rememberToken();
-            $table->timestamps();
+            $table->integer('created_at');
+            $table->integer('updated_at');
         });
     }
 

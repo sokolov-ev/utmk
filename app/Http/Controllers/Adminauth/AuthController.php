@@ -38,7 +38,7 @@ class AuthController extends Controller
     public function showLoginForm()
     {
         if (Auth::guard('admin')->check()) {
-            return redirect('/admin');
+            return redirect('/administration');
         }
 
         $validator = JsValidator::make([
@@ -49,12 +49,70 @@ class AuthController extends Controller
         return view('admin.login', ['validator' => $validator]);
     }
 
+
+    public function logined(Request $request)
+    {
+        $this->validateLogin($request);
+
+        $throttles = $this->isUsingThrottlesLoginsTrait();
+
+        if ($throttles && $lockedOut = $this->hasTooManyLoginAttempts($request)) {
+            $this->fireLockoutEvent($request);
+
+            return $this->sendLockoutResponse($request);
+        }
+
+        $credentials = $this->getCredentials($request);
+
+        if (Auth::guard($this->getGuard())->attempt($credentials, $request->has('remember'))) {
+            return $this->handleUserWasAuthenticated($request, $throttles);
+        }
+
+        if ($throttles && ! $lockedOut) {
+            $this->incrementLoginAttempts($request);
+        }
+
+        return $this->sendFailedLoginResponse($request);
+    }
+
+    // регал админа
     // public function showRegistrationForm()
     // {
     //     return view('auth.register');
     // }
 
-    public function registerNew(Request $request)
+    public function logout()
+    {
+        Auth::guard('admin')->logout();
+        return redirect('/administration/login');
+    }
+
+    // обязательные методы для стнадарной авторизации!!!
+    protected function validator(array $data)
+    {
+        return Validator::make($data, [
+            'username' => 'required|max:255',
+            'email' => 'required|email|max:255|unique:admins,email',
+            'role' => 'required_with:Moderator,SeniorModerator',
+            'status' => 'required_with:10,1,0',
+            'password' => 'required|min:6',
+        ]);
+    }
+
+    // обязательные методы для стнадарной авторизации!!!
+    protected function create(array $data)
+    {
+        return Admin::create([
+            'role' => $data['role'],
+            'region' => 1,
+            'username' => $data['username'],
+            'status' => $data['status'],
+            'email' => $data['email'],
+            'password' => bcrypt($data['password']),
+        ]);
+    }
+
+    public function createModerator(Request $request)
     {
         $validator = $this->validator($request->all());
 
@@ -75,31 +133,56 @@ class AuthController extends Controller
         return redirect(url()->previous());
     }
 
-    public function logout()
+    public function editModerator(Request $request)
     {
-        Auth::guard('admin')->logout();
-        return redirect('/administration/login');
+        $id = $request->input('edit_id');
+        $data = $request->all();
+
+        $validator = Validator::make($data, [
+                        'edit_id' => 'exists:admins,id',
+                        'edit_username' => 'required|max:255',
+                        'edit_email' => 'required|email|max:255|unique:admins,email,'.$id,
+                        'edit_role' => 'required_with:Moderator,SeniorModerator',
+                        'edit_status' => 'required_with:10,1,0',
+                    ]);
+
+        if ($validator->fails()) {
+            session()->flash('error', 'Возникла ошибка при обновлении данных менеджера.');
+
+            $this->throwValidationException(
+                $request, $validator
+            );
+        }
+
+        $admin = Admin::find($id);
+        $admin->role = $data['edit_role'];
+        // $admin->region = $data('edit_region');
+        $admin->username = $data['edit_username'];
+        $admin->status = $data['edit_status'];
+        $admin->email = $data['edit_email'];
+        if (!empty($data['edit_password'])) {
+            $admin->password = bcrypt($data['edit_password']);
+        }
+
+        if ($admin->save()) {
+            session()->flash('success', 'Данные менеджера успешно обновлены.');
+        } else {
+            session()->flash('error', 'Возникла ошибка при обновлении данных менеджера.');
+        }
+
+        return redirect(url()->previous());
     }
 
-    // обязательные методы!!!
-    protected function validator(array $data)
+    public function deleteModerator(Request $request)
     {
-        return Validator::make($data, [
-            // 'region' => '',
-            'username' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:admins',
-            'password' => 'required|min:6',
-        ]);
-    }
+        $id = $request->input('id');
 
-    protected function create(array $data)
-    {
-        return Admin::create([
-            'role' => 'Moderator',
-            'region' => 1,
-            'username' => $data['username'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
-        ]);
+        if (Admin::destroy($id)) {
+            session()->flash('success', 'Менеджер успешно удален.');
+        } else {
+            session()->flash('error', 'Возникла ошибка при удалении менеджера.');
+        }
+
+        return redirect(url()->previous());
     }
 }

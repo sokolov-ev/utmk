@@ -15,7 +15,7 @@
     <!-- Styles -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 
-    <link href="{{ elixir('css/all.css') }}" rel="stylesheet">
+    <link href="{{ elixir('css/admin.css') }}" rel="stylesheet">
 
     @yield('css')
 
@@ -159,9 +159,9 @@ desired effect
                     <li class="header">FRONTEND</li>
                     <!-- Optionally, you can add icons to the links -->
                     <li>
-                        <a href="#">
+                        <a href="{{ url('/administration/menu') }}">
                             <i class="fa fa-folder-open-o"></i>
-                            <span>Меню продукции</span>
+                            <span>Меню сайта</span>
                         </a>
                     </li>
                     <li>
@@ -208,7 +208,7 @@ desired effect
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
     <!-- AdminLTE App -->
-    <script src="{{ elixir('js/all.js') }}"></script>
+    <script src="{{ elixir('js/adminlte.js') }}"></script>
 
     @yield('scripts')
 

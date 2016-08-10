@@ -13,18 +13,42 @@ var elixir = require('laravel-elixir');
 
 elixir(function(mix) {
 
+    // СТИЛИ ----------------------------------------
     mix.styles([
-        'admin.css',
-        'AdminLTE.css',
-        'skins/skin-blue.min.css',
-    ]).version('public/css/all.css');
+        'frontend.css',
+        // имя скомпилированого файла
+    ], 'public/css/styles.css');
+
+    mix.styles([
+        'AdminLTE/AdminLTE.css',
+        'AdminLTE/skins/skin-blue.min.css',
+        // 'JQueryTable/jquery.dataTables.css',
+        'JQueryTable/dataTables.bootstrap.css',
+        'backend.css',
+        // имя скомпилированого файла
+    ], 'public/css/admin.css');
+
+    // СКРИПТЫ ----------------------------------------
+    mix.scripts('adminlte.js', 'public/js/adminlte.js');
+    mix.scripts('mustache.js', 'public/js/mustache.js');
+    mix.scripts('jquery-ui.js', 'public/js/jquery-ui.js');
 
     mix.scripts([
-        'app.js'
-    ]).version('public/js/all.js');
+        'jqueryTable/jquery.dataTables.js',
+        'jqueryTable/dataTables.bootstrap.js',
+        'jqueryTable/jquery.slimscroll.js',
+        'jqueryTable/fastclick.js',
+        // имя скомпилированого файла
+    ], 'public/js/jqueryTable.js');
 
-    //version control & cache
-    mix.version(["css/all.css", "js/all.js"]);
+    mix.version([
+        "css/styles.css",
+        "css/admin.css",
+        "js/adminlte.js",
+        "js/jqueryTable.js",
+        "js/mustache.js",
+        "js/jquery-ui.js"
+    ]);
 
     mix.browserSync({
         proxy: 'metallvsem.dev'

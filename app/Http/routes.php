@@ -21,13 +21,24 @@ Route::group(['middleware' => ['admin']], function () {
     Route::get('/administration/logout','Adminauth\AuthController@logout');
 
     Route::get('/administration', 'Admin\EmployeeController@view');
-    Route::get('/administration/clients', 'Admin\EmployeeController@view');
+    Route::get('/administration/clients', 'Admin\EmployeeController@clients');
 
+    // Зона админа
     Route::group(['middleware' => 'isAdmin'], function() {
+        // CRUD Менеджеры/Модераторы админки
         Route::get('/administration/moderators', 'Admin\EmployeeController@moderators');
+        Route::post('/administration/moderator','Adminauth\AuthController@createModerator');
+        Route::put('/administration/moderator','Adminauth\AuthController@editModerator');
+        Route::delete('/administration/moderator','Adminauth\AuthController@deleteModerator');
 
-        Route::get('/administration/get-moderators', 'Admin\ServiceController@getModerators');
-        Route::post('/administration/add-moderator','Adminauth\AuthController@registerNew');
+        // CRUD меню продукции сайта
+        Route::get('/administration/menu', 'Admin\SiteController@editMenu');
+
+        Route::get('/service/menu', 'Admin\ServiceController@getMenu');
+        // Route::put('/service/menu', 'Admin\ServiceController@addMenu');
+        Route::post('/service/menu', 'Admin\ServiceController@addMenu');
+        Route::post('/service/menu-sort', 'Admin\ServiceController@sortMenu');
+
     });
 });
 

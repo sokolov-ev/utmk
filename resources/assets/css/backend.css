@@ -1,0 +1,62 @@
+.center-login-block {
+    display: inline-block;
+    float: none;
+    text-align: left;
+    margin-top: 20vh;
+}
+
+.navbar-nav > li > a {
+    padding: 15px 25px;
+}
+/* Блок смены языков */
+.btn-group img {
+    position: relative;
+    top: -3px;
+}
+.current-language {
+    display: inline-block;
+}
+/* /Блок смены языков */
+
+/* Редактор меню */
+
+.placeholder {
+    height: 16px;
+    outline: 1px dashed #4183C4;
+    border: none !important;
+}
+
+.placeholder:before {
+    border: none !important;
+}
+
+.menu {
+    padding-left: 15px;
+    list-style: none;
+    counter-reset: li;
+}
+.sub-menu .fa-angle-down,
+.sub-menu .fa-angle-right {
+    position: relative;
+    top: 4px;
+    padding: 0;
+    margin: 0;
+}
+.sub-menu .fa-angle-right {
+    text-align: center;
+    width: 11px;
+}
+.fake-width {
+    width: 8px;
+    display: inline-block;
+}
+.menu-item {
+    cursor: pointer;
+    color: #1873b4;
+    text-decoration: underline;
+    margin: 6px;
+}
+.menu-empty {
+    min-height: 5px;
+}
+/* /Редактор меню */

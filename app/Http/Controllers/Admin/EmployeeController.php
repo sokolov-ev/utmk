@@ -9,6 +9,7 @@ use Illuminate\Routing\Controller;
 use Auth;
 use App\Admin;
 use App\User;
+use JsValidator;
 
 class EmployeeController extends Controller
 {
@@ -27,26 +28,49 @@ class EmployeeController extends Controller
 
     public function moderators()
     {
+        $result = [];
         $moderators = Admin::all();
-        return view('admin.moderators', ['moderators' => $moderators]);
-    }
+        $role = Admin::getRoleTable();
+        $roleForm = Admin::getRole();
+        $status = Admin::getStatus();
 
-    public function moderatorsAdd()
-    {
-        return view('admin.home');
-    }
+        $addValidator = JsValidator::make(
+                            [
+                                'username' => 'required|string|min:3',
+                                'email' => 'required|email|unique:admins,email',
+                                'password' => 'required|min:6',
+                            ],
+                            [],
+                            [],
+                            "#form-add-moderator"
+                        );
 
-    public function moderatorsEdit()
-    {
-        return view('admin.home');
+        foreach ($moderators as $moderator) {
+            $moderator->roleId = $moderator->role;
+            $moderator->role = $role[$moderator->role];
+            $moderator->statusId = $moderator->status;
+            $moderator->status = empty($moderator->status) ? '<i class="text-danger">(нет данных)</i>' : $status[$moderator->status];
+            $moderator->activity = empty($moderator->activity) ? '<i class="text-danger">(нет данных)</i>' : date('H:i d-m-Y', +$moderator->activity);
+            $moderator->date_created = date('d-m-Y', $moderator->created_at->getTimestamp());
+            $result[] = $moderator;
+        }
+
+        return view('admin.moderators', [
+            'moderators' => $result,
+            'status' => $status,
+            'addValidator' => $addValidator,
+            'roleForm' => $roleForm,
+            'role' => $role,
+        ]);
     }
 
     public function clients()
     {
-        return view('admin.home');
+        $clients = User::all();
+
+        return view('admin.clients', [
+            'clients' => $clients
+        ]);
     }
-
-
-
 
 }

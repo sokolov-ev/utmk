@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Support\Facades\Auth;
+use App\Admin;
 
 class RedirectIfModerator
 {
@@ -17,7 +18,7 @@ class RedirectIfModerator
      */
     public function handle($request, Closure $next, $guard = 'admin')
     {
-        if (Auth::guard($guard)->user()->role != 'Admin') {
+        if (Auth::guard($guard)->user()->role != Admin::ROLE_ADMIN) {
             return response(view('errors.403'), 403);
         }
 

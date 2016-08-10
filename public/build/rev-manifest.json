@@ -1,4 +1,8 @@
 {
-  "css/all.css": "css/all-6b49ac6440.css",
-  "js/all.js": "js/all-4440e862b8.js"
+  "css/admin.css": "css/admin-38c7c9a6fd.css",
+  "css/styles.css": "css/styles-d41d8cd98f.css",
+  "js/adminlte.js": "js/adminlte-4440e862b8.js",
+  "js/jquery-ui.js": "js/jquery-ui-5d148bd6ec.js",
+  "js/jqueryTable.js": "js/jqueryTable-917f4ceb2a.js",
+  "js/mustache.js": "js/mustache-48e14ec2bb.js"
 }

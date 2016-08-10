@@ -22,6 +22,11 @@ class RedirectIfNotAdmin
             return redirect('/administration/login');
         }
 
+        if (Auth::guard($guard)->user()->status != Admin::STATUS_ACTIVE) {
+            Auth::guard('admin')->logout();
+            return redirect('/administration/login');
+        }
+
         Admin::where('id', Auth::guard($guard)->user()->id)->update(['activity' => time()]);
 
         return $next($request);
