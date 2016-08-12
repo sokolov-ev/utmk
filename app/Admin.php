@@ -34,6 +34,11 @@ class Admin extends Authenticatable
 
     protected $dateFormat = 'U';
 
+    public function office()
+    {
+        return $this->belongsTo('App\Office', 'region', 'id');
+    }
+
     public static function getRoleTable()
     {
         return [

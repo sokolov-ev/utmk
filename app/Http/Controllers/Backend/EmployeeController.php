@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\admin;
+namespace App\Http\Controllers\Backend;
 
 
 use Illuminate\Http\Request;
@@ -13,8 +13,6 @@ use JsValidator;
 
 class EmployeeController extends Controller
 {
-
-
     public function __construct()
     {
         $this->middleware('admin');
@@ -23,7 +21,7 @@ class EmployeeController extends Controller
     public function view()
     {
         $user = Auth::guard('admin')->user();
-        return view('admin.home', ['user' => $user]);
+        return view('backend.admin.home', ['user' => $user]);
     }
 
     public function moderators()
@@ -47,6 +45,7 @@ class EmployeeController extends Controller
 
         foreach ($moderators as $moderator) {
             $moderator->roleId = $moderator->role;
+            $moderator->region = $moderator->office;
             $moderator->role = $role[$moderator->role];
             $moderator->statusId = $moderator->status;
             $moderator->status = empty($moderator->status) ? '<i class="text-danger">(нет данных)</i>' : $status[$moderator->status];
@@ -55,7 +54,7 @@ class EmployeeController extends Controller
             $result[] = $moderator;
         }
 
-        return view('admin.moderators', [
+        return view('backend.admin.moderators', [
             'moderators' => $result,
             'status' => $status,
             'addValidator' => $addValidator,
@@ -68,7 +67,7 @@ class EmployeeController extends Controller
     {
         $clients = User::all();
 
-        return view('admin.clients', [
+        return view('backend.admin.clients', [
             'clients' => $clients
         ]);
     }

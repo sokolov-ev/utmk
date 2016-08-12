@@ -32,6 +32,8 @@ elixir(function(mix) {
     mix.scripts('adminlte.js', 'public/js/adminlte.js');
     mix.scripts('mustache.js', 'public/js/mustache.js');
     mix.scripts('jquery-ui.js', 'public/js/jquery-ui.js');
+    mix.scripts('admin.menu.js', 'public/js/admin.menu.js');
+
 
     mix.scripts([
         'jqueryTable/jquery.dataTables.js',
@@ -47,7 +49,8 @@ elixir(function(mix) {
         "js/adminlte.js",
         "js/jqueryTable.js",
         "js/mustache.js",
-        "js/jquery-ui.js"
+        "js/jquery-ui.js",
+        "js/admin.menu.js"
     ]);
 
     mix.browserSync({

@@ -46,7 +46,7 @@ class AuthController extends Controller
             'password' => 'required|min:6',
         ]);
 
-        return view('admin.login', ['validator' => $validator]);
+        return view('backend.admin.login', ['validator' => $validator]);
     }
 
 

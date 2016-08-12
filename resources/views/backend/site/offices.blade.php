@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('title')
-    Менеджеры сайта
+    Офисы
 @endsection
 
 @section('content')
@@ -9,64 +9,54 @@
 <section class="content container">
     <div class="box box-warning">
         <div class="box-header">
-            <h3 class="box-title pull-left clearfix">Менеджеры сайта</h3>
+            <h3 class="box-title pull-left clearfix">Офисы</h3>
             <div class="pull-right">
-                <button class="btn btn-success btn-sm" data-target=".add-moderator" data-toggle="modal" type="button">
-                    <i class="fa fa-plus" aria-hidden="true"></i>
-                    Добавить менеджера
-                </button>
+                <a class="btn btn-success btn-sm" href="{{ url('/administration/offices/add/'.App::getLocale()) }}">
+                    <i class="fa fa-plus" aria-hidden="true"></i> Добавить офис
+                </a>
             </div>
         </div>
         <div class="box-body">
-            <table id="moderators-table" class="table table-striped table-hover table-condensed dataTable" width="100%" cellspacing="0">
+            <table id="office-table" class="table table-striped table-hover table-condensed dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr role="row">
-                        <th>Имя пользовател</th>
+                        <th>ID</th>
                         <th>Регион</th>
-                        <th>E-mail</th>
-                        <th>Роль</th>
-                        <th>Статус</th>
-                        <th>Активность</th>
+                        <th>Адрес</th>
+                        <th>Описание</th>
                         <th>Создан</th>
+                        <th>Обновлен</th>
                         <th>Действие</th>
                     </tr>
                     <tr role="row" id="filter-table">
-                        <td><input type="text" class="form-control" data-index="0" /></td>
+                        <td>{{-- <input type="text" class="form-control" data-index="0" /> --}}</td>
                         <td> </td>
-                        <td><input type="text" class="form-control" data-index="2" /></td>
+                        <td> </td>
                         <td>
-                            <select  class="form-control" data-index="3" style="width: 160px;">
+                            {{-- <select  class="form-control" data-index="3" style="width: 160px;">
                                 <option value=""></option>
                                 @foreach($role as $val)
                                     <option value="{{ $val }}">{{ $val }}</option>
                                 @endforeach
-                            </select>
+                            </select> --}}
                         </td>
-                        <td>
-                            <select  class="form-control" data-index="4" style="width: 125px">
-                                <option value=""></option>
-                                @foreach($status as $val)
-                                    <option value="{{ $val }}">{{ $val }}</option>
-                                @endforeach
-                            </select>
-                        </td>
+                        <td> </td>
                         <td> </td>
                         <td> </td>
                         <td> </td>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($moderators as $user)
+                    @foreach ($offices as $office)
                         <tr role="row">
-                            <td>{{ $user->username }}</td>
-                            <td>{{ $user->region }}</td>
-                            <td>{{ $user->email }}</td>
-                            <td>{{ $user->role }}</td>
-                            <td>{!! $user->status !!}</td>
-                            <td>{!! $user->activity !!}</td>
-                            <td>{{ $user->date_created }}</td>
+                            <td>{{ $office->id }}</td>
+                            <td>{{ $office->region }}</td>
+                            <td>{{ $office->addres }}</td>
+                            <td>{{ $office->description }}</td>
+                            <td>{!! $office->created_at !!}</td>
+                            <td>{!! $office->updated_at !!}</td>
                             <td>
-                                <button class="btn btn-default btn-sm"
+{{--                                 <button class="btn btn-default btn-sm"
                                     data-target=".edit-moderator"
                                     data-toggle="modal"
                                     data-id="{{ $user->id }}"
@@ -84,7 +74,7 @@
                                     data-id="{{ $user->id }}"
                                     data-name="{{ $user->username }}">
                                         <i class="fa fa-trash-o" aria-hidden="true"></i>
-                                </button>
+                                </button> --}}
                             </td>
                         </tr>
                     @endforeach
@@ -94,47 +84,13 @@
     </div>
 </section>
 
-    <!-- Модальное окно добавления нового менеджера -->
-    @include('partial.modal-add-moderator')
-    <!-- Модальное окно редактирования менеджера -->
-    @include('partial.modal-edit-moderator')
-    <!-- Модальное окно удаление менеджера -->
-    @include('partial.modal-delete-moderator')
-
 @endsection
 
 @section('scripts')
 
-{{--     <script src="/js/plugins/jquery.dataTables.min.js"></script>
-    <script src="/js/plugins/dataTables.bootstrap.min.js"></script>
-    <script src="/js/plugins/jquery.slimscroll.min.js"></script>
-    <script src="/js/plugins/fastclick.min.js"></script> --}}
-
     <script src="{{ elixir('js/jqueryTable.js') }}"></script>
 
     <script>
-        // $('table').DataTable({
-        //     // "ajax": "/administration/get-moderators",
-        //     // "columns": [
-        //     //     { "data": "username" },
-        //     //     { "data": "region" },
-        //     //     { "data": "email" },
-        //     //     { "data": "role" },
-        //     //     { "data": "status" },
-        //     //     { "data": "activity" },
-        //     //     { "data": "date_created" },
-        //     //     // { "data": "buttons" },
-        //     // ],
-
-        //     "paging": false,
-        //     "lengthChange": true,
-        //     "searching": false,
-        //     "ordering": true,
-        //     "info": false,
-        //     "autoWidth": false,
-        //     "bSortCellsTop": true
-        // });
-
         var table = $('table').DataTable({
                         "paging": false,
                         "lengthChange": true,
@@ -195,8 +151,8 @@
 
     </script>
 
-    <!-- Laravel Javascript Validation -->
+{{--     <!-- Laravel Javascript Validation -->
     <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js')}}"></script>
 
-    {!! $addValidator !!}
+    {!! $addValidator !!} --}}
 @endsection

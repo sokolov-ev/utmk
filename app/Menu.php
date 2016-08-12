@@ -26,4 +26,18 @@ class Menu extends Model
     protected $hidden = [];
 
     protected $dateFormat = 'U';
+
+    // this is a recommended way to declare event handlers
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function($menu){
+            $items = Menu::where('parent_id', $menu->id)->get();
+
+            foreach ($items as $item) {
+                $item->delete();
+            }
+        });
+    }
 }

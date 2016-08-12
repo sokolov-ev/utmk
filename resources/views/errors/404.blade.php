@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ trans('errors.title.403') }}</title>
+    <title>{{ trans('errors.title.404') }}</title>
 
     <!-- Fonts -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
@@ -43,18 +43,10 @@
 
     <!-- Main content -->
     <section class="content" style="margin-top: 20vh;">
-        <div class="error-page">
-            <h2 class="headline text-red">403</h2>
-            <div class="error-content">
-                <h3><i class="fa fa-warning text-red"></i> {{ trans('errors.title.403') }}</h3>
-                <p>{{ trans('errors.text.403') }}</p>
-                @if ( (url()->previous() != url()->current()) && (url()->previous() != '') )
-                    <a href="{{ url()->previous() }}" class="btn btn-primary pull-right">{{ trans('pagination.previous') }}</a>
-                @else
-                    <a href="{{ url('/') }}" class="btn btn-primary pull-right">{{ trans('pagination.previous') }}</a>
-                @endif
-            </div>
-      </div>
+        <div class="text-center">
+            <h1 class="text-red" style="font-size: 80px; font-weight: 300;">404</h1>
+            <h2 class="text-red">{{ trans('errors.text.404') }}</h2>
+        </div>
     </section>
     <!-- /.Main content -->
 

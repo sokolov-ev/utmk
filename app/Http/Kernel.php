@@ -26,7 +26,7 @@ class Kernel extends HttpKernel
      */
     protected $middlewareGroups = [
         'web' => [
-            \App\Http\Middleware\LocaleMiddleware::class, // локализация
+            // \App\Http\Middleware\LocaleMiddleware::class, // локализация
             \App\Http\Middleware\EncryptCookies::class,
             \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
             // \Illuminate\Session\Middleware\StartSession::class,
@@ -47,12 +47,14 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
-        'auth' => \App\Http\Middleware\Authenticate::class,
+        'auth'       => \App\Http\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
-        'admin' => \App\Http\Middleware\RedirectIfNotAdmin::class,
-        'isAdmin' => \App\Http\Middleware\RedirectIfModerator::class,
-        'can' => \Illuminate\Foundation\Http\Middleware\Authorize::class,
-        'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
-        'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+        'admin'      => \App\Http\Middleware\RedirectIfNotAdmin::class,
+        'isAdmin'    => \App\Http\Middleware\RedirectIfModerator::class,
+        'can'        => \Illuminate\Foundation\Http\Middleware\Authorize::class,
+        'guest'      => \App\Http\Middleware\RedirectIfAuthenticated::class,
+        'throttle'   => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+        'language'   => \App\Http\Middleware\LanguageMiddleware::class,
+
     ];
 }

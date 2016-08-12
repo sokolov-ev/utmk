@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\admin;
+namespace App\Http\Controllers\Backend;
 
 
 use Illuminate\Http\Request;
@@ -13,16 +13,8 @@ use JsValidator;
 
 class SiteController extends Controller
 {
-
-
     public function __construct()
     {
         $this->middleware('admin');
     }
-
-    public function editMenu()
-    {
-        return view('site.menu');
-    }
-
 }

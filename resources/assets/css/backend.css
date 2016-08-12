@@ -19,21 +19,26 @@
 /* /Блок смены языков */
 
 /* Редактор меню */
-
 .placeholder {
     height: 16px;
     outline: 1px dashed #4183C4;
     border: none !important;
 }
-
 .placeholder:before {
     border: none !important;
 }
-
 .menu {
     padding-left: 15px;
     list-style: none;
     counter-reset: li;
+}
+.menu-item {
+    cursor: pointer;
+    color: #1873b4;
+    margin: 6px;
+}
+.menu-empty {
+    min-height: 5px;
 }
 .sub-menu .fa-angle-down,
 .sub-menu .fa-angle-right {
@@ -49,14 +54,5 @@
 .fake-width {
     width: 8px;
     display: inline-block;
-}
-.menu-item {
-    cursor: pointer;
-    color: #1873b4;
-    text-decoration: underline;
-    margin: 6px;
-}
-.menu-empty {
-    min-height: 5px;
 }
 /* /Редактор меню */

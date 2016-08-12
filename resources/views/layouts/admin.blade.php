@@ -151,7 +151,7 @@ desired effect
                         </li>
                     @endif
                     <li>
-                        <a href="#">
+                        <a href="{{ url('/administration/offices') }}">
                             <i class="fa fa-cubes"></i>
                             <span>Филиалы</span>
                         </a>
@@ -160,7 +160,7 @@ desired effect
                     <!-- Optionally, you can add icons to the links -->
                     <li>
                         <a href="{{ url('/administration/menu') }}">
-                            <i class="fa fa-folder-open-o"></i>
+                            <i class="fa fa-list-ol"></i>
                             <span>Меню сайта</span>
                         </a>
                     </li>

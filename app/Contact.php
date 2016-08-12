@@ -2,17 +2,20 @@
 
 namespace App;
 
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Model;
 
-class User extends Authenticatable
+class Contact extends Model
 {
+
+    protected $table = 'contacts';
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'username', 'region', 'company', 'email', 'phone', 'activity', 'password',
+        'office_id', 'type', 'contact'
     ];
 
     /**
@@ -20,9 +23,12 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
+    protected $hidden = [];
 
     protected $dateFormat = 'U';
+
+    public function office()
+    {
+        return $this->belongsTo('App\Office', 'office_id');
+    }
 }
