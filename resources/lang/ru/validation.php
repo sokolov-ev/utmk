@@ -106,6 +106,11 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
+
+        'contacts_data.*' => [
+            'required' => 'Поле "Контакт" обязательно для заполнения.',
+            'min' => 'Количество символов в поле "Контакт" должно быть не менее :min.',
+        ]
     ],
 
     /*
@@ -126,13 +131,26 @@ return [
     */
 
     'attributes' => [
+        // Модераторы
         'role' => 'Роль',
         'username' => 'Имя пользователя',
-        'region' => 'Область',
+        'city_id' => 'Город',
         'email' => 'E-mail',
         'company' => 'Компания',
         'password' => 'Пароль',
         'activity' => 'Активность',
+
+        // Офисы / Филиалы
+        'title_en' => 'Заголовок Англ.',
+        'title_ru' => 'Заголовок Рус.',
+        'title_uk' => 'Заголовок Укр.',
+        'description_en' => 'Описание Англ.',
+        'description_ru' => 'Описание Рус.',
+        'description_uk' => 'Описание Укр.',
+        'address' => 'Адрес',
+        'city' => 'Город',
+        'contacts' => 'Контакт',
+        'contacts_type.*' => 'Тип контакта',
     ],
 
 ];

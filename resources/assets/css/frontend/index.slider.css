@@ -1,0 +1,134 @@
+.carousel-fade .carousel-inner .item {
+  -webkit-transition-property: opacity;
+  transition-property: opacity;
+}
+.carousel-fade .carousel-inner .item,
+.carousel-fade .carousel-inner .active.left,
+.carousel-fade .carousel-inner .active.right {
+  opacity: 0;
+}
+.carousel-fade .carousel-inner .active,
+.carousel-fade .carousel-inner .next.left,
+.carousel-fade .carousel-inner .prev.right {
+  opacity: 1;
+}
+.carousel-fade .carousel-inner .next,
+.carousel-fade .carousel-inner .prev,
+.carousel-fade .carousel-inner .active.left,
+.carousel-fade .carousel-inner .active.right {
+  left: 0;
+  -webkit-transform: translate3d(0, 0, 0);
+          transform: translate3d(0, 0, 0);
+}
+
+.carousel-indicators {
+  left: 20%;
+  position: absolute;
+  text-align: left;
+  top: 70%;
+  width: 150px;
+  bottom: 0;
+  margin-left: 0;
+  padding-left: 0;
+}
+@media(max-width:1039px) {
+  .carousel-indicators {
+    left: 10%;
+    top: 65%;
+  }
+}
+@media(max-width:767px) {
+  .carousel-indicators {
+    left: 15%;
+    top: 65%;
+  }
+}
+
+.carousel-indicators li {
+  border-radius: 50%;
+  display: inline-block;
+  font-size: 0;
+  height: 14px;
+  margin: 0 4px;
+  text-align: center;
+  width: 14px;
+  background-color: #e1704b;
+  border: none;
+}
+@media(max-width:767px) {
+  .carousel-indicators li {
+    height: 10px;
+    width: 10px;
+  }
+}
+.carousel-indicators li.active {
+  background-color: #fff;
+  height: 14px;
+  width: 14px;
+  margin: 0 4px;
+}
+@media(max-width:767px) {
+  .carousel-indicators li.active {
+    height: 10px;
+    width: 10px;
+  }
+}
+
+.ci_caption {
+  left: 20%;
+  text-align: left;
+  top: 60%;
+  transform: translateY(-50%);
+  width: 60%;
+
+  color: #fff;
+  font-family: "Roboto",sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  text-decoration: none;
+
+  bottom: 0;
+  margin: 0;
+  padding: 0;
+}
+@media(max-width:1024px) {
+  .ci_caption {
+    left: 10%;
+    top: 50%;
+    width: 70%;
+  }
+}
+@media(max-width:767px) {
+  .ci_caption {
+    left: 15%;
+    top: 45%;
+    width: 80%;
+  }
+}
+@media(max-width:480px) {
+  .ci_caption {
+    left: 15%;
+    top: 40%;
+    width: 80%;
+  }
+}
+
+.ci_caption span {
+  font-size: 60px;
+  line-height: 1;
+}
+@media(max-width:1039px) {
+  .ci_caption span {
+    font-size: 34px;
+  }
+}
+@media(max-width:767px) {
+  .ci_caption span {
+    font-size: 25px;
+  }
+}
+@media(max-width:479px) {
+  .ci_caption span {
+    font-size: 15px;
+  }
+}

@@ -16,24 +16,38 @@ elixir(function(mix) {
     // СТИЛИ ----------------------------------------
     mix.styles([
         'frontend.css',
+        'frontend/index.menu.css',
+        'frontend/index.slider.css',
         // имя скомпилированого файла
     ], 'public/css/styles.css');
 
     mix.styles([
         'AdminLTE/AdminLTE.css',
         'AdminLTE/skins/skin-blue.min.css',
-        // 'JQueryTable/jquery.dataTables.css',
         'JQueryTable/dataTables.bootstrap.css',
         'backend.css',
         // имя скомпилированого файла
     ], 'public/css/admin.css');
+
+    mix.styles([
+        'select2.css',
+        // имя скомпилированого файла
+    ], 'public/css/select2.css');
+
 
     // СКРИПТЫ ----------------------------------------
     mix.scripts('adminlte.js', 'public/js/adminlte.js');
     mix.scripts('mustache.js', 'public/js/mustache.js');
     mix.scripts('jquery-ui.js', 'public/js/jquery-ui.js');
     mix.scripts('admin.menu.js', 'public/js/admin.menu.js');
-
+    mix.scripts('frontend.index.js', 'public/js/scripts.js');
+    mix.scripts([
+        'select2/select2.full.js',
+        'select2/i18n/en.js',
+        'select2/i18n/ru.js',
+        'select2/i18n/uk.js',
+        // имя скомпилированого файла
+    ], 'public/js/select2.js');
 
     mix.scripts([
         'jqueryTable/jquery.dataTables.js',
@@ -46,11 +60,14 @@ elixir(function(mix) {
     mix.version([
         "css/styles.css",
         "css/admin.css",
+        "css/select2.css",
         "js/adminlte.js",
         "js/jqueryTable.js",
         "js/mustache.js",
         "js/jquery-ui.js",
-        "js/admin.menu.js"
+        "js/admin.menu.js",
+        "js/scripts.js",
+        "js/select2.js",
     ]);
 
     mix.browserSync({

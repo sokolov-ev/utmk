@@ -6,10 +6,12 @@ namespace App\Http\Controllers\Backend;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
+use App;
 use Auth;
+use JsValidator;
 use App\Admin;
 use App\User;
-use JsValidator;
+use App\Office;
 
 class EmployeeController extends Controller
 {
@@ -31,6 +33,7 @@ class EmployeeController extends Controller
         $role = Admin::getRoleTable();
         $roleForm = Admin::getRole();
         $status = Admin::getStatus();
+        $offices = Office::getOffices();
 
         $addValidator = JsValidator::make(
                             [
@@ -45,7 +48,7 @@ class EmployeeController extends Controller
 
         foreach ($moderators as $moderator) {
             $moderator->roleId = $moderator->role;
-            $moderator->region = $moderator->office;
+            $moderator->office = json_decode($moderator->office->city, true)[App::getLocale()];
             $moderator->role = $role[$moderator->role];
             $moderator->statusId = $moderator->status;
             $moderator->status = empty($moderator->status) ? '<i class="text-danger">(нет данных)</i>' : $status[$moderator->status];
@@ -55,11 +58,12 @@ class EmployeeController extends Controller
         }
 
         return view('backend.admin.moderators', [
-            'moderators' => $result,
-            'status' => $status,
+            'moderators'   => $result,
+            'status'       => $status,
             'addValidator' => $addValidator,
-            'roleForm' => $roleForm,
-            'role' => $role,
+            'roleForm'     => $roleForm,
+            'role'         => $role,
+            'offices'      => $offices,
         ]);
     }
 

@@ -4,6 +4,10 @@
     Менеджеры сайта
 @endsection
 
+@section('css')
+    <link href="{{ elixir('css/select2.css') }}" rel="stylesheet">
+@endsection
+
 @section('content')
 
 <section class="content container">
@@ -71,7 +75,7 @@
                                     data-toggle="modal"
                                     data-id="{{ $user->id }}"
                                     data-name="{{ $user->username }}"
-                                    data-region="{{ $user->office }}"
+                                    data-officeId="{{ $user->office_id }}"
                                     data-email="{{ $user->email }}"
                                     data-role="{{ $user->roleId }}"
                                     data-status="{{ $user->statusId }}">
@@ -105,12 +109,8 @@
 
 @section('scripts')
 
-{{--     <script src="/js/plugins/jquery.dataTables.min.js"></script>
-    <script src="/js/plugins/dataTables.bootstrap.min.js"></script>
-    <script src="/js/plugins/jquery.slimscroll.min.js"></script>
-    <script src="/js/plugins/fastclick.min.js"></script> --}}
-
     <script src="{{ elixir('js/jqueryTable.js') }}"></script>
+    <script src="{{ elixir('js/select2.js') }}"></script>
 
     <script>
         // $('table').DataTable({
@@ -169,6 +169,16 @@
 
             $("#edit_id").val($(tut).data('id'));
             $("#edit_username").val($(tut).data('name'));
+
+            $("#edit_office_id").find('options').removeAttr("selected");
+
+            $.each($("#edit_office_id").find('options'), function(key, val){
+                if ($(val).val() == $(tut).data('officeId')) {
+                    $(val).prop('selected', true);
+                    return false;
+                }
+            });
+
             $("#edit_email").val($(tut).data('email'));
 
             $("#edit_role").find("option").each(function(key, val){
@@ -178,12 +188,8 @@
                 }
             });
 
-            // console.log($(tut).data('statusId'));
-
             $("#edit_status").find("option").each(function(key, val){
                 $(val).removeAttr("selected");
-
-                // console.log($(val).attr("value"));
 
                 if ($(val).attr("value") == $(tut).data('status')) {
                     $(val).attr("selected", "");

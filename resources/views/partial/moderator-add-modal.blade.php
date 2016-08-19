@@ -25,6 +25,24 @@
                         </div>
                     </div>
 
+                    <div class="form-group{{ $errors->has('office_id') ? ' has-error' : '' }}">
+                        <label for="office_id" class="col-md-4 control-label">Филиал</label>
+
+                        <div class="col-md-6">
+                            <select name="office_id" id="office_id" class="form-control">
+                                @foreach($offices as $key => $office)
+                                    <option value="{{ $key }}">{{ $office }}</option>
+                                @endforeach
+                            </select>
+
+                            @if ($errors->has('office_id'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('office_id') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+                    </div>
+
                     <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                         <label for="email" class="col-md-4 control-label">E-Mail</label>
 

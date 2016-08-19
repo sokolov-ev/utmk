@@ -27,6 +27,24 @@
                         </div>
                     </div>
 
+                    <div class="form-group{{ $errors->has('edit_office_id') ? ' has-error' : '' }}">
+                        <label for="edit_office_id" class="col-md-4 control-label">Филиал</label>
+
+                        <div class="col-md-6">
+                            <select name="edit_office_id" id="edit_office_id" class="form-control">
+                                @foreach($offices as $key => $office)
+                                    <option value="{{ $key }}">{{ $office }}</option>
+                                @endforeach
+                            </select>
+
+                            @if ($errors->has('edit_office_id'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('edit_office_id') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+                    </div>
+
                     <div class="form-group{{ $errors->has('edit_email') ? ' has-error' : '' }}">
                         <label for="edit_email" class="col-md-4 control-label">E-Mail</label>
 
@@ -99,7 +117,7 @@
                             Отмена
                         </button>
                         <button type="submit" class="btn btn-warning pull-right clearfix" form="form-edit-moderator">
-                            <i class="fa fa-repeat" aria-hidden="true"></i> Обновить
+                            <i class="fa fa-repeat" aria-hidden="true"></i> Сохранить
                         </button>
                     </div>
                 </form>

@@ -8,70 +8,108 @@ body {
     position: relative;
 }
 
-/*
-.header-nav-bars {
-
-}*/
-.navbar-default {
-    background-color: #eee;
-    border-color: #fff;
-    border-radius: 0;
-    border-style: none;
-    border-width: 0;
-    margin: 0;
-    padding: 0;
-    position: relative;
+.logo-contacts {
+  margin: 10px 20px;
 }
-.navbar-collapse {
-    padding: 0;
-}
-.navbar-header {
-    text-align: center;
-}
-.fa.fa-bars {
-    line-height: 40px;
-    position: relative;
-    display: inline-block;
-    margin: 10px;
-}
-.navbar-toggle {
-    background-color: #e1704b;
-    background-image: none;
-    border-radius: 0;
-    color: #fff;
-    float: none;
-    position: relative;
-    padding: 11px 10px;
-}
-.navbar-default .navbar-toggle:focus,
-.navbar-default .navbar-toggle:hover {
-    background-color: #e1704b;
-}
-.navbar-default .navbar-nav > li > a {
-    background-color: transparent;
-    color: #333333;
-    font-family: "Roboto",sans-serif;
-    font-style: normal;
-    font-weight: 700;
-    text-decoration: none;
-    display: block;
-    font-size: 20px;
-    padding: 0 37px;
-    line-height: 80px;
-    text-transform: uppercase;
-}
-.navbar-default .navbar-nav > li {
-    text-align: center;
-}
-.navbar-default .navbar-nav > li > a:focus,
-.navbar-default .navbar-nav > li > a:hover {
-    background-color: #333333;
-    color: #e1704b;
+.section-padding {
+  display: inline-block;
+  padding-bottom: 100px;
 }
 
-.navbar-nav > .active > a,
-.navbar-nav > .active > a:focus,
-.navbar-nav > .active > a:hover {
-    background-color: #333333 !important;
-    color: #e1704b !important;
+.scroller {
+  bottom: 50px;
+  right: 25px;
+  transition: all 0.5s ease 0s;
+  cursor: pointer;
+  position: fixed;
+  z-index: 500;
+  display: none;
+}
+.scroller i {
+  color: #e1704b;
+  font-size: 37px;
+}
+
+.welcome {
+  padding-bottom: 100px;
+}
+.welcome-text {
+  color: #333333;
+  font-family: "Roboto",sans-serif;
+  font-size: 60px;
+  font-style: normal;
+  font-weight: 300;
+  letter-spacing: 0;
+  line-height: 1;
+  padding-bottom: 100px;
+}
+.welcome-card img {
+  height: auto;
+  width: 100%;
+  padding-bottom: 20px;
+}
+.welcome-card p {
+  text-align: justify;
+  color: #999;
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 1.4;
+}
+.welocme-cartd-title {
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.1;
+  text-transform: uppercase;
+  color: #333;
+  text-decoration: none;
+  padding-bottom: 20px;
+  display: block;
+}
+.welocme-cartd-title:hover {
+  color: #e1704b;
+  text-decoration: none;
+}
+.welocme-cartd-more {
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.1;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #e1704b;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  display: block;
+}
+.welocme-cartd-more:hover {
+  color: #39a9a4;
+  text-decoration: none;
+}
+.welcome-card a > span {
+  position: relative;
+  top: -3px;
+}
+
+.green-section {
+  color: #fff;
+  background-color: #39a9a4;
+  font-family: "Roboto",sans-serif;
+  font-style: normal;
+  letter-spacing: 0;
+}
+
+.green-section-title {
+  font-size: 20px;
+  line-height: 1.1;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+.green-section-body {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.4;
+  padding-bottom: 20px;
+}
+.green-section-block {
+  padding-bottom: 10px;
 }

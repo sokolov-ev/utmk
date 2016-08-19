@@ -20,7 +20,7 @@ class Admin extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'role', 'region', 'username', 'email', 'status', 'activity', 'password',
+        'role', 'office_id', 'username', 'email', 'status', 'activity', 'password',
     ];
 
     /**
@@ -36,7 +36,8 @@ class Admin extends Authenticatable
 
     public function office()
     {
-        return $this->belongsTo('App\Office', 'region', 'id');
+        // return $this->belongsTo('App\Office', 'office_id', 'id');
+        return $this->hasOne('App\Office', 'id', 'office_id');
     }
 
     public static function getRoleTable()

@@ -111,13 +111,26 @@ return [
     */
 
     'attributes' => [
+        // Модератори
         'role' => 'Роль',
         'username' => "Ім'я користувача",
-        'region' => 'Область',
+        'city_id' => 'Місто',
         'email' => 'E-mail',
         'company' => 'Компанія',
         'password' => 'Пароль',
         'activity' => 'Активність',
+
+        // Офіси / Філії
+        'title_en' => 'Заголовок Англ.',
+        'title_ru' => 'Заголовок Рос.',
+        'title_uk' => 'Заголовок Укр.',
+        'description_en' => 'Опис Англ.',
+        'description_ru' => 'Опис Рос.',
+        'description_uk' => 'Опис Укр.',
+        'address' => 'Адреса',
+        'city' => 'Місто',
+        'contacts_data' => 'Контакт',
+        'contacts_type' => 'Тип контакту',
     ],
 
 ];

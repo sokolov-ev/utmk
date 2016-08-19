@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Backend;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
+use App;
 use App\Menu;
 
 class MenuController extends Controller

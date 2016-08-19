@@ -33,11 +33,7 @@ class Menu extends Model
         parent::boot();
 
         static::deleting(function($menu){
-            $items = Menu::where('parent_id', $menu->id)->get();
-
-            foreach ($items as $item) {
-                $item->delete();
-            }
+            Menu::where('parent_id', $menu->id)->delete();
         });
     }
 }

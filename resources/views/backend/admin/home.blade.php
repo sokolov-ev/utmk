@@ -12,7 +12,7 @@
 
     <section class="content">
         <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-4">
 
                 <div class="box box-primary">
                     <div class="box-body box-profile">
@@ -42,28 +42,21 @@
                 </div>
 
             </div>
-            <div class="col-md-9">
+            <div class="col-md-8">
 
                 <div class="box box-primary">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Филиал</h3>
+                        <h3 class="box-title">Филиал: "{{ json_decode($user->office->title, true)[App::getLocale()] }}"</h3>
                     </div>
                     <div class="box-body">
                         <strong>
-                            <i class="fa fa-book margin-r-5"></i>
-                            Education
+                            <i class="fa fa-book margin-r-5"></i> Описание
                         </strong>
-                        <p class="text-muted"> B.S. in Computer Science from the University of Tennessee at Knoxville </p>
+                            <p class="text-muted"> {{ json_decode($user->office->description, true)[App::getLocale()] }} </p>
                         <hr>
+
                         <strong>
-                            <i class="fa fa-map-marker margin-r-5"></i>
-                            Location
-                        </strong>
-                        <p class="text-muted">Malibu, California</p>
-                        <hr>
-                        <strong>
-                            <i class="fa fa-pencil margin-r-5"></i>
-                            Skills
+                            <i class="fa fa-volume-control-phone" aria-hidden="true"></i> Контакты:
                         </strong>
                         <p>
                             <span class="label label-danger">UI Design</span>
@@ -73,19 +66,58 @@
                             <span class="label label-primary">Node.js</span>
                         </p>
                         <hr>
+
                         <strong>
-                            <i class="fa fa-file-text-o margin-r-5"></i>
-                            Notes
+                            <i class="fa fa-map-marker margin-r-5"></i> Адрес
                         </strong>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
+                            <p class="text-muted"> {{ json_decode($user->office->address, true)[App::getLocale()] }} </p>
+                        <hr>
+
+                        <div id="map" class="my-room-map" data-lat="{{ $user->office->latitude }}" data-lng="{{ $user->office->longitude }}">
                     </div>
                 </div>
 
             </div>
-
         </div>
-    </div>
 
     </section>
 
+@endsection
+
+@section('scripts')
+        <script>
+        var map;
+        var marker;
+
+        function initMap() {
+
+            var noPoi = [{
+                featureType: "poi",
+                stylers: [
+                    { visibility: "off" }
+                ]
+            }];
+            var latitude  = +$("#map").data('lat');
+            var longitude = +$("#map").data('lng');
+
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: {lat: latitude, lng: longitude},
+                zoom: 15,
+            });
+
+            map.setOptions({styles: noPoi})
+
+            // autocomplete = new google.maps.places.Autocomplete((document.getElementById('address_ru')), {types: ['geocode']});
+            // autocomplete.addListener('place_changed', fillInAddress);
+
+            marker = new google.maps.Marker({
+                map: map,
+                anchorPoint: new google.maps.Point(0, -29),
+            });
+
+            marker.setPosition({lat: latitude, lng: longitude});
+        }
+    </script>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCgvSG-2yz3FqUUKdut6HdSm_Xpy9GDAiA&libraries=places&callback=initMap&hl=ru" async defer></script>
 @endsection

@@ -109,13 +109,26 @@ return [
     */
 
     'attributes' => [
+        // Moderators
         'role' => 'Role',
         'username' => 'User Name',
-        'region' => 'Region',
+        'city_id' => 'City',
         'email' => 'E-mail',
         'company' => 'Company',
         'password' => 'Password',
         'activity' => 'Activity',
+
+        // Offices / Branches
+        'title_en' => 'Title En.',
+        'title_ru' => 'Title Ru.',
+        'title_uk' => 'Title Uk.',
+        'description_en' => 'Description En.',
+        'description_ru' => 'Description Ru.',
+        'description_uk' => 'Description Uk.',
+        'address' => 'Address',
+        'city' => 'City',
+        'contacts_data.*' => 'Contact',
+        'contacts_type.*' => 'Contact type',
     ],
 
 ];

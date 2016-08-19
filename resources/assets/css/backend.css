@@ -56,3 +56,36 @@
     display: inline-block;
 }
 /* /Редактор меню */
+
+.customize-tab .nav-pills > li {
+  display: inline-block;
+  width: auto;
+  float: none;
+}
+
+.customize-tab .nav > li > a {
+  border: 0;
+  border-top-color: none;
+  padding: 3px 7px;
+}
+
+.flex { display: flex; }
+.flex > div { flex: 1; padding: 0; }
+.flex > .btn-wrap { flex: 0 auto; }
+.flex > .btn-wrap > .btn { border-radius: 0; }
+
+.has-error-label { background-color: #dd4b39; }
+
+.office-map { height: 360px; }
+
+@media(max-width: 767px) {
+  .office-map { height: 200px; margin-bottom: 15px; }
+}
+
+.my-room-map { height: 500px; }
+
+@media(max-width: 767px) {
+  .my-room-map { height: 200px; }
+}
+
+.breadcrumb { background-color: #ecf0f5; }

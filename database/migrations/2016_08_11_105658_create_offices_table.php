@@ -14,10 +14,11 @@ class CreateOfficesTable extends Migration
     {
         Schema::create('offices', function (Blueprint $table) {
             $table->increments('id');
-            $table->smallInteger('type');
-            $table->string('region');
-            $table->string('address');
+            $table->string('type');
+            $table->string('title');
             $table->longText('description');
+            $table->string('city');
+            $table->string('address');
             $table->double('latitude');
             $table->double('longitude');
             $table->integer('created_at');

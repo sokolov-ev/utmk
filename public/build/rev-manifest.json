@@ -1,9 +1,12 @@
 {
-  "css/admin.css": "css/admin-a7ad889816.css",
-  "css/styles.css": "css/styles-7d9912e24a.css",
+  "css/admin.css": "css/admin-468fdd77d0.css",
+  "css/select2.css": "css/select2-34826bb6f7.css",
+  "css/styles.css": "css/styles-2515b814c9.css",
   "js/admin.menu.js": "js/admin.menu-2754a05a41.js",
   "js/adminlte.js": "js/adminlte-4440e862b8.js",
   "js/jquery-ui.js": "js/jquery-ui-5d148bd6ec.js",
   "js/jqueryTable.js": "js/jqueryTable-917f4ceb2a.js",
-  "js/mustache.js": "js/mustache-48e14ec2bb.js"
+  "js/mustache.js": "js/mustache-48e14ec2bb.js",
+  "js/scripts.js": "js/scripts-9b963ca964.js",
+  "js/select2.js": "js/select2-5691b34961.js"
 }

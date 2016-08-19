@@ -141,6 +141,7 @@ class AuthController extends Controller
         $validator = Validator::make($data, [
                         'edit_id' => 'exists:admins,id',
                         'edit_username' => 'required|max:255',
+                        // 'edit_office_id' =>
                         'edit_email' => 'required|email|max:255|unique:admins,email,'.$id,
                         'edit_role' => 'required_with:Moderator,SeniorModerator',
                         'edit_status' => 'required_with:10,1,0',
@@ -154,9 +155,13 @@ class AuthController extends Controller
             );
         }
 
+        // var_dump($data['edit_office_id']);
+
         $admin = Admin::find($id);
-        $admin->role = $data['edit_role'];
-        // $admin->region = $data('edit_region');
+        if ($admin->role != Admin::ROLE_ADMIN) {
+            $admin->role = $data['edit_role'];
+        }
+        $admin->office_id = $data['edit_office_id'];
         $admin->username = $data['edit_username'];
         $admin->status = $data['edit_status'];
         $admin->email = $data['edit_email'];

@@ -16,8 +16,8 @@
 Route::group(['middleware' => ['web', 'language']], function () {
 
     Route::get('/', function(){
-        // return view('frontend.site.index');
-        return redirect('/administration');
+        return view('frontend.site.index');
+        // return redirect('/administration');
     });
 
     // // Authentication Routes...
@@ -54,13 +54,13 @@ Route::group(['middleware' => ['admin']], function () {
 
     // Зона админа
     Route::group(['middleware' => 'isAdmin'], function() {
-        // CRUD Менеджеры/Модераторы админки
+    // CRUD Менеджеры/Модераторы админки
         Route::get('/administration/moderators', 'Backend\EmployeeController@moderators');
         Route::post('/administration/moderator','Adminauth\AuthController@createModerator');
         Route::put('/administration/moderator','Adminauth\AuthController@editModerator');
         Route::delete('/administration/moderator','Adminauth\AuthController@deleteModerator');
 
-        // CRUD меню продукции сайта
+    // CRUD меню продукции сайта
         // Страница с редактором меню
         Route::get('/administration/menu', function(){
             return view('backend.site.menu');
@@ -78,12 +78,15 @@ Route::group(['middleware' => ['admin']], function () {
         // Удалить пункт меню
         Route::delete('/administration/menu', 'Backend\MenuController@deleteMenu');
 
-        // CRUD филиалов
-        Route::get('/administration/offices/{language?}', 'Backend\OfficesController@getAll');
-        Route::get('/administration/offices/add/{language?}', 'Backend\OfficesController@addOffice');
+    // CRUD филиалов
+        Route::get('/administration/offices', 'Backend\OfficesController@getAll');
 
-        // Route::post('/administration/offices','Adminauth\AuthController@createModerator');
-        // Route::put('/administration/offices','Adminauth\AuthController@editModerator');
-        // Route::delete('/administration/offices','Adminauth\AuthController@deleteModerator');
+        Route::get('/administration/offices/add', 'Backend\OfficesController@addFormOffice');
+        Route::post('/administration/offices/add', 'Backend\OfficesController@addOffice');
+
+        Route::get('/administration/offices/edit/{id}', 'Backend\OfficesController@editFormOffice');
+        Route::post('/administration/offices/edit/{id}', 'Backend\OfficesController@editOffice');
+
+        Route::post('administration/office/delete','Backend\OfficesController@deleteOffice');
     });
 });

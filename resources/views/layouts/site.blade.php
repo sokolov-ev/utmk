@@ -23,56 +23,55 @@
 </head>
 <body id="app-layout">
 
-<nav class="navbar navbar-default">
-
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-        <a class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-toggle" aria-expanded="false" href="#">
-            <i class="fa fa-bars" aria-hidden="true"></i>
-        </a>
+<div id="top__content" class="logo-contacts row" >
+    <div class="col-md-6">
+        <img src="/images/logo.jpg" title="Metall Vsem" alt="Metall Vsem" height="100px"/>
     </div>
+    <div class="col-md-3"></div>
+    <div class="col-md-3"></div>
+</div>
 
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="navbar-collapse-toggle">
-        <ul class="nav navbar-nav">
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Home <span class="caret"></a>
-                <ul class="dropdown-menu">
-                    <li><a href="#">Action</a></li>
-                    <li><a href="#">Another action</a></li>
-                    <li><a href="#">Something else here</a></li>
-                </ul>
-            </li>
-            <li><a href="#">About US</a></li>
-            <li><a href="#">Company Profile</a></li>
-      </ul>
+<header id="w-sticker">
 
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="#">Link</a></li>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="#">Action</a></li>
-            <li><a href="#">Another action</a></li>
-            <li><a href="#">Something else here</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#">Separated link</a></li>
-          </ul>
-        </li>
-      </ul>
-    </div><!-- /.navbar-collapse -->
+    <nav id="sticker" class="b-fixed__nav navbar clearfix">
+        <div class="w-navbar__header navbar-header">
+            <button type="button" class="b-btn btn navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <i class="icon fa fa-bars"></i>
+            </button>
+        </div>
 
-</nav>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="b-nav nav navbar-nav">
+                <li class="lactive">
+                    <a href="#">HOME</a>
+                    <ul class="b-menu__sub level1">
+                        <li><a href="#">Cutting</a></li>
+                        <li><a href="#">Packaging</a></li>
+                        <li><a href="#">Delivery</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">ABOUT US</a></li>
+                <li><a href="#">COMPANY PROFILE</a></li>
+                <li><a href="#">PRODUCTS</a></li>
+                <li><a href="#">SALES NETWORK</a></li>
+                <li><a href="#">CONTACT US</a></li>
+            </ul>
+        </div>
+    </nav>
 
+</header>
 
     @yield('content')
+
+<div class="scroller">
+    <i class="fa fa-arrow-circle-up" aria-hidden="true"></i>
+</div>
 
     <!-- JavaScripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js" integrity="sha384-I6F5OKECLVtK/BL+8iSLDEHowSAfUo76ZL9+kGAgTRdiByINKJaqTPH/QVNS1VDb" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
-    <!-- AdminLTE App -->
-    {{-- <script src="{{ elixir('js/adminlte.js') }}"></script> --}}
+    <script src="{{ elixir('js/scripts.js') }}"></script>
 
     @yield('scripts')
 
