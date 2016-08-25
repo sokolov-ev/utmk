@@ -25,7 +25,7 @@
 
 <div id="top__content" class="logo-contacts row" >
     <div class="col-md-6">
-        <img src="/images/logo.jpg" title="Metall Vsem" alt="Metall Vsem" height="100px"/>
+        <img src="/images/logo.jpg" title="Metall Vsem" alt="Metall Vsem" height="93px"/>
     </div>
     <div class="col-md-3"></div>
     <div class="col-md-3"></div>
@@ -53,7 +53,7 @@
                 <li><a href="#">ABOUT US</a></li>
                 <li><a href="#">COMPANY PROFILE</a></li>
                 <li><a href="#">PRODUCTS</a></li>
-                <li><a href="#">SALES NETWORK</a></li>
+                <li><a href="/sales-network">SALES NETWORK</a></li>
                 <li><a href="#">CONTACT US</a></li>
             </ul>
         </div>

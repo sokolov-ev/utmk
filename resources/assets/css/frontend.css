@@ -113,3 +113,18 @@ body {
 .green-section-block {
   padding-bottom: 10px;
 }
+
+
+.sales-title {
+  padding: 100px 0;
+}
+
+.sales-title p {
+  color: #333;
+  font-family: "Roboto",sans-serif;
+  font-size: 60px;
+  font-style: normal;
+  font-weight: 300;
+  letter-spacing: 0;
+  line-height: 1;
+}

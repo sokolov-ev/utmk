@@ -1,12 +1,12 @@
 {
-  "css/admin.css": "css/admin-468fdd77d0.css",
-  "css/select2.css": "css/select2-34826bb6f7.css",
-  "css/styles.css": "css/styles-2515b814c9.css",
-  "js/admin.menu.js": "js/admin.menu-2754a05a41.js",
-  "js/adminlte.js": "js/adminlte-4440e862b8.js",
-  "js/jquery-ui.js": "js/jquery-ui-5d148bd6ec.js",
-  "js/jqueryTable.js": "js/jqueryTable-917f4ceb2a.js",
-  "js/mustache.js": "js/mustache-48e14ec2bb.js",
-  "js/scripts.js": "js/scripts-9b963ca964.js",
-  "js/select2.js": "js/select2-5691b34961.js"
+  "css/admin.css": "css/admin-f50749c467.css",
+  "css/select2.css": "css/select2-a38aa0b9cf.css",
+  "css/styles.css": "css/styles-c18a37d984.css",
+  "js/admin.menu.js": "js/admin.menu-cf4d32f2fc.js",
+  "js/adminlte.js": "js/adminlte-d69e976dd9.js",
+  "js/jquery-ui.js": "js/jquery-ui-e5e24bc7ad.js",
+  "js/jqueryTable.js": "js/jqueryTable-f61e70cc26.js",
+  "js/mustache.js": "js/mustache-b0b5685d90.js",
+  "js/scripts.js": "js/scripts-685cc34ddc.js",
+  "js/select2.js": "js/select2-7a11634cbf.js"
 }

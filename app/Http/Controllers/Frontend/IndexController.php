@@ -11,4 +11,9 @@ class IndexController extends Controller
     {
 
     }
+
+    public function salesNetwork()
+    {
+        return view('frontend.site.sales-network');
+    }
 }

@@ -420,6 +420,6 @@
         }
     </script>
 
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCgvSG-2yz3FqUUKdut6HdSm_Xpy9GDAiA&libraries=places&callback=initMap&hl=ru" async defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAMQhkBZnzMm8RM9L1DnfOCES5Hb2HFtW0&libraries=places&callback=initMap&hl=ru" async defer></script>
 
 @endsection
