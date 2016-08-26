@@ -158,7 +158,7 @@ body {
   background-color: #e1704b;
 }
 /* Стили Шамова Дмитрия, главное меню */
-.navbar-collapse {
+/*.navbar-collapse {
   padding: 0;
   z-index: 100;
 }
@@ -371,8 +371,174 @@ ul.b-menu__sub {
   .w-navbar__header {
     background-color: #eee;
   }
-}
+}*/
 /* /Стили Шамова Дмитрия, главное меню */
+
+.navbar-collapse {
+  padding: 0;
+  z-index: 100;
+}
+@media(max-width:767px) {
+  .navbar-collapse {
+    position: absolute;
+    width: 100%;
+    background-color: #333;
+  }
+}
+
+.fa.fa-bars {
+  position: relative;
+  display: inline-block;
+  margin: 12px 18px;
+}
+
+.navbar.active {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 500;
+}
+
+.navbar {
+  background-color: #eeeeee;
+  border-color: #fff;
+  border-radius: 0;
+  border-style: none;
+  border-width: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar-nav > li > a {
+  background-color: transparent;
+  color: #333 !important;
+  font-family: "Roboto",sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  text-decoration: none;
+
+  display: block;
+  font-size: 20px;
+  padding: 0 37px;
+
+  line-height: 80px;
+  text-align: center;
+
+  text-transform: uppercase;
+}
+
+@media(max-width: 1290px) {
+  .navbar-nav > li > a { padding: 0 25px; font-size: 19px; }
+}
+@media(max-width: 1100px) {
+  .navbar-nav > li > a { padding: 0 10px; font-size: 17px; }
+}
+
+@media(max-width: 767px) {
+  .navbar-nav > li > a {
+    background-color: transparent !important;
+    color: #fff !important;
+
+    border: medium none;
+    font-size: 17px;
+    line-height: 30px;
+    padding: 5px 30px;
+
+    text-align: left;
+  }
+}
+
+.navbar-nav > li > a:hover,
+.navbar-nav > .active > a {
+  background-color: #333 !important;
+  color: #e1704b !important;
+  text-decoration: none;
+}
+
+@media(max-width: 767px) {
+  .navbar-nav > li > a:hover,
+  .navbar-nav > .active > a {
+    background-color: transparent !important;
+    color: #e1704b !important;
+    text-decoration: none;
+  }
+}
+
+@media(max-width: 767px) {
+  .navbar-nav > li {
+    border-bottom: 1px solid #1a1a1a;
+    border-right: medium none;
+    padding: 0;
+    text-align: left;
+    width: 100%;
+  }
+}
+
+.dropdown:hover > ul {
+  display: block;
+}
+
+.dropdown > ul {
+  min-width: 210px;
+  padding: 20px 0;
+  white-space: nowrap;
+  background-color: #333333;
+  border: 0;
+  border-radius: 0;
+}
+
+@media(max-width: 767px) {
+  .dropdown > ul {
+    float: none;
+    position: relative;
+    box-shadow: 0;
+    padding: 0;
+  }
+}
+
+.dropdown > ul > li > a {
+  color: #fff;
+  font-family: "Roboto",sans-serif;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 39px;
+  padding: 0 28px;
+  text-decoration: none;
+}
+
+.dropdown > ul > li:hover > a {
+  background-color: #39a9a4;
+  color: #ffffff;
+  text-decoration: none;
+}
+
+@media(max-width: 767px) {
+  .dropdown > ul {
+    display: block;
+  }
+}
+
+@media(max-width: 767px) {
+  .navbar-toggle {
+    display: inline-block;
+    background-color: #e1704b;
+    color: #fff;
+    margin: 10px 0;
+    text-align: center;
+    width: 50px;
+    padding: 0;
+    float: none;
+    border-radius: 0;
+  }
+}
+
+.navbar-toggle:focus,
+.navbar-toggle:hover {
+  background-color: #e1704b !important;
+  color: #000;
+}
 .carousel-fade .carousel-inner .item {
   -webkit-transition-property: opacity;
   transition-property: opacity;

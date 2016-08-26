@@ -26,9 +26,8 @@ if ($(window).scrollTop() > 10) {
     var topContent = $('#top__content').outerHeight(true);
     var menuHeight = $('#w-sticker').outerHeight(true);
 
-    if($(window).scrollTop() >= topContent && $(window).innerWidth() >= 768 ) {
+    if( $(window).scrollTop() >= topContent && $(window).innerWidth() >= 767) {
       $('#w-sticker').css('height', menuHeight);
-
       $('#sticker').addClass('active');
     } else {
       $('#sticker').removeClass('active');

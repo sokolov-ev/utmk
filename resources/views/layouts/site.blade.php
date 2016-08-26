@@ -33,7 +33,7 @@
 
 <header id="w-sticker">
 
-    <nav id="sticker" class="b-fixed__nav navbar clearfix">
+{{--     <nav id="sticker" class="b-fixed__nav navbar clearfix">
         <div class="w-navbar__header navbar-header">
             <button type="button" class="b-btn btn navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                 <i class="icon fa fa-bars"></i>
@@ -57,6 +57,41 @@
                 <li><a href="#">CONTACT US</a></li>
             </ul>
         </div>
+    </nav> --}}
+
+
+    <nav class="navbar navbar-default" id="sticker">
+
+            <div class="navbar-header text-center">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#mettal-vsem-menu" aria-expanded="false">
+                    <i class="fa fa-bars" aria-hidden="true"></i>
+                </button>
+            </div>
+
+            <div id="mettal-vsem-menu" class="collapse navbar-collapse">
+
+                <ul class="nav navbar-nav">
+                    <li class="dropdown home">
+                        <a class="dropdown-toggle" aria-expanded="false" aria-haspopup="true" role="button" href="{{ url('/') }}">
+                            {{ trans('index.menu.home') }} <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">{{ trans('index.menu.cutting') }}</a></li>
+                            <li><a href="#">{{ trans('index.menu.packaging') }}</a></li>
+                            <li><a href="#">{{ trans('index.menu.delivery') }}</a></li>
+                            <li class="divider" role="separator"></li>
+                            <li><a href="#">Separated link</a></li>
+                        </ul>
+                    </li>
+                    <li class="about-us"><a href="#">{{ trans('index.menu.about_us') }}</a></li>
+                    <li class="company-profile"><a href="#">{{ trans('index.menu.company_profile') }}</a></li>
+                    <li class="products"><a href="#">{{ trans('index.menu.products') }}</a></li>
+                    <li class="network-of-offices"><a href="{{ url('/network-of-offices') }}">{{ trans('index.menu.network_of_offices') }}</a></li>
+                    <li class="contact-us"><a href="#">{{ trans('index.menu.contact_us') }}</a></li>
+                </ul>
+
+            </div>
+
     </nav>
 
 </header>

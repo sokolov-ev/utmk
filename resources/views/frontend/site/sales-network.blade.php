@@ -1,7 +1,7 @@
 @extends('layouts.site')
 
 @section('title')
-    SALES NETWORK
+    {{ trans('index.menu.network_of_offices') }}
 @endsection
 
 @section('css')
@@ -12,10 +12,10 @@
 
 <section class="container sales-title text-center">
     <div class="padding-top"></div>
-    <h1>Sales network</h1>
+    <h1>{{ trans('index.menu.network_of_offices') }}</h1>
     <div class="padding-top"></div>
 
-    <div id="map" style="height: 600px; border-radius: 20px;"></div>
+    <div id="map" style="height: 600px; border-radius: 5px;"></div>
 </section>
 
 <section class="container sales-list-offices">

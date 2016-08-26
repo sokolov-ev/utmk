@@ -20,7 +20,7 @@ Route::group(['middleware' => ['web', 'language']], function () {
         // return redirect('/administration');
     });
 
-    Route::get('/sales-network','Frontend\IndexController@salesNetwork');
+    Route::get('/network-of-offices','Frontend\IndexController@salesNetwork');
 
     // // Authentication Routes...
     // Route::get('/login/{locale?}', 'Auth\AuthController@showLoginForm');

@@ -7,10 +7,13 @@ return [
 
     'menu' => [
         'home' => 'Home',
-        'about us' => 'About Us',
-        'company profile' => 'Company Profile',
+            'cutting' => 'Cutting',
+            'packaging' => 'Packaging',
+            'delivery' => 'Delivery',
+        'about_us' => 'About Us',
+        'company_profile' => 'Company Profile',
         'products' => 'Products',
-        'network of offices' => 'Network Of Offices',
-        'contact us' => 'Contact Us',
+        'network_of_offices' => 'Network Of Offices',
+        'contact_us' => 'Contact Us',
     ],
 ];

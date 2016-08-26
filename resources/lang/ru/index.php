@@ -7,10 +7,13 @@ return [
 
     'menu' => [
         'home' => 'Главная',
-        'about us' => 'О нас',
-        'company profile' => 'Профиль Компании',
+            'cutting' => 'Порезка',
+            'packaging' => 'Упаковка',
+            'delivery' => 'Доставка',
+        'about_us' => 'О нас',
+        'company_profile' => 'Профиль Компании',
         'products' => 'Продукция',
-        'network of offices' => 'Сеть офисов',
-        'contact us' => 'Свяжитесь с нами',
+        'network_of_offices' => 'Сеть офисов',
+        'contact_us' => 'Свяжитесь с нами',
     ],
 ];
