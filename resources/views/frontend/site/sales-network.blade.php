@@ -10,12 +10,53 @@
 
 @section('content')
 
-<section class="container">
-    <div class="sales-title text-center">
-        <p>Sales network</p>
-    </div>
+<section class="container sales-title text-center">
+    <div class="padding-top"></div>
+    <h1>Sales network</h1>
+    <div class="padding-top"></div>
 
-    <div id="map" style="height: 600px; border-radius: 20px; margin-bottom: 100px;"></div>
+    <div id="map" style="height: 600px; border-radius: 20px;"></div>
+</section>
+
+<section class="container sales-list-offices">
+    <div class="padding-top"></div>
+    <div class="row">
+        @foreach ($offices as $office)
+            <div class="col-md-4 col-sm-6 col-xs-12">
+                <h2>{{ $office['title'] }}</h2>
+                <br/>
+                <div class="hidden sales-office-address" data-latitude="{{ $office['latitude'] }}" data-longitude="{{ $office['longitude'] }}"></div>
+                <p>{{ $office['address'] }}</p>
+                <div class="row">
+                    @foreach ($office['contacts'] as $contact)
+                        <div class="col-md-3 col-sm-3 col-xs-3 sales-office-contact">{{ trans('offices.contactType.'.$contact['type']) }}:</div>
+                        <div class="col-md-9 col-sm-9 col-xs-9 sales-office-contact">{{ $contact['contact'] }}</div>
+                    @endforeach
+                </div>
+                <div class="padding-top"></div>
+            </div>
+        @endforeach
+    </div>
+</section>
+
+<section class="sales-footer">
+    <div class="container">
+        <div class="padding-top"></div>
+        <div class="col-md-4">
+            <div class="sales-footer-title">COMPANY</div>
+            <br/>
+            <a href="#" title=""></a>
+            <br/>
+            <a href="#" title=""></a>
+            <br/>
+            <a href="#" title=""></a>
+            <br/>
+            <a href="#" title=""></a>
+            <br/>
+            <a href="#" title=""></a>
+            <br/>
+        </div>
+    </div>
 </section>
 
 @endsection
@@ -40,24 +81,20 @@
 
         function initMap() {
             map = new google.maps.Map(document.getElementById('map'), optionsMap);
+            var text = '';
 
-            marker = new google.maps.Marker({
-                map: map,
-                anchorPoint: new google.maps.Point(0, -29),
-                color: "green",
-                label: "Q",
+            $.each($(".sales-office-address"), function(key, val){
+                text = $(val).prevAll("h2").text();
+                marker = new google.maps.Marker({
+                    map: map,
+                    anchorPoint: new google.maps.Point(0, -29),
+
+                    label: text,
+                    title: text,
+                });
+
+                marker.setPosition({lat: $(val).data('latitude'), lng: $(val).data('longitude')});
             });
-
-            marker.setPosition(map.center);
-
-            marker = new google.maps.Marker({
-                map: map,
-                anchorPoint: new google.maps.Point(0, -29),
-                color: "green",
-                label: "Q",
-            });
-
-            marker.setPosition({lat: 50.450090972, lng: 30.523414806});
         }
 
         // $(".section-map").click(function(event){

@@ -33,7 +33,7 @@ class Office extends Model
 
     public function contacts()
     {
-        return $this->hasMany('App\Contact');
+        return $this->hasMany('App\Contacts');
     }
 
     public function moderators()
@@ -100,6 +100,7 @@ class Office extends Model
         return $array;
     }
 
+    // выборка всех оффисов для выпадающего списка (для привязки модераторов и фильтров)
     public static function getOffices()
     {
         $offices = Office::select('id', 'city AS text')->get();
@@ -107,6 +108,25 @@ class Office extends Model
 
         foreach ($offices->toArray() as $key => $office) {
             $result[$office['id']] = json_decode($office['text'], true)[App::getLocale()];
+        }
+
+        return $result;
+    }
+
+    // выборка всех оффисов с контактами (для фроентенда)
+    public static function getOfficesContacts()
+    {
+        $offices = Office::all();
+        $temp    = [];
+        $result  = [];
+
+        foreach ($offices as $key => $office) {
+            $temp['title']    = json_decode($office->title, true)[App::getLocale()];
+            $temp['address']  = json_decode($office->address, true)[App::getLocale()];
+            $temp['latitude'] = $office->latitude;
+            $temp['longitude']= $office->longitude;
+            $temp['contacts'] = $office->contacts->toArray();
+            $result[] = $temp;
         }
 
         return $result;

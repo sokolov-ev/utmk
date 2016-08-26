@@ -115,11 +115,13 @@ body {
 }
 
 
-.sales-title {
-  padding: 100px 0;
+.padding-top { padding-top: 100px; }
+
+@media(max-width: 1024px) {
+  .padding-top { padding-top: 30px; }
 }
 
-.sales-title p {
+.sales-title h1 {
   color: #333;
   font-family: "Roboto",sans-serif;
   font-size: 60px;
@@ -127,6 +129,33 @@ body {
   font-weight: 300;
   letter-spacing: 0;
   line-height: 1;
+}
+
+.sales-list-offices h2 {
+  color: #39a9a4;
+  font-style: normal;
+  font-weight: 500;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.sales-list-offices h2:hover {
+  color: #e1704b;
+}
+
+.sales-list-offices p,
+.sales-office-contact {
+  color: #999999;
+  font-family: "Roboto",sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 1.4;
+}
+
+.sales-footer {
+  background-color: #e1704b;
 }
 /* Стили Шамова Дмитрия, главное меню */
 .navbar-collapse {
