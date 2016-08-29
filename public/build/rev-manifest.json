@@ -1,9 +1,11 @@
 {
-  "css/admin.css": "css/admin-f50749c467.css",
+  "css/admin.css": "css/admin-215d87e21c.css",
+  "css/fileinput.css": "css/fileinput-9f1987b2c4.css",
   "css/select2.css": "css/select2-a38aa0b9cf.css",
-  "css/styles.css": "css/styles-e92b6b25e8.css",
+  "css/styles.css": "css/styles-667be54b96.css",
   "js/admin.menu.js": "js/admin.menu-cf4d32f2fc.js",
   "js/adminlte.js": "js/adminlte-d69e976dd9.js",
+  "js/fileinput.js": "js/fileinput-0e703a9781.js",
   "js/jquery-ui.js": "js/jquery-ui-e5e24bc7ad.js",
   "js/jqueryTable.js": "js/jqueryTable-f61e70cc26.js",
   "js/mustache.js": "js/mustache-b0b5685d90.js",

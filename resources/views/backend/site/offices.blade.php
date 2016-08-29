@@ -77,7 +77,7 @@
                                         <i class="fa fa-pencil" aria-hidden="true"></i>
                                 </a>
                                 <button class="btn btn-danger btn-sm"
-                                    data-target="#delete-office"
+                                    data-target="#delete-modal"
                                     data-toggle="modal"
                                     data-id="{{ $office->id }}"
                                     data-name="{{ $office->title }}">
@@ -92,8 +92,8 @@
     </div>
 </section>
 
-    <!-- Модальное окно удаления филиала -->
-    @include('partial.office-delete-modal')
+    <!-- Модальное окно удаления филиала/модератора/продукции -->
+    @include('partial.delete-modal')
 
 @endsection
 
@@ -115,9 +115,11 @@
             }
         });
 
-        $("#office-table").on('click', '[data-target="#delete-office"]', function(event){
-            $("#delete-office-id").val($(this).data('id'));
-            $(".office-name").text($(this).data('name'));
+        $("table").on('click', '[data-target="#delete-modal"]', function(event){
+            $("#modal-title").text("Удаление филиала");
+            $("#modal-delete-form").prop('action', '/administration/offices');
+            $("#delete-id").val($(this).data('id'));
+            $(".delete-name").text($(this).data('name'));
         });
     </script>
 

@@ -23,10 +23,15 @@ class OfficesController extends Controller
         $this->middleware('language');
     }
 
-    public function getAll(Request $request)
+    public function getAll($id = null)
     {
+        if (empty($id)) {
+            $offices = Office::all();
+        } else {
+            $offices = Office::where('id', $id)->get();
+        }
+
         $result = [];
-        $offices = Office::all();
 
         foreach ($offices as $office) {
             $office->title   = json_decode($office->title, true)[App::getLocale()];
@@ -71,11 +76,11 @@ class OfficesController extends Controller
         $validator->after(function($validator) {
             $attr = $validator->attributes();
             if (empty($attr['title_en']) && empty($attr['title_ru']) && empty($attr['title_uk'])) {
-                $validator->errors()->add('title_en', 'Поле "Заголовок" обязательно для заполнения.');
+                $validator->errors()->add('title_ru', 'Поле "Заголовок" обязательно для заполнения.');
             }
 
             if (empty($attr['description_en']) && empty($attr['description_ru']) && empty($attr['description_uk'])) {
-                $validator->errors()->add('description_en', 'Поле "Описание" обязательно для заполнения.');
+                $validator->errors()->add('description_ru', 'Поле "Описание" обязательно для заполнения.');
             }
 
             if (empty($attr['latitude']) || empty($attr['latitude']) || (empty($attr['city_en']) && empty($attr['city_ru']) && empty($attr['city_uk']))) {
@@ -84,7 +89,7 @@ class OfficesController extends Controller
         });
 
         if ($validator->fails()) {
-            session()->flash('error', current(current($validator->errors()))[0]);
+            session()->flash('error', $validator->errors()->first());
 
             $this->throwValidationException(
                 $request, $validator
@@ -132,7 +137,7 @@ class OfficesController extends Controller
 
     public function deleteOffice(Request $request)
     {
-        if (Office::destroy($request->input('delete-office-id')) ) {
+        if (Office::destroy($request->input('id')) ) {
             session()->flash('success', 'Филиал успешно удален.');
         } else {
             session()->flash('error', 'Возникла ошибка при удалении филиала.');

@@ -15,7 +15,7 @@ class Menu extends Model
      * @var array
      */
     protected $fillable = [
-        'parent_id', 'weight', 'name'
+        'parent_id', 'parent_exist', 'weight', 'name'
     ];
 
     /**
@@ -35,5 +35,17 @@ class Menu extends Model
         static::deleting(function($menu){
             Menu::where('parent_id', $menu->id)->delete();
         });
+    }
+
+    public static function checkParent()
+    {
+        $items = Menu::all();
+
+        foreach ($items as $item) {
+            if (Menu::where('parent_id', '=', $item->id)->exists()) {
+                $item->parent_exist = 1;
+                $item->update();
+            }
+        }
     }
 }

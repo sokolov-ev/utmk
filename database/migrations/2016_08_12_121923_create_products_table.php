@@ -21,7 +21,7 @@ class CreateProductsTable extends Migration
             $table->integer('price');
             $table->integer('rating');
             $table->smallInteger('show_my');
-            $table->integer('creator');
+            $table->integer('creator_id');
             $table->integer('created_at');
             $table->integer('updated_at');
         });

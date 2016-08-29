@@ -11,6 +11,7 @@
             <div class="modal-body">
                 Вы действительно хотите удалить: "<b><div class="office-name" style="display: inline-block;"></div></b>"
                 <form role="form" method="POST" action="{{ url('administration/office/delete') }}" id="form-delete-office">
+                    <input type="hidden" name="_method" value="DELETE">
                     {{ csrf_field() }}
                     <input type="hidden" id="delete-office-id" name="delete-office-id" value="">
             </div>

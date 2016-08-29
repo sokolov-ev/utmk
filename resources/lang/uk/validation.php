@@ -131,6 +131,11 @@ return [
         'city' => 'Місто',
         'contacts_data' => 'Контакт',
         'contacts_type' => 'Тип контакту',
+
+        'images' => 'Зображення',
+        'price'  => 'Ціна',
+        'rating' => 'Рейтинг',
+
     ],
 
 ];

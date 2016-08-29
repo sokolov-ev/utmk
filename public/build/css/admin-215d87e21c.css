@@ -5389,4 +5389,13 @@ div.FixedHeader_Cloned table {
 }
 
 .breadcrumb { background-color: #ecf0f5; }
+
+.dataTable select.form-control {
+  height: 28px;
+  padding: 3px 12px;
+}
+
+.nav-pills > li.active > a {
+  font-weight: 300;
+}
 /*# sourceMappingURL=admin.css.map */

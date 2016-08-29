@@ -83,7 +83,7 @@
                                     <i class="fa fa-pencil" aria-hidden="true"></i>
                                 </button>
                                 <button class="btn btn-danger btn-sm"
-                                    data-target=".delete-moderator"
+                                    data-target="#delete-modal"
                                     data-toggle="modal"
                                     data-id="{{ $user->id }}"
                                     data-name="{{ $user->username }}">
@@ -102,8 +102,8 @@
     @include('partial.moderator-add-modal')
     <!-- Модальное окно редактирования менеджера -->
     @include('partial.moderator-edit-modal')
-    <!-- Модальное окно удаление менеджера -->
-    @include('partial.moderator-delete-modal')
+    <!-- Модальное окно удаления филиала/модератора/продукции -->
+    @include('partial.delete-modal')
 
 @endsection
 
@@ -151,17 +151,16 @@
         $("#moderators-table_filter").hide();
 
         $(table.table().container() ).on('keyup change', '#filter-table input, #filter-table select', function () {
-
-            console.log(this.value);
-
             table.column( $(this).data('index') )
                  .search( this.value )
                  .draw();
         });
 
-        $('#moderators-table').on('click', '[data-target=".delete-moderator"]', function (event) {
-            $('.delete-moderator .moderator-name').html($(this).data('name'));
-            $('.delete-moderator #moderator-id').val($(this).data('id'));
+        $("table").on('click', '[data-target="#delete-modal"]', function(event){
+            $("#modal-title").text("Удаление менеджера");
+            $("#modal-delete-form").prop('action', '/administration/moderator');
+            $("#delete-id").val($(this).data('id'));
+            $(".delete-name").text($(this).data('name'));
         });
 
         $('#moderators-table').on('click', '[data-target=".edit-moderator"]', function (event) {

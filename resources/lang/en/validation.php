@@ -129,6 +129,11 @@ return [
         'city' => 'City',
         'contacts_data.*' => 'Contact',
         'contacts_type.*' => 'Contact type',
+
+        'images' => 'Images',
+        'price'  => 'Price',
+        'rating' => 'Rating',
+
     ],
 
 ];

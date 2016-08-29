@@ -33,33 +33,6 @@
 
 <header id="w-sticker">
 
-{{--     <nav id="sticker" class="b-fixed__nav navbar clearfix">
-        <div class="w-navbar__header navbar-header">
-            <button type="button" class="b-btn btn navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                <i class="icon fa fa-bars"></i>
-            </button>
-        </div>
-
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="b-nav nav navbar-nav">
-                <li class="lactive">
-                    <a href="#">HOME</a>
-                    <ul class="b-menu__sub level1">
-                        <li><a href="#">Cutting</a></li>
-                        <li><a href="#">Packaging</a></li>
-                        <li><a href="#">Delivery</a></li>
-                    </ul>
-                </li>
-                <li><a href="#">ABOUT US</a></li>
-                <li><a href="#">COMPANY PROFILE</a></li>
-                <li><a href="#">PRODUCTS</a></li>
-                <li><a href="/sales-network">SALES NETWORK</a></li>
-                <li><a href="#">CONTACT US</a></li>
-            </ul>
-        </div>
-    </nav> --}}
-
-
     <nav class="navbar navbar-default" id="sticker">
 
             <div class="navbar-header text-center">

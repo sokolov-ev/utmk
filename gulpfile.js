@@ -34,6 +34,11 @@ elixir(function(mix) {
         // имя скомпилированого файла
     ], 'public/css/select2.css');
 
+    mix.styles([
+        'fileinput.css',
+        // имя скомпилированого файла
+    ], 'public/css/fileinput.css');
+
 
     // СКРИПТЫ ----------------------------------------
     mix.scripts('adminlte.js', 'public/js/adminlte.js');
@@ -48,6 +53,16 @@ elixir(function(mix) {
         'select2/i18n/uk.js',
         // имя скомпилированого файла
     ], 'public/js/select2.js');
+
+    mix.scripts([
+        'filestyle/plugins/canvas-to-blob.js',
+        'filestyle/plugins/sortable.js',
+        'filestyle/plugins/purify.js',
+        'filestyle/fileinput.js',
+        'filestyle/locales/ru.js',
+        'filestyle/locales/uk.js',
+        // имя скомпилированого файла
+    ], 'public/js/fileinput.js');
 
     mix.scripts([
         'jqueryTable/jquery.dataTables.js',
@@ -68,6 +83,8 @@ elixir(function(mix) {
         "js/admin.menu.js",
         "js/scripts.js",
         "js/select2.js",
+        "css/fileinput.css",
+        "js/fileinput.js",
     ]);
 
     mix.browserSync({

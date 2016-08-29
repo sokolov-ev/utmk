@@ -165,9 +165,15 @@ desired effect
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="{{ url('/administration/products') }}">
                             <i class="fa fa-shopping-cart"></i>
                             <span>Продукция</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-file-text-o"></i>
+                            <span>Заказы</span>
                         </a>
                     </li>
                 </ul>

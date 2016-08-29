@@ -18,8 +18,7 @@ class MenuController extends Controller
         $result = [];
 
         foreach ($menu->toArray() as $item) {
-            $name = json_decode($item['name'], true);
-            $item['name'] = $name[$language];
+            $item['name'] = json_decode($item['name'], true)[$language];
             $result[] = $item;
         }
 
@@ -102,6 +101,8 @@ class MenuController extends Controller
             }
         }
 
+        Menu::checkParent();
+
         return '{"status": "ok", "message": "Сортировка сохранена."}';
     }
 
@@ -116,6 +117,8 @@ class MenuController extends Controller
         } else {
             session()->flash('error', 'Возникла ошибка удаления пункта меню.');
         }
+
+        Menu::checkParent();
 
         return redirect(url()->previous());
     }

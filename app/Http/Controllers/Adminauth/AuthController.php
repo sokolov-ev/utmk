@@ -104,7 +104,7 @@ class AuthController extends Controller
     {
         return Admin::create([
             'role' => $data['role'],
-            'region' => 1,
+            'office_id' => $data['office_id'];
             'username' => $data['username'],
             'status' => $data['status'],
             'email' => $data['email'],
@@ -117,7 +117,7 @@ class AuthController extends Controller
         $validator = $this->validator($request->all());
 
         if ($validator->fails()) {
-            session()->flash('error', 'Возникла ошибка при добавлении нового менеджера.');
+            session()->flash('error', $validator->errors()->first());
 
             $this->throwValidationException(
                 $request, $validator
@@ -141,7 +141,6 @@ class AuthController extends Controller
         $validator = Validator::make($data, [
                         'edit_id' => 'exists:admins,id',
                         'edit_username' => 'required|max:255',
-                        // 'edit_office_id' =>
                         'edit_email' => 'required|email|max:255|unique:admins,email,'.$id,
                         'edit_role' => 'required_with:Moderator,SeniorModerator',
                         'edit_status' => 'required_with:10,1,0',
@@ -154,8 +153,6 @@ class AuthController extends Controller
                 $request, $validator
             );
         }
-
-        // var_dump($data['edit_office_id']);
 
         $admin = Admin::find($id);
         if ($admin->role != Admin::ROLE_ADMIN) {
@@ -180,9 +177,7 @@ class AuthController extends Controller
 
     public function deleteModerator(Request $request)
     {
-        $id = $request->input('id');
-
-        if (Admin::destroy($id)) {
+        if (Admin::destroy($request->input('id'))) {
             session()->flash('success', 'Менеджер успешно удален.');
         } else {
             session()->flash('error', 'Возникла ошибка при удалении менеджера.');
