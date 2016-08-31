@@ -54,15 +54,29 @@ Route::group(['middleware' => ['admin']], function () {
     Route::get('/administration', 'Backend\EmployeeController@view');
     Route::get('/administration/clients', 'Backend\EmployeeController@clients');
 
-// CRUD продукции
+// CRUD продукции и изображений продукции
     Route::get('/administration/products', 'Backend\ProductsController@getAll');
+    Route::get('/administration/products/get/{id}', 'Backend\ProductsController@getProduct');
 
-    Route::get('/administration/products/add', 'Backend\ProductsController@addForm');
-    Route::post('administration/products/add', 'Backend\ProductsController@add');
+    Route::get('/administration/products/view', 'Backend\ProductsController@view');
+
+    Route::get('/administration/product/add', 'Backend\ProductsController@addForm');
+    Route::post('administration/product/add', 'Backend\ProductsController@add');
+
+    Route::get('/administration/product/edit/{id}', 'Backend\ProductsController@editForm');
+    Route::put('/administration/product/edit/{id}', 'Backend\ProductsController@edit');
 
     Route::delete('/administration/products', 'Backend\ProductsController@delete');
 
-    Route::get('/administration/products/test', 'Backend\ProductsController@test');
+    Route::get('/administration/product/img/download/{id}', 'Backend\ProductsController@downloadImg');
+    Route::post('/administration/product/img/sort', 'Backend\ProductsController@sortImg');
+    Route::post('/administration/product/img/delete', 'Backend\ProductsController@deleteImg');
+
+    Route::get('/administration/products/filtering', 'Backend\ProductsController@filtering');
+
+
+// CRUD заказов
+
 
 
     // Зона админа
@@ -93,6 +107,9 @@ Route::group(['middleware' => ['admin']], function () {
 
     // CRUD филиалов
         Route::get('/administration/offices/{id?}', 'Backend\OfficesController@getAll');
+        Route::get('/administration/offices/get/{id}', 'Backend\OfficesController@getOffice');
+
+        // Route::get('/administration/offices/pre/view', 'Backend\OfficesController@view');
 
         Route::get('/administration/offices/add', 'Backend\OfficesController@addFormOffice');
         Route::post('/administration/offices/add', 'Backend\OfficesController@addOffice');

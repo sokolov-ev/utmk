@@ -42,4 +42,21 @@ class Images extends Model
     {
         return $this->belongsTo('App\Products', 'product_id');
     }
+
+    public static function addImages($id, $images)
+    {
+        if (!empty($images[0])) {
+            foreach ($images as $img) {
+                $path = 'images/products/';
+                $name = time().'_'.$img->getClientOriginalName();
+
+                if ($img->move($path, $name)) {
+                    $imgModel = new Images();
+                    $imgModel->product_id = $id;
+                    $imgModel->name = $name;
+                    $imgModel->save();
+                }
+            }
+        }
+    }
 }

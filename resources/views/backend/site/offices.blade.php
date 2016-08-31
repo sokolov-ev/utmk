@@ -12,6 +12,9 @@
             <h3 class="box-title pull-left clearfix">Филиалы</h3>
 
             <div class="pull-right">
+                <a class="btn btn-primary btn-sm" href="{{ url('/administration/offices') }}">
+                    <i class="fa fa-refresh" aria-hidden="true"></i> Сбросить фильтры
+                </a>
                 <a class="btn btn-success btn-sm" href="{{ url('/administration/offices/add') }}">
                     <i class="fa fa-plus" aria-hidden="true"></i> Добавить филиал
                 </a>
@@ -63,7 +66,7 @@
                 </thead>
                 <tbody>
                     @foreach ($offices as $key => $office)
-                        <tr role="row">
+                        <tr role="row" class="load-data" data-id="{{ $office->id }}">
                             <td>{{ $key+1 }}</td>
                             <td>{{ $office->title }}</td>
                             <td>{{ $office->address }}</td>
@@ -92,14 +95,18 @@
     </div>
 </section>
 
-    <!-- Модальное окно удаления филиала/модератора/продукции -->
+    {{-- Модальное окно удаления филиала/модератора/продукции  --}}
     @include('partial.delete-modal')
+
+    {{-- Подгружаем шаблон для mustache --}}
+    @include('partial.office-template')
 
 @endsection
 
 @section('scripts')
 
     <script src="{{ elixir('js/jqueryTable.js') }}"></script>
+    <script src="{{ elixir('js/mustache.js') }}"></script>
 
     <script>
         $('table').DataTable({
@@ -121,6 +128,48 @@
             $("#delete-id").val($(this).data('id'));
             $(".delete-name").text($(this).data('name'));
         });
+
+        $(".load-data").click(function(event){
+            var tut = this;
+            var id  = $(this).data('id');
+
+            if( $(tut).next(".data-office")[0] == undefined ) {
+
+                $(tut).find(".data-office").remove();
+
+                $.get('/administration/offices/get/' + id, function(response){
+                    if (response.status == 'ok') {
+                        var template = $('#office-template').html();
+                        Mustache.parse(template);
+                        var office = Mustache.render(template, response);
+                        $(tut).after('<tr class="data-office"><td colspan="6">' + office + '</td></tr>');
+
+                        initMap();
+                    }
+                });
+            } else {
+                $(tut).next(".data-office")[0].remove();
+            }
+        });
+
+        function initMap() {
+            var map;
+            var marker;
+            var latitude  = +$("#map").data('latitude');
+            var longitude = +$("#map").data('longitude');
+            var noPoi = [{
+                featureType: "poi",
+                stylers: [
+                    { visibility: "off" }
+                ]
+            }];
+
+            map = new google.maps.Map(document.getElementById('map'), { center: {lat: latitude, lng: longitude}, zoom: 15 });
+            map.setOptions({styles: noPoi})
+            marker = new google.maps.Marker({ map: map, anchorPoint: new google.maps.Point(0, -29), });
+            marker.setPosition({lat: latitude, lng: longitude});
+        }
     </script>
 
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAMQhkBZnzMm8RM9L1DnfOCES5Hb2HFtW0&libraries=places&hl=ru" async defer></script>
 @endsection

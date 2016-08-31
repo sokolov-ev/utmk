@@ -90,11 +90,104 @@
 
 .breadcrumb { background-color: #ecf0f5; }
 
-.dataTable select.form-control {
+.dataTable select.form-control,
+.dataTable input.form-control {
   height: 28px;
   padding: 3px 12px;
+  width: 100%;
+}
+
+.dataTable input.form-control.id {
+  width: 30px;
+  padding: 0;
+  text-align: center;
 }
 
 .nav-pills > li.active > a {
   font-weight: 300;
+}
+
+/*Карточка превью изображения продукции*/
+.file-preview-body { background-color: #fff; }
+.file-preview-body .file-preview-frame { margin: 0; margin-right: 5px; }
+.file-preview-frame > img { width: auto; height: 140px; }
+.file-preview-frame .file-thumbnail-footer { margin-top: 5px; display: block; }
+.file-thumbnail-footer > div { line-height: 22px; margin: 0 5px; }
+
+.row-none-margin {
+  margin: 0;
+}
+
+.card-price {
+  background: #fff3b5 none repeat scroll 0 0;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  display: inline-block;
+  margin-right: 0.5em;
+  padding: 7px 7px 5px;
+  font-size: 1.38462em;
+  font-weight: 600;
+  line-height: 1em;
+  white-space: nowrap;
+  width: auto;
+}
+
+.card-price .card-price-uah {
+  font-size: 0.66667em;
+  line-height: 1em;
+  font-weight: 300;
+}
+
+.shopping-cart input {
+  box-sizing: content-box;
+  display: inline-block;
+  font-size: 18px;
+  height: 20px;
+  text-align: center;
+  width: 50px;
+  border: 1px solid #c2c2cc;
+  border-radius: 3px;
+  box-shadow: 3px 3px 1px 0 #eeeeef inset;
+  padding: 0.33333em;
+  resize: none;
+}
+
+@media(max-width: 767px) {
+  .shopping-cart div:first-child { text-align: right; }
+}
+
+
+.cart-quantity { text-align: center; }
+@media(max-width: 767px) {
+  .cart-quantity { text-align: right; margin-bottom: 8px; margin-top: 10px; }
+}
+
+.in-shoping-cart { text-align: right; }
+/*@media(max-width: 767px) {
+  .in-shoping-cart { text-align: right; }
+}*/
+
+.in-shoping-cart button { position: relative; }
+
+.in-shoping-cart .fa {
+  position: absolute;
+  top: 3px;
+  left: 4px;
+  font-size: 25px;
+}
+
+.cart-quantity-minus,
+.cart-quantity-plus { padding: 0; }
+
+.cart-quantity-minus:hover,
+.cart-quantity-plus:hover { color: #d9534f; }
+
+.cart-quantity-minus i,
+.cart-quantity-plus i { font-size: 18px; }
+
+.padding-top-30 { padding-top: 30px; }
+
+
+.load-data {
+  cursor: pointer;
 }

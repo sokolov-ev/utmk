@@ -10,6 +10,11 @@
     <div class="box box-warning">
         <div class="box-header">
             <h3 class="box-title pull-left clearfix">Клиенты сайта</h3>
+            <div class="pull-right">
+                <a class="btn btn-primary btn-sm" href="{{ url('/administration/clients') }}">
+                    <i class="fa fa-refresh" aria-hidden="true"></i> Сбросить фильтры
+                </a>
+            </div>
         </div>
         <div class="box-body">
             <table id="clients-table" class="table table-striped table-hover table-condensed dataTable" width="100%" cellspacing="0">
@@ -28,7 +33,6 @@
                         <td><input type="text" class="form-control" data-index="1" /></td>
                         <td><input type="text" class="form-control" data-index="2" /></td>
                         <td><input type="text" class="form-control" data-index="3" /></td>
-                        <td> </td>
                         <td> </td>
                         <td> </td>
                         <td> </td>
@@ -71,13 +75,6 @@
         </div>
     </div>
 </section>
-{{--
-    <!-- Модальное окно добавления нового менеджера -->
-    @include('partial.modal-add-moderator')
-    Модальное окно редактирования менеджера
-    @include('partial.modal-edit-moderator')
-    <!-- Модальное окно удаление менеджера -->
-    @include('partial.modal-delete-moderator') --}}
 
 @endsection
 
@@ -88,7 +85,6 @@
         var table = $('table').DataTable({
                         "paging": false,
                         "lengthChange": true,
-                        // "searching": false,
                         "ordering": true,
                         "info": false,
                         "autoWidth": false,
@@ -101,52 +97,10 @@
         $("#clients-table_filter").hide();
 
         $(table.table().container() ).on('keyup change', '#filter-table input, #filter-table select', function () {
-
-            console.log(this.value);
-
             table.column( $(this).data('index') )
                  .search( this.value )
                  .draw();
         });
-
-        // $('#moderators-table').on('click', '[data-target=".delete-moderator"]', function (event) {
-        //     $('.delete-moderator .moderator-name').html($(this).data('name'));
-        //     $('.delete-moderator #moderator-id').val($(this).data('id'));
-        // });
-
-        // $('#moderators-table').on('click', '[data-target=".edit-moderator"]', function (event) {
-        //     var tut = this;
-
-        //     $("#edit_id").val($(tut).data('id'));
-        //     $("#edit_username").val($(tut).data('name'));
-        //     $("#edit_email").val($(tut).data('email'));
-
-        //     $("#edit_role").find("option").each(function(key, val){
-        //         $(val).removeAttr("selected");
-        //         if ($(val).attr("value") == $(tut).data('role')) {
-        //             $(val).attr("selected", "");
-        //         }
-        //     });
-
-        //     // console.log($(tut).data('statusId'));
-
-        //     $("#edit_status").find("option").each(function(key, val){
-        //         $(val).removeAttr("selected");
-
-        //         // console.log($(val).attr("value"));
-
-        //         if ($(val).attr("value") == $(tut).data('status')) {
-        //             $(val).attr("selected", "");
-        //         }
-        //     });
-
-        //     $("#edit_password").val('');
-        // });
-
     </script>
 
-    <!-- Laravel Javascript Validation -->
-{{--     <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js')}}"></script>
-
-    {!! $addValidator !!} --}}
 @endsection

@@ -341,7 +341,7 @@
                         <div class="form-group">
                             <button type="button"
                                     class="btn btn-danger pull-left clearfix"
-                                    data-target="#delete-office"
+                                    data-target="#delete-modal"
                                     data-toggle="modal"
                                     data-id="{{ $office['office_id'] }}"
                                     data-name="{{ $office['title_name'] }}">
@@ -359,8 +359,8 @@
     </div>
 </section>
 
-    <!-- Модальное окно удаления филиала -->
-    @include('partial.office-delete-modal')
+    <!-- Модальное окно удаления филиала/модератора/продукции -->
+    @include('partial.delete-modal')
 
 @endsection
 
@@ -391,9 +391,11 @@
             }
         });
 
-        $('[data-target="#delete-office"]').on('click', function(event){
-            $("#delete-office-id").val($(this).data('id'));
-            $(".office-name").text($(this).data('name'));
+        $('[data-target="#delete-modal"]').on('click', function(event){
+            $("#modal-title").text("Удаление филиала");
+            $("#modal-delete-form").prop('action', '/administration/offices');
+            $("#delete-id").val($(this).data('id'));
+            $(".delete-name").text($(this).data('name'));
         });
 
         function initMap() {

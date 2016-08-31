@@ -12,7 +12,7 @@
             <h3 class="box-title pull-left clearfix">Продукция</h3>
 
             <div class="pull-right">
-                <a class="btn btn-success btn-sm" href="{{ url('/administration/products/add') }}">
+                <a class="btn btn-success btn-sm" href="{{ url('/administration/product/add') }}">
                     <i class="fa fa-plus" aria-hidden="true"></i> Добавить продукцию
                 </a>
 
@@ -47,74 +47,88 @@
                     <tr role="row">
                         <th>ID</th>
                         <th>Раздел</th>
-                        <th>Город</th>
+                        @if ($isAdmin)
+                            <th>Город</th>
+                        @endif
                         <th>Заголовок</th>
                         <th>Цена</th>
                         <th>Рейтинг</th>
                         <th>Показывать</th>
-                        @if ($isAdmin)
-                            <th>Добавил</th>
-                        @endif
+                        <th>Добавил</th>
                         <th>Дата добавления</th>
                         <th>Действие</th>
                     </tr>
                     <tr role="row" id="filter-table">
-                        <td> </td>
+                        <?php $counter = 0; ?>
+                        <td><input type="text" data-column="id" class="form-control id" data-index="{{ $counter++ }}" /></td>
                         <td>
-                            <select  class="form-control" data-index="1" style="width: 100%;">
+                            <select  class="form-control" data-index="{{ $counter++ }}">
                                 <option value=""></option>
                                 @foreach($menu as $item)
                                     <option value="{{ $item }}">{{ $item }}</option>
                                 @endforeach
                             </select>
                         </td>
+
+                        @if ($isAdmin)
+                            <td>
+                                <select  class="form-control" data-index="{{ $counter++ }}">
+                                    <option value=""></option>
+                                    @foreach($city as $item)
+                                        <option value="{{ $item }}">{{ $item }}</option>
+                                    @endforeach
+                                </select>
+                            </td>
+                        @endif
+
+                        <td><input type="text" class="form-control" data-index="{{ $counter++ }}" /></td>
+                        <td><?php $counter++ ?></td>
+                        <td><?php $counter++ ?></td>
                         <td>
-                            <select  class="form-control" data-index="2" style="width: 100%;">
-                                <option value=""></option>
-                                @foreach($city as $item)
-                                    <option value="{{ $item }}">{{ $item }}</option>
-                                @endforeach
-                            </select>
-                        </td>
-                        <td> </td>
-                        <td> </td>
-                        <td> </td>
-                        <td>
-                            <select  class="form-control" data-index="6" style="width: 100%;">
+                            <select  class="form-control" data-index="{{ $counter++ }}">
                                 <option value=""></option>
                                 <option value="1">Да</option>
                                 <option value="0">Нет</option>
                             </select>
                         </td>
-                        @if ($isAdmin)
-                            <th> </th>
-                        @endif
-                        <td> </td>
-                        <td> </td>
+                        <th><input type="text" class="form-control" data-index="{{ $counter++ }}" /></th>
+                        <td><?php $counter++ ?></td>
+                        <td><?php $counter++ ?></td>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($products as $product)
-                        <tr role="row">
+                        <tr role="row" class="load-data" data-id="{{ $product->id }}">
                             <td>{{ $product->id }}</td>
                             <td>{{ json_decode($product->menu->name, true)[App::getLocale()] }}</td>
-                            <td>
-                                <a href="{{ url('/administration/offices/'.$product->office->id) }}"
-                                   title="{{ json_decode($product->office->city, true)[App::getLocale()] }}">
-                                        {{ json_decode($product->office->city, true)[App::getLocale()] }}
-                                </a>
-                            </td>
-                            <td>{{ json_decode($product->title, true)[App::getLocale()] }}</td>
-                            <td>{{ $product->price }}</td>
-                            <td>{{ $product->rating }}</td>
-                            <td>{{ $product->show_my ? 'Да' : 'Нет' }}</td>
                             @if ($isAdmin)
                                 <td>
-                                    <a href="{{ url('/administration/moderators/'.$product->moderator->id) }}" title="{{ $product->moderator->username }}">
-                                        {{ $product->moderator->username }}
+                                    <a href="{{ url('/administration/offices/'.$product->office->id) }}"
+                                       title="{{ json_decode($product->office->city, true)[App::getLocale()] }}">
+                                            {{ json_decode($product->office->city, true)[App::getLocale()] }}
                                     </a>
                                 </td>
                             @endif
+                            <td>
+                                <?php $title = json_decode($product->title, true)[App::getLocale()]; ?>
+                                @if (strlen($title) > 36)
+                                    {{ mb_substr($title, 0, 35, 'UTF-8').'...' }}
+                                @else
+                                    {{ $title }}
+                                @endif
+                            </td>
+                            <td>{{ $product->price }}</td>
+                            <td>{{ $product->rating }}</td>
+                            <td>{{ $product->show_my ? 'Да' : 'Нет' }}</td>
+                            <td>
+                                @if ($isAdmin)
+                                    <a href="{{ url('/administration/moderators/'.$product->moderator->id) }}" title="{{ $product->moderator->username }}">
+                                        {{ $product->moderator->username }}
+                                    </a>
+                                @else
+                                    {{ $product->moderator->username }}
+                                @endif
+                            </td>
                             <td>{{ $product->created_at }}</td>
                             <td>
                                 <a class="btn btn-warning btn-sm"
@@ -146,25 +160,33 @@
     <!-- Модальное окно удаления филиала/модератора/продукции -->
     @include('partial.delete-modal')
 
+    {{-- Подгружаем шаблон для mustache --}}
+    @include('partial.product-template')
+
 @endsection
 
 @section('scripts')
 
     <script src="{{ elixir('js/jqueryTable.js') }}"></script>
+    <script src="{{ elixir('js/mustache.js') }}"></script>
 
     <script>
         var table = $('table').DataTable({
-                        "paging": false,
-                        "lengthChange": true,
-                        // "searching": false,
-                        "ordering": true,
-                        "info": false,
-                        "autoWidth": false,
-                        "bSortCellsTop": true,
-                        "language": {
-                            "sEmptyTable": "Нет записей...",
-                        }
-                    });
+            // "pageLength": 3,
+            "paging": false,
+            "lengthChange": true,
+            "ordering": true,
+            "info": false,
+            "autoWidth": false,
+            "bSortCellsTop": true,
+            "language": {
+                "sEmptyTable": "Нет записей...",
+                "infoEmpty": "Ничего не найдено.",
+            },
+            "processing": true,
+            "serverSide": true,
+            "ajax": "/administration/products/filtering"
+        });
 
         $("#products-table_filter").hide();
 
@@ -179,6 +201,24 @@
             $("#modal-delete-form").prop('action', '/administration/products');
             $("#delete-id").val($(this).data('id'));
             $(".delete-name").text($(this).data('name'));
+        });
+
+        $(".load-data").click(function(event){
+            var tut = this;
+            var id  = $(this).data('id');
+
+            if( $(tut).next(".data-product")[0] == undefined ) {
+                $.get('/administration/products/get/' + id, function(response){
+                    if (response.status == 'ok') {
+                        var template = $('#product-template').html();
+                        Mustache.parse(template);
+                        var product = Mustache.render(template, response);
+                        $(tut).after('<tr class="data-product"><td colspan="10">' + product + '</td></tr>');
+                    }
+                });
+            } else {
+                $(tut).next(".data-product")[0].remove();
+            }
         });
     </script>
 

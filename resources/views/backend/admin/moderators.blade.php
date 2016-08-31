@@ -15,6 +15,9 @@
         <div class="box-header">
             <h3 class="box-title pull-left clearfix">Менеджеры сайта</h3>
             <div class="pull-right">
+                <a class="btn btn-primary btn-sm" href="{{ url('/administration/moderators') }}">
+                    <i class="fa fa-refresh" aria-hidden="true"></i> Сбросить фильтры
+                </a>
                 <button class="btn btn-success btn-sm" data-target=".add-moderator" data-toggle="modal" type="button">
                     <i class="fa fa-plus" aria-hidden="true"></i>
                     Добавить менеджера

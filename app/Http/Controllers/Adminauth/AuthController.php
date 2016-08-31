@@ -104,7 +104,7 @@ class AuthController extends Controller
     {
         return Admin::create([
             'role' => $data['role'],
-            'office_id' => $data['office_id'];
+            'office_id' => $data['office_id'],
             'username' => $data['username'],
             'status' => $data['status'],
             'email' => $data['email'],

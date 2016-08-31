@@ -23,9 +23,9 @@ class MenuController extends Controller
         }
 
         if (empty($result)) {
-            return '{"status": "bad", "message": "Нет пунтктов меню."}';
+            return response()->json(['status' => 'bad', 'message' => 'Нет пунтктов меню.']);
         } else {
-            return '{"status": "ok", "data": '.json_encode($result, JSON_UNESCAPED_UNICODE).'}';
+            return response()->json(['status' => 'ok', 'data' => $result]);
         }
     }
 
@@ -34,9 +34,9 @@ class MenuController extends Controller
         $item = Menu::select('id', 'name')->where('id', $id)->first();
 
         if (empty($item)) {
-            return '{"status": "bad", "message": "Пункт меню не найден."}';
+            return response()->json(['status' => 'bad', 'message' => 'Пункт меню не найден.']);
         } else {
-            return '{"status": "ok", "data": '.json_encode($item, JSON_UNESCAPED_UNICODE).'}';
+            return response()->json(['status' => 'ok', 'data' => $item]);
         }
     }
 
@@ -51,9 +51,9 @@ class MenuController extends Controller
         ]);
 
         if ($menu) {
-            return json_encode(['status' => 'ok', 'message' => 'Пункт меню добавлен.'], JSON_UNESCAPED_UNICODE);
+            return response()->json(['status' => 'ok', 'message' => 'Пункт меню добавлен.']);
         } else {
-            return json_encode(['status' => 'ok', 'message' => 'Возникла ошибка при добавлении пункта меню.'], JSON_UNESCAPED_UNICODE);
+            return response()->json(['status' => 'ok', 'message' => 'Возникла ошибка при добавлении пункта меню.']);
         }
     }
 
@@ -64,7 +64,7 @@ class MenuController extends Controller
         $item = Menu::where('id', $id)->first();
 
         if (empty($item)) {
-            return '{"status": "bad", "message": "Пункт меню не найден."}';
+            return response()->json(['status' => 'bad', 'message' => 'Пункт меню не найден.']);
         }
 
         $array['en'] = $request->input('menu-en');
@@ -74,21 +74,20 @@ class MenuController extends Controller
         $item->name = json_encode($array, JSON_UNESCAPED_UNICODE);
 
         if ($item->update()) {
-            return '{"status": "ok", "message": "Пункт меню изменен."}';
+            return response()->json(['status' => 'ok', 'message' => 'Пункт меню изменен.']);
         } else {
-            return '{"status": "bad", "message": "Возникла ошибка при редактировании пункта меню."}';
+            return response()->json(['status' => 'bad', 'message' => 'Возникла ошибка при редактировании пункта меню.']);
         }
     }
 
     public function sortMenu(Request $request)
     {
-
         $id     = $request->input('id');
         $weight = $request->input('weight');
         $parent = $request->input('parent');
 
         if (empty($id) || empty($weight)) {
-            return '{"status": "bad", "message": "Данные для сортировки отсутствуют."}';
+            return response()->json(['status' => 'bad', 'message' => 'Данные для сортировки отсутствуют.']);
         }
 
         for ($i = 0; $i < count($weight); $i++) {
@@ -103,7 +102,7 @@ class MenuController extends Controller
 
         Menu::checkParent();
 
-        return '{"status": "ok", "message": "Сортировка сохранена."}';
+        return response()->json(['status' => 'ok', 'message' => 'Сортировка сохранена.']);
     }
 
     public function deleteMenu(Request $request)

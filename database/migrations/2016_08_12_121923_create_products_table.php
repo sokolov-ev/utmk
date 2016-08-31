@@ -16,8 +16,8 @@ class CreateProductsTable extends Migration
             $table->increments('id');
             $table->integer('menu_id');
             $table->integer('office_id');
-            $table->string('title');
-            $table->string('description');
+            $table->text('title');
+            $table->text('description');
             $table->integer('price');
             $table->integer('rating');
             $table->smallInteger('show_my');

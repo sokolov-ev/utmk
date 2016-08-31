@@ -71,12 +71,12 @@
                 center: {lat: 49.027500, lng: 31.482778},
                 disableDefaultUI: true,
                 scrollwheel: false,
-                // styles: [{
-                //     featureType: "poi",
-                //     stylers: [
-                //         { visibility: "off" }
-                //     ]
-                // }]
+                styles: [{
+                    featureType: "poi",
+                    stylers: [
+                        { visibility: "off" }
+                    ]
+                }]
             };
 
         function initMap() {

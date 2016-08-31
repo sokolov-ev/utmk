@@ -42,16 +42,4 @@ class ServiceController extends Controller
     //     return '{"data":'.json_encode($result, JSON_UNESCAPED_UNICODE).'}';
     // }
 
-    public function searchOffice($name)
-    {
-        $offices = Office::select('id', 'city AS text')->where('city', 'LIKE', '%'.$name.'%')->get();
-        $result = [];
-
-        foreach ($offices->toArray() as $key => $office) {
-            $office['text'] = json_decode($office['text'], true)[App::getLocale()];
-            $result[] = $office;
-        }
-
-        return $result;
-    }
 }

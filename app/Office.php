@@ -131,4 +131,91 @@ class Office extends Model
 
         return $result;
     }
+
+    // в зависимости от ID создаем или редактируем оффис
+    public static function actionOffice($id, $data)
+    {
+        if (empty($id)) {
+            $office = new Office();
+        } else {
+            $office = Office::findOrFail($id);
+        }
+
+        $office->type = $data['office_type'];
+
+        $array['en'] = $data['title_en'];
+        $array['ru'] = $data['title_ru'];
+        $array['uk'] = $data['title_uk'];
+        $office->title = json_encode($array, JSON_UNESCAPED_UNICODE);
+
+        $array['en'] = $data['description_en'];
+        $array['ru'] = $data['description_ru'];
+        $array['uk'] = $data['description_uk'];
+        $office->description = json_encode($array, JSON_UNESCAPED_UNICODE);
+
+        $array['en'] = $data['address_en'];
+        $array['ru'] = $data['address_ru'];
+        $array['uk'] = $data['address_uk'];
+        $office->address = json_encode($array, JSON_UNESCAPED_UNICODE);
+
+        $array['en'] = $data['city_en'];
+        $array['ru'] = $data['city_ru'];
+        $array['uk'] = $data['city_uk'];
+        $office->city = json_encode($array, JSON_UNESCAPED_UNICODE);
+
+        $office->latitude  = $data['latitude'];
+        $office->longitude = $data['longitude'];
+
+        if ($office->save()) {
+            return $office;
+        } else {
+            return false;
+        }
+    }
+
+    // формирование данных для вывода пользователю
+    public static function viewData($id)
+    {
+        $office = Office::find($id);
+
+        if (empty($office)) {
+            return false;
+        }
+
+        $type = Office::getType();
+
+        $array["id"] = $office->id;
+        $array["type"] = trans('offices.officeType'.$type[$office->type]);
+
+        $title = json_decode($office->title, true);
+        $title = array_filter($title);
+        $array['title'] = empty($title[App::getLocale()]) ? current($title) : $title[App::getLocale()];
+
+        $description = json_decode($office->description, true);
+        $description = array_filter($description);
+        $array['description'] = empty($description[App::getLocale()]) ? current($description) : $description[App::getLocale()];
+
+        $address = json_decode($office->address, true);
+        $address = array_filter($address);
+        $array['address'] = empty($address[App::getLocale()]) ? current($address) : $address[App::getLocale()];
+
+        $city = json_decode($office->city, true);
+        $city = array_filter($city);
+        $array['city'] = empty($city[App::getLocale()]) ? current($city) : $city[App::getLocale()];
+
+        $array['latitude']  = $office->latitude;
+        $array['longitude'] = $office->longitude;
+
+        $contacts = [];
+        $contactType = Contacts::getType();
+
+        foreach ($office->contacts->toArray() as $key => $contact) {
+            $temp['type'] = trans('offices.contactType.'.$contactType[$contact['type']]);
+            $temp['data'] = $contact['contact'];
+            $contacts[] = $temp;
+        }
+        $array['contacts'] = $contacts;
+
+        return $array;
+    }
 }

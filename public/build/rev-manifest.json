@@ -1,14 +1,14 @@
 {
-  "css/admin.css": "css/admin-215d87e21c.css",
-  "css/fileinput.css": "css/fileinput-9f1987b2c4.css",
-  "css/select2.css": "css/select2-a38aa0b9cf.css",
-  "css/styles.css": "css/styles-667be54b96.css",
-  "js/admin.menu.js": "js/admin.menu-cf4d32f2fc.js",
-  "js/adminlte.js": "js/adminlte-d69e976dd9.js",
-  "js/fileinput.js": "js/fileinput-0e703a9781.js",
-  "js/jquery-ui.js": "js/jquery-ui-e5e24bc7ad.js",
-  "js/jqueryTable.js": "js/jqueryTable-f61e70cc26.js",
-  "js/mustache.js": "js/mustache-b0b5685d90.js",
-  "js/scripts.js": "js/scripts-94515151eb.js",
-  "js/select2.js": "js/select2-7a11634cbf.js"
+  "css/admin.css": "css/admin-33e5e00ed9.css",
+  "css/fileinput.css": "css/fileinput-8e589e5bd6.css",
+  "css/select2.css": "css/select2-34826bb6f7.css",
+  "css/styles.css": "css/styles-4479219165.css",
+  "js/admin.menu.js": "js/admin.menu-2754a05a41.js",
+  "js/adminlte.js": "js/adminlte-4440e862b8.js",
+  "js/fileinput.js": "js/fileinput-eef8f77c2c.js",
+  "js/jquery-ui.js": "js/jquery-ui-5d148bd6ec.js",
+  "js/jqueryTable.js": "js/jqueryTable-917f4ceb2a.js",
+  "js/mustache.js": "js/mustache-48e14ec2bb.js",
+  "js/scripts.js": "js/scripts-51272f39cd.js",
+  "js/select2.js": "js/select2-5691b34961.js"
 }

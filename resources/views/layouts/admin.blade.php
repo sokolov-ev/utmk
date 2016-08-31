@@ -142,6 +142,20 @@ desired effect
                                 <li><a href="{{ url('/administration/clients') }}">Клиенты</a></li>
                             </ul>
                         </li>
+                        <li>
+                            <a href="{{ url('/administration/offices') }}">
+                                <i class="fa fa-cubes"></i>
+                                <span>Филиалы</span>
+                            </a>
+                        </li>
+                        <li class="header">FRONTEND</li>
+                        <!-- Optionally, you can add icons to the links -->
+                        <li>
+                            <a href="{{ url('/administration/menu') }}">
+                                <i class="fa fa-list-ol"></i>
+                                <span>Меню сайта</span>
+                            </a>
+                        </li>
                     @else
                         <li>
                             <a href="{{ url('/administration/clients') }}">
@@ -150,20 +164,6 @@ desired effect
                             </a>
                         </li>
                     @endif
-                    <li>
-                        <a href="{{ url('/administration/offices') }}">
-                            <i class="fa fa-cubes"></i>
-                            <span>Филиалы</span>
-                        </a>
-                    </li>
-                    <li class="header">FRONTEND</li>
-                    <!-- Optionally, you can add icons to the links -->
-                    <li>
-                        <a href="{{ url('/administration/menu') }}">
-                            <i class="fa fa-list-ol"></i>
-                            <span>Меню сайта</span>
-                        </a>
-                    </li>
                     <li>
                         <a href="{{ url('/administration/products') }}">
                             <i class="fa fa-shopping-cart"></i>
