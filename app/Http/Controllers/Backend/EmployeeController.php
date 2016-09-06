@@ -20,12 +20,23 @@ class EmployeeController extends Controller
         $this->middleware('admin');
     }
 
-    public function view()
+    public function view(Request $request)
     {
-        $user = Auth::guard('admin')->user();
+        $id = $request->query('id');
+        $isAdmin = Auth::guard('admin')->user()->role == Admin::ROLE_ADMIN;
+
+        if (empty($id)) {
+            $user = Auth::guard('admin')->user();
+        } elseif ($isAdmin) {
+            $user = Admin::findOrFail($id);
+        }
+
+        $office = Office::viewData($user->office_id);
 
         return view('backend.admin.home', [
+            'office' => $office,
             'user' => $user,
+            'isAdmin' => $isAdmin,
         ]);
     }
 

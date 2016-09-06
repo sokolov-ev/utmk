@@ -65,7 +65,7 @@
                 <tbody>
                     @foreach ($moderators as $user)
                         <tr role="row">
-                            <td>{{ $user->username }}</td>
+                            <td><a href="{{ url('/administration?id='.$user->id) }}" title="{{ $user->username }}">{{ $user->username }}</a></td>
                             <td>{{ $user->office }}</td>
                             <td>{{ $user->email }}</td>
                             <td>{{ $user->role }}</td>

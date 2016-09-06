@@ -11,6 +11,13 @@
     </section>
 
     <section class="content">
+        @if ($isAdmin)
+            <ol class="breadcrumb" style="background-color: #fff;">
+                <li><a href="{{ url('/administration/moderators') }}">Менеджеры</a></li>
+                <li class="active">{{ $user->username }}</li>
+            </ol>
+        @endif
+
         <div class="row">
             <div class="col-md-4">
 
@@ -26,8 +33,8 @@
                         </p>
                         <ul class="list-group list-group-unbordered">
                             <li class="list-group-item">
-                                <b>Регион</b>
-                                <a class="pull-right">{{ $user->region }}</a>
+                                <b>Город</b>
+                                <a class="pull-right">{{ json_decode($user->office->city, true)[App::getLocale()] }}</a>
                             </li>
                             <li class="list-group-item">
                                 <b>E-mail</b>
@@ -46,7 +53,7 @@
 
                 <div class="box box-primary">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Филиал: "{{ json_decode($user->office->title, true)[App::getLocale()] }}"</h3>
+                        <h3 class="box-title">{{ $office['type'] }}: "{{ $office['title'] }}"</h3>
                     </div>
                     <div class="box-body">
                         <strong>
@@ -56,24 +63,23 @@
                         <hr>
 
                         <strong>
-                            <i class="fa fa-volume-control-phone" aria-hidden="true"></i> Контакты:
+                            <i class="fa fa-phone" aria-hidden="true"></i> Контакты:
                         </strong>
-                        <p>
-                            <span class="label label-danger">UI Design</span>
-                            <span class="label label-success">Coding</span>
-                            <span class="label label-info">Javascript</span>
-                            <span class="label label-warning">PHP</span>
-                            <span class="label label-primary">Node.js</span>
-                        </p>
+                        <div class="row">
+                            @foreach ($office['contacts'] as $contact)
+                                <div class="col-md-2 col-sm-2 col-xs-2 text-muted">{{ $contact['type'] }}:</div>
+                                <div class="col-md-10 col-sm-10 col-xs-10 text-muted">{{ $contact['data'] }}</div>
+                            @endforeach
+                        </div>
                         <hr>
 
                         <strong>
                             <i class="fa fa-map-marker margin-r-5"></i> Адрес
                         </strong>
-                            <p class="text-muted"> {{ json_decode($user->office->address, true)[App::getLocale()] }} </p>
+                            <p class="text-muted"> {{ $office['address'] }} </p>
                         <hr>
 
-                        <div id="map" class="my-room-map" data-lat="{{ $user->office->latitude }}" data-lng="{{ $user->office->longitude }}">
+                        <div id="map" class="my-room-map" data-lat="{{ $office['latitude'] }}" data-lng="{{ $office['longitude'] }}">
                     </div>
                 </div>
 
@@ -106,9 +112,6 @@
             });
 
             map.setOptions({styles: noPoi})
-
-            // autocomplete = new google.maps.places.Autocomplete((document.getElementById('address_ru')), {types: ['geocode']});
-            // autocomplete.addListener('place_changed', fillInAddress);
 
             marker = new google.maps.Marker({
                 map: map,

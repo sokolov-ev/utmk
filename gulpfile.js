@@ -18,6 +18,7 @@ elixir(function(mix) {
         'frontend.css',
         'frontend/index.menu.css',
         'frontend/index.slider.css',
+        'frontend/products.css',
         // имя скомпилированого файла
     ], 'public/css/styles.css');
 
@@ -44,8 +45,12 @@ elixir(function(mix) {
     mix.scripts('adminlte.js', 'public/js/adminlte.js');
     mix.scripts('mustache.js', 'public/js/mustache.js');
     mix.scripts('jquery-ui.js', 'public/js/jquery-ui.js');
-    mix.scripts('admin.menu.js', 'public/js/admin.menu.js');
+    mix.scripts('admin.menu.js', 'public/js/menu.js');
     mix.scripts('frontend.index.js', 'public/js/scripts.js');
+    mix.scripts([
+        'frontend.products.js',
+        'jquery.twbsPagination.js',
+    ], 'public/js/products.js');
     mix.scripts([
         'select2/select2.full.js',
         'select2/i18n/en.js',
@@ -80,11 +85,12 @@ elixir(function(mix) {
         "js/jqueryTable.js",
         "js/mustache.js",
         "js/jquery-ui.js",
-        "js/admin.menu.js",
+        "js/menu.js",
         "js/scripts.js",
         "js/select2.js",
         "css/fileinput.css",
         "js/fileinput.js",
+        "js/products.js",
     ]);
 
     mix.browserSync({

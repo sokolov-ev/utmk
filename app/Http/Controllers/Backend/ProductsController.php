@@ -60,7 +60,7 @@ class ProductsController extends Controller
     {
         $menu = [];
         $city = [];
-        $pageSize = 50;
+        $pageSize = 100;
         $isAdmin  = Auth::guard('admin')->user()->role == Admin::ROLE_ADMIN;
 
         if ($isAdmin) {
@@ -295,7 +295,7 @@ class ProductsController extends Controller
 
         foreach ($product['images'] as $key => $img) {
             $temp['key']  = ($key == 0) ? true : false;
-            $temp['name'] = $img->name;
+            $temp['name'] = $img['name'];
             $images[] = $temp;
         }
         $product['images'] = $images;

@@ -141,4 +141,4 @@ $(document).ready(function(){
         $(".delete-name-item").html($(this).data('name'));
     });
 });
-//# sourceMappingURL=admin.menu.js.map
+//# sourceMappingURL=menu.js.map

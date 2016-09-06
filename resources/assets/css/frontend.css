@@ -1,38 +1,38 @@
 @import url(//fonts.googleapis.com/css?family=Lato:100,100italic,300,300italic,regular,italic,700,700italic,900,900italic|PT+Sans:regular,italic,700,700italic|Roboto:100,100italic,300,300italic,regular,italic,500,500italic,700,700italic,900,900italic|Roboto+Slab:100,300,regular,700&subset=latin,latin-ext,cyrillic,vietnamese,cyrillic-ext,greek-ext,greek);
 
 body {
-    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-    padding: 0;
-    margin: 0;
-    overflow-x: hidden;
-    position: relative;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  padding: 0;
+  margin: 0;
+  overflow-x: hidden;
+  position: relative;
 }
 
 .logo-contacts {
   margin: 10px 20px;
 }
-.section-padding {
-  display: inline-block;
-  padding-bottom: 100px;
-}
 
 .scroller {
+  background-color: #fff;
+  border-radius: 50%;
   bottom: 50px;
+  cursor: pointer;
+  display: none;
+  height: 32px;
+  position: fixed;
   right: 25px;
   transition: all 0.5s ease 0s;
-  cursor: pointer;
-  position: fixed;
+  width: 32px;
   z-index: 500;
-  display: none;
 }
 .scroller i {
   color: #e1704b;
   font-size: 37px;
+  left: -1px;
+  position: absolute;
+  top: -3px;
 }
 
-.welcome {
-  padding-bottom: 100px;
-}
 .welcome-text {
   color: #333333;
   font-family: "Roboto",sans-serif;
@@ -41,7 +41,6 @@ body {
   font-weight: 300;
   letter-spacing: 0;
   line-height: 1;
-  padding-bottom: 100px;
 }
 .welcome-card img {
   height: auto;
@@ -116,7 +115,6 @@ body {
 
 
 .padding-top { padding-top: 100px; }
-
 @media(max-width: 1024px) {
   .padding-top { padding-top: 30px; }
 }
@@ -154,6 +152,151 @@ body {
   line-height: 1.4;
 }
 
-.sales-footer {
+.sales-footer { background-color: #e1704b; }
+.sales-footer-title {
+  color: #ffffff;
+  font-family: "Roboto",sans-serif;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 900;
+  letter-spacing: 0;
+  line-height: 1;
+  text-transform: uppercase;
+}
+.sales-footer-link-block { margin-bottom: 30px; }
+.sales-footer-link {
+  color: #ffffff;
+  font-style: normal;
+  font-weight: 400;
+  text-decoration: none;
+}
+.sales-footer-link:hover {
+  color: #333333 !important;
+  font-style: normal;
+  font-weight: 400;
+  text-decoration: underline !important;
+}
+
+.tell-us i {
+  color: #ffffff;
+  font-weight: 400;
+  font-size: 19px;
+}
+
+.sales-footer-contacts {
+  color: #ffffff;
+  margin-bottom: 30px;
+}
+
+.btn-success {
+  background-color: #39a9a4;
+  border-color: #39a9a4;
+}
+
+.btn-success.active.focus,
+.btn-success.active:focus,
+.btn-success.active:hover,
+.btn-success.focus:active,
+.btn-success:active:focus,
+.btn-success:active:hover,
+.btn-success:focus,
+.btn-success:hover {
+  background-color: #2d8783;
+  border-color: #2d8783;
+  color: #fff;
+}
+
+.btn-warning {
   background-color: #e1704b;
+  border-color: #e1704b;
+}
+
+.btn-warning.active.focus,
+.btn-warning.active:focus,
+.btn-warning.active:hover,
+.btn-warning.focus:active,
+.btn-warning:active:focus,
+.btn-warning:active:hover,
+.btn-warning:focus,
+.btn-warning:hover {
+  background-color: #b4593c;
+  border-color: #b4593c;
+  color: #fff;
+}
+
+.pagination > .active > a,
+.pagination > .active > a:focus,
+.pagination > .active > a:hover,
+.pagination > .active > span,
+.pagination > .active > span:focus,
+.pagination > .active > span:hover {
+  background-color: #39a9a4;
+  border-color: #39a9a4;
+  color: #fff;
+  cursor: default;
+  z-index: 3;
+}
+
+.checkbox input[type="checkbox"],
+.checkbox-inline input[type="checkbox"] {
+  margin: 0 -20px;
+  position: absolute;
+}
+
+.register-link {
+  background-color: #39a9a4;
+  color: #fff;
+  text-align: center;
+}
+
+.register-link a {
+  font-weight: 900;
+  color: #fff;
+}
+
+.form-control { border-radius: 0; }
+.form-control:focus {
+  border-color: #e1704b;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(225, 112, 75, 0.65);
+  outline: 0 none;
+}
+
+.panel { border-radius: 0; }
+.modal-content { border-radius: 0; }
+
+.btn {
+  border-radius: 0;
+  font-size: 16px;
+  padding: 10px 15px;
+}
+
+.show-reset-pass-form,
+.show-login-form {
+  padding: 0;
+  font-weight: 900;
+  font-size: 14px;
+}
+
+.margin-15 { margin: 15px; }
+@media(max-width: 767px) {
+  .margin-15 > div { margin: 10px 0; }
+}
+
+.alert {
+  border-radius: 0;
+  margin: 0;
+}
+
+.registred-form input,
+.registred-form textarea {
+  font-size: 16px;
+  line-height: 20px;
+  outline: 0 none;
+  padding: 9px 17px 10px 16px;
+  transition: all 0.35s ease 0s;
+  height: 40px;
+}
+
+.registred-form .form-group {
+  margin-bottom: 22px;
 }

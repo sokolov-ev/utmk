@@ -23,53 +23,106 @@
 </head>
 <body id="app-layout">
 
-<div id="top__content" class="logo-contacts row" >
-    <div class="col-md-6">
-        <img src="/images/logo.jpg" title="Metall Vsem" alt="Metall Vsem" height="93px"/>
+<section id="top__content" class="container-fluid">
+    <div class="row margin-15">
+
+        <div class="col-md-3 col-sm-3 col-xs-12">
+            <img src="/images/logo.jpg" title="Metall Vsem" alt="Metall Vsem" height="93px"/>
+        </div>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+
+            @if(!empty($errors->first()))
+                <div class="alert alert-danger alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    {{ $errors->first() }}
+                </div>
+            @endif
+
+        </div>
+        <div class="col-md-3 col-sm-3 col-xs-12 text-center">
+
+            <div class="btn-group lang-block">
+                <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <img src="/images/flags/{{ App::getLocale() }}.gif"> {{ trans('index.speech.'.App::getLocale()) }}
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a href="{{ request()->fullUrlWithQuery(['lang' => 'en']) }}">
+                            <img src="/images/flags/en.gif"> {{ trans('index.speech.en') }}
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ request()->fullUrlWithQuery(['lang' => 'ru']) }}">
+                            <img src="/images/flags/ru.gif"> {{ trans('index.speech.ru') }}
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ request()->fullUrlWithQuery(['lang' => 'uk']) }}">
+                            <img src="/images/flags/uk.gif"> {{ trans('index.speech.uk') }}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="user-block">
+                @if (Auth::guest())
+                    <button type="button" class="btn btn-default" data-target="#login-form" data-toggle="modal" type="button">
+                        <i class="fa fa-user" aria-hidden="true"></i> {{ trans('auth.login') }}
+                    </button>
+                @else
+
+                @endif
+            </div>
+
+        </div>
+
     </div>
-    <div class="col-md-3"></div>
-    <div class="col-md-3"></div>
-</div>
+</section>
 
 <header id="w-sticker">
 
     <nav class="navbar navbar-default" id="sticker">
 
-            <div class="navbar-header text-center">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#mettal-vsem-menu" aria-expanded="false">
-                    <i class="fa fa-bars" aria-hidden="true"></i>
-                </button>
-            </div>
+        <div class="navbar-header text-center">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#mettal-vsem-menu" aria-expanded="false">
+                <i class="fa fa-bars" aria-hidden="true"></i>
+            </button>
+        </div>
 
-            <div id="mettal-vsem-menu" class="collapse navbar-collapse">
+        <div id="mettal-vsem-menu" class="collapse navbar-collapse">
 
-                <ul class="nav navbar-nav">
-                    <li class="dropdown home">
-                        <a class="dropdown-toggle" aria-expanded="false" aria-haspopup="true" role="button" href="{{ url('/') }}">
-                            {{ trans('index.menu.home') }} <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">{{ trans('index.menu.cutting') }}</a></li>
-                            <li><a href="#">{{ trans('index.menu.packaging') }}</a></li>
-                            <li><a href="#">{{ trans('index.menu.delivery') }}</a></li>
-                            <li class="divider" role="separator"></li>
-                            <li><a href="#">Separated link</a></li>
-                        </ul>
-                    </li>
-                    <li class="about-us"><a href="#">{{ trans('index.menu.about_us') }}</a></li>
-                    <li class="company-profile"><a href="#">{{ trans('index.menu.company_profile') }}</a></li>
-                    <li class="products"><a href="#">{{ trans('index.menu.products') }}</a></li>
-                    <li class="network-of-offices"><a href="{{ url('/network-of-offices') }}">{{ trans('index.menu.network_of_offices') }}</a></li>
-                    <li class="contact-us"><a href="#">{{ trans('index.menu.contact_us') }}</a></li>
-                </ul>
+            <ul class="nav navbar-nav">
+                <li class="dropdown home">
+                    <a class="dropdown-toggle" aria-expanded="false" aria-haspopup="true" role="button" href="{{ route('index-page', request()->query()) }}">
+                        {{ trans('index.menu.home') }} <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">{{ trans('index.menu.cutting') }}</a></li>
+                        <li><a href="#">{{ trans('index.menu.packaging') }}</a></li>
+                        <li><a href="#">{{ trans('index.menu.delivery') }}</a></li>
+                        <li class="divider" role="separator"></li>
+                        <li><a href="#">Separated link</a></li>
+                    </ul>
+                </li>
+                <li class="about-us"><a href="#">{{ trans('index.menu.about_us') }}</a></li>
+                <li class="company-profile"><a href="#">{{ trans('index.menu.company_profile') }}</a></li>
+                <li class="products"><a href="{{ route('products-index', request()->query()) }}">{{ trans('index.menu.products') }}</a></li>
+                <li class="network-of-offices"><a href="{{ route('network-of-offices', request()->query()) }}">{{ trans('index.menu.network_of_offices') }}</a></li>
+                <li class="contact-us"><a href="#">{{ trans('index.menu.contact_us') }}</a></li>
+            </ul>
 
-            </div>
+        </div>
 
     </nav>
 
 </header>
 
     @yield('content')
+
+    @include('partial.footer')
+
+    @include('partial.index-login-form')
 
 <div class="scroller">
     <i class="fa fa-arrow-circle-up" aria-hidden="true"></i>
@@ -82,5 +135,6 @@
     <script src="{{ elixir('js/scripts.js') }}"></script>
 
     @yield('scripts')
+
 
 </html>

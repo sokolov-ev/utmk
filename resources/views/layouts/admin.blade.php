@@ -68,7 +68,7 @@ desired effect
         <header class="main-header">
 
             <!-- Logo -->
-            <a href="#" class="logo">
+            <a href="{{ url('/administration') }}" class="logo">
                 <!-- mini logo for sidebar mini 50x50 pixels -->
                 <span class="logo-mini">ЮТМК</span>
                 <!-- logo for regular state and mobile devices -->

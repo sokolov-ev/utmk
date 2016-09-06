@@ -15,26 +15,33 @@
 
 Route::group(['middleware' => ['web', 'language']], function () {
 
-    Route::get('/', function(){
-        return view('frontend.site.index');
-        // return redirect('/administration');
-    });
+    Route::get('/', ['as' => 'index-page', 'uses' => 'Frontend\IndexController@index']);
 
-    Route::get('/network-of-offices','Frontend\IndexController@salesNetwork');
+    Route::get('/network-of-offices', ['as' => 'network-of-offices', 'uses' => 'Frontend\IndexController@salesNetwork']);
+
+    // Отображение продукции
+    Route::get('/products', ['as' => 'products-index', 'uses' => 'Frontend\ProductsController@index']);
+    // AJAX подгружаем меню
+    Route::get('/products/menu', 'Frontend\ProductsController@getMenu');
+    // AJAX подгружаем продукцию (menu, name, city, page)
+    Route::get('/products/catalog', 'Frontend\ProductsController@catalogProducts');
+
+
+    Route::get('/products/details/{slug}/{id}', ['as' => 'products-view', 'uses' => 'Frontend\ProductsController@view']);
 
     // // Authentication Routes...
     // Route::get('/login/{locale?}', 'Auth\AuthController@showLoginForm');
-    // Route::post('/login', 'Auth\AuthController@login');
+    Route::post('/login', 'Auth\AuthController@login');
     // Route::get('/logout', 'Auth\AuthController@logout');
 
     // // Registration Routes...
-    // Route::get('/register/{locale?}', 'Auth\AuthController@showRegistrationForm');
-    // Route::post('/register', 'Auth\AuthController@register');
+    Route::get('/register', 'Auth\AuthController@showRegistrationForm');
+    Route::post('/register', 'Auth\AuthController@register');
 
     // // Password Reset Routes...
-    // Route::get('/password/reset/{token?}', 'Auth\PasswordController@showResetForm');
-    // Route::post('/password/email', 'Auth\PasswordController@sendResetLinkEmail');
-    // Route::post('/password/reset', 'Auth\PasswordController@reset');
+    Route::get('/password/reset/{token?}', 'Auth\PasswordController@showResetForm');
+    Route::post('/password/email', 'Auth\PasswordController@sendResetLinkEmail');
+    Route::post('/password/reset', 'Auth\PasswordController@reset');
 
     // Route::get('/room/{locale?}', 'HomeController@index');
 });

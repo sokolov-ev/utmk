@@ -18,23 +18,23 @@
 
                 <div class="btn-group">
                     <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <img src="/images/flags/{{ $language }}.gif"> {{ trans('index.'.$language) }}
+                        <img src="/images/flags/{{ App::getLocale() }}.gif"> {{ trans('index.speech.'.App::getLocale()) }}
                         <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu">
                         <li>
-                            <a href="{{ url('/administration/products?lang=en') }}">
-                                <img src="/images/flags/english.gif"> {{ trans('index.english') }}
+                            <a href="{{ request()->fullUrlWithQuery(['lang' => 'en']) }}">
+                                <img src="/images/flags/en.gif"> {{ trans('index.speech.en') }}
                             </a>
                         </li>
                         <li>
-                            <a href="{{ url('/administration/products?lang=ru') }}">
-                                <img src="/images/flags/russian.gif"> {{ trans('index.russian') }}
+                            <a href="{{ request()->fullUrlWithQuery(['lang' => 'ru']) }}">
+                                <img src="/images/flags/ru.gif"> {{ trans('index.speech.ru') }}
                             </a>
                         </li>
                         <li>
-                            <a href="{{ url('/administration/products?lang=uk') }}">
-                                <img src="/images/flags/ukrainian.gif"> {{ trans('index.ukrainian') }}
+                            <a href="{{ request()->fullUrlWithQuery(['lang' => 'uk']) }}">
+                                <img src="/images/flags/uk.gif"> {{ trans('index.speech.uk') }}
                             </a>
                         </li>
                     </ul>
@@ -91,7 +91,7 @@
                                 <option value="0">Нет</option>
                             </select>
                         </td>
-                        <th><input type="text" class="form-control" data-index="{{ $counter++ }}" /></th>
+                        <th><input type="text" class="form-control" data-index="{{ $counter++ }}" style="width: 100px;" /></th>
                         <td><?php $counter++ ?></td>
                         <td><?php $counter++ ?></td>
                     </tr>
@@ -111,8 +111,8 @@
                             @endif
                             <td>
                                 <?php $title = json_decode($product->title, true)[App::getLocale()]; ?>
-                                @if (strlen($title) > 36)
-                                    {{ mb_substr($title, 0, 35, 'UTF-8').'...' }}
+                                @if (strlen($title) > 28)
+                                    {{ mb_substr($title, 0, 27, 'UTF-8').'...' }}
                                 @else
                                     {{ $title }}
                                 @endif
@@ -183,9 +183,9 @@
                 "sEmptyTable": "Нет записей...",
                 "infoEmpty": "Ничего не найдено.",
             },
-            "processing": true,
-            "serverSide": true,
-            "ajax": "/administration/products/filtering"
+            // "processing": true,
+            // "serverSide": true,
+            // "ajax": "/administration/products/filtering"
         });
 
         $("#products-table_filter").hide();

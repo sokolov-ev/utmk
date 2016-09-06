@@ -18,23 +18,23 @@
 
             <div class="btn-group pull-right clearfix check-language" data-lang="ru">
                 <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <div class="current-language"><img src="/images/flags/russian.gif"> Русский</div>
+                    <div class="current-language"><img src="/images/flags/ru.gif"> Русский</div>
                     <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
                     <li>
                         <a href="javascript: void(0)" class="lang" data-lang="en">
-                            <img src="/images/flags/english.gif"> Английский
+                            <img src="/images/flags/en.gif"> Английский
                         </a>
                     </li>
                     <li>
                         <a href="javascript: void(0)" class="lang" data-lang="ru">
-                            <img src="/images/flags/russian.gif"> Русский
+                            <img src="/images/flags/ru.gif"> Русский
                         </a>
                     </li>
                     <li>
                         <a href="javascript: void(0)" class="lang" data-lang="uk">
-                            <img src="/images/flags/ukrainian.gif"> Украинский
+                            <img src="/images/flags/uk.gif"> Украинский
                         </a>
                     </li>
                 </ul>
@@ -151,6 +151,6 @@
 
     <script src="{{ elixir('js/mustache.js') }}"></script>
     <script src="{{ elixir('js/jquery-ui.js') }}"></script>
-    <script src="{{ elixir('js/admin.menu.js') }}"></script>
+    <script src="{{ elixir('js/menu.js') }}"></script>
 
 @endsection

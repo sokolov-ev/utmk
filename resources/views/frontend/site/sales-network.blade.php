@@ -29,33 +29,13 @@
                 <p>{{ $office['address'] }}</p>
                 <div class="row">
                     @foreach ($office['contacts'] as $contact)
-                        <div class="col-md-3 col-sm-3 col-xs-3 sales-office-contact">{{ trans('offices.contactType.'.$contact['type']) }}:</div>
-                        <div class="col-md-9 col-sm-9 col-xs-9 sales-office-contact">{{ $contact['contact'] }}</div>
+                        <div class="col-md-4 col-sm-4 col-xs-4 sales-office-contact">{{ trans('offices.contactType.'.$contact['type']) }}:</div>
+                        <div class="col-md-8 col-sm-8 col-xs-8 sales-office-contact">{{ $contact['contact'] }}</div>
                     @endforeach
                 </div>
                 <div class="padding-top"></div>
             </div>
         @endforeach
-    </div>
-</section>
-
-<section class="sales-footer">
-    <div class="container">
-        <div class="padding-top"></div>
-        <div class="col-md-4">
-            <div class="sales-footer-title">COMPANY</div>
-            <br/>
-            <a href="#" title=""></a>
-            <br/>
-            <a href="#" title=""></a>
-            <br/>
-            <a href="#" title=""></a>
-            <br/>
-            <a href="#" title=""></a>
-            <br/>
-            <a href="#" title=""></a>
-            <br/>
-        </div>
     </div>
 </section>
 
@@ -69,7 +49,7 @@
         var optionsMap = {
                 zoom: 6,
                 center: {lat: 49.027500, lng: 31.482778},
-                disableDefaultUI: true,
+                // disableDefaultUI: true,
                 scrollwheel: false,
                 styles: [{
                     featureType: "poi",
@@ -102,7 +82,7 @@
         //     initMap();
         // });
 
-
+        $(".network-of-offices").addClass('active');
 
     </script>
 

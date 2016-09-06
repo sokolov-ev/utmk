@@ -17,4 +17,20 @@ return [
     'failed' => 'Невірний E-mail або пароль',
     'throttle' => 'Занадто багато спроб входу. Будь ласка, спробуйте ще раз, через :seconds секунд.',
 
+    'login' => 'Вхід',
+    'logout' => 'Вихід',
+    'login-form-title' => 'Вхід в мій кабінет',
+
+    'email-address' => 'E-Mail адреса',
+    'password' => 'Пароль',
+    'reset-password' => 'Скинути пароль',
+    'remember-me' => "Запам'ятай мене",
+    'cancel' => 'Відміна',
+    'reset' => 'Cкинути',
+    'rem-password' => 'Я згадав пароль',
+    'register' => 'Зареєструватись',
+
+    'username' => "Ваше ім'я",
+    'company' => 'Компанія',
+    'phone' => 'Телефон',
 ];

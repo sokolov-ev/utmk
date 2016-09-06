@@ -11,15 +11,15 @@ class IndexController extends Controller
 {
     public function index()
     {
-
+        return view('frontend.site.index');
     }
 
     public function salesNetwork()
     {
         $offices = Office::getOfficesContacts();
 
-        // var_dump($offices);
-
-        return view('frontend.site.sales-network', ['offices' => $offices]);
+        return view('frontend.site.sales-network', [
+            'offices' => $offices,
+        ]);
     }
 }

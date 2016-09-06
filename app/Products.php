@@ -56,7 +56,7 @@ class Products extends Model
 
     public function images()
     {
-        return $this->hasMany('App\Images', 'product_id', 'id');
+        return $this->hasMany('App\Images', 'product_id', 'id')->select('name')->orderBy('weight', 'ASC');
     }
 
     // формируем данные для отображения в форме редактирвоания
@@ -134,12 +134,40 @@ class Products extends Model
             return false;
         }
 
+        return Products::toArrayProduct($product);
+    }
+
+    public static function viewDataAll($products)
+    {
+        if (empty($products)) {
+            return null;
+        }
+
+        $result = [];
+
+        foreach ($products as $product) {
+            $temp = Products::toArrayProduct($product);
+
+            $temp['images']      = 'images/products/'.$temp['images'][0]['name'];
+            $temp['description'] = str_limit($temp['description'], 250, '...');
+            $temp['slug']        = str_slug($temp['title'], '_');
+            // да! избыточно!
+            $temp['work_more']     = trans('products.more');
+            $temp['work_add_card'] = trans('products.add-cart');
+
+            $result[] = $temp;
+        }
+
+        return $result;
+    }
+
+    protected static function toArrayProduct($product)
+    {
         $array["id"] = $product->id;
-
-        $array['images'] = Images::where('product_id', $product->id)->orderBy('weight', 'ASC')->get();
-
         $array['menu_id'] = $product->menu_id;
-        $array['office']  = $product->office->toArray();
+
+        $array['images'] = $product->images->toArray();
+        $array['office'] = $product->office->toArray();
 
         $title = json_decode($product->title, true);
         $title = array_filter($title);
@@ -149,7 +177,7 @@ class Products extends Model
         $description = array_filter($description);
         $array['description'] = empty($description[App::getLocale()]) ? current($description) : $description[App::getLocale()];
 
-        $array['price']  = $product->price;
+        $array['price'] = $product->price;
 
         return $array;
     }

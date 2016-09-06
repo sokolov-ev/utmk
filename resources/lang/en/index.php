@@ -1,10 +1,6 @@
 <?php
 
 return [
-    'english' => 'English',
-    'russian' => 'Russian',
-    'ukrainian' => 'Ukrainian',
-
     'menu' => [
         'home' => 'Home',
             'cutting' => 'Cutting',
@@ -15,5 +11,21 @@ return [
         'products' => 'Products',
         'network_of_offices' => 'Network Of Offices',
         'contact_us' => 'Contact Us',
+    ],
+
+    'footer' => [
+        'company' => 'Company',
+        'our-services' => 'Our services',
+        'contact' => 'Contact',
+
+        'tell-us' => 'Tell Us',
+        'headquarter' => 'Headquarter',
+    ],
+
+    'speech' => [
+        'languages' => 'Languages',
+        'en' => 'English',
+        'ru' => 'Russian',
+        'uk' => 'Ukrainian',
     ],
 ];

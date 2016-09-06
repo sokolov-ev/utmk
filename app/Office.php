@@ -185,7 +185,7 @@ class Office extends Model
         $type = Office::getType();
 
         $array["id"] = $office->id;
-        $array["type"] = trans('offices.officeType'.$type[$office->type]);
+        $array["type"] = trans('offices.officeType.'.$type[$office->type]);
 
         $title = json_decode($office->title, true);
         $title = array_filter($title);
@@ -217,5 +217,28 @@ class Office extends Model
         $array['contacts'] = $contacts;
 
         return $array;
+    }
+
+    public static function getContactsData()
+    {
+        $office = Office::where('type', 'main')->first();
+        $result = [];
+
+        $address = json_decode($office->address, true);
+        $address = array_filter($address);
+        $result['address'] = empty($address[App::getLocale()]) ? current($address) : $address[App::getLocale()];
+
+        $contacts = [];
+        $contactType = Contacts::getType();
+
+        foreach ($office->contacts->toArray() as $key => $contact) {
+            $temp['type'] = trans('offices.contactType.'.$contactType[$contact['type']]);
+            $temp['data'] = $contact['contact'];
+            $contacts[] = $temp;
+        }
+
+        $result['contacts'] = $contacts;
+
+        return $result;
     }
 }

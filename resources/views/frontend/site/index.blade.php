@@ -82,6 +82,9 @@
 
 <section class="green-section container-fluid">
     <div class="container">
+
+        <div class="clearfix padding-top"></div>
+
         <div class="row">
             <div class="col-md-4">
                 <div class="row green-section-block">
@@ -232,6 +235,8 @@
                 </div>
             </div>
         </div>
+
+        <div class="clearfix padding-top"></div>
     </div>
 </section>
 
@@ -239,7 +244,7 @@
 
 @section('scripts')
     <script type="text/javascript">
-
+        $(".home").addClass('active');
     </script>
 @endsection
 

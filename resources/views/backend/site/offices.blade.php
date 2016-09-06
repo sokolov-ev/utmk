@@ -21,23 +21,23 @@
 
                 <div class="btn-group">
                     <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <img src="/images/flags/{{ $language }}.gif"> {{ trans('index.'.$language) }}
+                        <img src="/images/flags/{{ App::getLocale() }}.gif"> {{ trans('index.speech.'.App::getLocale()) }}
                         <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu">
                         <li>
-                            <a href="{{ url('/administration/offices?lang=en') }}">
-                                <img src="/images/flags/english.gif"> {{ trans('index.english') }}
+                            <a href="{{ request()->fullUrlWithQuery(['lang' => 'en']) }}">
+                                <img src="/images/flags/en.gif"> {{ trans('index.speech.en') }}
                             </a>
                         </li>
                         <li>
-                            <a href="{{ url('/administration/offices?lang=ru') }}">
-                                <img src="/images/flags/russian.gif"> {{ trans('index.russian') }}
+                            <a href="{{ request()->fullUrlWithQuery(['lang' => 'ru']) }}">
+                                <img src="/images/flags/ru.gif"> {{ trans('index.speech.ru') }}
                             </a>
                         </li>
                         <li>
-                            <a href="{{ url('/administration/offices?lang=uk') }}">
-                                <img src="/images/flags/ukrainian.gif"> {{ trans('index.ukrainian') }}
+                            <a href="{{ request()->fullUrlWithQuery(['lang' => 'uk']) }}">
+                                <img src="/images/flags/uk.gif"> {{ trans('index.speech.uk') }}
                             </a>
                         </li>
                     </ul>

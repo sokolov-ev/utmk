@@ -294,14 +294,17 @@
 
 {{-- Остальные контакты с кнопкой удалить --}}
                         @if (count(old('contacts_data', $contacts['data'])) > 1)
-                            @for($i = 1; $i < count(old('contacts_data', $contacts['data'])); $i++)
+                            @for($i = 1; $i < count( old('contacts_data', $contacts['data']) ); $i++)
                                 <div class="form-group{{ $errors->has('contacts_data.'.$i) ? ' has-error' : '' }}">
                                     <div class="flex">
-                                        <input type="hidden" id="" name="contacts_id[]" value="{{ old('contacts_id.'.$i, $contacts['id'][$i]) }}">
+                                        <?php $id = empty($contacts['id'][$i]) ? '' : $contacts['id'][$i] ?>
+                                        <?php $data = empty($contacts['data'][$i]) ? '' : $contacts['data'][$i] ?>
+                                        <?php $type = empty($contacts['type'][$i]) ? 'mobile' : $contacts['type'][$i] ?>
+                                        <input type="hidden" id="" name="contacts_id[]" value="{{ old('contacts_id.'.$i, $id) }}">
                                         <div>
                                             <select id="" name="contacts_type[]" class="form-control contacts-type">
                                                 @foreach($contactType as $key => $type)
-                                                    @if ($key == old('contacts_type.'.$i, $contacts['type'][$i]))
+                                                    @if ($key == old('contacts_type.'.$i, $type))
                                                         <option value="{{$key}}" selected="">{{ trans('offices.contactType.'.$type) }}</option>
                                                     @else
                                                         <option value="{{$key}}">{{ trans('offices.contactType.'.$type) }}</option>
@@ -314,7 +317,7 @@
                                                    id=""
                                                    name="contacts_data[]"
                                                    class="form-control contacts-data"
-                                                   value="{{ old('contacts_data.'.$i, $contacts['data'][$i]) }}"
+                                                   value="{{ old('contacts_data.'.$i, $data) }}"
                                                    placeholder="Контакт">
                                         </div>
                                         <div class="btn-wrap">

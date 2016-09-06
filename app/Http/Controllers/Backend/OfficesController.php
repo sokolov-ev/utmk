@@ -41,7 +41,7 @@ class OfficesController extends Controller
 
         return view('backend.site.offices', [
             'offices'  => $result,
-            'language' => Locale::getLocaleName(),
+            // 'language' => Locale::getLocaleName(),
         ]);
     }
 
@@ -145,6 +145,9 @@ class OfficesController extends Controller
                 $validator->errors()->add('address_ru', 'Поле "Адрес" обязательно для заполнения.');
             }
         });
+
+        // var_dump($validator->errors());
+        // exit;
 
         if ($validator->fails()) {
             session()->flash('error', $validator->errors()->first());

@@ -17,4 +17,20 @@ return [
     'failed' => 'Wrong email or password',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
 
+    'login' => 'Login',
+    'logout' => 'Logout',
+    'login-form-title' => 'Login to my account',
+
+    'email-address' => 'E-Mail Address',
+    'password' => 'Password',
+    'reset-password' => 'Reset the password',
+    'remember-me' => 'Remember Me',
+    'cancel' => 'Cancel',
+    'reset' => 'Reset',
+    'rem-password' => 'I remembered the password',
+    'register' => 'Register'
+
+    'username' => 'Your name',
+    'company' => 'Company',
+    'phone' => 'Phone',
 ];

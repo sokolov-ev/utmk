@@ -35,3 +35,13 @@ if ($(window).scrollTop() > 10) {
     }
   }
 })(jQuery);
+
+$(".show-reset-pass-form").click(function(event){
+  $("#show-login-form").hide(400);
+  $("#show-reset-pass-form").show(400);
+});
+
+$(".show-login-form").click(function(event){
+  $("#show-reset-pass-form").hide(400);
+  $("#show-login-form").show(400);
+});

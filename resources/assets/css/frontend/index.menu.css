@@ -118,6 +118,7 @@
     position: relative;
     box-shadow: 0;
     padding: 0;
+    margin-left: 20px;
   }
 }
 
@@ -162,4 +163,29 @@
 .navbar-toggle:hover {
   background-color: #e1704b !important;
   color: #000;
+}
+
+.lang-block button {
+  border-radius: 0;
+  padding: 4px 12px;
+}
+.lang-block .dropdown-menu {
+  border-radius: 0;
+  margin: 0;
+}
+.lang-block .dropdown-menu > li > a {
+  padding-left: 10px;
+  padding-top: 3px;
+}
+
+.user-block {
+  display: inline-block;
+  margin: 0 7px;
+}
+.user-block .fa-user {
+  color: #39a9a4;
+}
+.user-block button {
+  border-radius: 0;
+  padding: 4px 12px;
 }
