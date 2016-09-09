@@ -19,6 +19,10 @@
 /* /Блок смены языков */
 
 /* Редактор меню */
+.menu-empty .placeholder {
+    outline: 1px dashed red;
+}
+
 .placeholder {
     height: 16px;
     outline: 1px dashed #4183C4;

@@ -28,6 +28,7 @@ class RedirectIfNotAdmin
             return redirect('/administration/login');
         }
 
+        date_default_timezone_set("Europe/Kiev");
         Admin::where('id', Auth::guard($guard)->user()->id)->update(['activity' => time()]);
 
         return $next($request);

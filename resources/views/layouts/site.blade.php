@@ -21,7 +21,7 @@
     @yield('css')
 
 </head>
-<body id="app-layout">
+<body id="app-layout" style="font-family: Roboto,sans-serif !important;">
 
 <section id="top__content" class="container-fluid">
     <div class="row margin-15">
@@ -68,12 +68,20 @@
             <div class="user-block">
                 @if (Auth::guest())
                     <button type="button" class="btn btn-default" data-target="#login-form" data-toggle="modal" type="button">
-                        <i class="fa fa-user" aria-hidden="true"></i> {{ trans('auth.login') }}
+                        <i class="fa fa-sign-in" aria-hidden="true"></i>
+                        {{ trans('auth.login') }}
                     </button>
                 @else
-
+                    <a href="{{ route('logout', request()->query()) }}" class="btn btn-default">
+                        <i class="fa fa-sign-out" aria-hidden="true"></i>
+                        {{ trans('auth.logout') }}
+                    </a>
                 @endif
             </div>
+
+            <br/>
+
+
 
         </div>
 

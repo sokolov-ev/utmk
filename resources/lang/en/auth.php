@@ -17,6 +17,7 @@ return [
     'failed' => 'Wrong email or password',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
 
+
     'login' => 'Login',
     'logout' => 'Logout',
     'login-form-title' => 'Login to my account',

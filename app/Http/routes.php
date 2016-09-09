@@ -16,6 +16,7 @@
 Route::group(['middleware' => ['web', 'language']], function () {
 
     Route::get('/', ['as' => 'index-page', 'uses' => 'Frontend\IndexController@index']);
+    // Route::get('/', ['as' => 'index-page', 'uses' => 'Frontend\IndexController@testing']);
 
     Route::get('/network-of-offices', ['as' => 'network-of-offices', 'uses' => 'Frontend\IndexController@salesNetwork']);
 
@@ -32,7 +33,7 @@ Route::group(['middleware' => ['web', 'language']], function () {
     // // Authentication Routes...
     // Route::get('/login/{locale?}', 'Auth\AuthController@showLoginForm');
     Route::post('/login', 'Auth\AuthController@login');
-    // Route::get('/logout', 'Auth\AuthController@logout');
+    Route::get('/logout', ['as' => 'logout', 'uses' => 'Auth\AuthController@logout']);
 
     // // Registration Routes...
     Route::get('/register', 'Auth\AuthController@showRegistrationForm');
@@ -113,7 +114,7 @@ Route::group(['middleware' => ['admin']], function () {
         Route::delete('/administration/menu', 'Backend\MenuController@deleteMenu');
 
     // CRUD филиалов
-        Route::get('/administration/offices/{id?}', 'Backend\OfficesController@getAll');
+        Route::get('/administration/offices/index/{id?}', 'Backend\OfficesController@getAll');
         Route::get('/administration/offices/get/{id}', 'Backend\OfficesController@getOffice');
 
         // Route::get('/administration/offices/pre/view', 'Backend\OfficesController@view');

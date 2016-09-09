@@ -103,7 +103,7 @@
                             <td>{{ json_decode($product->menu->name, true)[App::getLocale()] }}</td>
                             @if ($isAdmin)
                                 <td>
-                                    <a href="{{ url('/administration/offices/'.$product->office->id) }}"
+                                    <a href="{{ url('/administration/offices/index/'.$product->office->id) }}"
                                        title="{{ json_decode($product->office->city, true)[App::getLocale()] }}">
                                             {{ json_decode($product->office->city, true)[App::getLocale()] }}
                                     </a>

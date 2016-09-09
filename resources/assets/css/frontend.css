@@ -277,7 +277,7 @@ body {
   font-size: 14px;
 }
 
-.margin-15 { margin: 15px; }
+.margin-15 { margin: 15px 0; }
 @media(max-width: 767px) {
   .margin-15 > div { margin: 10px 0; }
 }
@@ -299,4 +299,8 @@ body {
 
 .registred-form .form-group {
   margin-bottom: 22px;
+}
+
+.user-block .btn {
+  padding: 4px 15px;
 }

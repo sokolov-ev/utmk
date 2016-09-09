@@ -46,9 +46,11 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 text-center">
+                <div class="padding-top"></div>
                 <p class="welcome-text">
                     WELCOME!
                 </p>
+                <div class="padding-top"></div>
             </div>
         </div>
 

@@ -15,6 +15,7 @@ elixir(function(mix) {
 
     // СТИЛИ ----------------------------------------
     mix.styles([
+        'aos.css',
         'frontend.css',
         'frontend/index.menu.css',
         'frontend/index.slider.css',
@@ -46,7 +47,10 @@ elixir(function(mix) {
     mix.scripts('mustache.js', 'public/js/mustache.js');
     mix.scripts('jquery-ui.js', 'public/js/jquery-ui.js');
     mix.scripts('admin.menu.js', 'public/js/menu.js');
-    mix.scripts('frontend.index.js', 'public/js/scripts.js');
+    mix.scripts([
+        'aos.js',
+        'frontend.index.js',
+    ], 'public/js/scripts.js');
     mix.scripts([
         'frontend.products.js',
         'jquery.twbsPagination.js',

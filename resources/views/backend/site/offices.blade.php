@@ -12,7 +12,7 @@
             <h3 class="box-title pull-left clearfix">Филиалы</h3>
 
             <div class="pull-right">
-                <a class="btn btn-primary btn-sm" href="{{ url('/administration/offices') }}">
+                <a class="btn btn-primary btn-sm" href="{{ url('/administration/offices/index') }}">
                     <i class="fa fa-refresh" aria-hidden="true"></i> Сбросить фильтры
                 </a>
                 <a class="btn btn-success btn-sm" href="{{ url('/administration/offices/add') }}">

@@ -5,7 +5,6 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 
 use View;
-use App\Office;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -16,7 +15,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        View::share('office_contacts', Office::getContactsData());
+        // View::share();
+        // View::composer("*", "App\Http\Composers\OfficesComposer");
     }
 
     /**

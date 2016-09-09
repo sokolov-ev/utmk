@@ -143,7 +143,7 @@ desired effect
                             </ul>
                         </li>
                         <li>
-                            <a href="{{ url('/administration/offices') }}">
+                            <a href="{{ url('/administration/offices/index') }}">
                                 <i class="fa fa-cubes"></i>
                                 <span>Филиалы</span>
                             </a>

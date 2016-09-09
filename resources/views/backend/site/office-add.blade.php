@@ -14,7 +14,7 @@
         <div class="box-body">
 
             <ol class="breadcrumb">
-                <li><a href="{{ url('administration/offices') }}">Филиалы</a></li>
+                <li><a href="{{ url('administration/offices/index') }}">Филиалы</a></li>
                 <li class="active">Новый офис</li>
             </ol>
 

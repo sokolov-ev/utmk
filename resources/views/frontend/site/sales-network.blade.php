@@ -18,6 +18,8 @@
     <div id="map" style="height: 600px; border-radius: 5px;"></div>
 </section>
 
+{{-- Список оффисов --}}
+
 <section class="container sales-list-offices">
     <div class="padding-top"></div>
     <div class="row">
@@ -38,6 +40,46 @@
         @endforeach
     </div>
 </section>
+
+{{-- <section class="container sales-list-offices">
+    <div class="padding-top"></div>
+        @foreach ($offices as $office)
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12 text-center">
+                            <h2>{{ $office['title'] }}</h2>
+                            <div class="hidden sales-office-address" data-latitude="{{ $office['latitude'] }}" data-longitude="{{ $office['longitude'] }}"></div>
+                            <p>{{ $office['address'] }}</p>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <div style="text-align: justify;">{{ $office['description'] }}</div>
+                            <div class="padding-top"></div>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <div class="row">
+                                @foreach ($office['contacts'] as $contact)
+                                    <div class="col-md-4 col-sm-4 col-xs-4 sales-office-contact">{{ trans('offices.contactType.'.$contact['type']) }}:</div>
+                                    <div class="col-md-8 col-sm-8 col-xs-8 sales-office-contact">{{ $contact['contact'] }}</div>
+                                @endforeach
+                            </div>
+                            <div class="padding-top"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="map-min" style="margin-top: 20px;">
+                        <img src="https://maps.googleapis.com/maps/api/staticmap?center={{ $office['latitude'] }},{{ $office['longitude'] }}&zoom=12&size=600x400&maptype=roadmap
+    &markers=color:red%7Clabel:{{ $office['title'] }}%7C{{ $office['latitude'] }},{{ $office['longitude'] }}&key=AIzaSyAMQhkBZnzMm8RM9L1DnfOCES5Hb2HFtW0" alt="{{ $office['address'] }}" style="width: 100%; height: auto;">
+                    </div>
+                </div>
+            </div>
+        @endforeach
+    <div class="padding-top"></div>
+</section> --}}
+
+{{-- https://maps.googleapis.com/maps/api/staticmap?center={{ $office['latitude'] }},{{ $office['longitude'] }}&zoom=7&size=600x600&maptype=roadmap
+&markers=color:blue%7Clabel:{{ $office['title'] }}%7C{{ $office['latitude'] }},{{ $office['longitude'] }}&key=AIzaSyAMQhkBZnzMm8RM9L1DnfOCES5Hb2HFtW0 --}}
 
 @endsection
 

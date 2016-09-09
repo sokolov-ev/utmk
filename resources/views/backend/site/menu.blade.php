@@ -86,7 +86,7 @@
 
             <div class="box box-warning">
                 <div class="box-header with-border">
-                    <h3 class="box-title">{{ trans('products.menu') }}</h3>
+                    <h3 class="box-title">{{ trans('products.catalog') }}</h3>
                 </div>
                 <div class="box-body root" style="min-height: 200px;">
                     <ol class="menu" id="tree" style="font-size: 17px; padding-left: 0;"></ol>

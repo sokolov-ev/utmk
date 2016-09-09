@@ -1,8 +1,8 @@
 {
-  "css/admin.css": "css/admin-bc9e651b51.css",
+  "css/admin.css": "css/admin-0946d559df.css",
   "css/fileinput.css": "css/fileinput-3c520919f0.css",
   "css/select2.css": "css/select2-a38aa0b9cf.css",
-  "css/styles.css": "css/styles-17b498543b.css",
+  "css/styles.css": "css/styles-d285f4c0b9.css",
   "js/adminlte.js": "js/adminlte-d69e976dd9.js",
   "js/fileinput.js": "js/fileinput-0e703a9781.js",
   "js/jquery-ui.js": "js/jquery-ui-e5e24bc7ad.js",
@@ -10,6 +10,6 @@
   "js/menu.js": "js/menu-acb6466c2a.js",
   "js/mustache.js": "js/mustache-b0b5685d90.js",
   "js/products.js": "js/products-03138a4453.js",
-  "js/scripts.js": "js/scripts-252300ba5f.js",
+  "js/scripts.js": "js/scripts-4531f54f8d.js",
   "js/select2.js": "js/select2-7a11634cbf.js"
 }

@@ -1,7 +1,7 @@
 @extends('layouts.site')
 
 @section('title')
-    {{ trans('index.menu.products') }}
+    {{ trans('auth.register') }}
 @endsection
 
 @section('css')
@@ -12,7 +12,7 @@
 
 <section class="container text-center">
     <div class="padding-top"></div>
-        <h1>{{ trans('auth.register') }}</h1>
+        <h1 data-aos="fade-left">{{ trans('auth.register') }}</h1>
     <div class="padding-top"></div>
 
 
@@ -71,7 +71,7 @@
 
         <div class="form-group">
             <button type="submit" class="btn btn-warning pull-right">
-                <i class="fa fa-btn fa-user"></i> Register
+                <i class="fa fa-btn fa-user"></i> {{ trans('auth.register') }}
             </button>
         </div>
     </form>

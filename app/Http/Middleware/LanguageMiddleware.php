@@ -12,9 +12,16 @@ class LanguageMiddleware
         if (in_array($request->lang, ['en', 'ru', 'uk'])) {
             App::setLocale($request->lang);
         } else {
-            App::setLocale('ru');
+            if (in_array($request->cookie('language'), ['en', 'ru', 'uk'])) {
+                App::setLocale($request->cookie('language'));
+            } else {
+                App::setLocale('ru');
+            }
         }
 
-        return $next($request);
+        $response = $next($request);
+        $response->headers->setCookie(cookie('language', App::getLocale(), 86400));
+
+        return $response;
     }
 }

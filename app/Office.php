@@ -121,11 +121,13 @@ class Office extends Model
         $result  = [];
 
         foreach ($offices as $key => $office) {
-            $temp['title']    = json_decode($office->title, true)[App::getLocale()];
-            $temp['address']  = json_decode($office->address, true)[App::getLocale()];
-            $temp['latitude'] = $office->latitude;
-            $temp['longitude']= $office->longitude;
-            $temp['contacts'] = $office->contacts->toArray();
+            $temp['title']       = json_decode($office->title, true)[App::getLocale()];
+            $temp['description'] = json_decode($office->description, true)[App::getLocale()];
+            $temp['address']     = json_decode($office->address, true)[App::getLocale()];
+            $temp['latitude']    = $office->latitude;
+            $temp['longitude']   = $office->longitude;
+            $temp['contacts']    = $office->contacts->toArray();
+
             $result[] = $temp;
         }
 
