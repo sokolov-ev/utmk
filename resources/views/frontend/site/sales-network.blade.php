@@ -31,8 +31,8 @@
                 <p>{{ $office['address'] }}</p>
                 <div class="row">
                     @foreach ($office['contacts'] as $contact)
-                        <div class="col-md-4 col-sm-4 col-xs-4 sales-office-contact">{{ trans('offices.contactType.'.$contact['type']) }}:</div>
-                        <div class="col-md-8 col-sm-8 col-xs-8 sales-office-contact">{{ $contact['contact'] }}</div>
+                        <div class="col-md-6 col-sm-6 col-xs-6 sales-office-contact">{{ trans('offices.contactType.'.$contact['type']) }}:</div>
+                        <div class="col-md-6 col-sm-6 col-xs-6 sales-office-contact">{{ $contact['contact'] }}</div>
                     @endforeach
                 </div>
                 <div class="padding-top"></div>

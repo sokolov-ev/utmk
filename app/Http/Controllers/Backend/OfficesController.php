@@ -41,7 +41,6 @@ class OfficesController extends Controller
 
         return view('backend.site.offices', [
             'offices'  => $result,
-            // 'language' => Locale::getLocaleName(),
         ]);
     }
 
@@ -64,7 +63,7 @@ class OfficesController extends Controller
             // добавляем новые контакты
             Contacts::createContacts($office->id, $request->input('contacts_type'), $request->input('contacts_data'));
             session()->flash('success', 'Филиал успешно добавлен.');
-            return redirect('/administration/offices');
+            return redirect('/administration/offices/index');
         } else {
             session()->flash('error', 'Возникла ошибка при добавлении Филиала.');
             return redirect()->back();
@@ -94,7 +93,7 @@ class OfficesController extends Controller
             // одновременно добавляем, редактируем и удаляем контакты
             Contacts::editContacts($office->id, $request->all());
             session()->flash('success', 'Данные филиала успешно сохранены.');
-            return redirect('/administration/offices');
+            return redirect('/administration/offices/index');
         } else {
             session()->flash('error', 'Возникла ошибка при сохранении данных филиала.');
             return redirect()->back();
@@ -145,9 +144,6 @@ class OfficesController extends Controller
                 $validator->errors()->add('address_ru', 'Поле "Адрес" обязательно для заполнения.');
             }
         });
-
-        // var_dump($validator->errors());
-        // exit;
 
         if ($validator->fails()) {
             session()->flash('error', $validator->errors()->first());

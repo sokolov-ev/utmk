@@ -24,65 +24,84 @@
 <body id="app-layout" style="font-family: Roboto,sans-serif !important;">
 
 <section id="top__content" class="container-fluid">
-    <div class="row margin-15">
+    <div class="margin-15">
+        <div class="row">
 
-        <div class="col-md-3 col-sm-3 col-xs-12">
-            <img src="/images/logo.jpg" title="Metall Vsem" alt="Metall Vsem" height="93px"/>
-        </div>
-        <div class="col-md-6 col-sm-6 col-xs-12">
-
-            @if(!empty($errors->first()))
-                <div class="alert alert-danger alert-dismissible" role="alert">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    {{ $errors->first() }}
-                </div>
-            @endif
-
-        </div>
-        <div class="col-md-3 col-sm-3 col-xs-12 text-center">
-
-            <div class="btn-group lang-block">
-                <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img src="/images/flags/{{ App::getLocale() }}.gif"> {{ trans('index.speech.'.App::getLocale()) }}
-                    <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu">
-                    <li>
-                        <a href="{{ request()->fullUrlWithQuery(['lang' => 'en']) }}">
-                            <img src="/images/flags/en.gif"> {{ trans('index.speech.en') }}
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ request()->fullUrlWithQuery(['lang' => 'ru']) }}">
-                            <img src="/images/flags/ru.gif"> {{ trans('index.speech.ru') }}
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ request()->fullUrlWithQuery(['lang' => 'uk']) }}">
-                            <img src="/images/flags/uk.gif"> {{ trans('index.speech.uk') }}
-                        </a>
-                    </li>
-                </ul>
+            <div class="col-md-3 col-sm-4 col-xs-12">
+                <img src="/images/logo.jpg" title="Metall Vsem" alt="Metall Vsem" height="93px"/>
             </div>
+            <div class="col-md-6 col-sm-4 col-xs-12">
 
-            <div class="user-block">
-                @if (Auth::guest())
-                    <button type="button" class="btn btn-default" data-target="#login-form" data-toggle="modal" type="button">
-                        <i class="fa fa-sign-in" aria-hidden="true"></i>
-                        {{ trans('auth.login') }}
-                    </button>
-                @else
-                    <a href="{{ route('logout', request()->query()) }}" class="btn btn-default">
-                        <i class="fa fa-sign-out" aria-hidden="true"></i>
-                        {{ trans('auth.logout') }}
-                    </a>
+                @if(!empty($errors->first()))
+                    <div class="alert alert-danger alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        {{ $errors->first() }}
+                    </div>
                 @endif
+
             </div>
+            <div class="col-md-3 col-sm-4 col-xs-12 panel-right">
 
-            <br/>
+                <div class="btn-group lang-block">
+                    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img src="/images/flags/{{ App::getLocale() }}.gif"> {{ trans('index.speech.'.App::getLocale()) }}
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-right">
+                        <li>
+                            <a href="{{ request()->fullUrlWithQuery(['lang' => 'en']) }}">
+                                <img src="/images/flags/en.gif"> {{ trans('index.speech.en') }}
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ request()->fullUrlWithQuery(['lang' => 'ru']) }}">
+                                <img src="/images/flags/ru.gif"> {{ trans('index.speech.ru') }}
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ request()->fullUrlWithQuery(['lang' => 'uk']) }}">
+                                <img src="/images/flags/uk.gif"> {{ trans('index.speech.uk') }}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
 
+        <div class="row">
+            <div class="col-md-8 col-sm-6 col-xs-12">
 
-
+            </div>
+            <div class="col-md-4 col-sm-6 col-xs-12">
+                <div class="user-block">
+                    @if (!Auth::guest())
+                        <a href="{{ route('logout', request()->query()) }}" class="">
+                            <i class="fa fa-sign-out fa-2x" aria-hidden="true"></i>
+                            {{ trans('auth.logout') }}
+                        </a>
+                        <a href="#" class="shopping-cart-button" data-target="#shopping-cart" data-toggle="modal">
+                            <i class="fa fa-cart-plus fa-2x" aria-hidden="true"></i>
+                            {{ trans('products.shopping-cart') }}
+                            @if ($user_cart > 0)
+                                <span class="shopping-cart-badge">{{ $user_cart }}</span>
+                            @else
+                                <span class="shopping-cart-badge hidden"></span>
+                            @endif
+                        </a>
+                    @endif
+                    @if (Auth::guest())
+                        <a href="#" class="" data-target="#login-form" data-toggle="modal">
+                            <i class="fa fa-sign-in fa-2x" aria-hidden="true"></i>
+                            {{ trans('auth.login') }}
+                        </a>
+                    @else
+                        <a href="#" class="">
+                            <i class="fa fa-user fa-2x" aria-hidden="true"></i>
+                            {{ trans('auth.my-office') }}
+                        </a>
+                    @endif
+                </div>
+            </div>
         </div>
 
     </div>
@@ -131,6 +150,8 @@
     @include('partial.footer')
 
     @include('partial.index-login-form')
+
+    @include('partial.shopping-cart-form')
 
 <div class="scroller">
     <i class="fa fa-arrow-circle-up" aria-hidden="true"></i>

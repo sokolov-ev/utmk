@@ -15,7 +15,7 @@ class Menu extends Model
      * @var array
      */
     protected $fillable = [
-        'parent_id', 'parent_exist', 'weight', 'name'
+        'parent_id', 'parent_exist', 'weight', 'name', 'slug'
     ];
 
     /**
@@ -42,10 +42,13 @@ class Menu extends Model
         $items = Menu::all();
 
         foreach ($items as $item) {
-            if (Menu::where('parent_id', '=', $item->id)->exists()) {
+            if (Menu::where('parent_id', $item->id)->exists()) {
                 $item->parent_exist = 1;
-                $item->update();
+            } else {
+                $item->parent_exist = 0;
             }
+
+            $item->update();
         }
     }
 }

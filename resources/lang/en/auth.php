@@ -28,10 +28,13 @@ return [
     'remember-me' => 'Remember Me',
     'cancel' => 'Cancel',
     'reset' => 'Reset',
+    'close' => 'Close',
     'rem-password' => 'I remembered the password',
-    'register' => 'Register'
+    'register' => 'Register',
 
     'username' => 'Your name',
     'company' => 'Company',
     'phone' => 'Phone',
+
+    'my-office' => 'My office',
 ];

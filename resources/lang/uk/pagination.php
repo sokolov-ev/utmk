@@ -15,5 +15,6 @@ return [
 
     'previous' => '&laquo; Назад',
     'next'     => 'Далі &raquo;',
-
+    'first'   => 'Перша',
+    'last'     => 'Остання',
 ];

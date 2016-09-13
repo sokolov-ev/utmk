@@ -67,8 +67,8 @@
                         </strong>
                         <div class="row">
                             @foreach ($office['contacts'] as $contact)
-                                <div class="col-md-2 col-sm-2 col-xs-2 text-muted">{{ $contact['type'] }}:</div>
-                                <div class="col-md-10 col-sm-10 col-xs-10 text-muted">{{ $contact['data'] }}</div>
+                                <div class="col-md-3 col-sm-3 col-xs-3 text-muted">{{ $contact['type'] }}:</div>
+                                <div class="col-md-9 col-sm-9 col-xs-9 text-muted">{{ $contact['data'] }}</div>
                             @endforeach
                         </div>
                         <hr>

@@ -2,7 +2,8 @@
 
 return [
     'menu' => 'Products',
-    'in-shoping-cart' => 'In shoping cart',
+    'shopping-cart' => 'Shopping cart',
+    'empty-cart' => 'Cart is empty',
     'add-cart' => 'Add to cart',
     'uah' => 'UAH',
 

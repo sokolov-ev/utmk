@@ -88,7 +88,7 @@ class ProductsController extends Controller
 
     public function addForm()
     {
-        $menu    = Menu::select('id', 'name AS text')->orderBy('weight', 'ASC')->get();
+        $menu    = Menu::select('id', 'name AS text')->where('parent_exist', 0)->orderBy('weight', 'ASC')->get();
         $isAdmin = Auth::guard('admin')->user()->role == Admin::ROLE_ADMIN;
         $offices = null;
 
@@ -122,7 +122,7 @@ class ProductsController extends Controller
     public function editForm($id)
     {
         $product = Products::parseData($id);
-        $menu    = Menu::select('id', 'name AS text')->orderBy('weight', 'ASC')->get();
+        $menu    = Menu::select('id', 'name AS text')->where('parent_exist', 0)->orderBy('weight', 'ASC')->get();
         $isAdmin = Auth::guard('admin')->user()->role == Admin::ROLE_ADMIN;
         $offices = null;
 

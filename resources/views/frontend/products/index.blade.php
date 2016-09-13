@@ -26,15 +26,15 @@
                     @endforeach
                 </select>
             </div>
-            <div class="col-md-3 col-sm-5 col-xs-12">
+            <div class="col-md-3 col-sm-5 col-xs-12 btn-products">
                 {{ csrf_field() }}
                 <button class="btn btn-default" type="button" onclick="searchProducts()" style="width: 50%;">
                     <i class="fa fa-search" aria-hidden="true"></i> {{ trans('products.search') }}
                 </button>
 
-                <button class="btn btn-default pull-right clearfix" type="button" onclick="searchClear()" style="width: 50%;">
+                <a href="{{ url('/products/catalog') }}" class="btn btn-default pull-right clearfix" style="width: 50%;">
                     <i class="fa fa-refresh" aria-hidden="true"></i> {{ trans('products.reset') }}
-                </button>
+                </a>
             </div>
         </div>
 
@@ -51,6 +51,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">{{ trans('products.catalog') }}</div>
                     <div class="panel-body">
+                        <div class="menu-selected hidden" data-id="{{ $menu_id }}"></div>
                         <ol class="menu" id="catalog-content"></ol>
                     </div>
                 </div>
@@ -69,35 +70,39 @@
                                 </div>
                                 <div class="caption-footer">
 
-                                    <form class="" role="form" method="POST" action="{{ url('/products/add-cart') }}" id="form-add-cart-{{ $product['id'] }}">
-                                        {{ csrf_field() }}
-                                        <input type="hidden" name="product-id" value="{{ $product['id'] }}">
-                                        <div class="shopping-cart row">
-                                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                                <?php
-                                                    $params = request()->query();
-                                                    $params['slug'] = str_slug($product['title'], '_');
-                                                    $params['id'] = $product['id'];
-                                                ?>
-                                                <a class="btn btn-default" role="button" href="{{ route('products-view', $params) }}">{{ trans('products.more') }}</a>
-                                            </div>
-
-                                            <div class="col-md-6 col-sm-6 col-xs-12 in-shoping-cart">
-                                                <button type="submit" class="btn btn-success pull-right clearfix" form="form-add-cart-{{ $product['id'] }}">
-                                                    <i class="fa fa-cart-plus" aria-hidden="true"></i>
-                                                    <div style="margin-left: 20px;">{{ trans('products.add-cart') }}</div>
-                                                </button>
-                                            </div>
+                                    <div class="shopping-cart row">
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <?php
+                                                $params = request()->query();
+                                                $params['slug'] = $product['slug'];
+                                                $params['id'] = $product['id'];
+                                            ?>
+                                            <a class="btn btn-default" role="button" href="{{ route('products-view', $params) }}">{{ trans('products.more') }}</a>
                                         </div>
-                                    </form>
+
+                                        <div class="col-md-6 col-sm-6 col-xs-12 in-shoping-cart">
+
+                                            <button type="button" class="btn btn-success pull-right clearfix add-cart" data-id="{{ $product['id'] }}">
+                                                <i class="fa fa-cart-plus" aria-hidden="true"></i>
+                                                <div style="margin-left: 20px;">{{ trans('products.add-cart') }}</div>
+                                            </button>
+
+                                        </div>
+                                    </div>
 
                                 </div>
                             </div>
                         </div>
                     @endforeach
+
+                    @if (empty($products))
+                        <div class="empty-products">{{ trans('products.catalog-enpty') }}</div>
+                    @endif
                 </div>
 
                 <div id="pagination" class="text-center"></div>
+                <div class="first hidden">{{ trans('pagination.first') }}</div>
+                <div class="last hidden">{{ trans('pagination.last') }}</div>
             </div>
         </div>
 
@@ -105,7 +110,7 @@
 </section>
 
 {{-- Подгружаем шаблон для меню --}}
-@include('partial.catalog-template')
+@include('partial.product-menu-template')
 {{-- Подгружаем шаблон для карточки продукции --}}
 @include('partial.product-card-template')
 
@@ -119,7 +124,8 @@
 
     <script type="text/javascript">
         var pageSize = 2;
-        var query = [];
+        var query    = [];
+        var url      = '';
 
         $(".products").addClass('active');
 
@@ -129,10 +135,11 @@
             }
         });
 
-        $.get('/products/menu', function(response){
+        $.get('/products/get-menu', function(response){
             if (response.status == 'ok') {
                 $('#catalog-content').empty();
-                var template = $('#catalog-template').html();
+                var selected = $('.menu-selected').data('id');
+                var template = $('#product-menu-template').html();
                 Mustache.parse(template);
 
                 $.each(response.data, function(key, item){
@@ -144,6 +151,14 @@
                         $('#catalog-content').append(Mustache.render(template, item));
                     }
                 });
+
+                if (selected) {
+                    $("#" + selected + " span").addClass('active');
+                    $.each($("#" + selected).parents("li"), function(key, val){
+                        $(val).children('ol').slideDown(200);
+                        $(val).children('i').addClass("fa-angle-down").removeClass("fa-angle-right");
+                    });
+                }
             } else {
                 $('#catalog-content').empty();
                 $('#catalog-content').text(response.message);
@@ -160,10 +175,18 @@
                     $(this).siblings('i').removeClass("fa-angle-down").addClass("fa-angle-right");
                 }
             } else {
-                var id = $(this).closest('li').attr('id');
+                var id   = $(this).closest('li').attr('id');
+                var slug = $(this).closest('li').data('slug');
+
+                $('.menu-item').removeClass('active');
+                $(this).addClass('active');
+
+                url   = '/products/catalog/' + slug + '/' + id;
                 query = 'menu=' + id;
-                $.get('/products/catalog?' + query, function(response){
+
+                $.get('/products/get-catalog?' + query, function(response){
                     viewProducts(response);
+                    ChangeUrl(id, url);
                 });
             }
         });
@@ -176,7 +199,7 @@
 
         function searchProducts()
         {
-            var id = $("#product-city").val();
+            var id   = $("#product-city").val();
             var name = $("#product-name").val();
 
             if ((name != undefined) && (name != '')) {
@@ -185,7 +208,7 @@
                     query += '&id=' + id;
                 }
 
-                $.get('/products/catalog?' + query, function(response){
+                $.get('/products/get-catalog?' + query, function(response){
                     viewProducts(response);
                 });
             }
@@ -193,17 +216,7 @@
             return true;
         }
 
-        function searchClear()
-        {
-            query = '';
-
-            $.get('/products/catalog', function(response){
-                viewProducts(response);
-            });
-        }
-
         function viewProducts(response) {
-
             if (response.status == 'ok') {
                 $('.products-cards').empty();
                 var template = $('#product-card-template').html();
@@ -215,23 +228,29 @@
                 });
 
                 fixHeight();
+
+                if (response.data.length != pageSize) {
+                    initPagination(response.count);
+                }
             } else {
                 $('.products-cards').empty();
                 $('.products-cards').html('<div class="empty-products">' + response.message + '</div>');
-            }
-
-            if (response.count > pageSize) {
-                initPagination(response.count);
-            } else {
                 $('#pagination').twbsPagination('destroy');
-                // $('#pagination').empty();
+            }
+        }
+
+        function ChangeUrl(title, url) {
+            if (typeof (history.pushState) != "undefined") {
+                var obj = { Title: title, Url: url };
+                history.pushState(obj, obj.Title, obj.Url);
+            } else {
+                alert("Browser does not support HTML5.");
             }
         }
 
         $(window).on('load resize', function(event){
             fixHeight();
         });
-
 
         function fixHeight()
         {
@@ -262,36 +281,39 @@
         {
             pages = Math.ceil(count/pageSize);
 
-            var first = '';
-            var last  = '';
-
-            // if ($('.djc_pagination > .pagination > .first > span').text()) {
-            //     first = $('.djc_pagination > .pagination > .first > span').text();
-            // } else {
-            //     first = $('.djc_pagination > .pagination > .first > a').text();
-            // }
-
-            // if ($('.djc_pagination > .pagination > .last > span').text()) {
-            //     last = $('.djc_pagination > .pagination > .last > span').text();
-            // } else {
-            //     last = $('.djc_pagination > .pagination > .last > a').text();
-            // }
-
-
             $('#pagination').twbsPagination({
                 totalPages: pages,
                 visiblePages: 5,
-                // first: first,
+                first: $('.first').text(),
                 prev: '«',
                 next: '»',
-                // last: last,
+                last: $('.last').text(),
                 onPageClick: function (event, page) {
-                    $.get('/products/catalog?' + query + '&page=' + page, function(response){
+                    $.get('/products/get-catalog?' + query + '&page=' + page, function(response){
                         viewProducts(response);
+                        url += '&page=' + page;
+                        ChangeUrl('', url);
                     });
                 }
             });
         }
+
+        $(".products-cards").on('click', '.add-cart', function(event){
+            var id = $(this).data('id');
+
+            $.post('/products/add-cart-ajax', {id: id}, function(response){
+                console.log(response);
+                if (response.status == 'ok') {
+                    if (response.data > 0) {
+                        $(".shopping-cart-badge").removeClass("hidden");
+                        $(".shopping-cart-badge").text(response.data);
+                    } else {
+                        $(".shopping-cart-badge").addClass("hidden");
+                        $(".shopping-cart-badge").text('');
+                    }
+                }
+            });
+        });
     </script>
 @endsection
 

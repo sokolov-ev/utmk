@@ -2,7 +2,8 @@
 
 return [
     'menu' => 'Продукція',
-    'in-shoping-cart' => 'В кошик',
+    'shopping-cart' => 'Кошик',
+    'empty-cart' => 'Кошик порожній',
     'add-cart' => 'В кошик',
     'uah' => 'грн',
 

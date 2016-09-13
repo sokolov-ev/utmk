@@ -304,7 +304,7 @@
                                         <div>
                                             <select id="" name="contacts_type[]" class="form-control contacts-type">
                                                 @foreach($contactType as $key => $type)
-                                                    @if ($key == old('contacts_type.'.$i, $type))
+                                                    @if ($key == old('contacts_type.'.$i, $contacts['type'][$i]))
                                                         <option value="{{$key}}" selected="">{{ trans('offices.contactType.'.$type) }}</option>
                                                     @else
                                                         <option value="{{$key}}">{{ trans('offices.contactType.'.$type) }}</option>

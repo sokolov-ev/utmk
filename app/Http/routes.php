@@ -20,22 +20,21 @@ Route::group(['middleware' => ['web', 'language']], function () {
 
     Route::get('/network-of-offices', ['as' => 'network-of-offices', 'uses' => 'Frontend\IndexController@salesNetwork']);
 
-    // Отображение продукции
-    Route::get('/products', ['as' => 'products-index', 'uses' => 'Frontend\ProductsController@index']);
+// Отображение продукции
+    Route::get('/products/catalog/{slug?}/{id?}', ['as' => 'products-index', 'uses' => 'Frontend\ProductsController@index']);
     // AJAX подгружаем меню
-    Route::get('/products/menu', 'Frontend\ProductsController@getMenu');
+    Route::get('/products/get-menu', 'Frontend\ProductsController@getMenu');
     // AJAX подгружаем продукцию (menu, name, city, page)
-    Route::get('/products/catalog', 'Frontend\ProductsController@catalogProducts');
-
-
+    Route::get('/products/get-catalog', 'Frontend\ProductsController@catalogProducts');
     Route::get('/products/details/{slug}/{id}', ['as' => 'products-view', 'uses' => 'Frontend\ProductsController@view']);
+    Route::post('/products/add-cart-ajax', 'Frontend\ProductsController@addCartAjax');
+    Route::post('/products/add-cart', 'Frontend\ProductsController@addCart');
 
-    // // Authentication Routes...
-    // Route::get('/login/{locale?}', 'Auth\AuthController@showLoginForm');
+// Authentication Routes...
     Route::post('/login', 'Auth\AuthController@login');
     Route::get('/logout', ['as' => 'logout', 'uses' => 'Auth\AuthController@logout']);
 
-    // // Registration Routes...
+    // Registration Routes...
     Route::get('/register', 'Auth\AuthController@showRegistrationForm');
     Route::post('/register', 'Auth\AuthController@register');
 

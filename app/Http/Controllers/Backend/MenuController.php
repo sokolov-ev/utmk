@@ -48,6 +48,7 @@ class MenuController extends Controller
 
         $menu = Menu::create([
             'name' => json_encode($array, JSON_UNESCAPED_UNICODE),
+            'slug' => str_slug($array['en'], '_'),
         ]);
 
         if ($menu) {
@@ -72,6 +73,7 @@ class MenuController extends Controller
         $array['uk'] = $request->input('menu-uk');
 
         $item->name = json_encode($array, JSON_UNESCAPED_UNICODE);
+        $item->slug = str_slug($array['en'], '_');
 
         if ($item->update()) {
             return response()->json(['status' => 'ok', 'message' => 'Пункт меню изменен.']);

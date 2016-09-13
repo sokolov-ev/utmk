@@ -17,7 +17,7 @@ class Products extends Model
      * @var array
      */
     protected $fillable = [
-        'menu_id', 'office_id', 'title', 'description', 'price', 'rating', 'show_my', 'creator_id'
+        'menu_id', 'office_id', 'slug', 'title', 'description', 'price', 'rating', 'show_my', 'creator_id'
     ];
 
     /**
@@ -91,7 +91,7 @@ class Products extends Model
         return $array;
     }
 
-    // создание / редактирование продукции
+    // создание|редактирование продукции
     public static function actionProduct($id, $data)
     {
         if (empty($id)) {
@@ -103,6 +103,14 @@ class Products extends Model
 
         $product->menu_id = $data['menu_id'];
         $product->office_id = $data['office_id'];
+
+        if (!empty($data['title_en'])) {
+            $product->slug = str_slug($data['title_en'], '_');
+        } elseif (!empty($data['title_ru'])) {
+            $product->slug = str_slug($data['title_ru'], '_');
+        } elseif (!empty($data['title_uk'])) {
+            $product->slug = str_slug($data['title_en'], '_');
+        }
 
         $array['en'] = $data['title_en'];
         $array['ru'] = $data['title_ru'];
@@ -148,12 +156,8 @@ class Products extends Model
         foreach ($products as $product) {
             $temp = Products::toArrayProduct($product);
 
-            $temp['images']      = 'images/products/'.$temp['images'][0]['name'];
+            $temp['images']      = '/images/products/'.$temp['images'][0]['name'];
             $temp['description'] = str_limit($temp['description'], 250, '...');
-            $temp['slug']        = str_slug($temp['title'], '_');
-            // да! избыточно!
-            $temp['work_more']     = trans('products.more');
-            $temp['work_add_card'] = trans('products.add-cart');
 
             $result[] = $temp;
         }
@@ -168,6 +172,8 @@ class Products extends Model
 
         $array['images'] = $product->images->toArray();
         $array['office'] = $product->office->toArray();
+
+        $array['slug']   = $product->slug;
 
         $title = json_decode($product->title, true);
         $title = array_filter($title);

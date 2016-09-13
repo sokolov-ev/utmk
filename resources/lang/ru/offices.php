@@ -11,6 +11,7 @@ return [
     'contactType' => [
         'mobile' => 'Мобильный',
         'phone' => 'Городской',
+        'accounting-tel' => 'Тел. бухгалтерии',
         'email' => 'E-mail',
         'skype' => 'Skype',
     ],

@@ -16,8 +16,9 @@ class ComposerServiceProvider extends ServiceProvider
     public function boot()
     {
 
-        View::composer("layouts.site", "App\Http\Composers\LanguageComposer");
+        // View::composer("layouts.site", "App\Http\Composers\LanguageComposer");
         View::composer("layouts.site", "App\Http\Composers\OfficesComposer");
+        View::composer("layouts.site", "App\Http\Composers\UserCartComposer");
     }
 
     /**

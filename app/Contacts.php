@@ -36,6 +36,7 @@ class Contacts extends Model
         return [
             'mobile' => 'mobile',
             'phone'  => 'phone',
+            'accounting-tel' => 'accounting-tel',
             'email'  => 'email',
             'skype'  => 'skype',
         ];
