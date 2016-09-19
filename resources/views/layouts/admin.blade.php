@@ -88,9 +88,11 @@ desired effect
                         <!-- Messages: style can be found in dropdown.less-->
                         <li class="dropdown messages-menu">
                             <!-- Menu toggle button -->
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <a href="{{ url('/administration/orders') }}">
                                 <i class="fa fa-file-text-o"></i>
-                                <span class="label label-danger">4</span>
+                                @if ($unprocessed_orders > 0)
+                                    <span class="label label-danger">{{ $unprocessed_orders }}</span>
+                                @endif
                             </a>
 
                         </li>
@@ -171,7 +173,7 @@ desired effect
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="{{ url('/administration/orders') }}">
                             <i class="fa fa-file-text-o"></i>
                             <span>Заказы</span>
                         </a>

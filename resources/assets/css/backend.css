@@ -94,6 +94,11 @@
 
 .breadcrumb { background-color: #ecf0f5; }
 
+.dataTable {
+  font-size: 14px;
+  font-weight: 400;
+}
+
 .dataTable select.form-control,
 .dataTable input.form-control {
   height: 28px;
@@ -194,4 +199,10 @@
 
 .load-data {
   cursor: pointer;
+}
+
+div.dataTables_length select {
+  font-size: 14px;
+  height: 28px;
+  padding: 3px 12px;
 }

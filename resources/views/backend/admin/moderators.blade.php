@@ -116,45 +116,41 @@
     <script src="{{ elixir('js/select2.js') }}"></script>
 
     <script>
-        // $('table').DataTable({
-        //     // "ajax": "/administration/get-moderators",
-        //     // "columns": [
-        //     //     { "data": "username" },
-        //     //     { "data": "region" },
-        //     //     { "data": "email" },
-        //     //     { "data": "role" },
-        //     //     { "data": "status" },
-        //     //     { "data": "activity" },
-        //     //     { "data": "date_created" },
-        //     //     // { "data": "buttons" },
-        //     // ],
-
-        //     "paging": false,
-        //     "lengthChange": true,
-        //     "searching": false,
-        //     "ordering": true,
-        //     "info": false,
-        //     "autoWidth": false,
-        //     "bSortCellsTop": true
-        // });
-
         var table = $('table').DataTable({
                         "paging": false,
                         "lengthChange": true,
-                        // "searching": false,
                         "ordering": true,
                         "info": false,
                         "autoWidth": false,
                         "bSortCellsTop": true,
                         "language": {
-                            "sEmptyTable": "Нет записей...",
-                        }
+                            "processing": "Подождите...",
+                            "search": "Поиск:",
+                            "lengthMenu": "Показать _MENU_ записей",
+                            "info": "Записи с _START_ до _END_ из _TOTAL_ записей",
+                            "infoEmpty": "Записи с 0 до 0 из 0 записей",
+                            "infoFiltered": "(отфильтровано из _MAX_ записей)",
+                            "infoPostFix": "",
+                            "loadingRecords": "Загрузка записей...",
+                            "zeroRecords": "Записи отсутствуют.",
+                            "emptyTable": "В таблице отсутствуют данные",
+                            "paginate": {
+                                "first": "Первая",
+                                "previous": "Предыдущая",
+                                "next": "Следующая",
+                                "last": "Последняя"
+                            },
+                            "aria": {
+                                "sortAscending": ": активировать для сортировки столбца по возрастанию",
+                                "sortDescending": ": активировать для сортировки столбца по убыванию"
+                            }
+                        },
                     });
 
         $("#moderators-table_filter").hide();
 
-        $(table.table().container() ).on('keyup change', '#filter-table input, #filter-table select', function () {
-            table.column( $(this).data('index') )
+        $('table').on('keyup change', '#filter-table input, #filter-table select', function(event) {
+            table.column( $(this).closest('td').index() )
                  .search( this.value )
                  .draw();
         });

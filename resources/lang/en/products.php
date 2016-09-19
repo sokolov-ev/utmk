@@ -16,4 +16,12 @@ return [
     'products-missing' => 'Products missing',
     'select-city' => 'Select a city',
     'reset' => 'Reset',
+
+    'finish-order' => 'Finish order',
+    'sum' => 'Sum',
+    'total' => 'Total',
+
+    'wish' => 'Wish',
+
+    'order-not-found' => 'Order not found',
 ];

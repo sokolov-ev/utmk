@@ -1,14 +1,128 @@
-// AOS.init();
-
-    // AOS.init({
-    //   startEvent: 'load'
-    // });
-
-
 $(document).ready(function(){
     AOS.init({duration: 1000,});
+
+    $("#shopping-cart").on("show.bs.modal", function (event) {
+        $.get("/products/get-order-data", function(response){
+            if (response.status == "ok") {
+                $(".load-block").addClass("hidden");
+
+                var count = response.data.length;
+                if (count > 0) {
+                    $(".cart-empty").addClass('hidden');
+                    $(".content-block").removeClass('hidden');
+                    $(".block-total-price").removeClass('hidden');
+                    $("#shopping-cart button[type='submit']").removeClass('hidden');
+                    $(".product-list").empty();
+
+                    var template = $('#shopping-cart-product').html();
+                    Mustache.parse(template);
+
+                    $.each(response.data, function(key, product){
+                        product.work_price = product.price * product.quantity;
+                        product.work_id = key;
+
+                        $(".product-list").append(Mustache.render(template, product));
+                        $(".product-list").append('<hr/>');
+                    });
+
+                    totalSum();
+                } else {
+                    $(".empty-block").removeClass("hidden");
+                }
+            } else if ( (response.status == "bad") && (response.auth)){
+                $("#shopping-cart").modal('hide');
+
+                $(".not-auth-user").removeClass('hidden');
+                $(".not-auth-user").html('<p><b>' + response.message + '</p></b>');
+                $("#login-form").modal('show');
+            }
+        });
+    });
+
+    $("[data-target='#login-form']").click(function (event) {
+        $(".not-auth-user").addClass('hidden');
+    });
+
+    $("body").on('click', ".cart-quantity-minus", function(event){
+        var id    = $(this).next("input").data('id');
+        var count = +$(this).next("input").val();
+        var price = $(this).next("input").data('price');
+        var bonds = $(this).next("input").data('bonds');
+
+        if (count > 1) {
+            $(this).next("input").val(--count);
+            $("#sum-price-" + id).html(price * count);
+            changeCountProduct(bonds, count);
+        }
+
+        totalSum();
+    });
+
+    $("body").on('click', ".cart-quantity-plus", function(event){
+        var id    = $(this).prev("input").data('id');
+        var count = +$(this).prev("input").val();
+        var price = $(this).prev("input").data('price');
+        var bonds = $(this).prev("input").data('bonds');
+
+        $(this).prev("input").val(++count);
+        $("#sum-price-" + id).html(price * count);
+
+        changeCountProduct(bonds, count);
+        totalSum();
+    });
+
+    $("body").on('change keyup', ".quantity", function(event){
+        var bonds = $(this).data('bonds');
+
+        this.value = this.value.replace(/[^0-9]/g, '');
+        if ( (this.value == '') || (this.value < 1) ) {
+            this.value = 1;
+        }
+
+        changeCountProduct(bonds, this.value);
+        totalSum();
+    });
 });
 
+function changeCountProduct(id, count)
+{
+    $.post('/products/change-count-products', {id: id, count: count}, function(response){});
+}
+
+function totalSum()
+{
+    var sum = 0;
+    $.each($('.sum-price'), function(key, price){
+        sum += +$(price).text();
+    });
+
+    $(".total-price").text(sum);
+}
+
+function deleteProduct(id)
+{
+    $.post('/products/remove-product-to-cart', {id: id}, function(response){
+        if (response.status == 'ok') {
+
+            if (response.data > 0) {
+                $(".shopping-cart-badge").removeClass("hidden");
+                $(".shopping-cart-badge").text(response.data);
+            } else {
+                $(".shopping-cart-badge").addClass("hidden");
+                $(".shopping-cart-badge").text('');
+            }
+
+            $("#bonds-" + id).next("hr").remove();
+            $("#bonds-" + id).remove();
+        }
+    });
+}
+
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('input[name="_token"]').val(),
+    }
+});
 
 /* перемотка в верх */
 $(window).scroll(function () {
@@ -57,3 +171,4 @@ $(".show-login-form").click(function(event){
   $("#show-reset-pass-form").hide(400);
   $("#show-login-form").show(400);
 });
+

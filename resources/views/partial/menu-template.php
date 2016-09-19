@@ -1,6 +1,6 @@
 <script id="menu-template" type="text/x-handlebars-template">
 
-    <li class="sub-menu menu-down" id="{{id}}" parent="{{parent_id}}" sort="{{sort}}">
+    <li class="sub-menu menu-down" id="{{id}}" parent="{{parent}}" sort="{{sort}}">
         <i class="fake-width"></i>
         <span class="menu-item">{{name}}</span>
         <button class="btn btn-default btn-xs btn-delete" data-id="{{id}}" data-name="{{name}}" data-target="#modalDeleteItem" data-toggle="modal">

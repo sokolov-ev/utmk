@@ -18,11 +18,13 @@ class CreateUsersTable extends Migration
             $table->string('company');
             $table->string('email')->unique();
             $table->string('phone')->unique();
+            $table->text('note_user');
             $table->integer('activity')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->integer('created_at');
             $table->integer('updated_at');
+            $table->softDeletes();
         });
     }
 

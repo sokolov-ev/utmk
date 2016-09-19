@@ -27,6 +27,11 @@ class OrdersProducts extends Model
 
     protected $dateFormat = 'U';
 
+    public function products()
+    {
+        return $this->belongsTo('App\Products', 'product_id', 'id');
+    }
+
     // this is a recommended way to declare event handlers
     protected static function boot()
     {

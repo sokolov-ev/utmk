@@ -48,6 +48,7 @@ elixir(function(mix) {
     mix.scripts('jquery-ui.js', 'public/js/jquery-ui.js');
     mix.scripts('admin.menu.js', 'public/js/menu.js');
     mix.scripts([
+        'mustache.js',
         'aos.js',
         'frontend.index.js',
     ], 'public/js/scripts.js');

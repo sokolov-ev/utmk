@@ -93,7 +93,7 @@ class ProductsController extends Controller
         $city = $request->input('city');
         $page = $request->input('page')-1;
 
-        $count = 2;
+        $count = 20;
         $page  = empty($page) ? 0 : $count*$page;
         // top products
         $where = [['show_my', '1']];
@@ -129,7 +129,7 @@ class ProductsController extends Controller
         }
     }
 
-    public function addCartAjax(Request $request)
+    public function productToCart(Request $request)
     {
         if (Auth::guard(null)->check()) {
             $id = $request->input('id');
@@ -167,7 +167,111 @@ class ProductsController extends Controller
             }
 
         } else {
-            return response()->json(['status' => 'bad', 'message' => 'not auth']);
+            return response()->json(['status' => 'bad', 'message' => trans('auth.not-auth'), 'auth' => true]);
+        }
+    }
+
+    public function getProductsCart()
+    {
+        if (Auth::guard(null)->check()) {
+
+            $order = Orders::where([['user_id', Auth::guard(null)->user()->id], ['formed', 0]])->first();
+            $products = $order->products()->get();
+            $products = Products::viewDataAll($products);
+            $result = [];
+
+            foreach ($products as $key => $product) {
+                $product['office'] = json_decode($product['office']['city'], true)[App::getLocale()];
+                $result[] = array_except($product, ['description', 'menu_id']);
+            }
+
+            return response()->json(['status' => 'ok', 'data' => $result]);
+        } else {
+            return response()->json(['status' => 'bad', 'message' => trans('auth.not-auth'), 'auth' => true]);
+        }
+    }
+
+    public function countProductCart(Request $request)
+    {
+        if (Auth::guard(null)->check()) {
+
+            $order = Orders::where([['user_id', Auth::guard(null)->user()->id], ['formed', 0]])->first();
+
+            $id = $request->input('id');
+            $count = $request->input('count');
+
+            if (empty($order) || empty($id) || empty($count)) {
+                return response()->json(['status' => 'bad', 'message' => trans('order-not-found')]);
+            }
+
+            $attitude = $order->attitude()->where('id', $id)->first();
+
+            if (empty($attitude)) {
+                return response()->json(['status' => 'bad', 'message' => trans('order-not-found')]);
+            }
+
+            $attitude->quantity = $count;
+
+            if ($attitude->update()) {
+                return response()->json(['status' => 'ok']);
+            } else {
+                return response()->json(['status' => 'bad']);
+            }
+        } else {
+            return response()->json(['status' => 'bad', 'message' => trans('auth.not-auth'), 'auth' => true]);
+        }
+    }
+
+    public function deleteProductCart(Request $request)
+    {
+        if (Auth::guard(null)->check()) {
+
+            $order = Orders::where([['user_id', Auth::guard(null)->user()->id], ['formed', 0]])->first();
+            $id = $request->input('id');
+
+            if (empty($order) || empty($id)) {
+                return response()->json(['status' => 'bad', 'message' => trans('order-not-found')]);
+            }
+
+            $attitude = $order->attitude()->where('id', $id)->first();
+
+            if (empty($attitude)) {
+                return response()->json(['status' => 'bad', 'message' => trans('order-not-found')]);
+            }
+
+            if ($attitude->delete()) {
+                return response()->json(['status' => 'ok', 'data' => $order->attitude()->count()]);
+            } else {
+                return response()->json(['status' => 'bad']);
+            }
+        } else {
+            return response()->json(['status' => 'bad', 'message' => trans('auth.not-auth'), 'auth' => true]);
+        }
+    }
+
+    public function formedOrder(Request $request)
+    {
+        if (Auth::guard(null)->check()) {
+
+            $order = Orders::where([['user_id', Auth::guard(null)->user()->id], ['formed', 0]])->first();
+            $wish  = $request->input('wish');
+            $contacts = $request->input('contacts');
+
+            if (empty($order)) {
+                return redirect('/');
+            }
+
+            $order->formed   = 1;
+            $order->wish     = $wish;
+            $order->contacts = $contacts;
+
+            if ($order->update()) {
+                return redirect('/');
+            } else {
+                return redirect('/');
+            }
+        } else {
+            return redirect('/');
         }
     }
 }

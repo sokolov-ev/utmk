@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 
+use DB;
 use App;
 use Auth;
 use Validator;
@@ -17,6 +18,7 @@ use App\Locale;
 use App\Office;
 use App\Images;
 use App\Products;
+use App\DataTable;
 
 class ProductsController extends Controller
 {
@@ -29,38 +31,70 @@ class ProductsController extends Controller
 
     public function filtering(Request $request)
     {
-        var_dump($request->all());
+        $count = empty($request->get("length")) ? 10 : $request->get("length");
+        $page  = $count * $request->get("start");
+        $isAdmin = Auth::guard('admin')->user()->role == Admin::ROLE_ADMIN;
 
-        // $result = [];
-        // $role = Admin::getRoleTable();
-        // $status = Admin::getStatus();
-        // $moderators = Admin::all();
+        list($orderName, $orderDir) = DataTable::getOrderProducts($request->all());
+        $where = DataTable::getSearchProducts($request->all());
 
-        // foreach ($moderators as $key => $moderator) {
-        //     $moderator->buttons  = '
-        //         <button class="btn btn-default btn-sm"><i class="fa fa-pencil" aria-hidden="true"></i></button>
-        //         <button class="btn btn-danger btn-sm"
-        //                 data-target=".delete-moderator"
-        //                 data-toggle="modal"
-        //                 data-id="'.$moderator->id.'"
-        //                 data-name="'.$moderator->username.'">
-        //             <i class="fa fa-trash-o" aria-hidden="true"></i>
-        //         </button>';
-        //     $moderator->role = $role[$moderator->role];
-        //     $moderator->status = empty($moderator->status) ? '<i class="text-danger">(нет данных)</i>' : $status[$moderator->status];
-        //     $moderator->activity = empty($moderator->activity) ? '<i class="text-danger">(нет данных)</i>' : date('H:i d-m-Y', +$moderator->activity);
-        //     $moderator->date_created = date('d-m-Y', $moderator->created_at->getTimestamp());
-        //     $result[] = $moderator;
-        // }
+        if (!$isAdmin) {
+            $where[] = ["products.office_id", Auth::guard('admin')->user()->office_id];
+        }
 
-        // return '{"data":'.json_encode($result, JSON_UNESCAPED_UNICODE).'}';
+        $products = DB::table('products')
+                      ->select('products.*', 'admins.username AS mod_name', 'menu.name AS menu_name', 'offices.city AS off_city')
+                      ->join('menu', 'menu.id', '=', 'products.menu_id')
+                      ->join('offices', 'offices.id', '=', 'products.office_id')
+                      ->join('admins', 'admins.id', '=', 'products.creator_id')
+                      ->where($where)
+                      ->orderBy($orderName, $orderDir)
+                      ->take($count)
+                      ->skip($page)
+                      ->get();
+
+        $result = [];
+        $totalData = Products::count();
+        $totalFiltered = $totalData;
+
+        foreach ($products as $product) {
+            $temp["id"]   = (string) $product->id;
+            $temp["menu"] = json_decode($product->menu_name, true)[App::getLocale()];
+
+            if ($isAdmin) {
+                $cityName = json_decode($product->off_city, true)[App::getLocale()];
+                $temp["office"]  = '<a href="/administration/offices/index/'.$product->office_id.'" title="'.$cityName.'">'.$cityName.'</a>';
+
+                $temp["creator"] = '<a href="/administration/moderators/'.$product->creator_id.'" title="'.$product->mod_name.'">'.$product->mod_name.'</a>';
+            } else {
+                $temp["creator"] = $product->mod_name;
+            }
+
+            $temp["title"]      = str_limit(json_decode($product->title, true)[App::getLocale()], 27, '...');
+            $temp["price"]      = $product->price;
+            $temp["rating"]     = $product->rating;
+            $temp["show_my"]    = $product->show_my ? 'Да' : 'Нет';
+            $temp["created_at"] = empty($product->created_at) ? "<i class='text-danger'>(нет данных)</i>" : date("Y-m-d H:i", $product->created_at);
+
+            $result[] = $temp;
+        }
+
+        $totalFiltered = count($result);
+
+        return response()->json([
+            "status" => "ok",
+            "draw" => $request->get("draw"),
+            "recordsTotal" => (string) $totalData,
+            "recordsFiltered" => (string) $totalFiltered,
+            "data" => $result,
+        ]);
     }
 
     public function getAll()
     {
         $menu = [];
         $city = [];
-        $pageSize = 100;
+        $pageSize = 50;
         $isAdmin  = Auth::guard('admin')->user()->role == Admin::ROLE_ADMIN;
 
         if ($isAdmin) {
@@ -70,8 +104,8 @@ class ProductsController extends Controller
         }
 
         foreach ($products as $key => $product) {
-            $menu[] = json_decode($product->menu->name, true)[App::getLocale()];
-            $city[] = json_decode($product->office->city, true)[App::getLocale()];
+            $menu[$product->menu_id]   = json_decode($product->menu->name, true)[App::getLocale()];
+            $city[$product->office_id] = json_decode($product->office->city, true)[App::getLocale()];
         }
 
         $menu = array_unique($menu);
@@ -81,7 +115,6 @@ class ProductsController extends Controller
             'language' => Locale::getLocaleName(),
             'menu'     => $menu,
             'city'     => $city,
-            'products' => $products,
             'isAdmin'  => $isAdmin,
         ]);
     }
@@ -313,12 +346,12 @@ class ProductsController extends Controller
         return response()->json(['status' => 'ok', 'data' => $product]);
     }
 
-    public function view()
-    {
-        $product = Products::viewData(3);
+    // public function view()
+    // {
+    //     $product = Products::viewData(3);
 
-        return view('backend.site.product-view', [
-            'product' => $product,
-        ]);
-    }
+    //     return view('backend.site.product-view', [
+    //         'product' => $product,
+    //     ]);
+    // }
 }

@@ -8,7 +8,7 @@ class Orders extends Model
 {
     const STATUS_NOT_ACCEPTED = 0;
     const STATUS_ACCEPTED = 1;
-    const STATUS_CLOSED = 0;
+    const STATUS_CLOSED = 2;
 
     protected $table = 'orders';
 
@@ -29,6 +29,16 @@ class Orders extends Model
     protected $hidden = [];
 
     protected $dateFormat = 'U';
+
+    public function attitude()
+    {
+        return $this->hasMany('App\OrdersProducts', 'order_id', 'id');
+    }
+
+    public function products()
+    {
+        return $this->belongsToMany('App\Products', 'orders_products', 'order_id', 'product_id')->withPivot('quantity', 'id');
+    }
 
     // this is a recommended way to declare event handlers
     protected static function boot()

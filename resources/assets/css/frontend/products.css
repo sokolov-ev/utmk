@@ -50,12 +50,12 @@
   margin: 0;
 }
 
-.card-price {
-  background: #fff3b5 none repeat scroll 0 0;
+.card-price,
+.card-sum-price {
   border: 1px solid transparent;
   border-radius: 4px;
   display: inline-block;
-  margin-right: 0.5em;
+  /*margin-right: 0.5em;*/
   padding: 7px 7px 5px;
   font-size: 1.38462em;
   font-weight: 600;
@@ -63,34 +63,54 @@
   white-space: nowrap;
   width: auto;
 }
+.card-price {
+  background: #fff3b5 none repeat scroll 0 0;
+}
+.modal-footer .card-price {
+  background: #fff3b5 none repeat scroll 0 0;
+  border-radius: 0 0 4px 4px;
+  position: relative;
+  top: -15px;
+}
 
-.card-price .card-price-uah {
+.card-price-text {
+  position: relative;
+  top: -15px;
+  display: inline;
+  font-size: 18px;
+}
+
+.price-total div:first-child { display: inline-block; }
+
+.total-price { display: inline-block; }
+
+.card-price .card-price-uah,
+.card-sum-price .card-price-uah {
   font-size: 0.66667em;
   line-height: 1em;
   font-weight: 300;
 }
-
 .shopping-cart input {
-  box-sizing: content-box;
-  display: inline-block;
-  font-size: 18px;
-  height: 20px;
-  text-align: center;
-  width: 50px;
   border: 1px solid #c2c2cc;
   border-radius: 3px;
   box-shadow: 3px 3px 1px 0 #eeeeef inset;
-  padding: 0.33333em;
+  box-sizing: content-box;
+  display: inline-block;
+  font-size: 1.38462em;
+  height: 20px;
+  padding: 6px;
   resize: none;
+  text-align: center;
+  width: 45px;
 }
 
-@media(max-width: 767px) {
+/*@media(max-width: 767px) {
   .shopping-cart div:first-child { text-align: right; padding-bottom: 10px; }
-}
+}*/
 
 .cart-quantity { text-align: center; }
 @media(max-width: 767px) {
-  .cart-quantity { text-align: right; margin-bottom: 8px; margin-top: 10px; }
+  .cart-quantity { text-align: right; }
 }
 
 .in-shoping-cart { text-align: right; }
@@ -105,6 +125,28 @@
   left: 5px;
   position: absolute;
   top: 7px;
+}
+@media(max-width: 767px) {
+  .in-shoping-cart .fa { font-size: 23px; top: 6px; }
+}
+
+.shopping-cart-button {
+  position: relative;
+}
+
+.shopping-cart-badge {
+  background: #e1704b none repeat scroll 0 0;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 18px;
+  height: 22px;
+  line-height: 22px;
+  position: absolute;
+  right: 11px;
+  text-align: center;
+  top: -8px;
+  width: 22px;
+  z-index: 1;
 }
 
 .cart-quantity-minus,
@@ -168,4 +210,33 @@
 .btn-products .btn {
   font-size: 14px;
   padding: 6px 12px;
+}
+
+.product-list h4 {
+  margin-bottom: 5px;
+  margin-top: 0;
+}
+
+.count-products { padding: 0; }
+@media(max-width: 767px) {
+  .count-products { padding: 0 15px; }
+}
+
+.product-list .row {
+  position: relative;
+}
+
+.delete-product {
+  background-color: #ea7954 !important;
+  border-radius: 50%;
+  display: inline-block;
+  height: 25px;
+  opacity: 1;
+  position: absolute;
+  right: 15px;
+  text-align: center;
+  text-shadow: none;
+  top: -10px;
+  width: 25px;
+  z-index: 100;
 }

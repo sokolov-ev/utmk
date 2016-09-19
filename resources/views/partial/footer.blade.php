@@ -3,7 +3,7 @@
         <div class="padding-top"></div>
 
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-7 col-sm-12 col-xs-12">
 
                 <div class="row">
                     <div class="col-sm-4 col-xs-12">
@@ -24,12 +24,12 @@
                             <li><a href="#" title="" class="sales-footer-link">{{ trans('index.menu.delivery') }}</a></li>
                         </ul>
                     </div>
-                    <div class="col-sm-4 col-xs-12">
+                    <div class="col-sm-5 col-xs-12">
                         <p class="sales-footer-title">{{ trans('index.footer.tell-us') }}</p>
                         <ul class="list-unstyled sales-footer-link-block tell-us">
                             <li>
                                 <div class="row">
-                                    <div class="col-sm-2 col-xs-2">
+                                    <div class="col-sm-2 col-xs-1">
                                         <i class="fa fa-google-plus" aria-hidden="true"></i>
                                     </div>
                                     <div class="col-sm-10 col-xs-10">
@@ -42,7 +42,7 @@
                             </li>
                             <li>
                                 <div class="row">
-                                    <div class="col-sm-2 col-xs-2">
+                                    <div class="col-sm-2 col-xs-1">
                                         <i class="fa fa-twitter" aria-hidden="true"></i>
                                     </div>
                                     <div class="col-sm-10 col-xs-10">
@@ -55,7 +55,7 @@
                             </li>
                             <li>
                                 <div class="row">
-                                    <div class="col-sm-2 col-xs-2">
+                                    <div class="col-sm-2 col-xs-1">
                                         <i class="fa fa-facebook" aria-hidden="true"></i>
                                     </div>
                                     <div class="col-sm-10 col-xs-10">
@@ -68,7 +68,7 @@
                             </li>
                             <li>
                                 <div class="row">
-                                    <div class="col-sm-2 col-xs-2">
+                                    <div class="col-sm-2 col-xs-1">
                                         <i class="fa fa-linkedin" aria-hidden="true"></i>
                                     </div>
                                     <div class="col-sm-10 col-xs-10">
@@ -81,6 +81,9 @@
                             </li>
                         </ul>
 
+
+                    </div>
+                    <div class="col-sm-3 col-xs-12">
                         <p class="sales-footer-title">{{ trans('index.speech.languages') }}</p>
                         <ul class="list-unstyled sales-footer-link-block">
                             <li>
@@ -100,23 +103,27 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="col-sm-4 col-xs-12">
-                    </div>
                 </div>
 
             </div>
-            <div class="col-md-4">
-                <p class="sales-footer-title pull-right clearfix">{{ trans('index.footer.contact') }}</p>
-                <div class="row pull-right clearfix sales-footer-contacts">
-                    @foreach ($office_contacts['contacts'] as $contact)
-                        <div class="col-md-6 col-sm-6 col-xs-6 text-right">{{ $contact['type'] }}:</div>
-                        <div class="col-md-6 col-sm-6 col-xs-6 text-right">{{ $contact['data'] }}</div>
-                    @endforeach
-                </div>
+            <div class="col-md-5 col-sm-12 col-xs-12 pull-right">
+                <div class="pull-right text-right">
 
-                <p class="sales-footer-title pull-right clearfix">{{ trans('index.footer.headquarter') }}</p>
-                <div class="text-right sales-footer-contacts pull-right clearfix">
-                    {{ $office_contacts['address'] }}
+                    <p class="sales-footer-title">{{ trans('index.footer.contact') }}</p>
+                    <div class="row sales-footer-contacts">
+                        @foreach ($office_contacts['contacts'] as $contact)
+                            <div class="col-md-7 col-sm-8 col-xs-6 text-right">{{ $contact['type'] }}:</div>
+                            <div class="col-md-5 col-sm-4 col-xs-6 text-right">{{ $contact['data'] }}</div>
+                        @endforeach
+                    </div>
+
+
+                    <p class="sales-footer-title">
+                        {{ trans('index.footer.headquarter') }}
+                    </p>
+                    <div class="text-right sales-footer-contacts">
+                        {{ $office_contacts['address'] }}
+                    </div>
                 </div>
             </div>
         </div>

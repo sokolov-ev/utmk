@@ -33,10 +33,9 @@
             <div class="col-md-6 col-sm-4 col-xs-12">
 
                 @if(!empty($errors->first()))
-                    <div class="alert alert-danger alert-dismissible" role="alert">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        {{ $errors->first() }}
-                    </div>
+                    <div class="errors-block" data-status="1"></div>
+                @else
+                    <div class="errors-block" data-status="0"></div>
                 @endif
 
             </div>
@@ -65,6 +64,7 @@
                         </li>
                     </ul>
                 </div>
+
             </div>
         </div>
 
@@ -152,6 +152,7 @@
     @include('partial.index-login-form')
 
     @include('partial.shopping-cart-form')
+    @include('partial.shopping-cart-product')
 
 <div class="scroller">
     <i class="fa fa-arrow-circle-up" aria-hidden="true"></i>

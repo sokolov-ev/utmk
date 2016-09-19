@@ -26,9 +26,19 @@ Route::group(['middleware' => ['web', 'language']], function () {
     Route::get('/products/get-menu', 'Frontend\ProductsController@getMenu');
     // AJAX подгружаем продукцию (menu, name, city, page)
     Route::get('/products/get-catalog', 'Frontend\ProductsController@catalogProducts');
+    // просмотр продукта
     Route::get('/products/details/{slug}/{id}', ['as' => 'products-view', 'uses' => 'Frontend\ProductsController@view']);
-    Route::post('/products/add-cart-ajax', 'Frontend\ProductsController@addCartAjax');
-    Route::post('/products/add-cart', 'Frontend\ProductsController@addCart');
+
+        // получить данные для отображения корзины
+        Route::get('/products/get-order-data', 'Frontend\ProductsController@getProductsCart');
+        // добавить продукт в корзину
+        Route::post('/products/product-to-cart', 'Frontend\ProductsController@productToCart');
+        // изменить количество продукции в корзине
+        Route::post('/products/change-count-products', 'Frontend\ProductsController@countProductCart');
+        // удалить продукт из корзины
+        Route::post('/products/remove-product-to-cart', 'Frontend\ProductsController@deleteProductCart');
+        // сформировать заказ
+        Route::post('/products/formed-order', 'Frontend\ProductsController@formedOrder');
 
 // Authentication Routes...
     Route::post('/login', 'Auth\AuthController@login');
@@ -59,7 +69,13 @@ Route::group(['middleware' => ['admin']], function () {
     Route::get('/administration/logout','Adminauth\AuthController@logout');
 
     Route::get('/administration', 'Backend\EmployeeController@view');
-    Route::get('/administration/clients', 'Backend\EmployeeController@clients');
+
+    Route::get('/administration/clients', 'Backend\ClientsController@clients');
+    Route::post('/administration/clients/filtering', 'Backend\ClientsController@filteringClients');
+    Route::get('/administration/clients/get-comment/{id}', 'Backend\ClientsController@commentClients');
+
+    Route::delete('/administration/clients', 'Backend\ClientsController@deleteClients');
+
 
 // CRUD продукции и изображений продукции
     Route::get('/administration/products', 'Backend\ProductsController@getAll');
@@ -79,17 +95,15 @@ Route::group(['middleware' => ['admin']], function () {
     Route::post('/administration/product/img/sort', 'Backend\ProductsController@sortImg');
     Route::post('/administration/product/img/delete', 'Backend\ProductsController@deleteImg');
 
-    Route::get('/administration/products/filtering', 'Backend\ProductsController@filtering');
+    Route::post('/administration/products/filtering', 'Backend\ProductsController@filtering');
 
-
-// CRUD заказов
-
-
+    // CRUD заказов
+    Route::get('/administration/orders', 'Backend\OrdersController@index');
 
     // Зона админа
     Route::group(['middleware' => 'isAdmin'], function() {
     // CRUD Менеджеры/Модераторы админки
-        Route::get('/administration/moderators/{id?}', 'Backend\EmployeeController@moderators');
+        Route::get('/administration/moderators/{id?}', 'Adminauth\AuthController@moderators');
         Route::post('/administration/moderator', 'Adminauth\AuthController@createModerator');
         Route::put('/administration/moderator', 'Adminauth\AuthController@editModerator');
         Route::delete('/administration/moderator', 'Adminauth\AuthController@deleteModerator');

@@ -28,4 +28,6 @@ return [
         'ru' => 'Russian',
         'uk' => 'Ukrainian',
     ],
+
+    'not-found' => ':name not found',
 ];

@@ -59,6 +59,13 @@ class Products extends Model
         return $this->hasMany('App\Images', 'product_id', 'id')->select('name')->orderBy('weight', 'ASC');
     }
 
+
+    public function order()
+    {
+        return $this->belongsTo('App\Orders', 'orders_products', 'order_id', 'product_id');
+    }
+
+
     // формируем данные для отображения в форме редактирвоания
     public static function parseData($id)
     {
@@ -184,6 +191,9 @@ class Products extends Model
         $array['description'] = empty($description[App::getLocale()]) ? current($description) : $description[App::getLocale()];
 
         $array['price'] = $product->price;
+
+        $array['quantity'] = empty($product->pivot->quantity) ? null : $product->pivot->quantity;
+        $array['bonds'] = empty($product->pivot->id) ? null : $product->pivot->id;
 
         return $array;
     }

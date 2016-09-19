@@ -78,17 +78,15 @@
             </div>
             <div class="col-md-7 col-sm-7 col-xs-12">
 
-                <form class="" role="form" method="POST" action="{{ url('user/shopping-cart') }}" id="form-add-cart">
-                    {{ csrf_field() }}
                     <div class="shopping-cart row">
-                        <div class="col-md-4 col-sm-4 col-xs-12">
+                        <div class="col-md-4 col-sm-4 col-xs-6">
                             <div class="card-price">
                                 {{ $product['price'] }}
                                 <span class="card-price-uah">{{ trans('products.uah') }}</span>
                             </div>
                         </div>
 
-                        <div class="col-md-4 col-sm-4 col-xs-12 cart-quantity">
+                        <div class="col-md-4 col-sm-4 col-xs-6 cart-quantity">
                             <button type="button" class="btn btn-link cart-quantity-minus">
                                 <i class="fa fa-minus" aria-hidden="true"></i>
                             </button>
@@ -99,13 +97,12 @@
                         </div>
 
                         <div class="col-md-4 col-sm-4 col-xs-12 in-shoping-cart">
-                            <button type="submit" class="btn btn-success" form="form-add-cart">
+                            <button type="button" class="btn btn-success add-cart" data-id="{{ $product['id'] }}">
                                 <i class="fa fa-cart-plus" aria-hidden="true"></i>
                                 <div style="margin-left: 20px;">{{ trans('products.add-cart') }}</div>
                             </button>
                         </div>
                     </div>
-                </form>
 
             </div>
         </div>
@@ -121,23 +118,29 @@
     <script type="text/javascript">
         $(".products").addClass('active');
 
-        $(".cart-quantity-minus").click(function(event){
-            var value = +$("#quantity").val();
-            if (value > 1) {
-                $("#quantity").val(--value);
-            }
-        });
+        $("body").on('click', '.add-cart', function(event){
+            var id = $(this).data('id');
+            var count = 1;
 
-        $(".cart-quantity-plus").click(function(event){
-            var value = +$("#quantity").val();
-            $("#quantity").val(++value);
-        });
-
-        $('#quantity').on('change keyup', function(event){
-            this.value = this.value.replace(/[^0-9]/g, '');
-            if ( (this.value == '') || (this.value < 1) ) {
-                this.value = 1;
+            if ($('#quantity').is(':empty')) {
+                count = $('#quantity').val();
             }
+
+            $.post('/products/product-to-cart', {id: id, count: count}, function(response){
+                if (response.status == 'ok') {
+                    if (response.data > 0) {
+                        $(".shopping-cart-badge").removeClass("hidden");
+                        $(".shopping-cart-badge").text(response.data);
+                    } else {
+                        $(".shopping-cart-badge").addClass("hidden");
+                        $(".shopping-cart-badge").text('');
+                    }
+                } else if ((response.status == 'bad') && (response.auth)) {
+                    $(".not-auth-user").removeClass('hidden');
+                    $(".not-auth-user").html('<p><b>' + response.message + '</p></b>');
+                    $("#login-form").modal('show');
+                }
+            });
         });
     </script>
 @endsection

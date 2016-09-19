@@ -71,7 +71,7 @@
                                 <div class="caption-footer">
 
                                     <div class="shopping-cart row">
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="col-md-6 col-sm-6 col-xs-6">
                                             <?php
                                                 $params = request()->query();
                                                 $params['slug'] = $product['slug'];
@@ -80,7 +80,7 @@
                                             <a class="btn btn-default" role="button" href="{{ route('products-view', $params) }}">{{ trans('products.more') }}</a>
                                         </div>
 
-                                        <div class="col-md-6 col-sm-6 col-xs-12 in-shoping-cart">
+                                        <div class="col-md-6 col-sm-6 col-xs-6 in-shoping-cart">
 
                                             <button type="button" class="btn btn-success pull-right clearfix add-cart" data-id="{{ $product['id'] }}">
                                                 <i class="fa fa-cart-plus" aria-hidden="true"></i>
@@ -118,7 +118,6 @@
 
 @section('scripts')
 
-    <script src="{{ elixir('js/mustache.js') }}"></script>
     <script src="{{ elixir('js/jquery-ui.js') }}"></script>
     <script src="{{ elixir('js/products.js') }}"></script>
 
@@ -128,12 +127,6 @@
         var url      = '';
 
         $(".products").addClass('active');
-
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('input[name="_token"]').val(),
-            }
-        });
 
         $.get('/products/get-menu', function(response){
             if (response.status == 'ok') {
@@ -298,11 +291,15 @@
             });
         }
 
-        $(".products-cards").on('click', '.add-cart', function(event){
+        $("body").on('click', '.add-cart', function(event){
             var id = $(this).data('id');
+            var count = 1;
 
-            $.post('/products/add-cart-ajax', {id: id}, function(response){
-                console.log(response);
+            if ($('#quantity').is(':empty')) {
+                count = $('#quantity').val();
+            }
+
+            $.post('/products/product-to-cart', {id: id, count: count}, function(response){
                 if (response.status == 'ok') {
                     if (response.data > 0) {
                         $(".shopping-cart-badge").removeClass("hidden");
@@ -311,6 +308,10 @@
                         $(".shopping-cart-badge").addClass("hidden");
                         $(".shopping-cart-badge").text('');
                     }
+                } else if ((response.status == 'bad') && (response.auth)) {
+                    $(".not-auth-user").removeClass('hidden');
+                    $(".not-auth-user").html('<p><b>' + response.message + '</p></b>');
+                    $("#login-form").modal('show');
                 }
             });
         });

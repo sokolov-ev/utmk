@@ -8,6 +8,11 @@ body {
   position: relative;
 }
 
+a {
+  outline: none !important;
+}
+
+
 .logo-contacts {
   margin: 10px 20px;
 }

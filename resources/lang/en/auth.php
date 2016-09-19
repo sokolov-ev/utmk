@@ -36,5 +36,9 @@ return [
     'company' => 'Company',
     'phone' => 'Phone',
 
+    'more-contacts' => 'More contacts',
+
     'my-office' => 'My office',
+
+    'not-auth' => 'You are not authorized',
 ];

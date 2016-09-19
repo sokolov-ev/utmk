@@ -10,6 +10,8 @@
 
             <div id="show-login-form">
                 <div class="modal-body">
+                    <div class="text-danger not-auth-user hidden"></div>
+
                     <form class="" role="form" method="POST" action="{{ url('/login') }}" id="login-form-send">
                         {{ csrf_field() }}
 

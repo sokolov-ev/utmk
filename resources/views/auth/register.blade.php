@@ -30,7 +30,7 @@
         </div>
 
         <div class="form-group{{ $errors->has('company') ? ' has-error' : '' }}">
-            <input id="company" type="text" class="form-control" name="company" value="{{ old('company') }}" placeholder="{{ trans('auth.company') }}" required="">
+            <input id="company" type="text" class="form-control" name="company" value="{{ old('company') }}" placeholder="{{ trans('auth.company') }} *" required="">
 
             @if ($errors->has('company'))
                 <span class="help-block text-left">
@@ -40,7 +40,7 @@
         </div>
 
         <div class="form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
-            <input id="phone" type="text" class="form-control" name="phone" value="{{ old('phone') }}" placeholder="{{ trans('auth.phone') }}" required="">
+            <input id="phone" type="text" class="form-control" name="phone" value="{{ old('phone') }}" placeholder="{{ trans('auth.phone') }} *" required="">
 
             @if ($errors->has('phone'))
                 <span class="help-block text-left">
@@ -50,7 +50,7 @@
         </div>
 
         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-            <input id="email" type="text" class="form-control" name="email" value="{{ old('email') }}" placeholder="{{ trans('auth.email-address') }}" required="">
+            <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" placeholder="{{ trans('auth.email-address') }} *" required="">
 
             @if ($errors->has('email'))
                 <span class="help-block text-left">
@@ -60,7 +60,7 @@
         </div>
 
         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-            <input id="password" type="text" class="form-control" name="password" value="{{ old('password') }}" placeholder="{{ trans('auth.password') }}" required="">
+            <input id="password" type="text" class="form-control" name="password" value="{{ old('password') }}" placeholder="{{ trans('auth.password') }} *" required="">
 
             @if ($errors->has('password'))
                 <span class="help-block text-left">
