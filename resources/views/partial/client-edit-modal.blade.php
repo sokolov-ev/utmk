@@ -9,7 +9,7 @@
                 <h4 id="client-modal" class="modal-title">Редактирование клиента</h4>
             </div>
             <div class="modal-body">
-                <form class="form-horizontal" role="form" method="POST" action="{{ url('administration/moderator') }}" id="form-edit-moderator">
+                <form class="form-horizontal" role="form" method="POST" action="{{ url('/administration/clients') }}" id="form-edit-client">
                     <input type="hidden" name="_method" value="PUT">
                     <input type="hidden" name="id" value="" id="edit_id">
                     {{ csrf_field() }}
@@ -100,7 +100,7 @@
                         <button class="btn btn-default pull-left clearfix" data-dismiss="modal" type="button">
                             Отмена
                         </button>
-                        <button type="submit" class="btn btn-warning pull-right clearfix" form="form-edit-moderator">
+                        <button type="submit" class="btn btn-warning pull-right clearfix" form="form-edit-client">
                             <i class="fa fa-repeat" aria-hidden="true"></i> Сохранить
                         </button>
                     </div>

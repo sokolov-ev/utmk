@@ -32,12 +32,6 @@
             </div>
             <div class="col-md-6 col-sm-4 col-xs-12">
 
-                @if(!empty($errors->first()))
-                    <div class="errors-block" data-status="1"></div>
-                @else
-                    <div class="errors-block" data-status="0"></div>
-                @endif
-
             </div>
             <div class="col-md-3 col-sm-4 col-xs-12 panel-right">
 

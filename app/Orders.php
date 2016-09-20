@@ -18,7 +18,7 @@ class Orders extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 'manager_id', 'office_id', 'formed', 'status', 'contacts', 'wish'
+        'user_id', 'manager_id', 'office_id', 'total_cost', 'formed', 'status', 'contacts', 'wish'
     ];
 
     /**
@@ -53,7 +53,7 @@ class Orders extends Model
     public static function getStatus()
     {
         return [
-            self::STATUS_NOT_ACCEPTED => 'not-accepted',
+            self::STATUS_NOT_ACCEPTED => 'in-processing',
             self::STATUS_ACCEPTED => 'accepted',
             self::STATUS_CLOSED => 'closed',
         ];

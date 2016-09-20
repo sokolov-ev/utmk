@@ -254,24 +254,34 @@ class ProductsController extends Controller
         if (Auth::guard(null)->check()) {
 
             $order = Orders::where([['user_id', Auth::guard(null)->user()->id], ['formed', 0]])->first();
-            $wish  = $request->input('wish');
-            $contacts = $request->input('contacts');
 
             if (empty($order)) {
-                return redirect('/');
+                session()->flash('error', trans('products.order-error-complite'));
+                return redirect(url()->previous());
+            }
+
+            $products = $order->products()->get();
+            $sum = 0;
+
+            foreach ($products as $product) {
+                $sum += $product->price * $product->pivot->quantity;
             }
 
             $order->formed   = 1;
-            $order->wish     = $wish;
-            $order->contacts = $contacts;
+            $order->wish     = $request->input('wish');
+            $order->contacts = $request->input('contacts');
+            $order->total_cost = $sum;
 
             if ($order->update()) {
-                return redirect('/');
+                session()->flash('success', trans('products.order-complite'));
             } else {
-                return redirect('/');
+                session()->flash('error', trans('products.order-error-complite'));
             }
+
+            return redirect(url()->previous());
         } else {
-            return redirect('/');
+            session()->flash('error', trans('auth.not-auth'));
+            return redirect(url()->previous());
         }
     }
 }

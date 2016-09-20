@@ -71,10 +71,10 @@ Route::group(['middleware' => ['admin']], function () {
     Route::get('/administration', 'Backend\EmployeeController@view');
 
     Route::get('/administration/clients', 'Backend\ClientsController@clients');
-    Route::post('/administration/clients/filtering', 'Backend\ClientsController@filteringClients');
-    Route::get('/administration/clients/get-comment/{id}', 'Backend\ClientsController@commentClients');
-
+    Route::put('/administration/clients', 'Backend\ClientsController@editClients');
     Route::delete('/administration/clients', 'Backend\ClientsController@deleteClients');
+
+    Route::post('/administration/clients/filtering', 'Backend\ClientsController@filteringClients');
 
 
 // CRUD продукции и изображений продукции
@@ -99,6 +99,7 @@ Route::group(['middleware' => ['admin']], function () {
 
     // CRUD заказов
     Route::get('/administration/orders', 'Backend\OrdersController@index');
+    Route::post('/administration/orders/filtering', 'Backend\OrdersController@filtering');
 
     // Зона админа
     Route::group(['middleware' => 'isAdmin'], function() {

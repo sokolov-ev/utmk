@@ -6,7 +6,7 @@ namespace App\Http\Controllers\Backend;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
-use JsValidator;
+use Validator;
 use App\User;
 use App\DataTable;
 
@@ -17,20 +17,46 @@ class ClientsController extends Controller
         return view('backend.admin.clients');
     }
 
-    public function commentClients($id)
+    public function editClients(Request $request)
     {
-        if (empty($id)) {
-            return response()->json(["status" => "bad", "message" => "Клиент не найден."]);
+        $id = $request->input('id');
+        $data = $request->all();
+
+        $validator = Validator::make($data, [
+                        'id'   => 'exists:users,id',
+                        'username'  => 'required|max:255',
+                        'company'   => 'required|max:255|unique:users,company,'.$id.',deleted_at,NULL',
+                        'email'     => 'required|email|max:255|unique:users,email,'.$id.',deleted_at,NULL',
+                        'phone'     => 'required|max:255|unique:users,phone,'.$id.',deleted_at,NULL',
+                        'note_user' => 'string',
+                    ]);
+
+        if ($validator->fails()) {
+            session()->flash('error', 'Возникла ошибка при обновлении данных клиента 1.');
+
+            $this->throwValidationException(
+                $request, $validator
+            );
         }
 
-        $user = User::find($id);
+        $client = User::find($id);
+        $client->username  = $data['username'];
+        $client->company   = $data['company'];
+        $client->email     = $data['email'];
+        $client->phone     = $data['phone'];
+        $client->note_user = $data['note_user'];
 
-        if (empty($user)) {
-            return response()->json(["status" => "bad", "message" => "Клиент не найден."]);
+        if (!empty($data['password'])) {
+            $client->password = bcrypt($data['password']);
+        }
+
+        if ($client->update()) {
+            session()->flash('success', 'Данные клиента успешно обновлены.');
         } else {
-            $comment = empty($user->note_user) ? '<i class="text-danger">(комментарии отсутствуют)</i>' : $user->note_user;
-            return response()->json(["status" => "ok", "message" => $comment]);
+            session()->flash('error', 'Возникла ошибка при обновлении данных клиента 1.');
         }
+
+        return redirect(url()->previous());
     }
 
     public function deleteClients(Request $request)

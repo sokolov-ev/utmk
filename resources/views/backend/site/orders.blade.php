@@ -10,53 +10,31 @@
     <div class="box box-warning">
         <div class="box-header">
             <h3 class="box-title pull-left clearfix">Заказы</h3>
+            {{ csrf_field() }}
         </div>
         <div class="box-body">
             <table id="products-table" class="table table-striped table-hover table-condensed dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr role="row">
-                        <th>ID</th>
+                        <th>№</th>
                         <th>Клиент</th>
                         <th>Общая стоимость</th>
                         <th>Статус</th>
                         <th>Принял заказ</th>
+                        <th>Офис</th>
                         <th>Действие</th>
                     </tr>
                     <tr role="row" id="filter-table">
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td> </td>
+                        <td> </td>
+                        <td> </td>
+                        <td> </td>
+                        <td> </td>
+                        <td> </td>
+                        <td> </td>
                     </tr>
                 </thead>
-                <tbody>
-                    @foreach ($orders as $order)
-                        <tr role="row">
-                            <td>{{ $order->id }}</td>
-                            <td>{{ $order->user_id }}</td>
-                            <td>total_cost</td>
-                            <td>{{ $order->status }}</td>
-                            <td>{!! $order->manager_id ? $order->manager_id : "<i class='text-danger'>(нет данных)</i>" !!}</td>
-                            <td>
-                                {{-- <a class="btn btn-warning btn-sm"
-                                   href="{{ url('/administration/product/edit/'.$product->id) }}"
-                                   alt="Редактировать"
-                                   title="Редактировать">
-                                        <i class="fa fa-pencil" aria-hidden="true"></i>
-                                </a>
-                                <button class="btn btn-danger btn-sm"
-                                    data-target="#delete-modal"
-                                    data-toggle="modal"
-                                    data-id="{{ $product->id }}"
-                                    data-name="{{ json_decode($product->title, true)[App::getLocale()] }}">
-                                        <i class="fa fa-trash-o" aria-hidden="true"></i>
-                                </button> --}}
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
+                <tbody> </tbody>
             </table>
 
         </div>
@@ -71,27 +49,69 @@
     <script src="{{ elixir('js/mustache.js') }}"></script>
 
     <script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('input[name="_token"]').val(),
+            }
+        });
+
         var table = $('table').DataTable({
-            // "pageLength": 3,
-            "paging": false,
+            "paging": true,
             "lengthChange": true,
             "ordering": true,
             "info": false,
             "autoWidth": false,
-            "bSortCellsTop": true,
+            "sortCellsTop": true,
             "language": {
-                "sEmptyTable": "Нет записей...",
-                "infoEmpty": "Ничего не найдено.",
+                "processing": "Подождите...",
+                "search": "Поиск:",
+                "lengthMenu": "Показать _MENU_ записей",
+                "info": "Записи с _START_ до _END_ из _TOTAL_ записей",
+                "infoEmpty": "Записи с 0 до 0 из 0 записей",
+                "infoFiltered": "(отфильтровано из _MAX_ записей)",
+                "infoPostFix": "",
+                "loadingRecords": "Загрузка записей...",
+                "zeroRecords": "Записи отсутствуют.",
+                "emptyTable": "В таблице отсутствуют данные",
+                "paginate": {
+                    "first": "Первая",
+                    "previous": "Предыдущая",
+                    "next": "Следующая",
+                    "last": "Последняя"
+                },
+                "aria": {
+                    "sortAscending": ": активировать для сортировки столбца по возрастанию",
+                    "sortDescending": ": активировать для сортировки столбца по убыванию"
+                }
             },
-            // "processing": true,
-            // "serverSide": true,
-            // "ajax": "/administration/products/filtering"
+            "processing": true,
+            "serverSide": true,
+            "ajax": {
+                "url": "/administration/orders/filtering",
+                "type": "POST",
+                "dataSrc": "data",
+            },
+            "columns": [
+                { "data": "id" },
+                { "data": "user" },
+                { "data": "total_cost" },
+                { "data": "status" },
+                { "data": "moderator" },
+                { "data": "office" },
+                { "data": "actions" },
+            ],
+            "columnDefs":[
+                {
+                    "targets": 6,
+                    "sortable": false,
+                }
+            ]
         });
 
         $("#products-table_filter").hide();
 
-        $(table.table().container() ).on('keyup change', '#filter-table input, #filter-table select', function () {
-            table.column( $(this).data('index') )
+        $('table').on('keyup change', '#filter-table input, #filter-table select', function(event) {
+            table.column( $(this).closest('td').index() )
                  .search( this.value )
                  .draw();
         });

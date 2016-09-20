@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Adminauth;
 
+use App;
 use App\Office;
 use App\Admin;
 use Validator;

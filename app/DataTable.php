@@ -77,4 +77,56 @@ class DataTable extends Model
     }
     // *SECTION CLIENTS
 
+    // SECTION ORDERS
+    public static function getOrderOrders($data)
+    {
+        switch ($data['columns'][ $data['order'][0]['column'] ]['data']) {
+            case 'user':
+                return ["users.username", $data['order'][0]['dir']];
+                break;
+            case 'office':
+                return ["offices.city", $data['order'][0]['dir']];
+                break;
+            case 'moderator':
+                return ["admins.username", $data['order'][0]['dir']];
+                break;
+            default:
+                return ["orders.".$data['columns'][ $data['order'][0]['column'] ]['data'], $data['order'][0]['dir']];
+        }
+    }
+
+    public static function getSearchOrders($data)
+    {
+        $result = [];
+
+        foreach ($data['columns'] as $column) {
+            if ($column['search']['value'] != '') {
+                switch ($column['data']) {
+                    case 'id':
+                        $result[] = ["products.id", "LIKE", '%'.$column['search']['value'].'%'];
+                        break;
+                    case 'user':
+                        $result[] = ["users.username", "LIKE", '%'.$column['search']['value'].'%'];
+                        break;
+                    case 'total_cost':
+                        $result[] = ["orders.total_cost", "LIKE", '%'.$column['search']['value'].'%'];
+                        break;
+                    case 'status':
+                        $result[] = ["orders.status", $column['search']['value']];
+                        break;
+                    case 'moderator':
+                        $result[] = ["admins.username", "LIKE", '%'.$column['search']['value'].'%'];
+                        break;
+                    case 'office':
+                        $result[] = ["offices.city", "LIKE", '%'.$column['search']['value'].'%'];
+                        break;
+                }
+            }
+        }
+
+        return $result;
+    }
+    // *SECTION ORDERS
+
+
 }

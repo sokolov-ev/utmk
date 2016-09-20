@@ -17,6 +17,7 @@ class CreateOrderTable extends Migration
             $table->integer('user_id');
             $table->integer('manager_id');
             $table->integer('office_id');
+            $table->integer('total_cost');
             $table->smallInteger('formed'); // Пользователь сформировал заказ
             $table->smallInteger('status'); // стадии обработки заказа менеджерами
             $table->text('contacts');
