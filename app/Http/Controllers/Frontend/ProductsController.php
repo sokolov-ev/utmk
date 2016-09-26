@@ -201,13 +201,13 @@ class ProductsController extends Controller
             $count = $request->input('count');
 
             if (empty($order) || empty($id) || empty($count)) {
-                return response()->json(['status' => 'bad', 'message' => trans('order-not-found')]);
+                return response()->json(['status' => 'bad', 'message' => trans('products.order-not-found')]);
             }
 
             $attitude = $order->attitude()->where('id', $id)->first();
 
             if (empty($attitude)) {
-                return response()->json(['status' => 'bad', 'message' => trans('order-not-found')]);
+                return response()->json(['status' => 'bad', 'message' => trans('products.order-not-found')]);
             }
 
             $attitude->quantity = $count;
@@ -230,13 +230,13 @@ class ProductsController extends Controller
             $id = $request->input('id');
 
             if (empty($order) || empty($id)) {
-                return response()->json(['status' => 'bad', 'message' => trans('order-not-found')]);
+                return response()->json(['status' => 'bad', 'message' => trans('products.order-not-found')]);
             }
 
             $attitude = $order->attitude()->where('id', $id)->first();
 
             if (empty($attitude)) {
-                return response()->json(['status' => 'bad', 'message' => trans('order-not-found')]);
+                return response()->json(['status' => 'bad', 'message' => trans('products.order-not-found')]);
             }
 
             if ($attitude->delete()) {
@@ -256,7 +256,7 @@ class ProductsController extends Controller
             $order = Orders::where([['user_id', Auth::guard(null)->user()->id], ['formed', 0]])->first();
 
             if (empty($order)) {
-                session()->flash('error', trans('products.order-error-complite'));
+                session()->flash('error', trans('products.order-error-complete'));
                 return redirect(url()->previous());
             }
 
@@ -268,14 +268,15 @@ class ProductsController extends Controller
             }
 
             $order->formed   = 1;
+            $order->status   = 1;
             $order->wish     = $request->input('wish');
             $order->contacts = $request->input('contacts');
             $order->total_cost = $sum;
 
             if ($order->update()) {
-                session()->flash('success', trans('products.order-complite'));
+                session()->flash('success', trans('products.order-complete'));
             } else {
-                session()->flash('error', trans('products.order-error-complite'));
+                session()->flash('error', trans('products.order-error-complete'));
             }
 
             return redirect(url()->previous());

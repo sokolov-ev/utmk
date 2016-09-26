@@ -1,0 +1,86 @@
+
+.text-orange {
+  color: #e1704b;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+@media(max-width: 1023px) {
+  .text-orange {
+    font-size: 16px;
+    line-height: 1.2;
+  }
+}
+
+/*.green-box {
+  background: url(/images/template/about-us-img-006.jpg) 100% 100% no-repeat;
+  background-size: cover;
+}*/
+/*.green-section-img-text {
+  color: #39a9a4;
+  font-size: 60px;
+  font-weight: 300;
+  line-height: 1;
+  position: absolute;
+  right: 29%;
+  top: 24%;
+  z-index: 100;
+}*/
+/*@media(max-width: 1199px) {
+  .green-section-img-text {
+    font-size: 50px;
+    letter-spacing: 0;
+    line-height: 1.5;
+    right: 27%;
+    top: 9%;
+  }
+}
+@media(max-width: 901px) {
+  .green-section-img-text {
+    font-size: 40px;
+    letter-spacing: 0;
+    line-height: 1.5;
+    right: 28%;
+    top: 7%;
+  }
+}
+@media(max-width: 767px) {
+  .green-section-img-text {
+    font-size: 40px;
+    letter-spacing: 0;
+    line-height: 1.5;
+  }
+}*/
+.orange-list ul li {
+  line-height: 30px;
+  padding-left: 36px;
+  position: relative;
+  transition: all 0.35s ease 0s;
+}
+
+.orange-list ul li::before {
+  color: #e1704b;
+  content: "";
+  font-family: FontAwesome;
+  font-size: 11px;
+  left: 0;
+  line-height: 11px;
+  position: absolute;
+  top: 10px;
+}
+
+.orange-list a {
+  color: #999999;
+  font-style: normal;
+  font-weight: 400;
+  text-decoration: none;
+}
+
+.orange-list a:hover,
+.orange-list a:active {
+  color: #e1704b;
+  font-style: normal;
+  font-weight: 400;
+  text-decoration: underline;
+}

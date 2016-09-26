@@ -32,7 +32,7 @@
                     <i class="fa fa-search" aria-hidden="true"></i> {{ trans('products.search') }}
                 </button>
 
-                <a href="{{ url('/products/catalog') }}" class="btn btn-default pull-right clearfix" style="width: 50%;">
+                <a href="{{ url('/assortment/catalog') }}" class="btn btn-default pull-right clearfix" style="width: 50%;">
                     <i class="fa fa-refresh" aria-hidden="true"></i> {{ trans('products.reset') }}
                 </a>
             </div>
@@ -122,13 +122,13 @@
     <script src="{{ elixir('js/products.js') }}"></script>
 
     <script type="text/javascript">
-        var pageSize = 2;
+        var pageSize = 20;
         var query    = [];
         var url      = '';
 
         $(".products").addClass('active');
 
-        $.get('/products/get-menu', function(response){
+        $.get('/assortment/get-prais', function(response){
             if (response.status == 'ok') {
                 $('#catalog-content').empty();
                 var selected = $('.menu-selected').data('id');
@@ -174,10 +174,10 @@
                 $('.menu-item').removeClass('active');
                 $(this).addClass('active');
 
-                url   = '/products/catalog/' + slug + '/' + id;
+                url   = '/assortment/catalog/' + slug + '/' + id;
                 query = 'menu=' + id;
 
-                $.get('/products/get-catalog?' + query, function(response){
+                $.get('/assortment/get-catalog?' + query, function(response){
                     viewProducts(response);
                     ChangeUrl(id, url);
                 });
@@ -201,7 +201,7 @@
                     query += '&id=' + id;
                 }
 
-                $.get('/products/get-catalog?' + query, function(response){
+                $.get('/assortment/get-catalog?' + query, function(response){
                     viewProducts(response);
                 });
             }
@@ -216,13 +216,15 @@
                 Mustache.parse(template);
 
                 $.each(response.data, function(key, item){
-                    item['work_link'] = "/products/details/" + item['slug'] + "/" + item['id'];
+                    item['work_link'] = "/prais/details/" + item['slug'] + "/" + item['id'];
                     $('.products-cards').append(Mustache.render(template, item));
                 });
 
                 fixHeight();
 
-                if (response.data.length != pageSize) {
+                if (response.data.length < pageSize) {
+                    $('#pagination').twbsPagination('destroy');
+                } else if (response.data.length != pageSize) {
                     initPagination(response.count);
                 }
             } else {
@@ -282,7 +284,7 @@
                 next: '»',
                 last: $('.last').text(),
                 onPageClick: function (event, page) {
-                    $.get('/products/get-catalog?' + query + '&page=' + page, function(response){
+                    $.get('/assortment/get-catalog?' + query + '&page=' + page, function(response){
                         viewProducts(response);
                         url += '&page=' + page;
                         ChangeUrl('', url);

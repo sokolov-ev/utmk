@@ -29,5 +29,13 @@ return [
         'uk' => 'Ukrainian',
     ],
 
+    'contacts' => [
+        'title' => 'Get in touch',
+        'message' => 'Message',
+        'send' => 'Send',
+        'error-send' => '<srong>ERROR: </strong>Made a mistake when filling in the form.',
+        'success-send' => 'Your message has been sent.',
+    ],
+
     'not-found' => ':name not found',
 ];

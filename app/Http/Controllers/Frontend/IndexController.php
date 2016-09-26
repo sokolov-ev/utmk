@@ -7,6 +7,11 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
+use Mail;
+use Validator;
+use JsValidator;
+
+
 use App\Office;
 
 class IndexController extends Controller
@@ -16,6 +21,16 @@ class IndexController extends Controller
         return view('frontend.site.index');
     }
 
+    public function aboutUs()
+    {
+        return view('frontend.site.about-us');
+    }
+
+    public function companyProfile()
+    {
+        return view('frontend.site.company-profile');
+    }
+
     public function salesNetwork()
     {
         $offices = Office::getOfficesContacts();
@@ -23,6 +38,61 @@ class IndexController extends Controller
         return view('frontend.site.sales-network', [
             'offices' => $offices,
         ]);
+    }
+
+    public function contacts()
+    {
+        $addValidator = JsValidator::make([
+                'username' => 'string|min:3',
+                'company'  => 'required|string|min:3',
+                'email'    => 'required|email',
+                'phone'    => 'required|string',
+                'message'  => 'string',
+            ],
+            [],
+            [],
+            "#contacts-form"
+        );
+
+        return view('frontend.site.contacts', [
+            'validator' => $addValidator,
+        ]);
+    }
+
+    public function sendMessage(Request $request)
+    {
+        $data = $request->all();
+
+        $validator = Validator::make($data, [
+            'username' => 'string|min:3',
+            'company'  => 'required|string|min:3',
+            'email'    => 'required|email',
+            'phone'    => 'required|string',
+            'message'  => 'string',
+        ]);
+
+        if ($validator->fails()) {
+            session()->flash('error', trans('index.contacts.error-send'));
+
+            $this->throwValidationException(
+                $request, $validator
+            );
+        }
+
+        $data['msg'] = $data['message'];
+
+        $sent = Mail::send('emails.contacts', $data, function($message) use ($data)
+        {
+            $message->to('sokolov_ev@ukr.net')->subject('Связатся с нами - '.$data['company']);
+        });
+
+        if ($sent) {
+            session()->flash('info', trans('index.contacts.success-send'));
+        } else {
+            session()->flash('error', trans('index.contacts.error-send'));
+        }
+
+        return redirect(url()->previous());
     }
 
     public function testing(Request $request)

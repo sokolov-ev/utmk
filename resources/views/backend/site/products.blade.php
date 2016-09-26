@@ -55,11 +55,13 @@
                         <th>Рейтинг</th>
                         <th>Показывать</th>
                         <th>Добавил</th>
-                        <th>Дата добавления</th>
+                        <th>Добавлено</th>
                         <th class="work-actions">Действие</th>
                     </tr>
                     <tr role="row" id="filter-table">
-                        <td><input type="text" data-column="id" class="form-control id" /></td>
+                        <td>
+                            <input type="text" data-column="id" class="form-control id" value="{{ $id }}" />
+                        </td>
                         <td>
                             <select  class="form-control">
                                 <option value=""></option>
@@ -170,17 +172,17 @@
                     "targets": columns.length,
                     "sortable": false,
                     "render": function(date, type, full) {
-                        return '<button class="btn btn-default btn-sm view-product" \
+                        return '<button class="btn btn-default btn-xs view-product" \
                                         data-id="'+full.id+'"> \
                                             <i class="fa fa-eye" aria-hidden="true"></i> \
                                 </button> \
-                                <a class="btn btn-warning btn-sm" \
+                                <a class="btn btn-warning btn-xs" \
                                    href="/administration/product/edit/'+full.id+'" \
                                    alt="Редактировать" \
                                    title="Редактировать"> \
                                        <i class="fa fa-pencil" aria-hidden="true"></i> \
                                 </a> \
-                                <button class="btn btn-danger btn-sm" \
+                                <button class="btn btn-danger btn-xs" \
                                         data-target="#delete-modal" \
                                         data-toggle="modal" \
                                         data-id="'+full.id+'" \
@@ -198,6 +200,16 @@
             table.column( $(this).closest('td').index() )
                  .search( this.value )
                  .draw();
+        });
+
+        $(window).on('load resize', function(event){
+            $.each($("#filter-table input, #filter-table select"), function(key, val){
+                if ($(val).val() != '') {
+                    table.column( $(val).closest('td').index() )
+                         .search( $(val).val() )
+                         .draw();
+                }
+            });
         });
 
         $('table').on('click', '.view-product', function () {

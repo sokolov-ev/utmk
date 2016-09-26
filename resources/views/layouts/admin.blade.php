@@ -9,6 +9,7 @@
 
     <!-- Fonts -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
+
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700">
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
@@ -88,7 +89,7 @@ desired effect
                         <!-- Messages: style can be found in dropdown.less-->
                         <li class="dropdown messages-menu">
                             <!-- Menu toggle button -->
-                            <a href="{{ url('/administration/orders') }}">
+                            <a href="{{ url('/administration/orders?status=1') }}">
                                 <i class="fa fa-file-text-o"></i>
                                 @if ($unprocessed_orders > 0)
                                     <span class="label label-danger">{{ $unprocessed_orders }}</span>

@@ -1,5 +1,5 @@
 <div id="login-form" class="modal fade" aria-labelledby="label-login-modal" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button class="close" aria-label="Close" data-dismiss="modal" type="button">
@@ -16,8 +16,7 @@
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="control-label">{{ trans('auth.email-address') }}</label>
-                            <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}">
+                            <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" placeholder="{{ trans('auth.email-address') }}">
 
                             @if ($errors->has('email'))
                                 <span class="help-block">
@@ -27,8 +26,7 @@
                         </div>
 
                         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label for="password" class="control-label">{{ trans('auth.password') }}</label>
-                            <input id="password" type="password" class="form-control" name="password">
+                            <input id="password" type="password" class="form-control" name="password" placeholder="{{ trans('auth.password') }}">
 
                             @if ($errors->has('password'))
                                 <span class="help-block">
@@ -51,8 +49,10 @@
                             </div>
                         </div>
                 </div>
-                <div class="modal-footer register-link">
-                    <a href="{{ url('/register') }}">{{ trans('auth.register') }}</a>
+                <div class="register-link">
+                    <a class="btn btn-success" href="{{ url('/register') }}" style="width: 100%; padding: 15px;">
+                        {{ trans('auth.register') }}
+                    </a>
                 </div>
                 <div class="modal-footer">
                         <button class="btn btn-default pull-left clearfix" data-dismiss="modal" type="button">
@@ -71,8 +71,7 @@
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="control-label">{{ trans('auth.email-address') }}</label>
-                            <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}">
+                            <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" placeholder="{{ trans('auth.email-address') }}">
 
                             @if ($errors->has('email'))
                                 <span class="help-block">

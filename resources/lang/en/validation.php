@@ -134,6 +134,7 @@ return [
         'price'  => 'Price',
         'rating' => 'Rating',
 
+        'phone' => 'Phone',
     ],
 
 ];

@@ -10,6 +10,8 @@
 
     <!-- Fonts -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
+
+    <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
     {{-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700"> --}}
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
@@ -21,7 +23,7 @@
     @yield('css')
 
 </head>
-<body id="app-layout" style="font-family: Roboto,sans-serif !important;">
+<body id="app-layout">
 
 <section id="top__content" class="container-fluid">
     <div class="margin-15">
@@ -126,11 +128,11 @@
                         <li><a href="#">Separated link</a></li>
                     </ul>
                 </li>
-                <li class="about-us"><a href="#">{{ trans('index.menu.about_us') }}</a></li>
-                <li class="company-profile"><a href="#">{{ trans('index.menu.company_profile') }}</a></li>
+                <li class="about-us"><a href="{{ route('about-us', request()->query()) }}">{{ trans('index.menu.about_us') }}</a></li>
+                <li class="company-profile"><a href="{{ route('profile', request()->query()) }}">{{ trans('index.menu.company_profile') }}</a></li>
                 <li class="products"><a href="{{ route('products-index', request()->query()) }}">{{ trans('index.menu.products') }}</a></li>
                 <li class="network-of-offices"><a href="{{ route('network-of-offices', request()->query()) }}">{{ trans('index.menu.network_of_offices') }}</a></li>
-                <li class="contact-us"><a href="#">{{ trans('index.menu.contact_us') }}</a></li>
+                <li class="contact-us"><a href="{{ route('contacts', request()->query()) }}">{{ trans('index.menu.contact_us') }}</a></li>
             </ul>
 
         </div>

@@ -16,6 +16,9 @@
 .current-language {
     display: inline-block;
 }
+.btn .fa {
+  line-height: 1.6;
+}
 /* /Блок смены языков */
 
 /* Редактор меню */
@@ -102,7 +105,7 @@
 .dataTable select.form-control,
 .dataTable input.form-control {
   height: 28px;
-  padding: 3px 12px;
+  padding: 3px 6px;
   width: 100%;
 }
 
@@ -205,4 +208,26 @@ div.dataTables_length select {
   font-size: 14px;
   height: 28px;
   padding: 3px 12px;
+}
+
+/*обрезка текста*/
+.cute-text {
+  white-space: nowrap; /* Запрещаем перенос строк */
+  overflow: hidden; /* Обрезаем все, что не помещается в область */
+  text-overflow: ellipsis; /* Добавляем многоточие */
+}
+
+.sum-price {
+  display: inline-block;
+}
+
+.product-price {
+  width: 50px;
+  border: 0;
+  background: #fff3b5 none repeat scroll 0 0;
+  display: inline-block;
+  padding: 0 6px;
+  border-radius: 3px;
+  text-align: center;
+  font-weight: 600;
 }

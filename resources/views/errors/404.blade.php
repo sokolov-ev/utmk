@@ -46,6 +46,10 @@
         <div class="text-center">
             <h1 class="text-red" style="font-size: 80px; font-weight: 300;">404</h1>
             <h2 class="text-red">{{ trans('errors.text.404') }}</h2>
+            <br>
+            <a class="btn btn-danger" href="{{ url()->previous() }}" style="font-size: 20px;">
+                {{ trans('errors.text.go-back') }}
+            </a>
         </div>
     </section>
     <!-- /.Main content -->

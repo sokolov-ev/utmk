@@ -29,6 +29,35 @@ class ProductsController extends Controller
         $this->middleware('language');
     }
 
+    public function index(Request $request)
+    {
+        $id = $request->input('id');
+        $menu = [];
+        $city = [];
+        $isAdmin = Auth::guard('admin')->user()->role == Admin::ROLE_ADMIN;
+
+        if ($isAdmin) {
+            $products = Products::all();
+        } else {
+            $products = Products::where('office_id', Auth::guard('admin')->user()->office_id)->get();
+        }
+
+        foreach ($products as $key => $product) {
+            $menu[$product->menu_id]   = json_decode($product->menu->name, true)[App::getLocale()];
+            $city[$product->office_id] = json_decode($product->office->city, true)[App::getLocale()];
+        }
+
+        $menu = array_unique($menu);
+        $city = array_unique($city);
+
+        return view('backend.site.products', [
+            'id'      => $id,
+            'menu'    => $menu,
+            'city'    => $city,
+            'isAdmin' => $isAdmin,
+        ]);
+    }
+
     public function filtering(Request $request)
     {
         $count = empty($request->get("length")) ? 10 : $request->get("length");
@@ -87,35 +116,6 @@ class ProductsController extends Controller
             "recordsTotal" => (string) $totalData,
             "recordsFiltered" => (string) $totalFiltered,
             "data" => $result,
-        ]);
-    }
-
-    public function getAll()
-    {
-        $menu = [];
-        $city = [];
-        $pageSize = 50;
-        $isAdmin  = Auth::guard('admin')->user()->role == Admin::ROLE_ADMIN;
-
-        if ($isAdmin) {
-            $products = Products::paginate($pageSize);
-        } else {
-            $products = Products::where('office_id', Auth::guard('admin')->user()->office_id)->paginate($pageSize);
-        }
-
-        foreach ($products as $key => $product) {
-            $menu[$product->menu_id]   = json_decode($product->menu->name, true)[App::getLocale()];
-            $city[$product->office_id] = json_decode($product->office->city, true)[App::getLocale()];
-        }
-
-        $menu = array_unique($menu);
-        $city = array_unique($city);
-
-        return view('backend.site.products', [
-            'language' => Locale::getLocaleName(),
-            'menu'     => $menu,
-            'city'     => $city,
-            'isAdmin'  => $isAdmin,
         ]);
     }
 

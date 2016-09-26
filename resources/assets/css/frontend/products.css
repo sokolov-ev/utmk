@@ -166,7 +166,7 @@
 /* Редактор меню */
 .menu {
   counter-reset: li;
-  font-size: 15px;
+  font-size: 16px;
   list-style: outside none none;
   margin-bottom: 0;
   margin-left: -10px;
@@ -205,11 +205,6 @@
   font-size: 17px;
   font-weight: 900;
   text-align: center;
-}
-
-.btn-products .btn {
-  font-size: 14px;
-  padding: 6px 12px;
 }
 
 .product-list h4 {

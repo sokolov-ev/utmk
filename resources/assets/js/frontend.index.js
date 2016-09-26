@@ -1,6 +1,4 @@
 $(document).ready(function(){
-    AOS.init({duration: 1000,});
-
     $("#shopping-cart").on("show.bs.modal", function (event) {
         $.get("/products/get-order-data", function(response){
             if (response.status == "ok") {
@@ -152,7 +150,7 @@ if ($(window).scrollTop() > 10) {
     var topContent = $('#top__content').outerHeight(true);
     var menuHeight = $('#w-sticker').outerHeight(true);
 
-    if( $(window).scrollTop() >= topContent && $(window).innerWidth() >= 767) {
+    if( $(window).scrollTop() >= topContent && $(window).innerWidth() > 767) {
       $('#w-sticker').css('height', menuHeight);
       $('#sticker').addClass('active');
     } else {

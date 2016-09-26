@@ -174,7 +174,7 @@ class Products extends Model
 
     protected static function toArrayProduct($product)
     {
-        $array["id"] = $product->id;
+        $array['id'] = $product->id;
         $array['menu_id'] = $product->menu_id;
 
         $array['images'] = $product->images->toArray();

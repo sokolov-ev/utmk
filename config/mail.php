@@ -7,8 +7,8 @@ return [
     | Mail Driver
     |--------------------------------------------------------------------------
     |
-    | Laravel supports both SMTP and PHP's "mail" function as drivers for the
-    | sending of e-mail. You may specify which one you're using throughout
+    | Laravel supports both SMTP and PHP"s "mail" function as drivers for the
+    | sending of e-mail. You may specify which one you"re using throughout
     | your application here. By default, Laravel is setup for SMTP mail.
     |
     | Supported: "smtp", "mail", "sendmail", "mailgun", "mandrill",
@@ -16,7 +16,7 @@ return [
     |
     */
 
-    'driver' => env('MAIL_DRIVER', 'smtp'),
+    "driver" => env("MAIL_DRIVER", "smtp"),
 
     /*
     |--------------------------------------------------------------------------
@@ -29,7 +29,7 @@ return [
     |
     */
 
-    'host' => env('MAIL_HOST', 'smtp.mailgun.org'),
+    "host" => env("MAIL_HOST", "smtp.gmail.com"),
 
     /*
     |--------------------------------------------------------------------------
@@ -42,7 +42,7 @@ return [
     |
     */
 
-    'port' => env('MAIL_PORT', 587),
+    "port" => env("MAIL_PORT", 587),
 
     /*
     |--------------------------------------------------------------------------
@@ -55,7 +55,7 @@ return [
     |
     */
 
-    'from' => ['address' => null, 'name' => null],
+    "from" => ["address" => "mail@mail.com", "name" => "Metall Vsem"],
 
     /*
     |--------------------------------------------------------------------------
@@ -68,7 +68,7 @@ return [
     |
     */
 
-    'encryption' => env('MAIL_ENCRYPTION', 'tls'),
+    "encryption" => env("MAIL_ENCRYPTION", "tls"),
 
     /*
     |--------------------------------------------------------------------------
@@ -81,7 +81,7 @@ return [
     |
     */
 
-    'username' => env('MAIL_USERNAME'),
+    "username" => env("MAIL_USERNAME", "suport.metallvsem@gmail.com"),
 
     /*
     |--------------------------------------------------------------------------
@@ -94,7 +94,7 @@ return [
     |
     */
 
-    'password' => env('MAIL_PASSWORD'),
+    "password" => env("MAIL_PASSWORD", "DxqNwVfODg4yLoLjANhd"),
 
     /*
     |--------------------------------------------------------------------------
@@ -107,6 +107,7 @@ return [
     |
     */
 
-    'sendmail' => '/usr/sbin/sendmail -bs',
+    "sendmail" => "/usr/sbin/sendmail -bs",
 
+    "pretend" => false,
 ];

@@ -17,8 +17,13 @@
 
         <div class="padding-top-30"></div>
             <ol class="breadcrumb">
+                <?php
+                    $params = request()->query();
+                    $params['slug'] = $menu['slug'];
+                    $params['id'] = $menu['id'];
+                ?>
                 <li><a href="{{ route('products-index', request()->query()) }}">{{ trans('index.menu.products') }}</a></li>
-                <li><a href="{{ url('/products/catalog/'.$menu['slug'].'/'.$menu['id']) }}">{{ $menu['name'] }}</a></li>
+                <li><a href="{{ route('products-index', $params) }}">{{ $menu['name'] }}</a></li>
                 <li class="active">{{ $product['title'] }}</li>
             </ol>
         <div class="padding-top-30"></div>

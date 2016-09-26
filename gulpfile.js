@@ -16,10 +16,13 @@ elixir(function(mix) {
     // СТИЛИ ----------------------------------------
     mix.styles([
         'aos.css',
-        'frontend.css',
+        'magnific-popup.css',
+        'frontend/about.us.css',
         'frontend/index.menu.css',
         'frontend/index.slider.css',
+        'frontend/index.page.css',
         'frontend/products.css',
+        'frontend.css',
         // имя скомпилированого файла
     ], 'public/css/styles.css');
 
@@ -47,9 +50,10 @@ elixir(function(mix) {
     mix.scripts('mustache.js', 'public/js/mustache.js');
     mix.scripts('jquery-ui.js', 'public/js/jquery-ui.js');
     mix.scripts('admin.menu.js', 'public/js/menu.js');
+    mix.scripts('jquery.magnific-popup.js', 'public/js/magnific.js');
     mix.scripts([
         'mustache.js',
-        'aos.js',
+        'parallax.js',
         'frontend.index.js',
     ], 'public/js/scripts.js');
     mix.scripts([
@@ -96,6 +100,7 @@ elixir(function(mix) {
         "css/fileinput.css",
         "js/fileinput.js",
         "js/products.js",
+        "js/magnific.js",
     ]);
 
     mix.browserSync({

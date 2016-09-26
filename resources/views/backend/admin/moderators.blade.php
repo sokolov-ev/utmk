@@ -28,7 +28,7 @@
             <table id="moderators-table" class="table table-striped table-hover table-condensed dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr role="row">
-                        <th>Имя пользовател</th>
+                        <th>Имя</th>
                         <th>Регион</th>
                         <th>E-mail</th>
                         <th>Роль</th>

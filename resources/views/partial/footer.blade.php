@@ -9,12 +9,12 @@
                     <div class="col-sm-4 col-xs-12">
                         <p class="sales-footer-title">{{ trans('index.footer.company') }}</p>
                         <ul class="list-unstyled sales-footer-link-block">
-                            <li><a href="#" title="" class="sales-footer-link">{{ trans('index.menu.home') }}</a></li>
-                            <li><a href="#" title="" class="sales-footer-link">{{ trans('index.menu.about_us') }}</a></li>
-                            <li><a href="#" title="" class="sales-footer-link">{{ trans('index.menu.company_profile') }}</a></li>
-                            <li><a href="#" title="" class="sales-footer-link">{{ trans('index.menu.products') }}</a></li>
-                            <li><a href="#" title="" class="sales-footer-link">{{ trans('index.menu.network_of_offices') }}</a></li>
-                            <li><a href="#" title="" class="sales-footer-link">{{ trans('index.menu.contact_us') }}</a></li>
+                            <li><a href="{{ route('index-page', request()->query()) }}" title="{{ trans('index.menu.home') }}" class="sales-footer-link">{{ trans('index.menu.home') }}</a></li>
+                            <li><a href="{{ route('about-us', request()->query()) }}" title="{{ trans('index.menu.about_us') }}" class="sales-footer-link">{{ trans('index.menu.about_us') }}</a></li>
+                            <li><a href="{{ route('profile', request()->query()) }}" title="{{ trans('index.menu.company_profile') }}" class="sales-footer-link">{{ trans('index.menu.company_profile') }}</a></li>
+                            <li><a href="{{ route('products-index', request()->query()) }}" title="{{ trans('index.menu.products') }}" class="sales-footer-link">{{ trans('index.menu.products') }}</a></li>
+                            <li><a href="{{ route('network-of-offices', request()->query()) }}" title="{{ trans('index.menu.network_of_offices') }}" class="sales-footer-link">{{ trans('index.menu.network_of_offices') }}</a></li>
+                            <li><a href="{{ route('contacts', request()->query()) }}" title="{{ trans('index.menu.contact_us') }}" class="sales-footer-link">{{ trans('index.menu.contact_us') }}</a></li>
                         </ul>
 
                         <p class="sales-footer-title">{{ trans('index.footer.our-services') }}</p>
@@ -87,17 +87,17 @@
                         <p class="sales-footer-title">{{ trans('index.speech.languages') }}</p>
                         <ul class="list-unstyled sales-footer-link-block">
                             <li>
-                                <a href="{{ request()->fullUrlWithQuery(['lang' => 'en']) }}" title="{{ trans('index.speech.english') }}" class="sales-footer-link">
+                                <a href="{{ request()->fullUrlWithQuery(['lang' => 'en']) }}" title="{{ trans('index.speech.en') }}" class="sales-footer-link">
                                     {{ trans('index.speech.en') }}
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ request()->fullUrlWithQuery(['lang' => 'ru']) }}" title="{{ trans('index.speech.russian') }}" class="sales-footer-link">
+                                <a href="{{ request()->fullUrlWithQuery(['lang' => 'ru']) }}" title="{{ trans('index.speech.ru') }}" class="sales-footer-link">
                                     {{ trans('index.speech.ru') }}
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ request()->fullUrlWithQuery(['lang' => 'uk']) }}" title="{{ trans('index.speech.ukrainian') }}" class="sales-footer-link">
+                                <a href="{{ request()->fullUrlWithQuery(['lang' => 'uk']) }}" title="{{ trans('index.speech.uk') }}" class="sales-footer-link">
                                     {{ trans('index.speech.uk') }}
                                 </a>
                             </li>

@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Orders extends Model
 {
-    const STATUS_NOT_ACCEPTED = 0;
-    const STATUS_ACCEPTED = 1;
-    const STATUS_CLOSED = 2;
+    const STATUS_NOT_ACCEPTED = 1;
+    const STATUS_ACCEPTED = 2;
+    const STATUS_CLOSED = 3;
 
     protected $table = 'orders';
 

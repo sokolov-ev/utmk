@@ -12,12 +12,14 @@ use App\DataTable;
 
 class ClientsController extends Controller
 {
-    public function clients()
+
+    public function index(Request $request)
     {
-        return view('backend.admin.clients');
+        $id = $request->input('id');
+        return view('backend.admin.clients', ['id' => $id]);
     }
 
-    public function editClients(Request $request)
+    public function edit(Request $request)
     {
         $id = $request->input('id');
         $data = $request->all();
@@ -32,7 +34,7 @@ class ClientsController extends Controller
                     ]);
 
         if ($validator->fails()) {
-            session()->flash('error', 'Возникла ошибка при обновлении данных клиента 1.');
+            session()->flash('error', 'Возникла ошибка при обновлении данных клиента.');
 
             $this->throwValidationException(
                 $request, $validator
@@ -59,7 +61,7 @@ class ClientsController extends Controller
         return redirect(url()->previous());
     }
 
-    public function deleteClients(Request $request)
+    public function delete(Request $request)
     {
         if (User::destroy($request->input('id'))) {
             session()->flash('success', 'Клиент успешно удален.');
@@ -70,7 +72,7 @@ class ClientsController extends Controller
         return redirect(url()->previous());
     }
 
-    public function filteringClients(Request $request)
+    public function filtering(Request $request)
     {
         $count = empty($request->get("length")) ? 10 : $request->get("length");
         $page  = $count * $request->get("start");

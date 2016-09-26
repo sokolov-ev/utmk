@@ -10,7 +10,7 @@
 
 @section('content')
 
-<section class="container text-center">
+<section class="container sales-title text-center">
     <div class="padding-top"></div>
         <h1 data-aos="fade-left">{{ trans('auth.register') }}</h1>
     <div class="padding-top"></div>
@@ -70,8 +70,8 @@
         </div>
 
         <div class="form-group">
-            <button type="submit" class="btn btn-warning pull-right">
-                <i class="fa fa-btn fa-user"></i> {{ trans('auth.register') }}
+            <button type="submit" class="btn btn-warning pull-right send-button font-up">
+                {{ trans('auth.register') }} >>
             </button>
         </div>
     </form>

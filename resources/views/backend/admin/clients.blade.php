@@ -31,7 +31,7 @@
                         <th width="90">Действие</th>
                     </tr>
                     <tr role="row" id="filter-table">
-                        <td><input type="text" data-column="id" class="form-control id" /></td>
+                        <td><input type="text" data-column="id" class="form-control id" value="{{ $id }}" /></td>
                         <td><input type="text" class="form-control" /></td>
                         <td><input type="text" class="form-control" /></td>
                         <td><input type="text" class="form-control" /></td>
@@ -150,6 +150,16 @@
             table.column( $(this).closest('td').index() )
                  .search( this.value )
                  .draw();
+        });
+
+        $(window).on('load resize', function(event){
+            $.each($("#filter-table input, #filter-table select"), function(key, val){
+                if ($(val).val() != '') {
+                    table.column( $(val).closest('td').index() )
+                         .search( $(val).val() )
+                         .draw();
+                }
+            });
         });
 
         $('table').on('click', '.view-comments', function () {
