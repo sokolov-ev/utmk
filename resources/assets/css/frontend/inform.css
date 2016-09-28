@@ -1,0 +1,8 @@
+.metall-list.orange-list ul li::before {
+    line-height: 5px;
+}
+
+.metall-list.orange-list ul li {
+    line-height: 25px;
+    padding-left: 30px;
+}

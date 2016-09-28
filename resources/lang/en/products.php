@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'menu' => 'Products',
+    'title' => 'Product catalog',
     'shopping-cart' => 'Shopping cart',
     'empty-cart' => 'Cart is empty',
     'add-cart' => 'Add to cart',

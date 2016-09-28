@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" itemscope itemtype="http://schema.org/Webpage">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,11 +8,12 @@
 
     <title>@yield('title')</title>
 
+    @yield('meta')
+
     <!-- Fonts -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
 
     <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
-    {{-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700"> --}}
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Styles -->
@@ -87,10 +88,10 @@
                         <li><a href="#">{{ trans('index.menu.information.packaging') }}</a></li>
                         <li><a href="#">{{ trans('index.menu.information.delivery') }}</a></li>
                         <li class="divider" role="separator"></li>
-                        <li><a href="#">{{ trans('index.menu.information.metal-structures') }}</a></li>
-                        <li><a href="#">{{ trans('index.menu.information.modular-structures') }}</a></li>
-                        <li><a href="#">{{ trans('index.menu.information.galvanized-coils') }}</a></li>
-                        <li><a href="#">{{ trans('index.menu.information.metall-iz-evropy') }}</a></li>
+                        <li><a href="{{ route('metallokonstruktsii', request()->query()) }}">{{ trans('index.menu.information.metal-structures') }}</a></li>
+                        <li><a href="{{ route('modulnye-soorujeniya', request()->query()) }}">{{ trans('index.menu.information.modular-structures') }}</a></li>
+                        <li><a href="{{ route('otsinkovannye-rulony', request()->query()) }}">{{ trans('index.menu.information.galvanized-coils') }}</a></li>
+                        <li><a href="{{ route('metall-iz-evropy', request()->query()) }}">{{ trans('index.menu.information.metall-iz-evropy') }}</a></li>
                     </ul>
                 </li>
                 <li class="about-us"><a href="{{ route('about-us', request()->query()) }}">{{ trans('index.menu.about_us') }}</a></li>

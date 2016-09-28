@@ -233,8 +233,8 @@
 
                 <div class="padding-block-2-2">
                     <a href="#" class="text-green-20">
-                        <span class="fa span-arrow"> </span>
                         <span class="font-up">READ MORE</span>
+                        <span class="fa span-arrow"> >> </span>
                     </a>
                 </div>
             </div>
@@ -249,8 +249,8 @@
 
                 <div class="padding-block-2-2">
                     <a href="#" class="text-green-20">
-                        <span class="fa span-arrow"> </span>
                         <span class="font-up">READ MORE</span>
+                        <span class="fa span-arrow"> >> </span>
                     </a>
                 </div>
             </div>
@@ -265,8 +265,8 @@
 
                 <div class="padding-block-2-2">
                     <a href="#" class="text-green-20">
-                        <span class="fa span-arrow"> </span>
                         <span class="font-up">READ MORE</span>
+                        <span class="fa span-arrow"> >> </span>
                     </a>
                 </div>
             </div>
@@ -281,8 +281,8 @@
 
                 <div class="padding-block-2-2">
                     <a href="#" class="text-green-20">
-                        <span class="fa span-arrow"> </span>
                         <span class="font-up">READ MORE</span>
+                        <span class="fa span-arrow"> >> </span>
                     </a>
                 </div>
             </div>

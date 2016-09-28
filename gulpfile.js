@@ -24,6 +24,7 @@ elixir(function(mix) {
         'frontend/about.us.css',
         'frontend/products.css',
         'frontend/footer.css',
+        'frontend/inform.css',
         // имя скомпилированого файла
     ], 'public/css/styles.css');
 

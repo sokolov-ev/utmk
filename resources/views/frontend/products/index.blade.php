@@ -1,7 +1,7 @@
 @extends('layouts.site')
 
 @section('title')
-    {{ trans('index.menu.products') }}
+    {{ trans('products.title') }}
 @endsection
 
 @section('css')
@@ -10,15 +10,24 @@
 
 @section('content')
 
-<div class="padding-top"></div>
+
+<section class="container">
+    <div class="padding-top"></div>
+    <div class="wow slideInRight">
+        <h1 class="welcome-text text-center">{{ trans('products.title') }}</h1>
+    </div>
+    <div class="padding-top"></div>
+</section>
+
 <section class="products-search-block">
     <div class="container">
 
         <div class="row">
-            <div class="col-md-6 col-sm-4 col-xs-12">
+            <div class="col-md-6 col-sm-4 col-xs-4">
                 <input id="product-name" class="form-control" type="text" placeholder="{{ trans('products.product-search') }}...">
             </div>
-            <div class="col-md-3 col-sm-3 col-xs-12">
+
+            <div class="col-md-3 col-sm-3 col-xs-3">
                 <select id="product-city" name="product-city" class="form-control">
                     <option value="">{{ trans('products.select-city') }}...</option>
                     @foreach($offices as $id => $name)
@@ -26,13 +35,14 @@
                     @endforeach
                 </select>
             </div>
-            <div class="col-md-3 col-sm-5 col-xs-12 btn-products">
+
+            <div class="col-md-3 col-sm-5 col-xs-5">
                 {{ csrf_field() }}
-                <button class="btn btn-default" type="button" onclick="searchProducts()" style="width: 50%;">
+                <button class="btn btn-success" type="button" onclick="searchProducts()">
                     <i class="fa fa-search" aria-hidden="true"></i> {{ trans('products.search') }}
                 </button>
 
-                <a href="{{ url('/assortment/catalog') }}" class="btn btn-default pull-right clearfix" style="width: 50%;">
+                <a href="{{ route('products-index') }}" class="btn btn-warning" style="padding-right: -5px; margin-right: 4px;">
                     <i class="fa fa-refresh" aria-hidden="true"></i> {{ trans('products.reset') }}
                 </a>
             </div>
@@ -119,6 +129,7 @@
 @section('scripts')
 
     <script src="{{ elixir('js/jquery-ui.js') }}"></script>
+    <script src="{{ elixir('js/mustache.js') }}"></script>
     <script src="{{ elixir('js/products.js') }}"></script>
 
     <script type="text/javascript">

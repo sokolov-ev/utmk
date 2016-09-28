@@ -31,6 +31,30 @@ class IndexController extends Controller
         return view('frontend.site.company-profile');
     }
 
+//---------------------------------------------------------------------
+
+    public function metallokonstruktsii()
+    {
+        return view('frontend.information.metallokonstruktsii');
+    }
+
+    public function modulnyeSoorujeniya()
+    {
+        return view('frontend.information.modulnye-soorujeniya');
+    }
+
+    public function otsinkovannyeRulony()
+    {
+        return view('frontend.information.otsinkovannye-rulony');
+    }
+
+    public function metallIzEvropy()
+    {
+        return view('frontend.information.metall-iz-evropy');
+    }
+
+//---------------------------------------------------------------------
+
     public function salesNetwork()
     {
         $offices = Office::getOfficesContacts();

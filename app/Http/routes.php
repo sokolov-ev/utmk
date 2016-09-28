@@ -55,13 +55,14 @@ Route::group(['middleware' => ['web', 'language']], function () {
     Route::post('/contacts', 'Frontend\IndexController@sendMessage');
 
 // Отображение продукции
-    Route::get('/assortment/catalog/{slug?}/{id?}', ['as' => 'products-index', 'uses' => 'Frontend\ProductsController@index']);
+    Route::get('/catalog/products/{slug?}/{id?}', ['as' => 'products-index', 'uses' => 'Frontend\ProductsController@index']);
     // AJAX подгружаем меню
-    Route::get('/assortment/get-prais', 'Frontend\ProductsController@getMenu');
+    Route::get('/catalog/get-catalog', 'Frontend\ProductsController@getMenu');
     // AJAX подгружаем продукцию (menu, name, city, page)
-    Route::get('/assortment/get-catalog', 'Frontend\ProductsController@catalogProducts');
+    Route::get('/catalog/get-products', 'Frontend\ProductsController@catalogProducts');
     // просмотр продукта
-    Route::get('/prais/details/{slug}/{id}', ['as' => 'products-view', 'uses' => 'Frontend\ProductsController@view']);
+    // Route::get('/catalog/details/{slug_menu}/{slug_product}/{id}', ['as' => 'products-view', 'uses' => 'Frontend\ProductsController@view']);
+    Route::get('/catalog/details/{slug}/{id}', ['as' => 'products-view', 'uses' => 'Frontend\ProductsController@view']);
 
         // получить данные для отображения корзины
         Route::get('/products/get-order-data', 'Frontend\ProductsController@getProductsCart');

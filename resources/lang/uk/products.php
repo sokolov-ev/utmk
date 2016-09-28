@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'menu' => 'Продукція',
+    'title' => 'Каталог продукції',
     'shopping-cart' => 'Кошик',
     'empty-cart' => 'Кошик порожній',
     'add-cart' => 'В кошик',
