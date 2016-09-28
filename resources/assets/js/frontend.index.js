@@ -1,4 +1,7 @@
-$(document).ready(function(){
+$(document).ready(function() {
+
+    new WOW().init();
+
     $("#shopping-cart").on("show.bs.modal", function (event) {
         $.get("/products/get-order-data", function(response){
             if (response.status == "ok") {

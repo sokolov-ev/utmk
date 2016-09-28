@@ -11,10 +11,10 @@
 @section('content')
 
 <section class="container sales-title text-center">
-    <div class="padding-top"></div>
-        <h1 data-aos="fade-left">{{ trans('auth.register') }}</h1>
-    <div class="padding-top"></div>
 
+    <div class="padding-top"></div>
+    <h1>{{ trans('auth.register') }}</h1>
+    <div class="padding-top"></div>
 
     <form class="registred-form" role="form" method="POST" action="{{ url('/register') }}">
         {{ csrf_field() }}
@@ -69,11 +69,11 @@
             @endif
         </div>
 
-        <div class="form-group">
-            <button type="submit" class="btn btn-warning pull-right send-button font-up">
-                {{ trans('auth.register') }} >>
-            </button>
-        </div>
+        <button type="submit" class="btn btn-warning pull-right send-button font-up">
+            {{ trans('auth.register') }} >>
+        </button>
+
+        <div class="clearfix"> </div>
     </form>
 
     <div class="padding-top"></div>

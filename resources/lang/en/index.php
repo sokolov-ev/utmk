@@ -3,9 +3,18 @@
 return [
     'menu' => [
         'home' => 'Home',
+
+        'information' => [
             'cutting' => 'Cutting',
             'packaging' => 'Packaging',
             'delivery' => 'Delivery',
+            //----------------------
+            'metal-structures' => 'Metal structures',
+            'modular-structures' => 'Modular structures',
+            'galvanized-coils' => 'Galvanized coils',
+            'metall-iz-evropy' => 'Rolled metal products from Europe',
+        ],
+
         'about_us' => 'About Us',
         'company_profile' => 'Company Profile',
         'products' => 'Products',

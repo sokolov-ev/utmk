@@ -3,9 +3,18 @@
 return [
     'menu' => [
         'home' => 'Головна',
+
+        'information' => [
             'cutting' => 'Порізка',
             'packaging' => 'Упаковка',
             'delivery' => 'Доставка',
+            //----------------------
+            'metal-structures' => 'Металоконструкції',
+            'modular-structures' => 'Модульні споруди',
+            'galvanized-coils' => 'Оцинковані рулони',
+            'metall-iz-evropy' => 'Поставки металопрокату з Європи',
+        ],
+
         'about_us' => 'Про нас',
         'company_profile' => 'Профіль компанії',
         'products' => 'Продукція',

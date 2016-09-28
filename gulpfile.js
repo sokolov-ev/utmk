@@ -15,14 +15,15 @@ elixir(function(mix) {
 
     // СТИЛИ ----------------------------------------
     mix.styles([
-        'aos.css',
+        'animate.css',
         'magnific-popup.css',
-        'frontend/about.us.css',
+        'frontend.css',
         'frontend/index.menu.css',
         'frontend/index.slider.css',
         'frontend/index.page.css',
+        'frontend/about.us.css',
         'frontend/products.css',
-        'frontend.css',
+        'frontend/footer.css',
         // имя скомпилированого файла
     ], 'public/css/styles.css');
 
@@ -52,7 +53,7 @@ elixir(function(mix) {
     mix.scripts('admin.menu.js', 'public/js/menu.js');
     mix.scripts('jquery.magnific-popup.js', 'public/js/magnific.js');
     mix.scripts([
-        'mustache.js',
+        'wow.js',
         'parallax.js',
         'frontend.index.js',
     ], 'public/js/scripts.js');

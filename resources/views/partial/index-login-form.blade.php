@@ -35,8 +35,8 @@
                             @endif
                         </div>
 
-                        <div class="form-group">
-                            <button class="btn btn-link show-reset-pass-form" type="button">
+                        <div class="form-group ">
+                            <button class="btn btn-link text-gray-16 show-reset-pass-form" type="button">
                                 {{ trans('auth.reset-password') }}
                             </button>
                         </div>
@@ -81,7 +81,7 @@
                         </div>
 
                         <div class="form-group">
-                            <button class="btn btn-link show-login-form" type="button">
+                            <button class="btn btn-link text-gray-16 show-login-form" type="button">
                                 {{ trans('auth.rem-password') }}
                             </button>
                         </div>

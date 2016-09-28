@@ -32,48 +32,12 @@
             <div class="col-md-3 col-sm-4 col-xs-12">
                 <img src="/images/logo.jpg" title="Metall Vsem" alt="Metall Vsem" height="93px"/>
             </div>
-            <div class="col-md-6 col-sm-4 col-xs-12">
 
-            </div>
-            <div class="col-md-3 col-sm-4 col-xs-12 panel-right">
-
-                <div class="btn-group lang-block">
-                    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <img src="/images/flags/{{ App::getLocale() }}.gif"> {{ trans('index.speech.'.App::getLocale()) }}
-                        <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-right">
-                        <li>
-                            <a href="{{ request()->fullUrlWithQuery(['lang' => 'en']) }}">
-                                <img src="/images/flags/en.gif"> {{ trans('index.speech.en') }}
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ request()->fullUrlWithQuery(['lang' => 'ru']) }}">
-                                <img src="/images/flags/ru.gif"> {{ trans('index.speech.ru') }}
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ request()->fullUrlWithQuery(['lang' => 'uk']) }}">
-                                <img src="/images/flags/uk.gif"> {{ trans('index.speech.uk') }}
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-8 col-sm-6 col-xs-12">
-
-            </div>
-            <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="col-md-9 col-sm-8 col-xs-12">
                 <div class="user-block">
                     @if (!Auth::guest())
-                        <a href="{{ route('logout', request()->query()) }}" class="">
-                            <i class="fa fa-sign-out fa-2x" aria-hidden="true"></i>
-                            {{ trans('auth.logout') }}
+                        <a class="text-orange-20" href="{{ route('logout', request()->query()) }}" title="{{ trans('auth.logout') }}">
+                            <i class="fa fa-sign-out fa-4x" aria-hidden="true"></i>
                         </a>
                         <a href="#" class="shopping-cart-button" data-target="#shopping-cart" data-toggle="modal">
                             <i class="fa fa-cart-plus fa-2x" aria-hidden="true"></i>
@@ -86,20 +50,18 @@
                         </a>
                     @endif
                     @if (Auth::guest())
-                        <a href="#" class="" data-target="#login-form" data-toggle="modal">
-                            <i class="fa fa-sign-in fa-2x" aria-hidden="true"></i>
-                            {{ trans('auth.login') }}
+                        <a href="#" class="text-orange-20" data-target="#login-form" data-toggle="modal" title="{{ trans('auth.login') }}">
+                            <i class="fa fa-sign-in fa-4x" aria-hidden="true"></i>
                         </a>
                     @else
-                        <a href="#" class="">
-                            <i class="fa fa-user fa-2x" aria-hidden="true"></i>
-                            {{ trans('auth.my-office') }}
+                        <a href="#" class="text-orange-20" title="{{ trans('auth.my-office') }}">
+                            <i class="fa fa-user fa-4x" aria-hidden="true"></i>
                         </a>
                     @endif
                 </div>
             </div>
-        </div>
 
+        </div>
     </div>
 </section>
 
@@ -121,11 +83,14 @@
                         {{ trans('index.menu.home') }} <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">{{ trans('index.menu.cutting') }}</a></li>
-                        <li><a href="#">{{ trans('index.menu.packaging') }}</a></li>
-                        <li><a href="#">{{ trans('index.menu.delivery') }}</a></li>
+                        <li><a href="#">{{ trans('index.menu.information.cutting') }}</a></li>
+                        <li><a href="#">{{ trans('index.menu.information.packaging') }}</a></li>
+                        <li><a href="#">{{ trans('index.menu.information.delivery') }}</a></li>
                         <li class="divider" role="separator"></li>
-                        <li><a href="#">Separated link</a></li>
+                        <li><a href="#">{{ trans('index.menu.information.metal-structures') }}</a></li>
+                        <li><a href="#">{{ trans('index.menu.information.modular-structures') }}</a></li>
+                        <li><a href="#">{{ trans('index.menu.information.galvanized-coils') }}</a></li>
+                        <li><a href="#">{{ trans('index.menu.information.metall-iz-evropy') }}</a></li>
                     </ul>
                 </li>
                 <li class="about-us"><a href="{{ route('about-us', request()->query()) }}">{{ trans('index.menu.about_us') }}</a></li>

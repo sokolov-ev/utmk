@@ -1,0 +1,40 @@
+.footer { background-color: #e1704b; }
+
+.footer-title {
+  color: #ffffff;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 900;
+  letter-spacing: 0;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.footer-link-block { margin-bottom: 30px; }
+
+.footer-link-block a {
+  color: #ffffff;
+  font-style: normal;
+  font-weight: 400;
+  text-decoration: none;
+}
+
+.footer-link-block a:hover,
+.footer-link-block a:focus,
+.footer-link-block a:active {
+  color: #333333 !important;
+  font-style: normal;
+  font-weight: 400;
+  text-decoration: underline !important;
+}
+
+.tell-us i {
+  color: #ffffff;
+  font-weight: 400;
+  font-size: 19px;
+}
+
+.footer-contacts {
+  color: #ffffff;
+  margin-bottom: 30px;
+}

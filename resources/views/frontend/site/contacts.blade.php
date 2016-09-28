@@ -17,7 +17,9 @@
     </div>
 
     <div class="padding-top"></div>
-    <h1>{{ trans('index.contacts.title') }}</h1>
+    <div class="wow slideInRight">
+        <h1 class="welcome-text">{{ trans('index.contacts.title') }}</h1>
+    </div>
     <div class="padding-top"></div>
 
     <form id="contacts-form" class="contacts-form" role="form" method="POST" action="{{ url('/contacts') }}">
@@ -78,10 +80,11 @@
                 {{ trans('index.contacts.send') }} >>
             </button>
         </div>
+
+        <div class="clearfix"> </div>
     </form>
 
     <div class="padding-top"></div>
-
 </section>
 
 @endsection

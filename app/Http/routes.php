@@ -16,17 +16,43 @@
 Route::group(['middleware' => ['web', 'language']], function () {
 
     Route::get('/', ['as' => 'index-page', 'uses' => 'Frontend\IndexController@index']);
-    // Route::get('/', ['as' => 'index-page', 'uses' => 'Frontend\IndexController@testing']);
+
     Route::get('/yutmk-energy', ['as' => 'about-us', 'uses' => 'Frontend\IndexController@aboutUs']);
-    // сеть оффисов
-    Route::get('/companu-profile', ['as' => 'profile', 'uses' => 'Frontend\IndexController@companyProfile']);
+    Route::get('/company-profile', ['as' => 'profile', 'uses' => 'Frontend\IndexController@companyProfile']);
+
+    Route::get('/metallokonstruktsii', ['as' => 'metallokonstruktsii', 'uses' => 'Frontend\IndexController@metallokonstruktsii']);
+    Route::get('/modulnye-soorujeniya', ['as' => 'modulnye-soorujeniya', 'uses' => 'Frontend\IndexController@modulnyeSoorujeniya']);
+    Route::get('/otsinkovannye-rulony', ['as' => 'otsinkovannye-rulony', 'uses' => 'Frontend\IndexController@otsinkovannyeRulony']);
+    Route::get('/metall-iz-evropy', ['as' => 'metall-iz-evropy', 'uses' => 'Frontend\IndexController@metallIzEvropy']);
+
+/*
+
+/armatura
+/balka-dvutavr
+/katanka
+/kvadrat
+/krug
+/polosa
+/rels
+/ugolok
+/shveller
+/shestigrannik
+/staltrub
+/truby-kotelnye
+/pokovka
+/list-hardox
+/list-stalnoj
+/shveller-gnutyj
+/ugolok-gnutyj
+/z-obraznyj-profil
+
+*/
+
     // сеть оффисов
     Route::get('/network-of-offices', ['as' => 'network-of-offices', 'uses' => 'Frontend\IndexController@salesNetwork']);
     // связатся с нами
     Route::get('/contacts', ['as' => 'contacts', 'uses' => 'Frontend\IndexController@contacts']);
     Route::post('/contacts', 'Frontend\IndexController@sendMessage');
-
-
 
 // Отображение продукции
     Route::get('/assortment/catalog/{slug?}/{id?}', ['as' => 'products-index', 'uses' => 'Frontend\ProductsController@index']);

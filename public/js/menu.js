@@ -64,10 +64,6 @@ $(document).ready(function(){
                             parent.push($(this).attr('parent'));
                         });
 
-                        // console.log(id);
-                        // console.log(weight);
-                        // console.log(parent);
-
                         $.ajax('/administration/menu-sort', {
                             data: {id: id, weight: weight, parent: parent},
                             type: "POST",
