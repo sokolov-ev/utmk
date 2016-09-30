@@ -56,7 +56,6 @@
   font-weight: 500;
   line-height: 1.1;
   text-decoration: none;
-
   display: inline-block;
 }
 
@@ -84,7 +83,6 @@
   font-size: 16px;
   font-weight: 400;
   line-height: 1.4;
-
   display: inline-block;
 }
 @media(max-width: 767px) {
@@ -170,6 +168,8 @@
 }
 
 .green-section-title {
+  color: #ffffff;
+  text-decoration: none;
   font-size: 20px;
   font-weight: 500;
   line-height: 1.1;
@@ -177,6 +177,14 @@
   padding-top: 10px;
   padding-bottom: 10px;
 }
+
+.green-section-title:hover,
+.green-section-title:active,
+.green-section-title:focus {
+  color: #000000;
+  text-decoration: none;
+}
+
 @media(max-width: 767px) {
   .green-section-title {
     font-size: 17px;
@@ -401,3 +409,5 @@
 }
 
 /* /СЕКЦИЯ ГАЛЕРЕИ */
+
+

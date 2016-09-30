@@ -6,7 +6,7 @@
             <div class="col-md-7 col-sm-12 col-xs-12">
 
                 <div class="row">
-                    <div class="col-sm-4 col-xs-12">
+                    <div class="col-md-3 col-sm-3 col-xs-12">
                         <p class="footer-title">{{ trans('index.footer.company') }}</p>
                         <ul class="list-unstyled footer-link-block">
                             <li>
@@ -31,12 +31,53 @@
 
                         <p class="footer-title">{{ trans('index.footer.our-services') }}</p>
                         <ul class="list-unstyled footer-link-block">
-                            <li><a href="#" title="">{{ trans('index.menu.cutting') }}</a></li>
-                            <li><a href="#" title="">{{ trans('index.menu.packaging') }}</a></li>
-                            <li><a href="#" title="">{{ trans('index.menu.delivery') }}</a></li>
+                            <li><a href="#" title="">{{ trans('index.menu.information.cutting') }}</a></li>
+                            <li><a href="#" title="">{{ trans('index.menu.information.packaging') }}</a></li>
+                            <li><a href="#" title="">{{ trans('index.menu.information.delivery') }}</a></li>
                         </ul>
                     </div>
-                    <div class="col-sm-5 col-xs-12">
+                    <div class="col-md-5 col-sm-5 col-xs-12">
+                        <p class="footer-title">{{ trans('index.footer.reference') }}</p>
+                        <ul class="list-unstyled footer-link-block">
+                            <li><a href="{{ route('armatura') }}" title="">{{ trans('index.menu.information.armatura') }}</a></li>
+                            <li><a href="{{ route('balka-dvutavr') }}" title="">{{ trans('index.menu.information.balka-dvutavr') }}</a></li>
+                            <li><a href="{{ route('katanka') }}" title="">{{ trans('index.menu.information.katanka') }}</a></li>
+
+                            <li><a href="{{ route('kvadrat') }}" title="">{{ trans('index.menu.information.kvadrat') }}</a></li>
+                            <li><a href="{{ route('krug') }}" title="">{{ trans('index.menu.information.krug') }}</a></li>
+                            <li><a href="{{ route('polosa') }}" title="">{{ trans('index.menu.information.polosa') }}</a></li>
+
+                            <li><a href="{{ route('rels') }}" title="">{{ trans('index.menu.information.rels') }}</a></li>
+                            <li><a href="{{ route('ugolok') }}" title="">{{ trans('index.menu.information.ugolok') }}</a></li>
+                            <li><a href="{{ route('shveller') }}" title="">{{ trans('index.menu.information.shveller') }}</a></li>
+
+                            <li><a href="{{ route('shestigrannik') }}" title="">{{ trans('index.menu.information.shestigrannik') }}</a></li>
+                            <li><a href="{{ route('staltrub') }}" title="">{{ trans('index.menu.information.staltrub') }}</a></li>
+                            <li><a href="{{ route('truby-kotelnye') }}" title="">{{ trans('index.menu.information.truby-kotelnye') }}</a></li>
+
+                            <li><a href="{{ route('pokovka') }}" title="">{{ trans('index.menu.information.pokovka') }}</a></li>
+                            <li><a href="{{ route('list-hardox') }}" title="">{{ trans('index.menu.information.list-hardox') }}</a></li>
+                            <li><a href="{{ route('list-stalnoj') }}" title="">{{ trans('index.menu.information.list-stalnoj') }}</a></li>
+
+                            <li><a href="{{ route('shveller-gnutyj') }}" title="">{{ trans('index.menu.information.shveller-gnutyj') }}</a></li>
+                            <li><a href="{{ route('ugolok-gnutyj') }}" title="">{{ trans('index.menu.information.ugolok-gnutyj') }}</a></li>
+                            <li><a href="{{ route('z-obraznyj-profil') }}" title="">{{ trans('index.menu.information.z-obraznyj-profil') }}</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                        <p class="footer-title">{{ trans('index.speech.languages') }}</p>
+                        <ul class="list-unstyled footer-link-block">
+                            <li>
+                                <a href="{{ request()->fullUrlWithQuery(['lang' => 'en']) }}" title="{{ trans('index.speech.en') }}">{{ trans('index.speech.en') }}</a>
+                            </li>
+                            <li>
+                                <a href="{{ request()->fullUrlWithQuery(['lang' => 'ru']) }}" title="{{ trans('index.speech.ru') }}">{{ trans('index.speech.ru') }}</a>
+                            </li>
+                            <li>
+                                <a href="{{ request()->fullUrlWithQuery(['lang' => 'uk']) }}" title="{{ trans('index.speech.uk') }}">{{ trans('index.speech.uk') }}</a>
+                            </li>
+                        </ul>
+
                         <p class="footer-title">{{ trans('index.footer.tell-us') }}</p>
                         <ul class="list-unstyled footer-link-block tell-us">
                             <li>
@@ -92,20 +133,7 @@
                                 </div>
                             </li>
                         </ul>
-                    </div>
-                    <div class="col-sm-3 col-xs-12">
-                        <p class="footer-title">{{ trans('index.speech.languages') }}</p>
-                        <ul class="list-unstyled footer-link-block">
-                            <li>
-                                <a href="{{ request()->fullUrlWithQuery(['lang' => 'en']) }}" title="{{ trans('index.speech.en') }}">{{ trans('index.speech.en') }}</a>
-                            </li>
-                            <li>
-                                <a href="{{ request()->fullUrlWithQuery(['lang' => 'ru']) }}" title="{{ trans('index.speech.ru') }}">{{ trans('index.speech.ru') }}</a>
-                            </li>
-                            <li>
-                                <a href="{{ request()->fullUrlWithQuery(['lang' => 'uk']) }}" title="{{ trans('index.speech.uk') }}">{{ trans('index.speech.uk') }}</a>
-                            </li>
-                        </ul>
+
                     </div>
                 </div>
 

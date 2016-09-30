@@ -12,7 +12,31 @@ return [
             'metal-structures' => 'Металоконструкції',
             'modular-structures' => 'Модульні споруди',
             'galvanized-coils' => 'Оцинковані рулони',
-            'metall-iz-evropy' => 'Поставки металопрокату з Європи',
+            'metall-iz-evropy' => 'Європейська сталь',
+
+            'armatura' => 'Арматура',
+            'balka-dvutavr' => 'Балка',
+            'katanka' => 'Катанка',
+
+            'kvadrat' => 'Квадрат',
+            'krug' => 'Коло',
+            'polosa' => 'Смуга',
+
+            'rels' => 'Рейок',
+            'ugolok' => 'Уголок',
+            'shveller' => 'Куточок',
+
+            'shestigrannik' => 'Шестигранник',
+            'staltrub' => 'Труби сталеві',
+            'truby-kotelnye' => 'Труби котельні',
+
+            'pokovka' => 'Поковки',
+            'list-hardox' => 'Лист Hardox',
+            'list-stalnoj' => 'Лист сталевий',
+
+            'shveller-gnutyj' => 'Швелер гнутий',
+            'ugolok-gnutyj' => 'Куточок гнутий',
+            'z-obraznyj-profil' => 'Z - подібний профіль',
         ],
 
         'about_us' => 'Про нас',
@@ -28,6 +52,8 @@ return [
 
         'tell-us' => 'Розповісти про нас',
         'headquarter' => 'Головний офіс',
+
+        'reference' => 'Справка',
     ],
 
     'speech' => [

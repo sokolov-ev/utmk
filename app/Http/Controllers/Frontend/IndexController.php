@@ -7,10 +7,10 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
+use App;
 use Mail;
 use Validator;
 use JsValidator;
-
 
 use App\Office;
 
@@ -35,22 +35,125 @@ class IndexController extends Controller
 
     public function metallokonstruktsii()
     {
-        return view('frontend.information.metallokonstruktsii');
+        // if (App::getLocale() == "en") {
+        //     return view('frontend.information.metallokonstruktsii_en');
+        // } elseif (App::getLocale() == "ru") {
+        //     return view('frontend.information.metallokonstruktsii_ru');
+        // } elseif (App::getLocale() == "uk") {
+        //     return view('frontend.information.metallokonstruktsii_uk');
+        // }
+        return view('frontend.information.ru_metallokonstruktsii');
     }
 
     public function modulnyeSoorujeniya()
     {
-        return view('frontend.information.modulnye-soorujeniya');
+        return view('frontend.information.ru_modulnye-soorujeniya');
     }
 
     public function otsinkovannyeRulony()
     {
-        return view('frontend.information.otsinkovannye-rulony');
+        return view('frontend.information.ru_otsinkovannye-rulony');
     }
 
     public function metallIzEvropy()
     {
-        return view('frontend.information.metall-iz-evropy');
+        return view('frontend.information.ru_metall-iz-evropy');
+    }
+
+//*
+    public function armatura()
+    {
+        return view('frontend.information.ru_armatura');
+    }
+
+    public function balkaDvutavr()
+    {
+        return view('frontend.information.ru_balka-dvutavr');
+    }
+
+    public function katanka()
+    {
+        return view('frontend.information.ru_katanka');
+    }
+
+//*
+    public function kvadrat()
+    {
+        return view('frontend.information.ru_kvadrat');
+    }
+
+    public function krug()
+    {
+        return view('frontend.information.ru_krug');
+    }
+
+    public function polosa()
+    {
+        return view('frontend.information.ru_polosa');
+    }
+
+//*
+    public function rels()
+    {
+        return view('frontend.information.ru_rels');
+    }
+
+    public function ugolok()
+    {
+        return view('frontend.information.ru_ugolok');
+    }
+
+    public function shveller()
+    {
+        return view('frontend.information.ru_shveller');
+    }
+
+//*
+    public function shestigrannik()
+    {
+        return view('frontend.information.ru_shestigrannik');
+    }
+
+    public function staltrub()
+    {
+        return view('frontend.information.ru_staltrub');
+    }
+
+    public function trubyKotelnye()
+    {
+        return view('frontend.information.ru_truby-kotelnye');
+    }
+
+//*
+    public function pokovka()
+    {
+        return view('frontend.information.ru_pokovka');
+    }
+
+    public function listHardox()
+    {
+        return view('frontend.information.ru_list-hardox');
+    }
+
+    public function listStalnoj()
+    {
+        return view('frontend.information.ru_list-stalnoj');
+    }
+
+//*
+    public function shvellerGnutyj()
+    {
+        return view('frontend.information.ru_shveller-gnutyj');
+    }
+
+    public function ugolokGnutyj()
+    {
+        return view('frontend.information.ru_ugolok-gnutyj');
+    }
+
+    public function obraznyjProfil()
+    {
+        return view('frontend.information.ru_z-obraznyj-profil');
     }
 
 //---------------------------------------------------------------------

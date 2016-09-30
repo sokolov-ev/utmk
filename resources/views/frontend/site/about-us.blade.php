@@ -259,11 +259,11 @@
             <div class="wow fadeInRight">
                 <div class="orange-list">
                     <ul class="list-unstyled">
-                        <li> <a href="#" class="" title="">Respect goes beyond treating people politely</a> </li>
-                        <li> <a href="#" class="" title="">We really love what we do</a> </li>
-                        <li> <a href="#" class="" title="">We strive for our customers</a> </li>
-                        <li> <a href="#" class="" title="">We deliver anywhere in the world</a> </li>
-                        <li> <a href="#" class="" title="">We value other people's experience</a> </li>
+                        <li> <a class="orange-list-a" href="#" title="">Respect goes beyond treating people politely</a> </li>
+                        <li> <a class="orange-list-a" href="#" title="">We really love what we do</a> </li>
+                        <li> <a class="orange-list-a" href="#" title="">We strive for our customers</a> </li>
+                        <li> <a class="orange-list-a" href="#" title="">We deliver anywhere in the world</a> </li>
+                        <li> <a class="orange-list-a" href="#" title="">We value other people's experience</a> </li>
                     </ul>
                 </div>
             </div>

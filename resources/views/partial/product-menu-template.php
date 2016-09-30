@@ -1,9 +1,9 @@
 <script id="product-menu-template" type="text/x-handlebars-template">
 
-    <li class="sub-menu menu-down" id="{{id}}" data-parent="{{parent}}" data-slug="{{slug}}">
-        <i class="fake-width"></i>
-        <span class="menu-item">{{name}}</span>
-        <ol class="menu menu-empty"> </ol>
+    <li class="" id="{{id}}" data-parent="{{parent}}" data-slug="{{slug}}">
+        <i class="fake-width"> </i>
+        <span class="text-black-h3">{{name}}</span>
+        <ul class="list-unstyled"> </ul>
     </li>
 
 </script>

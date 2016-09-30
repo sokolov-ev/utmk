@@ -30,15 +30,15 @@
   top: 10px;
 }
 
-.orange-list a {
+.orange-list-a {
   color: #999999;
   font-style: normal;
   font-weight: 400;
   text-decoration: none;
 }
 
-.orange-list a:hover,
-.orange-list a:active {
+.orange-list-a:hover,
+.orange-list-a:active {
   color: #e1704b;
   font-style: normal;
   font-weight: 400;

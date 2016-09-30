@@ -23,11 +23,11 @@
     <div class="container">
 
         <div class="row">
-            <div class="col-md-6 col-sm-4 col-xs-4">
+            <div class="col-md-6 col-sm-4 col-xs-12 padding-block-1-1">
                 <input id="product-name" class="form-control" type="text" placeholder="{{ trans('products.product-search') }}...">
             </div>
 
-            <div class="col-md-3 col-sm-3 col-xs-3">
+            <div class="col-md-3 col-sm-3 col-xs-12 padding-block-1-1">
                 <select id="product-city" name="product-city" class="form-control">
                     <option value="">{{ trans('products.select-city') }}...</option>
                     @foreach($offices as $id => $name)
@@ -36,7 +36,7 @@
                 </select>
             </div>
 
-            <div class="col-md-3 col-sm-5 col-xs-5">
+            <div class="col-md-3 col-sm-5 col-xs-12 text-right padding-block-1-1">
                 {{ csrf_field() }}
                 <button class="btn btn-success" type="button" onclick="searchProducts()">
                     <i class="fa fa-search" aria-hidden="true"></i> {{ trans('products.search') }}
@@ -54,67 +54,57 @@
 <section class="container">
     <div class="padding-top"></div>
 
+        <div class="row products-cards">
 
-        <div class="row">
-            <div class="col-md-3 col-sm-12 col-xs-12">
-
-                <div class="panel panel-default">
-                    <div class="panel-heading">{{ trans('products.catalog') }}</div>
-                    <div class="panel-body">
-                        <div class="menu-selected hidden" data-id="{{ $menu_id }}"></div>
-                        <ol class="menu" id="catalog-content"></ol>
-                    </div>
+            <div class="col-md-4 col-sm-6 col-xs-12">
+                <div class="products-menu-block">
+                    <div class="menu-selected hidden" data-id="{{ $menu_id }}"> </div>
+                    <ul class="list-unstyled catalog" id="catalog-content"> </ul>
                 </div>
-
             </div>
-            <div class="col-md-9 col-sm-12 col-xs-12">
 
-                <div class="row products-cards">
-                    @foreach ($products as $product)
-                        <div class="col-lg-6 col-md-6 col-sm-6">
-                            <div class="thumbnail">
-                                <img alt="{{ $product['title'] }}" src="{{ $product['images'] }}">
-                                <div class="caption">
-                                    <h3>{{ $product['title'] }}</h3>
-                                    <p>{{ str_limit($product['description'], 250, '...') }}</p>
-                                </div>
-                                <div class="caption-footer">
+            @foreach ($products as $product)
+                <?php
+                    $params = request()->query();
+                    $params['slug'] = $product['slug'];
+                    $params['id'] = $product['id'];
+                ?>
+                <div class="col-md-4 col-sm-6 col-xs-12 card">
+                    <div class="thumbnail">
+                        <img class="green-img" alt="{{ $product['title'] }}" src="{{ $product['images'] }}" style="max-width: 360px; max-height: 240px">
 
-                                    <div class="shopping-cart row">
-                                        <div class="col-md-6 col-sm-6 col-xs-6">
-                                            <?php
-                                                $params = request()->query();
-                                                $params['slug'] = $product['slug'];
-                                                $params['id'] = $product['id'];
-                                            ?>
-                                            <a class="btn btn-default" role="button" href="{{ route('products-view', $params) }}">{{ trans('products.more') }}</a>
-                                        </div>
+                        <div class="caption">
+                            <a class="text-black-h3" href="{{ route('products-view', $params) }}">{{ $product['title'] }}</a>
 
-                                        <div class="col-md-6 col-sm-6 col-xs-6 in-shoping-cart">
-
-                                            <button type="button" class="btn btn-success pull-right clearfix add-cart" data-id="{{ $product['id'] }}">
-                                                <i class="fa fa-cart-plus" aria-hidden="true"></i>
-                                                <div style="margin-left: 20px;">{{ trans('products.add-cart') }}</div>
-                                            </button>
-
-                                        </div>
-                                    </div>
-
-                                </div>
+                            <div class="padding-block-1-2">
+                                <span class="text-gray-16">{{ str_limit($product['description'], 250, '...') }}</span>
                             </div>
                         </div>
-                    @endforeach
 
-                    @if (empty($products))
-                        <div class="empty-products">{{ trans('products.catalog-enpty') }}</div>
-                    @endif
+                        <div class="caption-footer">
+
+                            <a class="btn btn-default pull-left" role="button" href="{{ route('products-view', $params) }}">{{ trans('products.more') }}</a>
+
+                            <button type="button" class="btn btn-success pull-right add-cart" data-id="{{ $product['id'] }}">
+                                <i class="fa fa-cart-plus" aria-hidden="true"> </i>
+                                <span>{{ trans('products.add-cart') }}</span>
+                            </button>
+
+                            <div class="clearfix"> </div>
+
+                        </div>
+                    </div>
                 </div>
+            @endforeach
 
-                <div id="pagination" class="text-center"></div>
-                <div class="first hidden">{{ trans('pagination.first') }}</div>
-                <div class="last hidden">{{ trans('pagination.last') }}</div>
-            </div>
+            @if (empty($products))
+                <div class="empty-products">{{ trans('products.catalog-enpty') }}</div>
+            @endif
         </div>
+
+        <div id="pagination" class="text-center"> </div>
+        <div class="first hidden">{{ trans('pagination.first') }}</div>
+        <div class="last hidden">{{ trans('pagination.last') }}</div>
 
     <div class="padding-top"></div>
 </section>
@@ -139,7 +129,7 @@
 
         $(".products").addClass('active');
 
-        $.get('/assortment/get-prais', function(response){
+        $.get('/catalog/get-catalog', function(response){
             if (response.status == 'ok') {
                 $('#catalog-content').empty();
                 var selected = $('.menu-selected').data('id');
@@ -148,9 +138,9 @@
 
                 $.each(response.data, function(key, item){
                     if (item.parent > 0) {
-                        $('#' + item.parent + ' > ol').append(Mustache.render(template, item));
-                        $('#' + item.parent + ' > ol').css('display', 'none');
-                        $('#' + item.parent + ' > i').removeClass('fake-width').addClass('fa fa-angle-right pull-left');
+                        $('#' + item.parent + ' > ul').append(Mustache.render(template, item));
+                        $('#' + item.parent + ' > ul').css('display', 'none');
+                        $('#' + item.parent + ' > i').addClass('fa fa-angle-right');
                     } else {
                         $('#catalog-content').append(Mustache.render(template, item));
                     }
@@ -159,7 +149,7 @@
                 if (selected) {
                     $("#" + selected + " span").addClass('active');
                     $.each($("#" + selected).parents("li"), function(key, val){
-                        $(val).children('ol').slideDown(200);
+                        $(val).children('ul').slideDown(200);
                         $(val).children('i').addClass("fa-angle-down").removeClass("fa-angle-right");
                     });
                 }
@@ -170,12 +160,12 @@
         });
 
         $("#catalog-content").on('click', 'span',function(event){
-            if ($(this).siblings('ol').children().is('li')) {
-                if ($(this).siblings('ol').css('display') == 'none') {
-                    $(this).siblings('ol').slideDown(200);
+            if ($(this).siblings('ul').children().is('li')) {
+                if ($(this).siblings('ul').css('display') == 'none') {
+                    $(this).siblings('ul').slideDown(200);
                     $(this).siblings('i').addClass("fa-angle-down").removeClass("fa-angle-right");
                 } else {
-                    $(this).siblings('ol').slideUp(200);
+                    $(this).siblings('ul').slideUp(200);
                     $(this).siblings('i').removeClass("fa-angle-down").addClass("fa-angle-right");
                 }
             } else {
@@ -185,10 +175,10 @@
                 $('.menu-item').removeClass('active');
                 $(this).addClass('active');
 
-                url   = '/assortment/catalog/' + slug + '/' + id;
+                url   = '/catalog/products/' + slug + '/' + id;
                 query = 'menu=' + id;
 
-                $.get('/assortment/get-catalog?' + query, function(response){
+                $.get('/catalog/get-products?' + query, function(response){
                     viewProducts(response);
                     ChangeUrl(id, url);
                 });
@@ -212,7 +202,7 @@
                     query += '&id=' + id;
                 }
 
-                $.get('/assortment/get-catalog?' + query, function(response){
+                $.get('/catalog/get-products?' + query, function(response){
                     viewProducts(response);
                 });
             }
@@ -222,16 +212,16 @@
 
         function viewProducts(response) {
             if (response.status == 'ok') {
-                $('.products-cards').empty();
+
+                $('.products-cards').find('.card').remove();
+
                 var template = $('#product-card-template').html();
                 Mustache.parse(template);
 
                 $.each(response.data, function(key, item){
-                    item['work_link'] = "/prais/details/" + item['slug'] + "/" + item['id'];
+                    item['work_link'] = "/catalog/details/" + item['slug'] + "/" + item['id'];
                     $('.products-cards').append(Mustache.render(template, item));
                 });
-
-                fixHeight();
 
                 if (response.data.length < pageSize) {
                     $('#pagination').twbsPagination('destroy');
@@ -239,8 +229,8 @@
                     initPagination(response.count);
                 }
             } else {
-                $('.products-cards').empty();
-                $('.products-cards').html('<div class="empty-products">' + response.message + '</div>');
+                $('.products-cards').find('.card').remove();
+                $('.products-cards').append('<div class="col-md-8 col-sm-6 col-xs-12 card text-center font-up text-black-h2">' + response.message + '</div>');
                 $('#pagination').twbsPagination('destroy');
             }
         }
@@ -254,34 +244,34 @@
             }
         }
 
-        $(window).on('load resize', function(event){
-            fixHeight();
-        });
+        // $(window).on('load resize', function(event){
+            // fixHeight();
+        // });
 
-        function fixHeight()
-        {
-            $.each($(".thumbnail").find(".caption"), function(key, val){
-                $(val).height('auto');
-            });
+        // function fixHeight()
+        // {
+        //     $.each($(".thumbnail").find(".caption"), function(key, val){
+        //         $(val).height('auto');
+        //     });
 
-            if ($(window).width() >= '768'){
-                var height  = 0;
-                var caption = $(".thumbnail").find(".caption");
+        //     if ($(window).width() >= '768'){
+        //         var height  = 0;
+        //         var caption = $(".thumbnail").find(".caption");
 
-                for (var i = 0; i < caption.length;) {
-                    if ($(caption[i]).height() > $(caption[i+1]).height()) {
-                        height = $(caption[i]).height();
-                    } else {
-                        height = $(caption[i+1]).height();
-                    }
+        //         // for (var i = 0; i < caption.length;) {
+        //         //     if ($(caption[i]).height() > $(caption[i+1]).height()) {
+        //         //         height = $(caption[i]).height();
+        //         //     } else {
+        //         //         height = $(caption[i+1]).height();
+        //         //     }
 
-                    $(caption[i]).height(height);
-                    $(caption[i+1]).height(height);
+        //         //     $(caption[i]).height(height);
+        //         //     $(caption[i+1]).height(height);
 
-                    i += 2;
-                }
-            }
-        }
+        //         //     i += 2;
+        //         // }
+        //     }
+        // }
 
         function initPagination(count)
         {
@@ -295,7 +285,7 @@
                 next: '»',
                 last: $('.last').text(),
                 onPageClick: function (event, page) {
-                    $.get('/assortment/get-catalog?' + query + '&page=' + page, function(response){
+                    $.get('/catalog/get-products?' + query + '&page=' + page, function(response){
                         viewProducts(response);
                         url += '&page=' + page;
                         ChangeUrl('', url);

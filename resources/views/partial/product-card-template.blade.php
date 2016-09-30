@@ -1,26 +1,27 @@
 <script id="product-card-template" type="text/x-handlebars-template">
 
-    <div class="col-lg-6 col-md-6 col-sm-6">
+    <div class="col-md-4 col-sm-6 col-xs-12 card">
         <div class="thumbnail">
-            <img alt="@{{ title }}" src="@{{ images }}">
+            <img class="green-img" alt="@{{ title }}" src="@{{ images }}" style="max-width: 360px; max-height: 240px">
+
             <div class="caption">
-                <h3>@{{ title }}</h3>
-                <p>@{{ description }}</p>
+                <a class="text-black-h3" href="@{{ work_link }}">@{{ title }}</a>
+
+                <div class="padding-block-1-2">
+                    <span class="text-gray-16">@{{ description }}</span>
+                </div>
             </div>
+
             <div class="caption-footer">
 
-                <div class="shopping-cart row">
-                    <div class="col-md-6 col-sm-6 col-xs-6">
-                        <a class="btn btn-default" role="button" href="@{{ work_link }}">{{ trans('products.more') }}</a>
-                    </div>
+                <a class="btn btn-default pull-left" role="button" href="@{{ work_link }}">{{ trans('products.more') }}</a>
 
-                    <div class="col-md-6 col-sm-6 col-xs-6 in-shoping-cart">
-                        <button type="button" class="btn btn-success pull-right clearfix add-cart" data-id="@{{ id }}">
-                            <i class="fa fa-cart-plus" aria-hidden="true"></i>
-                            <div style="margin-left: 20px;">{{ trans('products.add-cart') }}</div>
-                        </button>
-                    </div>
-                </div>
+                <button type="button" class="btn btn-success pull-right add-cart" data-id="@{{ id }}">
+                    <i class="fa fa-cart-plus" aria-hidden="true"> </i>
+                    <span>{{ trans('products.add-cart') }}</span>
+                </button>
+
+                <div class="clearfix"> </div>
 
             </div>
         </div>

@@ -18,7 +18,7 @@
 
     <!-- Twitter Card markup-->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:site" content="http://metallvsem.dev/modulnye-soorujeniya">
+    <meta name="twitter:site" content="http://metallvsem.com.ua/modulnye-soorujeniya">
     <meta name="twitter:title" content="Модульные сооружения">
     <meta name="twitter:description" content="Для временного пользования и проживания подходят модульные сооружения, представляющие собой полный комплект из окон, дверей и современных материалов. Такие сооружения могут быть одно- или многоблочными в зависимости от количества блоков-контейнеров.">
     <meta name="twitter:creator" content="">
@@ -29,7 +29,7 @@
     <!-- Open Graph markup (Facebook, Pinterest) -->
     <meta property="og:title" content="Модульные сооружения" />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="http://metallvsem.dev/modulnye-soorujeniya" />
+    <meta property="og:url" content="http://metallvsem.com.ua/modulnye-soorujeniya" />
     <meta property="og:image" content="" />
     <meta property="og:description" content="Для временного пользования и проживания подходят модульные сооружения, представляющие собой полный комплект из окон, дверей и современных материалов. Такие сооружения могут быть одно- или многоблочными в зависимости от количества блоков-контейнеров." />
     <meta property="og:site_name" content="Metall Vsem" />

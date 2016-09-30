@@ -1,11 +1,12 @@
 <div id="shopping-cart" class="modal fade" aria-labelledby="shopping-cart-label" tabindex="-1" role="dialog" style="display: none;">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
+
             <div class="modal-header">
                 <button class="close" aria-label="Close" data-dismiss="modal" type="button">
                     <span aria-hidden="true">×</span>
                 </button>
-                <h4 id="shopping-cart-label" class="modal-title font-up">{{ trans('products.shopping-cart') }}</h4>
+                <h4 id="shopping-cart-label" class="modal-title text-green-20 font-up" style="margin-right: 30px">{{ trans('products.shopping-cart') }}</h4>
             </div>
 
             <form class="" role="form" method="POST" action="{{ url('/products/formed-order') }}" id="finish-order">

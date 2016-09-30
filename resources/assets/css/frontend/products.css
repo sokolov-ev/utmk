@@ -1,54 +1,67 @@
 .products-search-block {
   background-color: #eeeeee;
-  padding-top: 10px;
-  padding-bottom: 10px;
 }
-
-.products-search-block .row > div {
-
-}
-
 
 .products-search-block input,
 .products-search-block select {
   border-radius: 0;
 }
 
+.products-search-block .btn { width: 48%; }
 @media(max-width: 767px) {
-  .products-search-block .btn,
-  .products-search-block input,
-  .products-search-block select {
-    margin-bottom: 7px;
-  }
+  .products-search-block .btn { width: auto; }
 }
 
-.products-search-block .btn { width: 48%; }
-/*@media(max-width: 767px) {
-  .products-search-block .btn { width: 100%; }
-}*/
+.products-menu-block {
+  padding: 10px;
+  background-color: #eeeeee;
+  margin-bottom: 20px;
+}
+
+.catalog {
+  margin: 0;
+}
+
+.catalog li {
+  padding: 3px 0;
+  cursor: pointer;
+}
+
+.catalog li ul {
+  padding-left: 10px;
+}
+
+.catalog .text-black-h3 {
+  font-size: 16px;
+}
+
+
+.thumbnail {
+  border-radius: 0;
+  padding: 0;
+  line-height: none;
+}
 
 .thumbnail .caption {
   display: inline-block;
-}
-.thumbnail img {
-  height: 240px; width: 100%; display: block;
-}
-
-.caption {
+  padding: 10px;
+  height: 157px;
   overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .caption-footer {
-  padding: 0 9px 9px 9px;
+  border-top: 1px solid #ddd;
+  padding: 10px;
 }
 
-@media(max-width: 767px) and (min-width: 380px) {
+/*@media(max-width: 767px) and (min-width: 380px) {
   .products-cards { width: 350px; }
 }
 
 @media(max-width: 379px) {
   .products-cards { width: 320px; }
-}
+}*/
 
 
 /* Карточка превью изображения продукции */
@@ -62,17 +75,29 @@
   margin: 0;
 }
 
-.card-price,
+/*.card-price,
 .card-sum-price {
   border: 1px solid transparent;
   border-radius: 4px;
   display: inline-block;
-  /*margin-right: 0.5em;*/
+  margin-right: 0.5em;
   padding: 7px 7px 5px;
   font-size: 1.38462em;
   font-weight: 600;
   line-height: 1em;
   white-space: nowrap;
+  width: auto;
+}*/
+
+.card-price,
+.card-sum-price {
+  border-radius: 4px;
+  display: inline-block;
+  font-size: 1.38462em;
+  font-weight: 600;
+  height: 34px;
+  line-height: 20px;
+  padding: 7px 7px 5px;
   width: auto;
 }
 .card-price {
@@ -116,35 +141,35 @@
   width: 45px;
 }
 
-/*@media(max-width: 767px) {
-  .shopping-cart div:first-child { text-align: right; padding-bottom: 10px; }
-}*/
-
-.cart-quantity { text-align: center; }
-@media(max-width: 767px) {
-  .cart-quantity { text-align: right; }
+.shopping-cart > div {
+  display: inline-block;
+  vertical-align: top;
 }
 
-.in-shoping-cart { text-align: right; }
-/*@media(max-width: 767px) {
-  .in-shoping-cart { text-align: right; }
-}*/
+.in-shoping-cart {
+  vertical-align: super;
+}
 
-.in-shoping-cart button { position: relative; }
+.in-shoping-cart .btn {
+  height: 34px;
+  padding: 6px;
+}
 
 .in-shoping-cart .fa {
   font-size: 27px;
-  left: 5px;
-  position: absolute;
-  top: 7px;
-}
-@media(max-width: 767px) {
-  .in-shoping-cart .fa { font-size: 23px; top: 6px; }
+  line-height: 20px;
 }
 
-.shopping-cart-button {
-  position: relative;
+@media(max-width: 767px) {
+  .in-shoping-cart .fa {
+    font-size: 23px;
+    line-height: 20px;
+  }
 }
+
+/*.shopping-cart-button {
+  position: relative;
+}*/
 
 .shopping-cart-badge {
   background: #e1704b none repeat scroll 0 0;
@@ -161,6 +186,10 @@
   z-index: 1;
 }
 
+.cart-quantity {
+  padding: 0 15px;
+}
+
 .cart-quantity-minus,
 .cart-quantity-plus { padding: 0; }
 
@@ -172,7 +201,8 @@
 
 /* /Карточка превью изображения продукции */
 
-.padding-top-30 { padding-top: 30px; }
+
+
 
 
 /* Редактор меню */
@@ -185,30 +215,31 @@
   padding: 0;
 }
 .menu-item {
-    cursor: pointer;
-    color: #1873b4;
-    margin: 6px;
+  cursor: pointer;
+  color: #1873b4;
+  margin: 6px;
 }
 .menu-empty {
-    min-height: 5px;
+  min-height: 5px;
 }
 .menu-empty > .sub-menu {
-    padding-left: 20px;
+  padding-left: 20px;
 }
 .sub-menu .fa-angle-down,
 .sub-menu .fa-angle-right {
-    position: relative;
-    top: 4px;
-    padding: 0;
-    margin: 0;
+  position: relative;
+  top: 4px;
+  padding: 0;
+  margin: 0;
 }
 .sub-menu .fa-angle-right {
-    text-align: center;
-    width: 11px;
+  text-align: center;
+  width: 11px;
 }
+
 .fake-width {
-    width: 8px;
-    display: inline-block;
+  width: 6px;
+  display: inline-block;
 }
 /* /Редактор меню */
 

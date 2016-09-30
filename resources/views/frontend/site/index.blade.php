@@ -151,11 +151,11 @@
                         </div>
                     </div>
                     <div class="col-sm-7 col-xs-7">
-                        <div class="font-up wow slid">
-                            <span class="green-section-titleeInRight">Quality Control</span>
+                        <div class="wow slideInRight">
+                            <span class="green-section-title">Контроль качества</span>
                         </div>
                         <div class="wow slideInRight">
-                            <p class="green-section-body">Our qualified specialists, who help us to create status of a group leader, provide us a full range of testing the quality.</p>
+                            <p class="green-section-body">(Our qualified specialists, who help us to create status of a group leader, provide us a full range of testing the quality.)</p>
                         </div>
                     </div>
                 </div>
@@ -169,10 +169,10 @@
                     </div>
                     <div class="col-sm-7 col-xs-7">
                         <div class="wow slideInRight">
-                            <span class="green-section-title">DELIVERY</span>
+                            <span class="green-section-title">Доставка</span>
                         </div>
                         <div class="wow slideInRight">
-                            <p class="green-section-body">We deliver products, ordered by you, anywhere in the world. And we'll advise you on the exploitation.</p>
+                            <p class="green-section-body">(We deliver products, ordered by you, anywhere in the world. And we'll advise you on the exploitation.)</p>
                         </div>
                     </div>
                 </div>
@@ -186,10 +186,12 @@
                     </div>
                     <div class="col-sm-7 col-xs-7">
                         <div class="wow slideInRight">
-                            <span class="green-section-title">CONSTRUCTION</span>
+                            <a class="green-section-title" href="{{ route('metall-iz-evropy', request()->query()) }}" title="{{ trans('index.menu.information.metall-iz-evropy') }}">
+                                {{ trans('index.menu.information.metall-iz-evropy') }}
+                            </a>
                         </div>
                         <div class="wow slideInRight">
-                            <p class="green-section-body">Frameless construction of hangars according to technology with the use of automatic building machine.</p>
+                            <p class="green-section-body">Ассортимент продукции «ЮТМК Киев» включает и поставки металлопроката из Европы.</p>
                         </div>
                     </div>
                 </div>
@@ -205,10 +207,10 @@
                     </div>
                     <div class="col-sm-7 col-xs-7">
                         <div class="wow slideInRight">
-                            <span class="green-section-title">YOUR ORDERS</span>
+                            <span class="green-section-title">Ваши заказы</span>
                         </div>
                         <div class="wow slideInRight">
-                            <p class="green-section-body">Manufacture steel pipe of on order (seamless, welded, profile, stainless, boiler) as soon as possible.</p>
+                            <p class="green-section-body">(Manufacture steel pipe of on order (seamless, welded, profile, stainless, boiler) as soon as possible.)</p>
                         </div>
                     </div>
                 </div>
@@ -222,10 +224,10 @@
                     </div>
                     <div class="col-sm-7 col-xs-7">
                         <div class="wow slideInRight">
-                            <span class="green-section-title">SLICING SHEETS</span>
+                            <span class="green-section-title">Порезка</span>
                         </div>
                         <div class="wow slideInRight">
-                            <p class="green-section-body">The cutting is carried out by guillotine on sheet with thickness up to 16 mm, cutting profiled by press-scissors.</p>
+                            <p class="green-section-body">(The cutting is carried out by guillotine on sheet with thickness up to 16 mm, cutting profiled by press-scissors.)</p>
                         </div>
                     </div>
                 </div>
@@ -239,10 +241,10 @@
                     </div>
                     <div class="col-sm-7 col-xs-7">
                         <div class="wow slideInRight">
-                            <span class="green-section-title">STRUCTURES</span>
+                            <span class="green-section-title">(Структуры)</span>
                         </div>
                         <div class="wow slideInRight">
-                            <p class="green-section-body">Steel structures of platforms, ramps and bridges, span slabs, crossbars and support units,  lighting masts and towers.</p>
+                            <p class="green-section-body">(Steel structures of platforms, ramps and bridges, span slabs, crossbars and support units,  lighting masts and towers.)</p>
                         </div>
                     </div>
                 </div>
@@ -258,10 +260,12 @@
                     </div>
                     <div class="col-sm-7 col-xs-7">
                         <div class="wow slideInRight">
-                            <span class="green-section-title">LINE STOPPING</span>
+                            <a class="green-section-title" href="{{ route('metallokonstruktsii', request()->query()) }}" title="{{ trans('index.menu.information.metal-structures') }}">
+                                {{ trans('index.menu.information.metal-structures') }}
+                            </a>
                         </div>
                         <div class="wow slideInRight">
-                            <p class="green-section-body">Our professional line stopping techniques bypass and isolate specific sections of your distribution system for repairs.</p>
+                            <p class="green-section-body">Сегодня такие конструкции можно встретить в сфере создания каркасных домов, гаражей, ангаров, торговых киосков, бытовок, модульных строений.</p>
                         </div>
                     </div>
                 </div>
@@ -275,10 +279,12 @@
                     </div>
                     <div class="col-sm-7 col-xs-7">
                         <div class="wow slideInRight">
-                            <span class="green-section-title">PIPE FREEZING</span>
+                            <a class="green-section-title" href="{{ route('modulnye-soorujeniya', request()->query()) }}" title="{{ trans('index.menu.information.modular-structures') }}">
+                                {{ trans('index.menu.information.modular-structures') }}
+                            </a>
                         </div>
                         <div class="wow slideInRight">
-                            <p class="green-section-body">Pipe freezing is a process used to isolate part of your pipe systems for maintenance or repair.</p>
+                            <p class="green-section-body">Для временного пользования и проживания подходят модульные сооружения, представляющие собой полный комплект из окон, дверей и современных материалов.</p>
                         </div>
                     </div>
                 </div>
@@ -292,10 +298,12 @@
                     </div>
                     <div class="col-sm-7 col-xs-7">
                         <div class="wow slideInRight">
-                            <span class="green-section-title">VALVE INSERT</span>
+                            <a class="green-section-title" href="{{ route('otsinkovannye-rulony', request()->query()) }}" title="{{ trans('index.menu.information.galvanized-coils') }}">
+                                {{ trans('index.menu.information.galvanized-coils') }}
+                            </a>
                         </div>
                         <div class="wow slideInRight">
-                            <p class="green-section-body">Insert valve allows the valve to deliver a constant pressure in the system, without any interruption.</p>
+                            <p class="green-section-body">Цинковый слой обеспечивает не только электрохимическую, но и защиту физического типа за счет того, что обладает неизменной адгезией.</p>
                         </div>
                     </div>
                 </div>

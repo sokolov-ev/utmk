@@ -18,7 +18,7 @@
 
     <!-- Twitter Card markup-->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:site" content="http://metallvsem.dev/otsinkovannye-rulony">
+    <meta name="twitter:site" content="http://metallvsem.com.ua/otsinkovannye-rulony">
     <meta name="twitter:title" content="Оцинкованные рулоны">
     <meta name="twitter:description" content="В направлении промпроизводства стали весьма популярными оцинкованные рулоны – они в отличие от обычных стальных листов имеют особое защитное покрытие от коррозионного воздействия. Цинковый слой обеспечивает не только электрохимическую, но и защиту физического типа за счет того, что обладает неизменной адгезией.">
     <meta name="twitter:creator" content="">
@@ -29,7 +29,7 @@
     <!-- Open Graph markup (Facebook, Pinterest) -->
     <meta property="og:title" content="Оцинкованные рулоны" />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="http://metallvsem.dev/otsinkovannye-rulony" />
+    <meta property="og:url" content="http://metallvsem.com.ua/otsinkovannye-rulony" />
     <meta property="og:image" content="" />
     <meta property="og:description" content="В направлении промпроизводства стали весьма популярными оцинкованные рулоны – они в отличие от обычных стальных листов имеют особое защитное покрытие от коррозионного воздействия. Цинковый слой обеспечивает не только электрохимическую, но и защиту физического типа за счет того, что обладает неизменной адгезией." />
     <meta property="og:site_name" content="Metall Vsem" />

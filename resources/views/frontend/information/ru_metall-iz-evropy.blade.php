@@ -18,7 +18,7 @@
 
     <!-- Twitter Card markup-->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:site" content="http://metallvsem.dev/metall-iz-evropy">
+    <meta name="twitter:site" content="http://metallvsem.com.ua/metall-iz-evropy">
     <meta name="twitter:title" content="Поставки металлопроката из Европы">
     <meta name="twitter:description" content="Ассортимент продукции «ЮТМК Киев» включает и поставки металлопроката из Европы. На отечественном производстве существенно отображается сложившаяся ситуация разногласий, сгладить эффект от которой можно путем использования зарубежной продукции. Европейский металлопрокат позволяет расширить три основных направления: поставки листового металлопроката, рулонов со специальным покрытием и металлопроката из стали в основе с нержавеющим покрытием.">
     <meta name="twitter:creator" content="">
@@ -29,7 +29,7 @@
     <!-- Open Graph markup (Facebook, Pinterest) -->
     <meta property="og:title" content="Поставки металлопроката из Европы" />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="http://metallvsem.dev/metall-iz-evropy" />
+    <meta property="og:url" content="http://metallvsem.com.ua/metall-iz-evropy" />
     <meta property="og:image" content="" />
     <meta property="og:description" content="Ассортимент продукции «ЮТМК Киев» включает и поставки металлопроката из Европы. На отечественном производстве существенно отображается сложившаяся ситуация разногласий, сгладить эффект от которой можно путем использования зарубежной продукции. Европейский металлопрокат позволяет расширить три основных направления: поставки листового металлопроката, рулонов со специальным покрытием и металлопроката из стали в основе с нержавеющим покрытием." />
     <meta property="og:site_name" content="Metall Vsem" />

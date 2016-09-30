@@ -12,7 +12,31 @@ return [
             'metal-structures' => 'Metal structures',
             'modular-structures' => 'Modular structures',
             'galvanized-coils' => 'Galvanized coils',
-            'metall-iz-evropy' => 'Rolled metal products from Europe',
+            'metall-iz-evropy' => 'The European steel',
+
+            'armatura' => 'Armature',
+            'balka-dvutavr' => 'Beam',
+            'katanka' => 'Rod',
+
+            'kvadrat' => 'Foursquare',
+            'krug' => 'Circle',
+            'polosa' => 'Band',
+
+            'rels' => 'Rail',
+            'ugolok' => 'Corner',
+            'shveller' => 'Channel bar',
+
+            'shestigrannik' => 'Hexahedron',
+            'staltrub' => 'Pipes steel',
+            'truby-kotelnye' => 'Boiler plants pipes',
+
+            'pokovka' => 'Forging',
+            'list-hardox' => 'Hardox sheet',
+            'list-stalnoj' => 'Steel sheet',
+
+            'shveller-gnutyj' => 'Channel bar cabriole',
+            'ugolok-gnutyj' => 'Cabriole corner',
+            'z-obraznyj-profil' => 'Z - shaped profile',
         ],
 
         'about_us' => 'About Us',
@@ -29,6 +53,8 @@ return [
 
         'tell-us' => 'Tell Us',
         'headquarter' => 'Headquarter',
+
+        'reference' => 'Reference',
     ],
 
     'speech' => [

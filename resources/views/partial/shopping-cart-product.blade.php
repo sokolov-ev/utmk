@@ -1,4 +1,5 @@
 <script id="shopping-cart-product"  type="text/x-handlebars-template">
+
     <div class="row" id="bonds-@{{ bonds }}">
 
         <button class="close delete-product" type="button" onclick="deleteProduct(@{{ bonds }})">
@@ -6,15 +7,16 @@
         </button>
 
         <div class="col-md-2 hidden-sm hidden-xs">
-            <img alt="@{{ title }}" src="@{{ images }}" style="width: 100%; height: auto;">
+            <img class="green-img" alt="@{{ title }}" src="@{{ images }}" style="max-width: 155px;">
         </div>
 
         <div class="col-md-10 col-sm-12 col-xs-12">
-            <p><b><a href="/products/details/@{{ slug }}/@{{ id }}" title="@{{ title }}">
-                    @{{ title }}
-            </a></b></p>
 
-            <p><b>{{ trans('offices.office') }}: @{{ office }} </b></p>
+            <a class="text-black-h3" href="/catalog/details/@{{ slug }}/@{{ id }}" title="@{{ title }}">@{{ title }}</a>
+
+            <div class="padding-block-1-1">
+                <strong>{{ trans('offices.office') }}</strong>: @{{ office }}
+            </div>
 
             <div class="shopping-cart row">
                 <div class="col-md-4 col-sm-4 col-xs-6">
@@ -51,4 +53,5 @@
         </div>
 
     </div>
+
 </script>

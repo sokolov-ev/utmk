@@ -54,6 +54,7 @@ elixir(function(mix) {
     mix.scripts('admin.menu.js', 'public/js/menu.js');
     mix.scripts('jquery.magnific-popup.js', 'public/js/magnific.js');
     mix.scripts([
+        'mustache.js',
         'wow.js',
         'parallax.js',
         'frontend.index.js',

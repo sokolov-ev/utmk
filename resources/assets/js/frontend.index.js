@@ -8,6 +8,7 @@ $(document).ready(function() {
                 $(".load-block").addClass("hidden");
 
                 var count = response.data.length;
+
                 if (count > 0) {
                     $(".cart-empty").addClass('hidden');
                     $(".content-block").removeClass('hidden');
@@ -28,7 +29,10 @@ $(document).ready(function() {
 
                     totalSum();
                 } else {
-                    $(".empty-block").removeClass("hidden");
+                    $(".empty-block").removeClass('hidden');
+                    $(".content-block").addClass('hidden');
+                    $(".block-total-price").addClass('hidden');
+                    $("#shopping-cart button[type='submit']").addClass('hidden');
                 }
             } else if ( (response.status == "bad") && (response.auth)){
                 $("#shopping-cart").modal('hide');
@@ -111,10 +115,18 @@ function deleteProduct(id)
             } else {
                 $(".shopping-cart-badge").addClass("hidden");
                 $(".shopping-cart-badge").text('');
+
+                $(".cart-empty").removeClass('hidden');
+                $(".empty-block").removeClass('hidden');
+                $(".content-block").addClass('hidden');
+                $(".block-total-price").addClass('hidden');
+                $("#shopping-cart button[type='submit']").addClass('hidden');
             }
 
             $("#bonds-" + id).next("hr").remove();
             $("#bonds-" + id).remove();
+
+            totalSum();
         }
     });
 }

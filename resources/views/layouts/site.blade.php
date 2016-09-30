@@ -40,9 +40,8 @@
                         <a class="text-orange-20" href="{{ route('logout', request()->query()) }}" title="{{ trans('auth.logout') }}">
                             <i class="fa fa-sign-out fa-4x" aria-hidden="true"></i>
                         </a>
-                        <a href="#" class="shopping-cart-button" data-target="#shopping-cart" data-toggle="modal">
-                            <i class="fa fa-cart-plus fa-2x" aria-hidden="true"></i>
-                            {{ trans('products.shopping-cart') }}
+                        <a href="#" class="text-green-20 shopping-cart-button" data-target="#shopping-cart" data-toggle="modal" title="{{ trans('products.shopping-cart') }}">
+                            <i class="fa fa-cart-plus fa-4x" aria-hidden="true"></i>
                             @if ($user_cart > 0)
                                 <span class="shopping-cart-badge">{{ $user_cart }}</span>
                             @else
@@ -51,11 +50,11 @@
                         </a>
                     @endif
                     @if (Auth::guest())
-                        <a href="#" class="text-orange-20" data-target="#login-form" data-toggle="modal" title="{{ trans('auth.login') }}">
+                        <a href="#" class="text-green-20" data-target="#login-form" data-toggle="modal" title="{{ trans('auth.login') }}">
                             <i class="fa fa-sign-in fa-4x" aria-hidden="true"></i>
                         </a>
                     @else
-                        <a href="#" class="text-orange-20" title="{{ trans('auth.my-office') }}">
+                        <a href="{{ route('my-cart', request()->query()) }}" class="text-green-20" title="{{ trans('auth.my-office') }}">
                             <i class="fa fa-user fa-4x" aria-hidden="true"></i>
                         </a>
                     @endif
@@ -72,28 +71,26 @@
 
         <div class="navbar-header text-center">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#mettal-vsem-menu" aria-expanded="false">
-                <i class="fa fa-bars" aria-hidden="true"></i>
+                <i class="fa fa-bars" aria-hidden="true"> </i>
             </button>
         </div>
 
         <div id="mettal-vsem-menu" class="collapse navbar-collapse">
 
             <ul class="nav navbar-nav">
+                {{--
                 <li class="dropdown home">
                     <a class="dropdown-toggle" aria-expanded="false" aria-haspopup="true" role="button" href="{{ route('index-page', request()->query()) }}">
                         {{ trans('index.menu.home') }} <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">{{ trans('index.menu.information.cutting') }}</a></li>
-                        <li><a href="#">{{ trans('index.menu.information.packaging') }}</a></li>
-                        <li><a href="#">{{ trans('index.menu.information.delivery') }}</a></li>
-                        <li class="divider" role="separator"></li>
-                        <li><a href="{{ route('metallokonstruktsii', request()->query()) }}">{{ trans('index.menu.information.metal-structures') }}</a></li>
-                        <li><a href="{{ route('modulnye-soorujeniya', request()->query()) }}">{{ trans('index.menu.information.modular-structures') }}</a></li>
-                        <li><a href="{{ route('otsinkovannye-rulony', request()->query()) }}">{{ trans('index.menu.information.galvanized-coils') }}</a></li>
-                        <li><a href="{{ route('metall-iz-evropy', request()->query()) }}">{{ trans('index.menu.information.metall-iz-evropy') }}</a></li>
+                        <li> <a href="#">{{ trans('index.menu.information.cutting') }}</a> </li>
+                        <li> <a href="#">{{ trans('index.menu.information.packaging') }}</a> </li>
+                        <li> <a href="#">{{ trans('index.menu.information.delivery') }}</a> </li>
                     </ul>
                 </li>
+                --}}
+                <li class="home"><a href="{{ route('index-page', request()->query()) }}">{{ trans('index.menu.home') }}</a></li>
                 <li class="about-us"><a href="{{ route('about-us', request()->query()) }}">{{ trans('index.menu.about_us') }}</a></li>
                 <li class="company-profile"><a href="{{ route('profile', request()->query()) }}">{{ trans('index.menu.company_profile') }}</a></li>
                 <li class="products"><a href="{{ route('products-index', request()->query()) }}">{{ trans('index.menu.products') }}</a></li>
