@@ -9,9 +9,9 @@ return [
             'packaging' => 'Packaging',
             'delivery' => 'Delivery',
             //----------------------
-            'metal-structures' => 'Metal structures',
-            'modular-structures' => 'Modular structures',
-            'galvanized-coils' => 'Galvanized coils',
+            'metallokonstruktsii' => 'Metal structures',
+            'modulnye-soorujeniya' => 'Modular structures',
+            'otsinkovannye-rulony' => 'Galvanized coils',
             'metall-iz-evropy' => 'The European steel',
 
             'armatura' => 'Armature',

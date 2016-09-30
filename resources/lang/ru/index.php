@@ -9,9 +9,9 @@ return [
             'packaging' => 'Упаковка',
             'delivery' => 'Доставка',
             //----------------------
-            'metal-structures' => 'Металлоконструкции',
-            'modular-structures' => 'Модульные сооружения',
-            'galvanized-coils' => 'Оцинкованные рулоны',
+            'metallokonstruktsii' => 'Металлоконструкции',
+            'modulnye-soorujeniya' => 'Модульные сооружения',
+            'otsinkovannye-rulony' => 'Оцинкованные рулоны',
             'metall-iz-evropy' => 'Европейская сталь',
 
             'armatura' => 'Арматура',

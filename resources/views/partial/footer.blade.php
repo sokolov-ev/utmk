@@ -62,6 +62,11 @@
                             <li><a href="{{ route('shveller-gnutyj') }}" title="">{{ trans('index.menu.information.shveller-gnutyj') }}</a></li>
                             <li><a href="{{ route('ugolok-gnutyj') }}" title="">{{ trans('index.menu.information.ugolok-gnutyj') }}</a></li>
                             <li><a href="{{ route('z-obraznyj-profil') }}" title="">{{ trans('index.menu.information.z-obraznyj-profil') }}</a></li>
+
+                            <li><a href="{{ route('metallokonstruktsii') }}" title="">{{ trans('index.menu.information.metallokonstruktsii') }}</a></li>
+                            <li><a href="{{ route('modulnye-soorujeniya') }}" title="">{{ trans('index.menu.information.modulnye-soorujeniya') }}</a></li>
+                            <li><a href="{{ route('otsinkovannye-rulony') }}" title="">{{ trans('index.menu.information.otsinkovannye-rulony') }}</a></li>
+                            <li><a href="{{ route('metall-iz-evropy') }}" title="">{{ trans('index.menu.information.metall-iz-evropy') }}</a></li>
                         </ul>
                     </div>
                     <div class="col-md-4 col-sm-4 col-xs-12">
