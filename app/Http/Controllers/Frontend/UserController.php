@@ -40,9 +40,11 @@ class UserController extends Controller
     public function formedOrders()
     {
         $orders = Orders::where([['user_id', Auth::guard(null)->user()->id], ['formed', 1]])->get();
+        $orderStatus = Orders::getStatus();
 
         return view('frontend.user.formed-orders', [
             'orders' => $orders,
+            'orderStatus' => $orderStatus,
         ]);
     }
 }

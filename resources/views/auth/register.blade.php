@@ -10,10 +10,12 @@
 
 @section('content')
 
-<section class="container sales-title text-center">
+<section class="container sales-title">
 
     <div class="padding-top"></div>
-    <h1>{{ trans('auth.register') }}</h1>
+    <div class="wow slideInRight">
+        <h1 class="welcome-text text-center">{{ trans('auth.register') }}</h1>
+    </div>
     <div class="padding-top"></div>
 
     <form class="registred-form" role="form" method="POST" action="{{ url('/register') }}">
@@ -60,7 +62,7 @@
         </div>
 
         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-            <input id="password" type="text" class="form-control" name="password" value="{{ old('password') }}" placeholder="{{ trans('auth.password') }} *" required="">
+            <input id="password" type="password" class="form-control" name="password" value="{{ old('password') }}" placeholder="{{ trans('auth.password') }} *" required="">
 
             @if ($errors->has('password'))
                 <span class="help-block text-left">

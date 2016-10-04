@@ -14,7 +14,7 @@ class MenuController extends Controller
 
     public function getMenu($language)
     {
-        $menu = Menu::select('id', 'parent_id AS parent', 'weight', 'name')->orderBy('weight', 'ASC')->get();
+        $menu = Menu::select('id', 'parent_id AS parent', 'weight', 'name')->orderBy('weight', 'asc')->get();
         $result = [];
 
         foreach ($menu->toArray() as $item) {
@@ -48,7 +48,7 @@ class MenuController extends Controller
 
         $menu = Menu::create([
             'name' => json_encode($array, JSON_UNESCAPED_UNICODE),
-            'slug' => str_slug($array['en'], '_'),
+            'slug' => str_slug($array['ru'], '_'),
         ]);
 
         if ($menu) {
@@ -73,7 +73,7 @@ class MenuController extends Controller
         $array['uk'] = $request->input('menu-uk');
 
         $item->name = json_encode($array, JSON_UNESCAPED_UNICODE);
-        $item->slug = str_slug($array['en'], '_');
+        $item->slug = str_slug($array['ru'], '_');
 
         if ($item->update()) {
             return response()->json(['status' => 'ok', 'message' => 'Пункт меню изменен.']);

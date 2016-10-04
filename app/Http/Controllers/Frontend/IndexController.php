@@ -16,19 +16,19 @@ use App\Office;
 
 class IndexController extends Controller
 {
-    public function index()
+    public function porezka()
     {
-        return view('frontend.site.index');
+        return view('frontend.information.ru_porezka');
     }
 
-    public function aboutUs()
+    public function upakovka()
     {
-        return view('frontend.site.about-us');
+        return view('frontend.information.ru_upakovka');
     }
 
-    public function companyProfile()
+    public function dostavka()
     {
-        return view('frontend.site.company-profile');
+        return view('frontend.information.ru_dostavka');
     }
 
 //---------------------------------------------------------------------
@@ -157,6 +157,31 @@ class IndexController extends Controller
     }
 
 //---------------------------------------------------------------------
+
+    public function index()
+    {
+        return view('frontend.site.index');
+    }
+
+    public function aboutUs()
+    {
+        return view('frontend.site.about-us');
+    }
+
+    public function companyProfile()
+    {
+        return view('frontend.site.company-profile');
+    }
+
+    public function officeView($city, $id)
+    {
+        $office = Office::findOrFail($id);
+        $office = Office::viewData($office->id);
+
+        return view('frontend.site.office', [
+            'office' => $office,
+        ]);
+    }
 
     public function salesNetwork()
     {

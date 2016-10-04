@@ -91,14 +91,14 @@ class ClientsController extends Controller
         $totalFiltered = $totalData;
 
         foreach ($clients as $client) {
-            $temp['id'] = $client->id;
+            $temp['id'] = (string) $client->id;
             $temp['username'] = $client->username;
             $temp['company'] = $client->company;
             $temp['email'] = $client->email;
             $temp['phone'] = $client->phone;
             $temp['comments'] = empty($client->note_user) ? e('<i class="text-danger">(комментарии отсутствуют)</i>') : $client->note_user;
             $temp['edit_comments'] = $client->note_user;
-            $temp['activity'] = empty($client->activity) ? "<i class='text-danger'>(нет данных)</i>" : date("Y-m-d H:i", $client->activity->getTimestamp());
+            $temp['activity'] = empty($client->activity) ? "<i class='text-danger'>(нет данных)</i>" : date("Y-m-d H:i", $client->activity);
             $temp['created_at'] = empty($client->created_at) ? "<i class='text-danger'>(нет данных)</i>" : date("Y-m-d H:i", $client->created_at->getTimestamp());
 
             $result[] = $temp;

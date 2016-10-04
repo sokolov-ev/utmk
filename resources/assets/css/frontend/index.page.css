@@ -61,7 +61,8 @@
 
 .text-black-h3:hover,
 .text-black-h3:active,
-.text-black-h3:focus {
+.text-black-h3:focus,
+.text-black-h3.active {
   color: #e1704b;
   text-decoration: none;
 }

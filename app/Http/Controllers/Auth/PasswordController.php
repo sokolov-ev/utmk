@@ -20,6 +20,9 @@ class PasswordController extends Controller
 
     use ResetsPasswords;
 
+    private $subject;
+    private $redirectTo;
+
     /**
      * Create a new password controller instance.
      *
@@ -27,6 +30,8 @@ class PasswordController extends Controller
      */
     public function __construct()
     {
+        $this->redirectTo = '/';
+        $this->subject = trans('auth.password-reset');
         $this->middleware('guest');
     }
 }

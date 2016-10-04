@@ -7,7 +7,7 @@ return [
     'add-cart' => 'Add to cart',
     'uah' => 'UAH',
 
-    'formed-orders' => 'Formed orders',
+    'my-orders' => 'My orders',
 
     'more' => 'More',
 

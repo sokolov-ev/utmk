@@ -24,6 +24,7 @@ return [
 
     'email-address' => 'E-Mail Address',
     'password' => 'Password',
+    'password-conf' => 'Password confirmation',
     'reset-password' => 'Reset the password',
     'remember-me' => 'Remember Me',
     'cancel' => 'Cancel',
@@ -37,8 +38,10 @@ return [
     'phone' => 'Phone',
 
     'more-contacts' => 'More contacts',
-
     'my-office' => 'My office',
-
     'not-auth' => 'You are not authorized',
+
+    // ну да! такое уже есть, но звучит по другому)
+    'password-reset' => 'Password reset',
+    'password-click-here' => 'Click here to reset your password',
 ];

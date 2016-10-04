@@ -46,11 +46,17 @@ Route::group(['middleware' => ['web', 'language']], function () {
     Route::get('/shveller-gnutyj', ['as' => 'shveller-gnutyj', 'uses' => 'Frontend\IndexController@shvellerGnutyj']);
     Route::get('/ugolok-gnutyj', ['as' => 'ugolok-gnutyj', 'uses' => 'Frontend\IndexController@ugolokGnutyj']);
     Route::get('/z-obraznyj-profil', ['as' => 'z-obraznyj-profil', 'uses' => 'Frontend\IndexController@obraznyjProfil']);
+
+    Route::get('/home/porezka', ['as' => 'porezka', 'uses' => 'Frontend\IndexController@porezka']);
+    Route::get('/home/upakovka', ['as' => 'upakovka', 'uses' => 'Frontend\IndexController@upakovka']);
+    Route::get('/home/dostavka', ['as' => 'dostavka', 'uses' => 'Frontend\IndexController@dostavka']);
 // /СПРАВОЧНАЯ ИНФОРМАЦИЯ (статика)
 
     Route::get('/yutmk-energy', ['as' => 'about-us', 'uses' => 'Frontend\IndexController@aboutUs']);
     Route::get('/company-profile', ['as' => 'profile', 'uses' => 'Frontend\IndexController@companyProfile']);
+
     Route::get('/network-of-offices', ['as' => 'network-of-offices', 'uses' => 'Frontend\IndexController@salesNetwork']);
+    Route::get('/office/{city}/{id}', ['as' => 'office', 'uses' => 'Frontend\IndexController@officeView']);
 
     Route::get('/contacts', ['as' => 'contacts', 'uses' => 'Frontend\IndexController@contacts']);
     Route::post('/contacts', 'Frontend\IndexController@sendMessage');
@@ -62,8 +68,8 @@ Route::group(['middleware' => ['web', 'language']], function () {
     // AJAX подгружаем продукцию (menu, name, city, page)
     Route::get('/catalog/get-products', 'Frontend\ProductsController@catalogProducts');
     // просмотр продукта
-    // Route::get('/catalog/details/{slug_menu}/{slug_product}/{id}', ['as' => 'products-view', 'uses' => 'Frontend\ProductsController@view']);
-    Route::get('/catalog/details/{slug}/{id}', ['as' => 'products-view', 'uses' => 'Frontend\ProductsController@view']);
+    Route::get('/catalog/details/{slug_menu}/{slug_product}/{id}', ['as' => 'products-view', 'uses' => 'Frontend\ProductsController@view']);
+    // Route::get('/catalog/details/{slug}/{id}', ['as' => 'products-view', 'uses' => 'Frontend\ProductsController@view']);
 
         // получить данные для отображения корзины
         Route::get('/products/get-order-data', 'Frontend\ProductsController@getProductsCart');
@@ -141,10 +147,14 @@ Route::group(['middleware' => ['admin']], function () {
     // CRUD заказов
     Route::get('/administration/orders', 'Backend\OrdersController@index');
     Route::post('/administration/orders/filtering', 'Backend\OrdersController@filtering');
+
+    Route::get('/administration/orders/view/{id}', 'Backend\OrdersController@view');
+
     Route::get('/administration/orders/get/{id}', 'Backend\OrdersController@getOrderProducts');
-    Route::post('/administration/orders/products-count', 'Backend\OrdersController@changeCountProduct');
-    Route::post('/administration/orders/products-delete', 'Backend\OrdersController@deleteProduct');
-    Route::post('/administration/orders/action', 'Backend\OrdersController@action');
+    Route::post('/administration/orders/count', 'Backend\OrdersController@changeCountProduct');
+    Route::get('/administration/orders/delete/{id}/{bonds}', 'Backend\OrdersController@deleteProduct');
+    Route::get('/administration/orders/accept/{id}', 'Backend\OrdersController@accept');
+    Route::get('/administration/orders/closed/{id}', 'Backend\OrdersController@closed');
 
     // Зона админа
     Route::group(['middleware' => 'isAdmin'], function() {

@@ -16,7 +16,7 @@ class CreateMenuTable extends Migration
             $table->increments('id');
             $table->integer('parent_id');
             $table->smallInteger('parent_exist');
-            $table->string('weight');
+            $table->integer('weight');
             $table->string('name');
             $table->string('slug');
             $table->integer('created_at');

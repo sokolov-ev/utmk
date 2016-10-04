@@ -13,6 +13,7 @@ use App\Admin;
 use App\Orders;
 use App\DataTable;
 use App\Products;
+use App\Office;
 
 class OrdersController extends Controller
 {
@@ -37,10 +38,6 @@ class OrdersController extends Controller
         list($orderName, $orderDir) = DataTable::getOrderOrders($request->all());
         $where = DataTable::getSearchOrders($request->all());
 
-        if (!$isAdmin) {
-            $where[] = ["products.office_id", Auth::guard('admin')->user()->office_id];
-        }
-
         $orders = DB::table('orders')
                       ->select('orders.*', 'users.username AS user', 'admins.username AS moderator', 'offices.city AS office') //
                       ->join('users', 'users.id', '=', 'orders.user_id')
@@ -59,7 +56,11 @@ class OrdersController extends Controller
 
         foreach ($orders as $order) {
             $temp["id"]   = (string) $order->id;
-            $temp["user"] = '<a href="/administration/clients?id='.$order->user_id.'" title="'.$order->user.'">'.$order->user.'</a>';
+            if ($isAdmin) {
+                $temp["user"] = '<a href="/administration/clients?id='.$order->user_id.'" title="'.$order->user.'">'.$order->user.'</a>';
+            } else {
+                $temp["user"] = $order->user;
+            }
             $temp["total_cost"] = $order->total_cost;
             $temp["status"] = trans('orders.status.'.$orderStatus[$order->status]);
 
@@ -81,16 +82,6 @@ class OrdersController extends Controller
                 $temp["moderator"] = '<i class="text-danger">(нет данных)</i>';
             }
 
-            $temp["actions"] = '<button class="btn btn-default btn-sm view-order" data-id="'.$order->id.'"><i class="fa fa-eye" aria-hidden="true"></i></button> ';
-
-            if ($order->status == Orders::STATUS_NOT_ACCEPTED) {
-                $temp["actions"] .= ' <button class="btn btn-primary btn-sm order-action" data-id="'.$order->id.'">';
-                $temp["actions"] .= '<i class="fa fa-check-square-o" aria-hidden="true"></i> Принять</button>';
-            } else if ( ($order->status == Orders::STATUS_ACCEPTED) && ( ($order->manager_id == Auth::guard('admin')->user()->id) || ($isAdmin) ) ) {
-                $temp["actions"] .= ' <button class="btn btn-success btn-sm order-action" data-id="'.$order->id.'">';
-                $temp["actions"] .= '<i class="fa fa-check-square-o" aria-hidden="true"></i> Закрыть</button>';
-            }
-
             $result[] = $temp;
         }
 
@@ -105,46 +96,65 @@ class OrdersController extends Controller
         ]);
     }
 
-    public function getOrderProducts($id)
+    public function view($id)
     {
-        $order = Orders::find($id);
-
-        if (empty($order)) {
-            return response()->json(['status' => 'bad', 'message' => 'Заказ не найден.']);
-        }
-
+        $order = Orders::findOrFail($id);
         $products = $order->products()->get();
         $products = Products::viewDataAll($products);
-        $result   = [];
         $isAdmin  = Auth::guard('admin')->user()->role == Admin::ROLE_ADMIN;
-        $userOffice = Auth::guard('admin')->user()->office_id;
 
-        foreach ($products as $key => $product) {
-            $temp['work_id'] = $key;
-            $temp['work_price'] = $product['price'] * $product['quantity'];
-            $temp['work_order'] = $order->id;
+        if ($order->manager_id) {
+            $office = Office::find($order->manager->office_id);
+        } else {
+            $office = '<i class="text-danger">(нет данных)</i>';
+        }
 
-            $temp['city'] = json_decode($product['office']['city'], true)[App::getLocale()];
+        return view('backend.site.order-view', [
+            'order' => $order,
+            'products' => $products,
+            'isAdmin' => $isAdmin,
+            'office'  => $office,
+        ]);
+    }
 
-            if ( ($userOffice == $product['office']['id']) || ($isAdmin) ) {
-                $temp['title'] = '<a class="" href="/administration/products?id='.$product['id'].'" title="'.$product['title'].'">'.$product['title'].'</a>';
+    public function accept($id)
+    {
+        $order = Orders::findOrFail($id);
+
+        if ( ($order->status == Orders::STATUS_NOT_ACCEPTED) && ($order->manager_id == 0) ) {
+            $order->manager_id = Auth::guard('admin')->user()->id;
+            $order->status = Orders::STATUS_ACCEPTED;
+
+            if ($order->update()) {
+                session()->flash('success', 'Заказ принят.');
             } else {
-                $temp['title'] = $product['title'];
+                session()->flash('error', 'Возникла ошибка при принятии заказа.');
             }
 
-            $temp['price'] = $product['price'];
-            $temp['quantity'] = $product['quantity'];
-            $temp['bonds'] = $product['bonds'];
-
-            $result[] = $temp;
+            return redirect()->back();
+        } else {
+            return response()->view('errors.403', [], 403);
         }
+    }
 
-        $edit = false;
-        if ( ($order->status == Orders::STATUS_ACCEPTED) && ( ($order->manager_id == Auth::guard('admin')->user()->id) || ($isAdmin) ) ) {
-            $edit = true;
+    public function closed($id)
+    {
+        $order = Orders::findOrFail($id);
+        $isAdmin = Auth::guard('admin')->user()->role == Admin::ROLE_ADMIN;
+
+        if ( ( ($order->status == Orders::STATUS_ACCEPTED) && ($order->manager_id == Auth::guard('admin')->user()->id) ) || ($isAdmin) ) {
+            $order->status = Orders::STATUS_CLOSED;
+
+            if ($order->update()) {
+                session()->flash('success', 'Заказ закрыт.');
+            } else {
+                session()->flash('error', 'Возникла ошибка при закрытии заказа.');
+            }
+
+            return redirect()->back();
+        } else {
+            return response()->view('errors.403', [], 403);
         }
-
-        return response()->json(['status' => 'ok', 'data' => $result, 'contacts' => $order->contacts, 'wish' => $order->wish, 'edit' => $edit]);
     }
 
     public function changeCountProduct(Request $request)
@@ -160,9 +170,7 @@ class OrdersController extends Controller
             $where = ['manager_id', Auth::guard('admin')->user()->id];
         }
 
-        $order = Orders::where([['id', $id], ['status', Orders::STATUS_ACCEPTED]])
-                       ->where($where)
-                       ->first();
+        $order = Orders::where([['id', $id], ['formed', 1]])->where($where)->first();
 
         if (empty($order) || empty($bonds) || empty($count)) {
             return response()->json(['status' => 'bad', 'message' => 'Заказ не найден.']);
@@ -171,36 +179,32 @@ class OrdersController extends Controller
         $order->total_cost = $sum;
         $attitude = $order->attitude()->where('id', $bonds)->first();
 
-        if ($order->update() && empty($attitude)) {
+        if (empty($attitude)) {
             return response()->json(['status' => 'bad', 'message' => 'Заказ не найден.']);
         }
 
         $attitude->quantity = $count;
 
-        if ($attitude->update()) {
+        if ($attitude->update() && $order->update()) {
             return response()->json(['status' => 'ok']);
         } else {
             return response()->json(['status' => 'bad']);
         }
     }
 
-    public function deleteProduct(Request $request)
+    public function deleteProduct($id, $bonds)
     {
-        $id = $request->input('id');
-        $bonds = $request->input('bonds');
-
         if (Auth::guard('admin')->user()->role == Admin::ROLE_ADMIN) {
             $where = [];
         } else {
             $where = ['manager_id', Auth::guard('admin')->user()->id];
         }
 
-        $order = Orders::where([['id', $id], ['status', Orders::STATUS_ACCEPTED]])
-                       ->where($where)
-                       ->first();
+        $order = Orders::where([['id', $id], ['formed', 1]])->where($where)->first();
 
-        if (empty($order) || empty($bonds)) {
-            return response()->json(['status' => 'bad', 'message' => 'Заказ не найден.']);
+        if (empty($order)) {
+            session()->flash('error', 'Заказ не найден.');
+            return redirect()->back();
         }
 
         $attitude = $order->attitude()->where('id', $bonds)->first();
@@ -217,38 +221,11 @@ class OrdersController extends Controller
             $order->total_cost = $sum;
             $order->update();
 
-            return response()->json(['status' => 'ok', 'data' => $sum]);
+            session()->flash('error', 'Продукт успешно удален из заказа.');
         } else {
-            return response()->json(['status' => 'bad']);
-        }
-    }
-
-    public function action(Request $request)
-    {
-        $id = $request->input('id');
-        $isAdmin = Auth::guard('admin')->user()->role == Admin::ROLE_ADMIN;
-
-        $order = Orders::find($id);
-
-        if (empty($order)) {
-            return response()->json(['status' => 'bad', 'message' => 'Заказ не найден.']);
+            session()->flash('error', 'Возникла ошибка при удалении продукции из заказа.');
         }
 
-        if ($order->status == Orders::STATUS_NOT_ACCEPTED) {
-            $order->status = Orders::STATUS_ACCEPTED;
-
-            $button  = ' <button class="btn btn-success btn-sm order-action" data-id="'.$order->id.'">';
-            $button .= '<i class="fa fa-check-square-o" aria-hidden="true"></i> Закрыть</button>';
-        } else if ( ($order->status == Orders::STATUS_ACCEPTED) && ( ($order->manager_id == Auth::guard('admin')->user()->id) || ($isAdmin) ) ) {
-            $order->status = Orders::STATUS_CLOSED;
-
-            $button = '';
-        }
-
-        if ($order->update()) {
-            return response()->json(['status' => 'ok', 'message' => 'Статус заказа изменен.', 'data' => $button]);
-        } else {
-            return response()->json(['status' => 'bad', 'message' => 'Возникла ошибка при изменении статуса заказа.']);
-        }
+        return redirect()->back();
     }
 }

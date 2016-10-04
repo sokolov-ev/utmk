@@ -31,9 +31,9 @@
 
                         <p class="footer-title">{{ trans('index.footer.our-services') }}</p>
                         <ul class="list-unstyled footer-link-block">
-                            <li><a href="#" title="">{{ trans('index.menu.information.cutting') }}</a></li>
-                            <li><a href="#" title="">{{ trans('index.menu.information.packaging') }}</a></li>
-                            <li><a href="#" title="">{{ trans('index.menu.information.delivery') }}</a></li>
+                            <li><a href="{{ route('porezka') }}" title="">{{ trans('index.menu.information.cutting') }}</a></li>
+                            <li><a href="{{ route('upakovka') }}" title="">{{ trans('index.menu.information.packaging') }}</a></li>
+                            <li><a href="{{ route('dostavka') }}" title="">{{ trans('index.menu.information.delivery') }}</a></li>
                         </ul>
                     </div>
                     <div class="col-md-5 col-sm-5 col-xs-12">

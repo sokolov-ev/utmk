@@ -27,7 +27,7 @@
                         <th>E-mail</th>
                         <th>Телефон</th>
                         <th>Активность</th>
-                        <th>Создан</th>
+                        <th>Регистрация</th>
                         <th width="90">Действие</th>
                     </tr>
                     <tr role="row" id="filter-table">
@@ -152,7 +152,7 @@
                  .draw();
         });
 
-        $(window).on('load resize', function(event){
+        $(window).on('load', function(event){
             $.each($("#filter-table input, #filter-table select"), function(key, val){
                 if ($(val).val() != '') {
                     table.column( $(val).closest('td').index() )

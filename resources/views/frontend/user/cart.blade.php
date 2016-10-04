@@ -16,14 +16,16 @@
         <div class="col-md-6 col-sm-6 col-xs-6">
             <div class="wow fadeInLeft">
                 <div class="well text-center">
-                    <a class="text-orange-20" href="{{ route('my-cart') }}" title="">{{ trans('products.shopping-cart') }}</a>
+                    <span class="text-orange">{{ trans('products.shopping-cart') }}</span>
                 </div>
             </div>
         </div>
         <div class="col-md-6 col-sm-6 col-xs-6">
             <div class="wow fadeInRight">
-                <div class="well text-center">
-                    <a class="text-orange-20" href="{{ route('formed-orders') }}" title="">{{ trans('products.formed-orders') }}</a>
+                <div class="panel panel-default" style="border-radius: 4px; margin-bottom: 0;">
+                    <div class="panel-body text-center" style="padding: 18px;">
+                        <a class="text-orange-20" href="{{ route('formed-orders') }}" title="">{{ trans('products.my-orders') }}</a>
+                    </div>
                 </div>
             </div>
         </div>

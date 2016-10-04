@@ -17,7 +17,7 @@ class Products extends Model
      * @var array
      */
     protected $fillable = [
-        'menu_id', 'office_id', 'slug', 'title', 'description', 'price', 'rating', 'show_my', 'creator_id'
+        'menu_id', 'office_id', 'slug', 'slug_menu', 'title', 'description', 'price', 'rating', 'show_my', 'creator_id'
     ];
 
     /**
@@ -108,6 +108,8 @@ class Products extends Model
             $product = Products::findOrFail($id);
         }
 
+        $menu = Menu::find($data['menu_id']);
+
         $product->menu_id = $data['menu_id'];
         $product->office_id = $data['office_id'];
 
@@ -117,6 +119,10 @@ class Products extends Model
             $product->slug = str_slug($data['title_ru'], '_');
         } elseif (!empty($data['title_uk'])) {
             $product->slug = str_slug($data['title_en'], '_');
+        }
+
+        if (!empty($menu->slug)) {
+            $product->slug_menu = $menu->slug;
         }
 
         $array['en'] = $data['title_en'];
@@ -180,7 +186,8 @@ class Products extends Model
         $array['images'] = $product->images->toArray();
         $array['office'] = $product->office->toArray();
 
-        $array['slug']   = $product->slug;
+        $array['slug']      = $product->slug;
+        $array['slug_menu'] = $product->slug_menu;
 
         $title = json_decode($product->title, true);
         $title = array_filter($title);

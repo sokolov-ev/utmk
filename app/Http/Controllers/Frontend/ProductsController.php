@@ -45,7 +45,7 @@ class ProductsController extends Controller
         ]);
     }
 
-    public function view($slug, $id)
+    public function view($slug_menu, $slug_product, $id)
     {
         // преобразование данных для отображения
         $product = Products::viewData($id);
@@ -80,7 +80,7 @@ class ProductsController extends Controller
         }
 
         if (empty($result)) {
-            return response()->json(['status' => 'bad', 'message' => trans('products.catalog-enpty')]);
+            return response()->json(['status' => 'bad', 'message' => trans('products.products-missing')]);
         } else {
             return response()->json(['status' => 'ok', 'data' => $result]);
         }
@@ -272,6 +272,7 @@ class ProductsController extends Controller
             $order->wish     = $request->input('wish');
             $order->contacts = $request->input('contacts');
             $order->total_cost = $sum;
+            $order->created_at = time();
 
             if ($order->update()) {
                 session()->flash('success', trans('products.order-complete'));

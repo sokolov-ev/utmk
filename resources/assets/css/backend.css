@@ -231,3 +231,7 @@ div.dataTables_length select {
   text-align: center;
   font-weight: 600;
 }
+
+.view-order {
+  cursor: pointer;
+}

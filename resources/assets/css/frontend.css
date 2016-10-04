@@ -30,6 +30,12 @@ button {
   }
 }
 
+.map { height: 500px; border-radius: 5px; }
+
+@media (max-width : 767px) {
+  .map { height: 250px; }
+}
+
 .well {
   border: 0;
   margin-bottom: 0;
@@ -202,7 +208,28 @@ button {
   outline: 0 none;
 }
 
-.panel { border-radius: 0; }
+.my-orders .panel {
+  border: 0;
+}
+.my-orders .panel-heading {
+  border-radius: 4px;
+  border-bottom: 1px solid #ccc;
+}
+
+.my-finish-orders {
+  padding: 0;
+}
+.my-finish-orders .row {
+  margin: 0;
+}
+.my-finish-orders .row > div {
+  height: 40px;
+  line-height: 40px;
+}
+.my-finish-orders .panel-title {
+  line-height: 40px;
+}
+
 .modal-content { border-radius: 0; }
 
 .send-button {

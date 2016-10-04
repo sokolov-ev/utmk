@@ -66,7 +66,8 @@
             @foreach ($products as $product)
                 <?php
                     $params = request()->query();
-                    $params['slug'] = $product['slug'];
+                    $params['slug_menu'] = $product['slug_menu'];
+                    $params['slug_product'] = $product['slug'];
                     $params['id'] = $product['id'];
                 ?>
                 <div class="col-md-4 col-sm-6 col-xs-12 card">
@@ -98,7 +99,7 @@
             @endforeach
 
             @if (empty($products))
-                <div class="empty-products">{{ trans('products.catalog-enpty') }}</div>
+                <div class="col-md-8 col-sm-6 col-xs-12 card text-center font-up text-black-h2">{{ trans('products.products-missing') }}</div>
             @endif
         </div>
 
@@ -172,7 +173,7 @@
                 var id   = $(this).closest('li').attr('id');
                 var slug = $(this).closest('li').data('slug');
 
-                $('.menu-item').removeClass('active');
+                $('.text-black-h3').removeClass('active');
                 $(this).addClass('active');
 
                 url   = '/catalog/products/' + slug + '/' + id;
@@ -212,14 +213,13 @@
 
         function viewProducts(response) {
             if (response.status == 'ok') {
-
                 $('.products-cards').find('.card').remove();
 
                 var template = $('#product-card-template').html();
                 Mustache.parse(template);
 
                 $.each(response.data, function(key, item){
-                    item['work_link'] = "/catalog/details/" + item['slug'] + "/" + item['id'];
+                    item['work_link'] = "/catalog/details/" + item['slug_menu'] + "/" + item['slug'] + "/" + item['id'];
                     $('.products-cards').append(Mustache.render(template, item));
                 });
 

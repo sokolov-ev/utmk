@@ -121,6 +121,8 @@ class Office extends Model
         $result  = [];
 
         foreach ($offices as $key => $office) {
+            $temp['id']          = $office->id;
+            $temp['city']        = str_slug(json_decode($office->city, true)['en']);
             $temp['title']       = json_decode($office->title, true)[App::getLocale()];
             $temp['description'] = json_decode($office->description, true)[App::getLocale()];
             $temp['address']     = json_decode($office->address, true)[App::getLocale()];

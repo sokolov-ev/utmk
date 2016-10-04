@@ -40,6 +40,16 @@ class Orders extends Model
         return $this->belongsToMany('App\Products', 'orders_products', 'order_id', 'product_id')->withPivot('quantity', 'id');
     }
 
+    public function user()
+    {
+        return $this->belongsTo('App\User', 'user_id', 'id');
+    }
+
+    public function manager()
+    {
+        return $this->belongsTo('App\Admin', 'manager_id', 'id');
+    }
+
     // this is a recommended way to declare event handlers
     protected static function boot()
     {

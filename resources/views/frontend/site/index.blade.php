@@ -260,8 +260,8 @@
                     </div>
                     <div class="col-sm-7 col-xs-7">
                         <div class="wow slideInRight">
-                            <a class="green-section-title" href="{{ route('metallokonstruktsii', request()->query()) }}" title="{{ trans('index.menu.information.metal-structures') }}">
-                                {{ trans('index.menu.information.metal-structures') }}
+                            <a class="green-section-title" href="{{ route('metallokonstruktsii', request()->query()) }}" title="{{ trans('index.menu.information.metallokonstruktsii') }}">
+                                {{ trans('index.menu.information.metallokonstruktsii') }}
                             </a>
                         </div>
                         <div class="wow slideInRight">
@@ -279,8 +279,8 @@
                     </div>
                     <div class="col-sm-7 col-xs-7">
                         <div class="wow slideInRight">
-                            <a class="green-section-title" href="{{ route('modulnye-soorujeniya', request()->query()) }}" title="{{ trans('index.menu.information.modular-structures') }}">
-                                {{ trans('index.menu.information.modular-structures') }}
+                            <a class="green-section-title" href="{{ route('modulnye-soorujeniya', request()->query()) }}" title="{{ trans('index.menu.information.modulnye-soorujeniya') }}">
+                                {{ trans('index.menu.information.modulnye-soorujeniya') }}
                             </a>
                         </div>
                         <div class="wow slideInRight">
@@ -298,8 +298,8 @@
                     </div>
                     <div class="col-sm-7 col-xs-7">
                         <div class="wow slideInRight">
-                            <a class="green-section-title" href="{{ route('otsinkovannye-rulony', request()->query()) }}" title="{{ trans('index.menu.information.galvanized-coils') }}">
-                                {{ trans('index.menu.information.galvanized-coils') }}
+                            <a class="green-section-title" href="{{ route('otsinkovannye-rulony', request()->query()) }}" title="{{ trans('index.menu.information.otsinkovannye-rulony') }}">
+                                {{ trans('index.menu.information.otsinkovannye-rulony') }}
                             </a>
                         </div>
                         <div class="wow slideInRight">
