@@ -31,7 +31,7 @@
                 <div class="col-md-7">
                     <div class="visible-sm visible-xs padding-top-30"></div>
 
-                    <p>{{ data.description }}</p>
+                    <p>{{{ data.description }}}</p>
 
                     <p>
                         <b>

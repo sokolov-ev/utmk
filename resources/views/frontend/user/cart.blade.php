@@ -33,15 +33,17 @@
     <div class="padding-top"></div>
 
     @if (empty($products))
-        <div class="cart-empty">
-            <div class="padding-top"></div>
+        <div class="wow fadeInUp">
+            <div class="cart-empty">
+                <div class="padding-top"></div>
 
-            <div class="empty-block">
-                <i class="fa fa-shopping-cart fa-lg" aria-hidden="true"></i>
-                {{ trans('products.empty-cart') }}
+                <div class="empty-block">
+                    <i class="fa fa-shopping-cart fa-lg" aria-hidden="true"></i>
+                    {{ trans('products.empty-cart') }}
+                </div>
+
+                <div class="padding-top"></div>
             </div>
-
-            <div class="padding-top"></div>
         </div>
     @endif
 
@@ -89,7 +91,7 @@
                                     <input type="text"
                                            value="{{ $product['quantity'] }}"
                                            class="quantity"
-                                           data-id="{{ $key }}"
+                                           data-id="{{ ($key + 1) * 20 }}"
                                            data-price="{{ $product['price'] }}"
                                            data-bonds="{{ $product['bonds'] }}" />
                                     <button type="button" class="btn btn-link cart-quantity-plus">
@@ -100,7 +102,7 @@
                                 <div class="col-md-5 col-sm-5 col-xs-12 price-total text-right">
                                     {{ trans('products.sum') }}:
                                     <div class="card-sum-price">
-                                        <div id="sum-price-{{ $key }}" class="sum-price">{{ $total }}</div>
+                                        <div id="sum-price-{{ ($key + 1) * 20 }}" class="sum-price">{{ $total }}</div>
                                         <span class="card-price-uah">{{ trans('products.uah') }}</span>
                                     </div>
                                 </div>

@@ -347,7 +347,6 @@
         });
 
         function initMap() {
-
             var noPoi = [{
                 featureType: "poi",
                 stylers: [
@@ -369,7 +368,6 @@
                 map: map,
                 anchorPoint: new google.maps.Point(0, -29),
             });
-
         }
 
         function fillInAddress() {
@@ -409,9 +407,15 @@
                     if (language == 'uk') {
                         $("#address_uk").val(response.results[0].formatted_address);
                     }
-                    $.each(response.results, function(key, place){
+
+                    $.each(response.results, function(key, place) {
                         if (place.geometry.location_type == "APPROXIMATE") {
-                            $("#city_" + language).val(place.address_components[1].long_name);
+                            $.each(place.address_components, function(key1, value1) {
+                                if (value1.types.indexOf('locality') >= 0) {
+                                    $("#city_" + language).val(value1.long_name);
+                                    return false;
+                                }
+                            });
                             return false;
                         }
                     });
@@ -421,5 +425,4 @@
     </script>
 
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAMQhkBZnzMm8RM9L1DnfOCES5Hb2HFtW0&libraries=places&callback=initMap&hl=ru" async defer></script>
-
 @endsection

@@ -222,9 +222,27 @@
                                 Адрес <i class="fa fa-spinner fa-pulse fa-fw hidden" aria-hidden="true" id="fa-spinner-load"></i>
                             </label>
 
-                            <input type="hidden" id="address_en" name="address_en" value="{{ old('address_en', $office['address_en']) }}">
-                            <input type="text"   id="address_ru" name="address_ru" class="form-control" value="{{ old('address_ru', $office['address_ru']) }}">
-                            <input type="hidden" id="address_uk" name="address_uk" value="{{ old('address_uk', $office['address_uk']) }}">
+                            <input id="address_ru"
+                                   type="text"
+                                   name="address_ru"
+                                   class="form-control"
+                                   value="{{ old('address_ru', $office['address_ru']) }}">
+
+                            <input id="address_en"
+                                   type="text"
+                                   name="address_en"
+                                   class="form-control"
+                                   value="{{ old('address_en', $office['address_en']) }}"
+                                   {{-- readonly="" --}}
+                                   placeholder="Адрес в транслите">
+
+                            <input id="address_uk"
+                                   type="text"
+                                   name="address_uk"
+                                   class="form-control"
+                                   value="{{ old('address_uk', $office['address_uk']) }}"
+                                   {{-- readonly="" --}}
+                                   placeholder="Адрес на украинском">
 
                             <input type="hidden" id="city_en" name="city_en" value="{{ old('city_en', $office['city_en']) }}">
                             <input type="hidden" id="city_ru" name="city_ru" value="{{ old('city_ru', $office['city_ru']) }}">
@@ -461,18 +479,41 @@
         function getMyAddress(geometry, language) {
             $.get('https://maps.googleapis.com/maps/api/geocode/json?latlng='+geometry.lat()+','+geometry.lng()+'&language='+language, function(response) {
                 if (response.status == "OK") {
-                    if (language == 'en') {
-                        $("#address_en").val(response.results[0].formatted_address);
-                    }
-                    if (language == 'uk') {
-                        $("#address_uk").val(response.results[0].formatted_address);
-                    }
-                    $.each(response.results, function(key, place){
-                        if (place.geometry.location_type == "APPROXIMATE") {
-                            $("#city_" + language).val(place.address_components[1].long_name);
-                            return false;
+
+                    console.log(response);
+
+                    $.each(response.results, function(key, place) {
+                        if (place.geometry.location_type == "ROOFTOP") {
+                            if (language == 'en') {
+                                $("#address_en").val(place.formatted_address);
+                            }
+                            if (language == 'uk') {
+                                $("#address_uk").val(place.formatted_address);
+                            }
                         }
                     });
+
+                    if (language == 'ru') {
+                        $.each(response.results[2].address_components, function(key, address) {
+                            if (address.types.indexOf('locality') >= 0) {
+                                $("#city_" + language).val(address.long_name);
+                                return false;
+                            }
+                        });
+                        return false;
+                    } else {
+                        $.each(response.results, function(key, place) {
+                            if (place.geometry.location_type == "APPROXIMATE") {
+                                $.each(place.address_components, function(key, address) {
+                                    if (address.types.indexOf('locality') >= 0) {
+                                        $("#city_" + language).val(address.long_name);
+                                        return false;
+                                    }
+                                });
+                                return false;
+                            }
+                        });
+                    }
                 }
             });
         }

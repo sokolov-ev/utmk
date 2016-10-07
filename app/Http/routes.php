@@ -16,6 +16,7 @@
 Route::group(['middleware' => ['web', 'language']], function () {
 
     Route::get('/', ['as' => 'index-page', 'uses' => 'Frontend\IndexController@index']);
+    // Route::get('/', ['as' => 'index-page', 'uses' => 'Frontend\IndexController@test']);
 
 // СПРАВОЧНАЯ ИНФОРМАЦИЯ (статика)
     Route::get('/metallokonstruktsii', ['as' => 'metallokonstruktsii', 'uses' => 'Frontend\IndexController@metallokonstruktsii']);

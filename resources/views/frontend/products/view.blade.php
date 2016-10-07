@@ -67,15 +67,15 @@
 
             <div class="wow slideInRight">
                 <div class="padding-block-0-2">
-                    <span class="text-gray-16 text-justify">{{ $product['description'] }}</span>
+                    <span class="text-16">{!! $product['description'] !!}</span>
                 </div>
             </div>
 
-            <?php $office = json_decode($product['office']['title'], true)[App::getLocale()]; ?>
-
             <div class="padding-block-0-2">
                 <strong>{{ trans('offices.office') }}</strong>:
-                <a class="orange-list-a" href="{{ url('/administration/offices/'.$product['office']['id']) }}" title="{{ $office }}">{{ $office }}</a>
+                <a class="orange-list-a" href="{{ url('/office/'.$product['office_city'].'/'.$product['office']['id']) }}" title="{{ $product['office_title'] }}">
+                    {{ $product['office_title'] }}
+                </a>
             </div>
 
         </div>
@@ -92,7 +92,7 @@
                 <div class="card-price-block pull-left">
                     <div class="card-price">
                         {{ $product['price'] }}
-                        <span class="card-price-uah">{{ trans('products.uah') }}</span>
+                        <span class="card-price-uah">{{ trans('products.uah') }} / {{ trans('products.measures.'.$product['price_type']) }}</span>
                     </div>
                 </div>
 

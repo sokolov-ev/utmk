@@ -3,6 +3,7 @@
 return [
     'title' => 'Product catalog',
     'shopping-cart' => 'Shopping cart',
+    'in-shopping-cart' => 'In shopping cart',
     'empty-cart' => 'Cart is empty',
     'add-cart' => 'Add to cart',
     'uah' => 'UAH',
@@ -26,4 +27,14 @@ return [
     'wish' => 'Wish',
 
     'order-not-found' => 'Order not found',
+
+    'measures' => [
+        'piece' => 'piece',
+        'sq-m'  => 'sq.m.',
+        'ton'   => 'ton',
+        'meter' => 'meter',
+    ],
+
+    'list' => 'List',
+    'cards' => 'Cards',
 ];

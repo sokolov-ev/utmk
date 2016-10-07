@@ -168,7 +168,7 @@
                                         <li role="presentation">
                                             <a id="description_en-tab"
                                                class="tab-nice{{ $errors->has('description_en') ? ' has-error-label' : '' }}"
-                                               href="#description_en"
+                                               href="#description_en-body"
                                                role="tab"
                                                data-toggle="tab"
                                                aria-controls="description_en"
@@ -179,7 +179,7 @@
                                         <li class="active" role="presentation">
                                             <a id="description_ru-tab"
                                                class="tab-nice{{ $errors->has('description_ru') ? ' has-error-label' : '' }}"
-                                               href="#description_ru"
+                                               href="#description_ru-body"
                                                role="tab"
                                                data-toggle="tab"
                                                aria-controls="description_ru">
@@ -189,7 +189,7 @@
                                         <li role="presentation">
                                             <a id="description_uk-tab"
                                                class="tab-nice{{ $errors->has('description_uk') ? ' has-error-label' : '' }}"
-                                               href="#description_uk"
+                                               href="#description_uk-body"
                                                role="tab"
                                                data-toggle="tab"
                                                aria-controls="description_uk">
@@ -202,7 +202,7 @@
                         </div>
 
                         <div id="tabdescription" class="tab-content">
-                            <div id="description_en" class="tab-pane fade" role="tabpanel" aria-labelledby="description_en-tab">
+                            <div id="description_en-body" class="tab-pane fade" role="tabpanel" aria-labelledby="description_en-tab">
                                 <div class="form-group{{ $errors->has('description_en') ? ' has-error' : '' }}">
                                     <textarea id="description_en" name="description_en" class="form-control" placeholder="Английский" rows="6">{{ old('description_en') }}</textarea>
 
@@ -213,7 +213,7 @@
                                     @endif
                                 </div>
                             </div>
-                            <div id="description_ru" class="tab-pane fade in active" role="tabpanel" aria-labelledby="description_ru-tab">
+                            <div id="description_ru-body" class="tab-pane fade in active" role="tabpanel" aria-labelledby="description_ru-tab">
                                 <div class="form-group{{ $errors->has('description_ru') ? ' has-error' : '' }}">
                                     <textarea id="description_ru" name="description_ru" class="form-control" placeholder="Русский" rows="6">{{ old('description_ru') }}</textarea>
 
@@ -224,7 +224,7 @@
                                     @endif
                                 </div>
                             </div>
-                            <div id="description_uk" class="tab-pane fade" role="tabpanel" aria-labelledby="description_uk-tab">
+                            <div id="description_uk-body" class="tab-pane fade" role="tabpanel" aria-labelledby="description_uk-tab">
                                 <div class="form-group{{ $errors->has('description_ru') ? ' has-error' : '' }}">
                                     <textarea id="description_uk" name="description_uk" class="form-control" placeholder="Украинский" rows="6">{{ old('description_uk') }}</textarea>
 
@@ -237,16 +237,41 @@
                             </div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('price') ? ' has-error' : '' }}">
-                            <label for="price" class=" control-label">Цена</label>
+                        <div class="row">
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <div class="form-group{{ $errors->has('price') ? ' has-error' : '' }}">
+                                    <label for="price" class=" control-label">Цена</label>
 
-                            <input id="price" type="text" class="form-control" name="price" value="{{ old('price') }}">
+                                    <input id="price" type="text" class="form-control" name="price" value="{{ old('price') }}">
 
-                            @if ($errors->has('price'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('price') }}</strong>
-                                </span>
-                            @endif
+                                    @if ($errors->has('price'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('price') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <div class="form-group{{ $errors->has('price_type') ? ' has-error' : '' }}">
+                                    <label for="price_type" class=" control-label">Мера</label>
+
+                                    <select id="price_type" name="price_type" class="form-control">
+                                        @foreach($priceType as $key => $val)
+                                            @if ($key == old('price_type'))
+                                                <option value="{{ $key }}" selected="">{{ trans('products.measures.'.$val) }}</option>
+                                            @else
+                                                <option value="{{ $key }}">{{ trans('products.measures.'.$val) }}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+
+                                    @if ($errors->has('price_type'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('price_type') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
                         </div>
 
                         <div class="form-group{{ $errors->has('rating') ? ' has-error' : '' }}">
@@ -273,7 +298,7 @@
 
                 <div class="row">
                     <div class="col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-12">
-                        <button class="btn btn-success pull-right" type="submit">
+                        <button class="btn btn-success pull-right" type="submit" onclick="saveDescription();">
                             Добавить
                         </button>
                     </div>
@@ -291,12 +316,41 @@
 
     <script src="{{ elixir('js/fileinput.js') }}"></script>
     <script src="{{ elixir('js/select2.js') }}"></script>
+    <script src="{{ asset('tinymce/tinymce.min.js') }}"></script>
 
     <script>
         $("#images").fileinput({
             language: $(".language").data('lang'),
             allowedFileExtensions: ["jpg", "jpeg", "png", "bmp", "gif", "svg"],
         });
+
+        var descriptionEn = tinyMCE.init({
+                selector: '#description_en',
+                language: 'ru',
+                plugins: 'textcolor colorpicker advlist autolink link image media lists charmap table preview',
+                toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | forecolor backcolor'
+            });
+
+        var descriptionRu = tinyMCE.init({
+                selector: '#description_ru',
+                language: 'ru',
+                plugins: 'textcolor colorpicker advlist autolink link image media lists charmap table preview',
+                toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | forecolor backcolor'
+            });
+
+        var descriptionUk = tinyMCE.init({
+                selector: '#description_uk',
+                language: 'ru',
+                plugins: 'textcolor colorpicker advlist autolink link image media lists charmap table preview',
+                toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | forecolor backcolor'
+            });
+
+        function saveDescription()
+        {
+            descriptionEn.triggerSave();
+            descriptionRu.triggerSave();
+            descriptionUk.triggerSave();
+        }
     </script>
 
 @endsection

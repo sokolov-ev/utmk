@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" itemscope itemtype="http://schema.org/Webpage">
+<html lang="{{ App::getLocale() }}" itemscope="" itemtype="http://schema.org/Webpage">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -37,7 +37,7 @@
             <div class="col-md-9 col-sm-8 col-xs-12">
                 <div class="user-block">
                     @if (!Auth::guest())
-                        <a class="text-orange-20" href="{{ route('logout', request()->query()) }}" title="{{ trans('auth.logout') }}">
+                        <a class="text-orange-20" href="{{ route('logout') }}" title="{{ trans('auth.logout') }}">
                             <i class="fa fa-sign-out fa-4x" aria-hidden="true"></i>
                         </a>
                         <a href="#" class="text-green-20 shopping-cart-button" data-target="#shopping-cart" data-toggle="modal" title="{{ trans('products.shopping-cart') }}">
@@ -54,7 +54,7 @@
                             <i class="fa fa-sign-in fa-4x" aria-hidden="true"></i>
                         </a>
                     @else
-                        <a href="{{ route('my-cart', request()->query()) }}" class="text-green-20" title="{{ trans('auth.my-office') }}">
+                        <a href="{{ route('my-cart') }}" class="text-green-20" title="{{ trans('auth.my-office') }}">
                             <i class="fa fa-user fa-4x" aria-hidden="true"></i>
                         </a>
                     @endif
@@ -78,24 +78,12 @@
         <div id="mettal-vsem-menu" class="collapse navbar-collapse">
 
             <ul class="nav navbar-nav">
-                {{--
-                <li class="dropdown home">
-                    <a class="dropdown-toggle" aria-expanded="false" aria-haspopup="true" role="button" href="{{ route('index-page', request()->query()) }}">
-                        {{ trans('index.menu.home') }} <span class="caret"></span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li> <a href="#">{{ trans('index.menu.information.cutting') }}</a> </li>
-                        <li> <a href="#">{{ trans('index.menu.information.packaging') }}</a> </li>
-                        <li> <a href="#">{{ trans('index.menu.information.delivery') }}</a> </li>
-                    </ul>
-                </li>
-                --}}
-                <li class="home"><a href="{{ route('index-page', request()->query()) }}">{{ trans('index.menu.home') }}</a></li>
-                <li class="about-us"><a href="{{ route('about-us', request()->query()) }}">{{ trans('index.menu.about_us') }}</a></li>
-                <li class="company-profile"><a href="{{ route('profile', request()->query()) }}">{{ trans('index.menu.company_profile') }}</a></li>
-                <li class="products"><a href="{{ route('products-index', request()->query()) }}">{{ trans('index.menu.products') }}</a></li>
-                <li class="network-of-offices"><a href="{{ route('network-of-offices', request()->query()) }}">{{ trans('index.menu.network_of_offices') }}</a></li>
-                <li class="contact-us"><a href="{{ route('contacts', request()->query()) }}">{{ trans('index.menu.contact_us') }}</a></li>
+                <li class="home"><a href="{{ route('index-page') }}">{{ trans('index.menu.home') }}</a></li>
+                <li class="about-us"><a href="{{ route('about-us') }}">{{ trans('index.menu.about_us') }}</a></li>
+                <li class="company-profile"><a href="{{ route('profile') }}">{{ trans('index.menu.company_profile') }}</a></li>
+                <li class="products"><a href="{{ route('products-index') }}">{{ trans('index.menu.products') }}</a></li>
+                <li class="network-of-offices"><a href="{{ route('network-of-offices') }}">{{ trans('index.menu.network_of_offices') }}</a></li>
+                <li class="contact-us"><a href="{{ route('contacts') }}">{{ trans('index.menu.contact_us') }}</a></li>
             </ul>
 
         </div>

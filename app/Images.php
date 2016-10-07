@@ -4,6 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+use Image;
+
 class Images extends Model
 {
     protected $table = 'images';
@@ -47,13 +49,13 @@ class Images extends Model
     {
         if (!empty($images[0])) {
             foreach ($images as $img) {
-                $path = 'images/products/';
-                $name = time().'_'.$img->getClientOriginalName();
+                $filename  = str_slug($img->getClientOriginalName(), '_').'_'.time().'.'.$img->getClientOriginalExtension();
+                $path = 'images/products/' . $filename;
 
-                if ($img->move($path, $name)) {
+                if (Image::make($img->getRealPath())->resize(370, 270)->save($path)) {
                     $imgModel = new Images();
                     $imgModel->product_id = $id;
-                    $imgModel->name = $name;
+                    $imgModel->name = $filename;
                     $imgModel->save();
                 }
             }

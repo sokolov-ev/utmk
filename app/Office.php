@@ -122,9 +122,19 @@ class Office extends Model
 
         foreach ($offices as $key => $office) {
             $temp['id']          = $office->id;
-            $temp['city']        = str_slug(json_decode($office->city, true)['en']);
-            $temp['title']       = json_decode($office->title, true)[App::getLocale()];
-            $temp['description'] = json_decode($office->description, true)[App::getLocale()];
+            $temp['city']        = str_slug(json_decode($office->city, true)['ru']);
+
+            // $temp['title']       = json_decode($office->title, true)[App::getLocale()];
+            // $temp['description'] = json_decode($office->description, true)[App::getLocale()];
+
+            $officeTitle   = json_decode($office->title, true);
+            $officeTitle   = array_filter($officeTitle);
+            $temp['title'] = empty($officeTitle[App::getLocale()]) ? current($officeTitle) : $officeTitle[App::getLocale()];
+
+            $officeDescription   = json_decode($office->description, true);
+            $officeDescription   = array_filter($officeDescription);
+            $temp['description'] = empty($officeDescription[App::getLocale()]) ? current($officeDescription) : $officeDescription[App::getLocale()];
+
             $temp['address']     = json_decode($office->address, true)[App::getLocale()];
             $temp['latitude']    = $office->latitude;
             $temp['longitude']   = $office->longitude;

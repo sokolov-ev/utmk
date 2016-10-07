@@ -123,6 +123,7 @@ class ProductsController extends Controller
     {
         $menu    = Menu::select('id', 'name AS text')->where('parent_exist', 0)->orderBy('weight', 'ASC')->get();
         $isAdmin = Auth::guard('admin')->user()->role == Admin::ROLE_ADMIN;
+        $priceType = Products::getMeasures();
         $offices = null;
 
         if ($isAdmin) {
@@ -135,6 +136,7 @@ class ProductsController extends Controller
             'menu' => $menu,
             'offices' => $offices,
             'isAdmin' => $isAdmin,
+            'priceType' => $priceType,
         ]);
     }
 
@@ -157,6 +159,7 @@ class ProductsController extends Controller
         $product = Products::parseData($id);
         $menu    = Menu::select('id', 'name AS text')->where('parent_exist', 0)->orderBy('weight', 'ASC')->get();
         $isAdmin = Auth::guard('admin')->user()->role == Admin::ROLE_ADMIN;
+        $priceType = Products::getMeasures();
         $offices = null;
 
         if ($isAdmin) {
@@ -174,6 +177,7 @@ class ProductsController extends Controller
             'offices' => $offices,
             'product' => $product,
             'isAdmin' => $isAdmin,
+            'priceType' => $priceType,
         ]);
     }
 

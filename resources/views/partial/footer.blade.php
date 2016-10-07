@@ -3,40 +3,10 @@
         <div class="padding-top"></div>
 
         <div class="row">
-            <div class="col-md-7 col-sm-12 col-xs-12">
+            <div class="col-md-8 col-sm-12 col-xs-12">
 
                 <div class="row">
-                    <div class="col-md-3 col-sm-3 col-xs-12">
-                        <p class="footer-title">{{ trans('index.footer.company') }}</p>
-                        <ul class="list-unstyled footer-link-block">
-                            <li>
-                                <a href="{{ route('index-page', request()->query()) }}" title="{{ trans('index.menu.home') }}">{{ trans('index.menu.home') }}</a>
-                            </li>
-                            <li>
-                                <a href="{{ route('about-us', request()->query()) }}" title="{{ trans('index.menu.about_us') }}">{{ trans('index.menu.about_us') }}</a>
-                            </li>
-                            <li>
-                                <a href="{{ route('profile', request()->query()) }}" title="{{ trans('index.menu.company_profile') }}">{{ trans('index.menu.company_profile') }}</a>
-                            </li>
-                            <li>
-                                <a href="{{ route('products-index', request()->query()) }}" title="{{ trans('index.menu.products') }}">{{ trans('index.menu.products') }}</a>
-                            </li>
-                            <li>
-                                <a href="{{ route('network-of-offices', request()->query()) }}" title="{{ trans('index.menu.network_of_offices') }}">{{ trans('index.menu.network_of_offices') }}</a>
-                            </li>
-                            <li>
-                                <a href="{{ route('contacts', request()->query()) }}" title="{{ trans('index.menu.contact_us') }}">{{ trans('index.menu.contact_us') }}</a>
-                            </li>
-                        </ul>
-
-                        <p class="footer-title">{{ trans('index.footer.our-services') }}</p>
-                        <ul class="list-unstyled footer-link-block">
-                            <li><a href="{{ route('porezka') }}" title="">{{ trans('index.menu.information.cutting') }}</a></li>
-                            <li><a href="{{ route('upakovka') }}" title="">{{ trans('index.menu.information.packaging') }}</a></li>
-                            <li><a href="{{ route('dostavka') }}" title="">{{ trans('index.menu.information.delivery') }}</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-md-5 col-sm-5 col-xs-12">
+                    <div class="col-md-4 col-sm-4 col-xs-12">
                         <p class="footer-title">{{ trans('index.footer.reference') }}</p>
                         <ul class="list-unstyled footer-link-block">
                             <li><a href="{{ route('armatura') }}" title="">{{ trans('index.menu.information.armatura') }}</a></li>
@@ -70,16 +40,64 @@
                         </ul>
                     </div>
                     <div class="col-md-4 col-sm-4 col-xs-12">
+                        <p class="footer-title">{{ trans('index.footer.company') }}</p>
+                        <ul class="list-unstyled footer-link-block">
+                            <li>
+                                <a href="{{ route('index-page', request()->query()) }}" title="{{ trans('index.menu.home') }}">
+                                    {{ trans('index.menu.home') }}
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('about-us', request()->query()) }}" title="{{ trans('index.menu.about_us') }}">
+                                    {{ trans('index.menu.about_us') }}
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('profile', request()->query()) }}" title="{{ trans('index.menu.company_profile') }}">
+                                    {{ trans('index.menu.company_profile') }}
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('products-index', request()->query()) }}" title="{{ trans('index.menu.products') }}">
+                                    {{ trans('index.menu.products') }}
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('network-of-offices', request()->query()) }}" title="{{ trans('index.menu.network_of_offices') }}">
+                                    {{ trans('index.menu.network_of_offices') }}
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('contacts', request()->query()) }}" title="{{ trans('index.menu.contact_us') }}">
+                                    {{ trans('index.menu.contact_us') }}
+                                </a>
+                            </li>
+                        </ul>
+
+                        <p class="footer-title">{{ trans('index.footer.our-services') }}</p>
+                        <ul class="list-unstyled footer-link-block">
+                            <li><a href="{{ route('porezka') }}" title="">{{ trans('index.menu.information.cutting') }}</a></li>
+                            <li><a href="{{ route('upakovka') }}" title="">{{ trans('index.menu.information.packaging') }}</a></li>
+                            <li><a href="{{ route('dostavka') }}" title="">{{ trans('index.menu.information.delivery') }}</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4 col-sm-4 col-xs-12">
                         <p class="footer-title">{{ trans('index.speech.languages') }}</p>
                         <ul class="list-unstyled footer-link-block">
                             <li>
-                                <a href="{{ request()->fullUrlWithQuery(['lang' => 'en']) }}" title="{{ trans('index.speech.en') }}">{{ trans('index.speech.en') }}</a>
+                                <a href="{{ request()->fullUrlWithQuery(['lang' => 'en']) }}" title="{{ trans('index.speech.en') }}">
+                                    {{ trans('index.speech.en') }}
+                                </a>
                             </li>
                             <li>
-                                <a href="{{ request()->fullUrlWithQuery(['lang' => 'ru']) }}" title="{{ trans('index.speech.ru') }}">{{ trans('index.speech.ru') }}</a>
+                                <a href="{{ request()->fullUrlWithQuery(['lang' => 'ru']) }}" title="{{ trans('index.speech.ru') }}">
+                                    {{ trans('index.speech.ru') }}
+                                </a>
                             </li>
                             <li>
-                                <a href="{{ request()->fullUrlWithQuery(['lang' => 'uk']) }}" title="{{ trans('index.speech.uk') }}">{{ trans('index.speech.uk') }}</a>
+                                <a href="{{ request()->fullUrlWithQuery(['lang' => 'uk']) }}" title="{{ trans('index.speech.uk') }}">
+                                    {{ trans('index.speech.uk') }}
+                                </a>
                             </li>
                         </ul>
 
@@ -143,7 +161,7 @@
                 </div>
 
             </div>
-            <div class="col-md-5 col-sm-12 col-xs-12 pull-right">
+            <div class="col-md-4 col-sm-12 col-xs-12 pull-right">
                 <div class="pull-right text-right">
                     <p class="footer-title">{{ trans('index.footer.contact') }}</p>
 

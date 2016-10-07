@@ -21,6 +21,7 @@ class CreateProductsTable extends Migration
             $table->text('title');
             $table->text('description');
             $table->integer('price');
+            $table->string('price_type');
             $table->integer('rating');
             $table->smallInteger('show_my');
             $table->integer('creator_id');

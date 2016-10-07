@@ -38,7 +38,8 @@
 }
 
 .orange-list-a:hover,
-.orange-list-a:active {
+.orange-list-a:active,
+.orange-list-a:focus {
   color: #e1704b;
   font-style: normal;
   font-weight: 400;

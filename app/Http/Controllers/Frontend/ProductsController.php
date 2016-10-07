@@ -19,10 +19,16 @@ class ProductsController extends Controller
 {
     public function index(Request $request, $slug = null, $id = null)
     {
-        $page = $request->input('page')-1;
+        if (empty($request->get('format')) || ($request->get('format') == 'block')) {
+            $format = 'block';
+            $count  = 20;
+        } else {
+            $format = 'list';
+            $count  = 9;
+        }
 
-        $count = 20;
-        $page  = empty($page) ? 0 : $count*$page;
+        $page = $request->input('page')-1;
+        $page = empty($page) ? 0 : $count*$page;
 
         if (empty($id)) {
             $products = Products::where([['show_my', '1']])->orderBy('rating', 'DESC')->take($count)->get();
@@ -42,6 +48,7 @@ class ProductsController extends Controller
             'products' => $result,
             'offices'  => $offices,
             'menu_id'  => $id,
+            'format'   => $format,
         ]);
     }
 
@@ -93,7 +100,7 @@ class ProductsController extends Controller
         $city = $request->input('city');
         $page = $request->input('page')-1;
 
-        $count = 20;
+        $count = 9;
         $page  = empty($page) ? 0 : $count*$page;
         // top products
         $where = [['show_my', '1']];
@@ -119,8 +126,12 @@ class ProductsController extends Controller
                             ->skip($page)
                             ->get();
 
+
+
         // преобразование данных для отображения
-        $products = Products::viewDataAll($products);
+        $products = Products::viewDataJson($products);
+
+        // var_dump($products);
 
         if (empty($products)) {
             return response()->json(['status' => 'bad', 'message' => trans('products.products-missing')]);
@@ -133,14 +144,10 @@ class ProductsController extends Controller
     {
         if (Auth::guard(null)->check()) {
             $id = $request->input('id');
-            $count = $request->input('count');
+            $count = 1;
 
             if (empty($id) || !Products::where('id', $id)->exists()) {
                 return response()->json(['status' => 'bad', 'message' => 'empty product']);
-            }
-
-            if (empty($count)) {
-                $count = 1;
             }
 
             $order = Orders::where([['user_id', Auth::guard(null)->user()->id], ['formed', 0]])->first();
@@ -161,7 +168,7 @@ class ProductsController extends Controller
             if ($ordersProducts->save()) {
                 $countProducts = OrdersProducts::where('order_id', $order->id)->count();
 
-                return response()->json(['status' => 'ok', 'data' => $countProducts]);
+                return response()->json(['status' => 'ok', 'data' => $countProducts, 'message' => trans('products.in-shopping-cart')]);
             } else {
                 return response()->json(['status' => 'bad', 'message' => 'fail add cart']);
             }
@@ -176,16 +183,21 @@ class ProductsController extends Controller
         if (Auth::guard(null)->check()) {
 
             $order = Orders::where([['user_id', Auth::guard(null)->user()->id], ['formed', 0]])->first();
-            $products = $order->products()->get();
-            $products = Products::viewDataAll($products);
-            $result = [];
 
-            foreach ($products as $key => $product) {
-                $product['office'] = json_decode($product['office']['city'], true)[App::getLocale()];
-                $result[] = array_except($product, ['description', 'menu_id']);
+            if (empty($order)) {
+                $order = new Orders();
+                $order->user_id = Auth::guard(null)->user()->id;
+                $order->formed = 0;
+                $order->save();
+
+                return response()->json(['status' => 'ok', 'data' => 0]);
             }
 
-            return response()->json(['status' => 'ok', 'data' => $result]);
+            $products = $order->products()->get();
+            $products = Products::viewDataJson($products);
+            $result = [];
+
+            return response()->json(['status' => 'ok', 'data' => $products]);
         } else {
             return response()->json(['status' => 'bad', 'message' => trans('auth.not-auth'), 'auth' => true]);
         }

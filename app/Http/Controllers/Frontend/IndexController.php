@@ -165,7 +165,7 @@ class IndexController extends Controller
 
     public function aboutUs()
     {
-        return view('frontend.site.about-us');
+        return view('frontend.site.ru_about-us');
     }
 
     public function companyProfile()
@@ -235,7 +235,7 @@ class IndexController extends Controller
 
         $sent = Mail::send('emails.contacts', $data, function($message) use ($data)
         {
-            $message->to('sokolov_ev@ukr.net')->subject('Связатся с нами - '.$data['company']);
+            $message->to('metallvsem@ukr.net')->subject('Связатся с нами - '.$data['company']);
         });
 
         if ($sent) {
@@ -247,22 +247,8 @@ class IndexController extends Controller
         return redirect(url()->previous());
     }
 
-    public function testing(Request $request)
+    public function test(Request $request)
     {
-        // $response = new Response();
-        // $response->withCookie('language', 'uk', 6000);
-        // var_dump($response);
 
-        // $response = new Response('Hello World');
-        // $response->withCookie(cookie('language', 'value', 90));
-
-        // $response = new Response();
-        // $response->withCookie(cookie('language', 'en', 90));
-
-        // var_dump(cookie('language', 'uk', 90));
-
-        // Cookie::queue(Cookie('language', 'uk', 90));
-
-        var_dump($request->cookie('language'));
     }
 }

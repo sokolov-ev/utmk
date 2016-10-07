@@ -76,17 +76,28 @@ $(document).ready(function() {
         totalSum();
     });
 
-    $("body").on('change keyup', ".quantity", function(event){
-        var bonds = $(this).data('bonds');
+    // $("body").on('change keyup', ".quantity", function(event){
+    //     var bonds = $(this).data('bonds');
 
-        this.value = this.value.replace(/[^0-9]/g, '');
-        if ( (this.value == '') || (this.value < 1) ) {
-            this.value = 1;
-        }
+    //     this.value = this.value.replace( /^\D+/g, '');
 
-        changeCountProduct(bonds, this.value);
-        totalSum();
-    });
+    //     if ( (this.value == '') || (this.value < 1) ) {
+    //         this.value = 1;
+    //     }
+
+    //     changeCountProduct(bonds, this.value);
+    //     totalSum();
+    // });
+
+
+    var checkError = function(event) {
+        $.each($("#login-form-send, #email-form-reset").find('.help-block'), function(key, val){
+            if ($(val).text()) {
+                $("#login-form").modal('show');
+                return false;
+            }
+        });
+    }();
 });
 
 function changeCountProduct(id, count)
