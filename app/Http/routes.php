@@ -51,6 +51,27 @@ Route::group(['middleware' => ['web', 'language']], function () {
     Route::get('/home/porezka', ['as' => 'porezka', 'uses' => 'Frontend\IndexController@porezka']);
     Route::get('/home/upakovka', ['as' => 'upakovka', 'uses' => 'Frontend\IndexController@upakovka']);
     Route::get('/home/dostavka', ['as' => 'dostavka', 'uses' => 'Frontend\IndexController@dostavka']);
+
+    Route::get('/kontrol-kachestva-produkcii', ['as' => 'kontrol-kachestva', 'uses' => 'Frontend\IndexController@kontrolKachestva']);
+    Route::get('/eksport-import-metallicheskih-izdelij', ['as' => 'eksport-import', 'uses' => 'Frontend\IndexController@eksportImport']);
+    Route::get('/shirokij-eksport-import-mira', ['as' => 'shirokij-eksport-import', 'uses' => 'Frontend\IndexController@shirokijEksportImport']);
+
+    Route::get('/nadezhnyj-partner-dlya-vashego-biznesa', ['as' => 'nadezhnyj-partner', 'uses' => 'Frontend\IndexController@nadezhnyjPartner']);
+    Route::get('/nashi-obemy-prodazh', ['as' => 'nashi-obemy-prodazh', 'uses' => 'Frontend\IndexController@nashiProdazh']);
+    Route::get('/ustojchivoe-razvitie-kak-cel', ['as' => 'ustojchivoe-razvitie', 'uses' => 'Frontend\IndexController@ustojchivoeRazvitie']);
+
+    Route::get('/karernye-vozmozhnosti', ['as' => 'karernye-vozmozhnosti', 'uses' => 'Frontend\IndexController@karernyeVozmozhnosti']);
+    Route::get('/my-stremimsya-dlya-nashix-klientov', ['as' => 'stremimsya-dlya-klientov', 'uses' => 'Frontend\IndexController@stremimsyaDlyaKlientov']);
+    Route::get('/vashi-zakazy-kak-mozhno-skoree', ['as' => 'vashi-zakazy-kak-mozhno-skoree', 'uses' => 'Frontend\IndexController@vashiZakazy']);
+
+    Route::get('/struktury-vozmozhen-zakaz-pod-klyuch', ['as' => 'struktury-pod-klyuch', 'uses' => 'Frontend\IndexController@strukturyPodKlyuch']);
+    Route::get('/stremitelno-menyayushhemsya-mire', ['as' => 'stremitelno-menyayushhemsya-mire', 'uses' => 'Frontend\IndexController@stremitelnoMenyayushhemsyaMire']);
+    Route::get('/chto-novogo', ['as' => 'chto-novogo', 'uses' => 'Frontend\IndexController@chtoNovogo']);
+
+    Route::get('/luchshie-prodavcy', ['as' => 'luchshie-prodavcy', 'uses' => 'Frontend\IndexController@luchshieProdavcy']);
+    Route::get('/razvitie', ['as' => 'razvitie', 'uses' => 'Frontend\IndexController@razvitie']);
+
+
 // /СПРАВОЧНАЯ ИНФОРМАЦИЯ (статика)
 
     Route::get('/yutmk-energy', ['as' => 'about-us', 'uses' => 'Frontend\IndexController@aboutUs']);

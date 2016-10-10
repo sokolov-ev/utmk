@@ -85,7 +85,7 @@
                         $params['slug_product'] = $product['slug'];
                         $params['id'] = $product['id'];
                     ?>
-                    @if($format == 'block')
+                    @if($format == 'cards')
                         <div class="col-md-4 col-sm-4 col-xs-12 card">
                             <div class="thumbnail">
                                 <img class="green-img" alt="{{ $product['title'] }}" src="{{ $product['images'] }}" style="max-width: 360px; max-height: 240px">

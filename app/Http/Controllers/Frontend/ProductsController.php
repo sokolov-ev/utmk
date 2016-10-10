@@ -19,8 +19,8 @@ class ProductsController extends Controller
 {
     public function index(Request $request, $slug = null, $id = null)
     {
-        if (empty($request->get('format')) || ($request->get('format') == 'block')) {
-            $format = 'block';
+        if (empty($request->get('format')) || ($request->get('format') == 'cards')) {
+            $format = 'cards';
             $count  = 20;
         } else {
             $format = 'list';

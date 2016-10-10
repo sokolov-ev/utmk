@@ -156,6 +156,68 @@ class IndexController extends Controller
         return view('frontend.information.ru_z-obraznyj-profil');
     }
 
+//*
+    public function kontrolKachestva()
+    {
+        return view('frontend.information.ru_kontrol-kachestva-produkcii');
+    }
+    public function eksportImport()
+    {
+        return view('frontend.information.ru_eksport-import-metallicheskih-izdelij');
+    }
+    public function shirokijEksportImport()
+    {
+        return view('frontend.information.ru_shirokij-eksport-import');
+    }
+//*
+    public function nadezhnyjPartner()
+    {
+        return view('frontend.information.ru_nadezhnyj-partner-dlya-vashego-biznesa');
+    }
+    public function nashiProdazh()
+    {
+        return view('frontend.information.ru_nashi-obemy-prodazh');
+    }
+    public function ustojchivoeRazvitie()
+    {
+        return view('frontend.information.ru_ustojchivoe-razvitie-kak-cel');
+    }
+//*
+    public function karernyeVozmozhnosti()
+    {
+        return view('frontend.information.ru_karernye-vozmozhnosti');
+    }
+    public function stremimsyaDlyaKlientov()
+    {
+        return view('frontend.information.ru_my-stremimsya-dlya-nashix-klientov');
+    }
+    public function vashiZakazy()
+    {
+        return view('frontend.information.ru_vashi-zakazy-kak-mozhno-skoree');
+    }
+//*
+    public function strukturyPodKlyuch()
+    {
+        return view('frontend.information.ru_struktury-vozmozhen-zakaz-pod-klyuch');
+    }
+    public function stremitelnoMenyayushhemsyaMire()
+    {
+        return view('frontend.information.ru_stremitelno-menyayushhemsya-mire');
+    }
+    public function chtoNovogo()
+    {
+        return view('frontend.information.ru_chto-novogo');
+    }
+//*
+    public function luchshieProdavcy()
+    {
+        return view('frontend.information.ru_luchshie-prodavcy');
+    }
+    public function razvitie()
+    {
+        return view('frontend.information.ru_razvitie');
+    }
+
 //---------------------------------------------------------------------
 
     public function index()
