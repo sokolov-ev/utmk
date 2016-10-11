@@ -24,8 +24,6 @@ class Products extends Model
 
         'title',
         'description',
-        'price',
-        'price_type',
         'rating',
         'show_my',
 
@@ -55,16 +53,6 @@ class Products extends Model
         });
     }
 
-    public static function getMeasures()
-    {
-        return [
-            'piece' => 'piece',
-            'sq-m'  => 'sq-m',
-            'ton'   => 'ton',
-            'meter' => 'meter',
-        ];
-    }
-
     public function menu()
     {
         return $this->hasOne('App\Menu', 'id', 'menu_id');
@@ -85,6 +73,10 @@ class Products extends Model
         return $this->hasMany('App\Images', 'product_id', 'id')->select('name')->orderBy('weight', 'ASC');
     }
 
+    public function prices()
+    {
+        return $this->hasMany('App\Prices', 'product_id', 'id');
+    }
 
     public function order()
     {
@@ -117,8 +109,6 @@ class Products extends Model
         $array['description_ru'] = $description['ru'];
         $array['description_uk'] = $description['uk'];
 
-        $array['price']  = $product->price;
-        $array['price_type']  = $product->price_type;
         $array['rating'] = $product->rating;
         $array['show_my'] = $product->show_my;
 
@@ -159,9 +149,6 @@ class Products extends Model
         $array['ru'] = $data['description_ru'];
         $array['uk'] = $data['description_uk'];
         $product->description = json_encode($array, JSON_UNESCAPED_UNICODE);
-
-        $product->price      = $data['price'];
-        $product->price_type = $data['price_type'];
 
         $product->rating  = $data['rating'];
         $product->show_my = ($data['show_my'] == 'on') ? 1 : 0;
@@ -261,9 +248,6 @@ class Products extends Model
         $description = json_decode($product->description, true);
         $description = array_filter($description);
         $array['description'] = empty($description[App::getLocale()]) ? current($description) : $description[App::getLocale()];
-
-        $array['price'] = $product->price;
-        $array['price_type'] = $product->price_type;
 
         $array['quantity'] = empty($product->pivot->quantity) ? null : $product->pivot->quantity;
         $array['bonds'] = empty($product->pivot->id) ? null : $product->pivot->id;

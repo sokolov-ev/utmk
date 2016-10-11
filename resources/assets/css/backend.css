@@ -16,9 +16,11 @@
 .current-language {
     display: inline-block;
 }
-.btn .fa {
+
+table .btn .fa {
   line-height: 1.45555;
 }
+
 /* /Блок смены языков */
 
 /* Редактор меню */
@@ -78,7 +80,7 @@
 
 .flex { display: flex; }
 .flex > div { flex: 1; padding: 0; }
-.flex > .btn-wrap { flex: 0 auto; }
+.flex > .price-type, .flex > .btn-wrap { flex: 0 auto; }
 .flex > .btn-wrap > .btn { border-radius: 0; }
 
 .has-error-label { background-color: #dd4b39; }

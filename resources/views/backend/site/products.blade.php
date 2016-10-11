@@ -51,7 +51,6 @@
                             <th>Город</th>
                         @endif
                         <th>Заголовок</th>
-                        <th>Цена</th>
                         <th>Рейтинг</th>
                         <th>Показывать</th>
                         <th>Добавил</th>
@@ -99,9 +98,9 @@
             </table>
 
             @if ($isAdmin)
-                <div class="is-admin hidden">[{"data":"id"},{"data":"menu"},{"data":"office"},{"data":"title"},{"data":"price"},{"data":"rating"},{"data":"show_my"},{"data":"creator"},{"data":"created_at"}]</div>
+                <div class="is-admin hidden">[{"data":"id"},{"data":"menu"},{"data":"office"},{"data":"title"},{"data":"rating"},{"data":"show_my"},{"data":"creator"},{"data":"created_at"}]</div>
             @else
-                <div class="is-admin hidden">[{"data":"id"},{"data":"menu"},{"data":"title"},{"data":"price"},{"data":"rating"},{"data":"show_my"},{"data":"creator"},{"data":"created_at"}]</div>
+                <div class="is-admin hidden">[{"data":"id"},{"data":"menu"},{"data":"title"},{"data":"rating"},{"data":"show_my"},{"data":"creator"},{"data":"created_at"}]</div>
             @endif
 
         </div>

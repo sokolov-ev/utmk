@@ -17,6 +17,7 @@ use App\Admin;
 use App\Locale;
 use App\Office;
 use App\Images;
+use App\Prices;
 use App\Products;
 use App\DataTable;
 
@@ -100,7 +101,6 @@ class ProductsController extends Controller
             }
 
             $temp["title"]      = str_limit(json_decode($product->title, true)[App::getLocale()], 27, '...');
-            $temp["price"]      = $product->price;
             $temp["rating"]     = $product->rating;
             $temp["show_my"]    = $product->show_my ? 'Да' : 'Нет';
             $temp["created_at"] = empty($product->created_at) ? "<i class='text-danger'>(нет данных)</i>" : date("Y-m-d H:i", $product->created_at);
@@ -123,7 +123,7 @@ class ProductsController extends Controller
     {
         $menu    = Menu::select('id', 'name AS text')->where('parent_exist', 0)->orderBy('weight', 'ASC')->get();
         $isAdmin = Auth::guard('admin')->user()->role == Admin::ROLE_ADMIN;
-        $priceType = Products::getMeasures();
+        $priceType = Prices::getMeasures();
         $offices = null;
 
         if ($isAdmin) {
@@ -146,6 +146,7 @@ class ProductsController extends Controller
 
         if ($product = Products::actionProduct(null, $request->all())) {
             Images::addImages($product->id, $request->file('images'));
+            Prices::createPrice($product->id, $request->input('price'), $request->input('price_type'));
             session()->flash('success', "Продукция добавлена.");
             return redirect('/administration/products');
         }
@@ -159,8 +160,9 @@ class ProductsController extends Controller
         $product = Products::parseData($id);
         $menu    = Menu::select('id', 'name AS text')->where('parent_exist', 0)->orderBy('weight', 'ASC')->get();
         $isAdmin = Auth::guard('admin')->user()->role == Admin::ROLE_ADMIN;
-        $priceType = Products::getMeasures();
-        $offices = null;
+        $priceType = Prices::getMeasures();
+        $prices    = Prices::parseData($product["id"]);
+        $offices   = null;
 
         if ($isAdmin) {
             $offices = Office::select('id', 'title AS text')->get();
@@ -178,6 +180,7 @@ class ProductsController extends Controller
             'product' => $product,
             'isAdmin' => $isAdmin,
             'priceType' => $priceType,
+            'prices'  => $prices,
         ]);
     }
 
@@ -193,6 +196,7 @@ class ProductsController extends Controller
 
         if ($product = Products::actionProduct($id, $request->all())) {
             Images::addImages($product->id, $request->file('images'));
+            Prices::editPrices($product->id, $request->all());
             session()->flash('success', "Данные продукции изменены.");
             return redirect('/administration/products');
         }
@@ -236,7 +240,9 @@ class ProductsController extends Controller
             'description_ru' => 'string|min:10',
             'description_uk' => 'string|min:10',
 
-            'price' => 'required|numeric',
+            'price.*' => 'required|numeric',
+            'price_type.*' => 'required_with:'.Prices::listMeasures(),
+
             'rating' => 'integer',
         ]);
 

@@ -34,7 +34,7 @@
                     <p>{{{ data.description }}}</p>
 
                     <p>
-                        <b>
+                        <strong>
                             {{ data.office.office_work_title }}:
                             {{#data.office.id}}
                                 <a href="/administration/offices/{{ data.office.id }}" title="{{ data.office.title }}">
@@ -44,8 +44,15 @@
                             {{^data.office.id}}
                                 {{ data.office.title }}
                             {{/data.office.id}}
-                        </b>
+                        </strong>
                     </p>
+
+                    <div class="row">
+                    {{#prices}}
+                        <div class="col-md-2">{{ type }}</div><div class="col-md-10">{{ price }} грн</div>
+                    {{/prices}}
+                    </div>
+
                     <div class="padding-top-30"></div>
 
                 </div>

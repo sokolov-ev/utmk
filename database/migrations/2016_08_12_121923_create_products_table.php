@@ -20,8 +20,8 @@ class CreateProductsTable extends Migration
             $table->string('slug_menu');
             $table->text('title');
             $table->text('description');
-            $table->integer('price');
-            $table->string('price_type');
+            // $table->integer('price');
+            // $table->string('price_type');
             $table->integer('rating');
             $table->smallInteger('show_my');
             $table->integer('creator_id');

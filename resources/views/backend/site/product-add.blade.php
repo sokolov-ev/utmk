@@ -237,42 +237,111 @@
                             </div>
                         </div>
 
-                        <div class="row">
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <div class="form-group{{ $errors->has('price') ? ' has-error' : '' }}">
-                                    <label for="price" class=" control-label">Цена</label>
 
-                                    <input id="price" type="text" class="form-control" name="price" value="{{ old('price') }}">
 
-                                    @if ($errors->has('price'))
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('price') }}</strong>
-                                        </span>
-                                    @endif
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <div class="form-group{{ $errors->has('price_type') ? ' has-error' : '' }}">
-                                    <label for="price_type" class=" control-label">Мера</label>
 
-                                    <select id="price_type" name="price_type" class="form-control">
-                                        @foreach($priceType as $key => $val)
-                                            @if ($key == old('price_type'))
-                                                <option value="{{ $key }}" selected="">{{ trans('products.measures.'.$val) }}</option>
-                                            @else
-                                                <option value="{{ $key }}">{{ trans('products.measures.'.$val) }}</option>
-                                            @endif
-                                        @endforeach
-                                    </select>
 
-                                    @if ($errors->has('price_type'))
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('price_type') }}</strong>
-                                        </span>
-                                    @endif
-                                </div>
-                            </div>
-                        </div>
+<div id="product-prices">
+    <div class="form-group{{ $errors->has('price.0') ? ' has-error' : '' }}" style="margin-bottom: 0;">
+        <label for="" class="control-label">Цены</label>
+    </div>
+
+    <div class="form-group{{ $errors->has('price.0') ? ' has-error' : '' }}">
+        <div class="flex">
+            <div>
+                <input name="price[]" class="form-control price" type="text" value="{{ old('price.0') }}" placeholder="Цена">
+            </div>
+            <div class="price-type">
+                <select name="price_type[]" class="form-control price-type">
+                    @foreach($priceType as $key => $type)
+                        @if ($key == old('price_type.0'))
+                            <option value="{{$key}}" selected="">{{ trans('products.measures.'.$type) }}</option>
+                        @else
+                            <option value="{{$key}}">{{ trans('products.measures.'.$type) }}</option>
+                        @endif
+                    @endforeach
+                </select>
+            </div>
+            <div class="btn-wrap">
+                <button class="btn btn-success btn-add" type="button">
+                    <i class="fa fa-plus" aria-hidden="true"></i>
+                </button>
+            </div>
+        </div>
+
+        @if ($errors->has('price.0'))
+            <span class="help-block" style="color: #dd4b39;">
+                <strong>{{ $errors->first('price.0') }}</strong>
+            </span>
+        @endif
+    </div>
+
+    @if (count(old('price')) > 1)
+        @for($i = 1; $i < count(old('price')); $i++)
+            <div class="form-group{{ $errors->has('price.'.$i) ? ' has-error' : '' }}">
+                <div class="flex">
+                    <div>
+                        <input type="text" name="price[]" class="form-control price" value="{{ old('price.'.$i) }}" placeholder="Цена">
+                    </div>
+                    <div class="price-type">
+                        <select name="price_type[]" class="form-control price-type">
+                            @foreach($priceType as $key => $type)
+                                @if ($key == old('price_type.'.$i))
+                                    <option value="{{ $key }}" selected="">{{ trans('products.measures.'.$type) }}</option>
+                                @else
+                                    <option value="{{ $key }}">{{ trans('products.measures.'.$type) }}</option>
+                                @endif
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="btn-wrap">
+                        <button class="btn btn-danger btn-delete" type="button">
+                            <i class="fa fa-trash-o" aria-hidden="true"> </i>
+                        </button>
+                    </div>
+                </div>
+
+                @if ($errors->has('price.'.$i))
+                    <span class="help-block" style="color: #dd4b39;">
+                        <strong>{{ $errors->first('price.'.$i) }}</strong>
+                    </span>
+                @endif
+            </div>
+        @endfor
+    @endif
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
                         <div class="form-group{{ $errors->has('rating') ? ' has-error' : '' }}">
                             <label for="rating" class="control-label">Рейтинг</label>
@@ -351,6 +420,19 @@
             descriptionRu.triggerSave();
             descriptionUk.triggerSave();
         }
+
+        $(".btn-add").click(function(event){
+            var body = $(this).closest('.form-group').clone();
+            $(body).find('.price-type').val('piece');
+            $(body).find('.price').val('');
+            $(body).find('button').removeClass('btn-add btn-success').addClass('btn-danger btn-delete');
+            $(body).find('i').removeClass('fa-plus').addClass('fa-trash-o');
+            $("#product-prices").append(body);
+        });
+
+        $("#product-prices").on('click', '.btn-delete', function(event){
+            $(this).closest('.form-group').remove();
+        });
     </script>
 
 @endsection
