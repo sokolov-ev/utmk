@@ -37,7 +37,12 @@ class Orders extends Model
 
     public function products()
     {
-        return $this->belongsToMany('App\Products', 'orders_products', 'order_id', 'product_id')->withPivot('quantity', 'id');
+        return $this->belongsToMany('App\Products', 'orders_products', 'order_id', 'product_id')->withPivot('id', 'quantity', 'price_id');
+    }
+
+    public function prices()
+    {
+        return $this->belongsToMany('App\Prices', 'orders_products', 'order_id', 'price_id')->withPivot('quantity');
     }
 
     public function user()
@@ -67,5 +72,27 @@ class Orders extends Model
             self::STATUS_ACCEPTED => 'accepted',
             self::STATUS_CLOSED => 'closed',
         ];
+    }
+
+
+    public static function parseData($orders)
+    {
+        if (empty($orders)) {
+            return null;
+        }
+
+        $result = [];
+
+        foreach ($orders as $order) {
+            $products = $order->products()->get();
+
+            if (!empty($products)) {
+                $products = Products::viewDataJson($products);
+            }
+
+            $result[] = ['order' => $order->toArray(), 'products' => $products];
+        }
+
+        return $result;
     }
 }

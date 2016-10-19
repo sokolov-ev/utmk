@@ -217,6 +217,10 @@ class IndexController extends Controller
     {
         return view('frontend.information.ru_razvitie');
     }
+    public function nashaPolitika()
+    {
+        return view('frontend.information.ru_nasha-politika');
+    }
 
 //---------------------------------------------------------------------
 

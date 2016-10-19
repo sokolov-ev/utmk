@@ -18,22 +18,27 @@
     </div>
     <div class="padding-top"></div>
 
+
     <div class="padding-block-0-2">
         <?php
-            $params = request()->query();
-            $params['slug'] = $menu['slug'];
-            $params['id'] = $menu['id'];
+            $count = count($menu)-1;
         ?>
         <ul class="breadcrumb">
             <li> <a class="orange-list-a" href="{{ route('products-index') }}" title="">{{ trans('index.menu.products') }}</a> </li>
-            <li> <a class="orange-list-a" href="{{ route('products-index', $params) }}" title="">{{ $menu['name'] }}</a> </li>
+            @foreach($menu AS $key => $item)
+                @if($key == $count)
+                    <li> <a class="orange-list-a" href="{{ route('products-index', $item) }}" title="">{{ $item['name'] }}</a> </li>
+                @else
+                    <li class="active">{{ $item['name'] }}</li>
+                @endif
+            @endforeach
             <li class="active">{{ $product['title'] }}</li>
         </ul>
     </div>
 
     <div class="row">
 
-        <div class="col-md-5 col-sm-5">
+        <div class="col-md-5 col-sm-5 col-xs-12">
             <div class="padding-block-0-2">
                 <div class="wow slideInLeft">
 
@@ -63,46 +68,40 @@
             </div>
         </div>
 
-        <div class="col-md-7 col-sm-7">
+        <div class="col-md-7 col-sm-7 col-xs-12">
 
             <div class="wow slideInRight">
-                <div class="padding-block-0-2">
-                    <span class="text-16">{!! $product['description'] !!}</span>
-                </div>
+                <span class="text-16">{!! $product['description'] !!}</span>
             </div>
 
-            <div class="padding-block-0-2">
+            <div class="padding-block-1-2" style="font-size: 16px;">
                 <strong>{{ trans('offices.office') }}</strong>:
-                <a class="orange-list-a" href="{{ url('/office/'.$product['office_city'].'/'.$product['office']['id']) }}" title="{{ $product['office_title'] }}">
+                <a class="orange-list-a" href="{{ url('/office/'.$product['office_city'].'/'.$product['office_id']) }}" title="{{ $product['office_title'] }}">
                     {{ $product['office_title'] }}
                 </a>
             </div>
 
-        </div>
 
-    </div>
-
-    <div class="row">
-        <div class="col-md-5 col-sm-5">
-
-        </div>
-        <div class="col-md-7 col-sm-7 col-xs-12">
-
-            <div class="shopping-cart">
-                <div class="card-price-block pull-left">
-                    <div class="card-price">
-                        {{ $product['price'] }}
-                        <span class="card-price-uah">{{ trans('products.uah') }} / {{ trans('products.measures.'.$product['price_type']) }}</span>
+            @foreach($product['prices'] as $price)
+                <div class="row margin-bottom-5">
+                    <div class="col-md-2 col-sm-3 col-xs-6 up-first card-white-price up-first">{{ trans('products.measures.'.$price['type']) }}</div>
+                    <div class="col-md-10 col-sm-9 col-xs-6">
+                        <div class="card-price">
+                            {{ $price['price'] }} <span class="card-price-uah">{{ trans('products.uah') }}</span>
+                        </div>
                     </div>
                 </div>
+            @endforeach
 
+
+            <div class="padding-block-2-2">
                 <button type="button" class="btn btn-success add-cart pull-right" data-id="{{ $product['id'] }}">
                     <i class="fa fa-cart-plus" aria-hidden="true"> </i> {{ trans('products.add-cart') }}
                 </button>
+                <div class="clearfix"> </div>
             </div>
-
-            <div class="clearfix"> </div>
         </div>
+
     </div>
 
     <div class="padding-top"></div>
@@ -115,7 +114,8 @@
         $(".products").addClass('active');
 
         $("body").on('click', '.add-cart', function(event){
-            var id = $(this).data('id');
+            var tut = this;
+            var id  = $(this).data('id');
             var count = 1;
 
             if ($('#quantity').is(':empty')) {
@@ -127,6 +127,9 @@
                     if (response.data > 0) {
                         $(".shopping-cart-badge").removeClass("hidden");
                         $(".shopping-cart-badge").text(response.data);
+
+                        $(tut).addClass('btn-default').removeClass('btn-success');
+                        $(tut).text(response.message);
                     } else {
                         $(".shopping-cart-badge").addClass("hidden");
                         $(".shopping-cart-badge").text('');

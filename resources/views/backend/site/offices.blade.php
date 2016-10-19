@@ -55,19 +55,11 @@
                         <th>Обновлен</th>
                         <th>Действие</th>
                     </tr>
-                    <tr role="row" id="filter-table">
-                        <td> </td>
-                        <td> </td>
-                        <td> </td>
-                        <td> </td>
-                        <td> </td>
-                        <td> </td>
-                    </tr>
                 </thead>
                 <tbody>
                     @foreach ($offices as $key => $office)
                         <tr role="row" class="load-data" data-id="{{ $office->id }}">
-                            <td>{{ $key+1 }}</td>
+                            <td>{{ $office->id }}</td>
                             <td>{{ $office->title }}</td>
                             <td>{{ $office->address }}</td>
                             <td>{!! $office->created_at !!}</td>
@@ -116,7 +108,7 @@
             "ordering": true,
             "info": false,
             "autoWidth": false,
-            "bSortCellsTop": true,
+            "bSortCellsTop": false,
             "language": {
                 "sEmptyTable": "Нет записей...",
             }

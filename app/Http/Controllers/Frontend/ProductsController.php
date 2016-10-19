@@ -54,19 +54,13 @@ class ProductsController extends Controller
 
     public function view($slug_menu, $slug_product, $id)
     {
-        // преобразование данных для отображения
         $product = Products::viewData($id);
 
         if (empty($product)) {
             return response()->view('errors.404', [], 404);
         }
 
-        $menu = Menu::select('id', 'parent_id AS parent', 'name', 'slug')
-                    ->where('id', $product['menu_id'])
-                    ->first();
-
-        $menu = $menu->toArray();
-        $menu['name'] = json_decode($menu['name'], true)[App::getLocale()];
+        $menu = Menu::getBreadcrumbs($product['menu_id']);
 
         return view('frontend.products.view', [
             'product' => $product,
@@ -93,7 +87,7 @@ class ProductsController extends Controller
         }
     }
 
-    public function catalogProducts(Request $request)
+    public function getCatalog(Request $request)
     {
         $menu = $request->input('menu');
         $name = $request->input('name');
@@ -126,12 +120,8 @@ class ProductsController extends Controller
                             ->skip($page)
                             ->get();
 
-
-
         // преобразование данных для отображения
         $products = Products::viewDataJson($products);
-
-        // var_dump($products);
 
         if (empty($products)) {
             return response()->json(['status' => 'bad', 'message' => trans('products.products-missing')]);
@@ -140,13 +130,13 @@ class ProductsController extends Controller
         }
     }
 
-    public function productToCart(Request $request)
+    public function setToCart(Request $request)
     {
         if (Auth::guard(null)->check()) {
             $id = $request->input('id');
-            $count = 1;
+            $product = Products::where('id', $id)->first();
 
-            if (empty($id) || !Products::where('id', $id)->exists()) {
+            if (empty($id) || empty($product)) {
                 return response()->json(['status' => 'bad', 'message' => 'empty product']);
             }
 
@@ -160,10 +150,13 @@ class ProductsController extends Controller
                 $order->save();
             }
 
+            $price = $product->prices->first();
+
             $ordersProducts = new OrdersProducts();
             $ordersProducts->order_id   = $order->id;
             $ordersProducts->product_id = $id;
-            $ordersProducts->quantity   = $count;
+            $ordersProducts->quantity   = 1;
+            $ordersProducts->price_id   = $price->id;
 
             if ($ordersProducts->save()) {
                 $countProducts = OrdersProducts::where('order_id', $order->id)->count();
@@ -178,7 +171,7 @@ class ProductsController extends Controller
         }
     }
 
-    public function getProductsCart()
+    public function getShoppingCart()
     {
         if (Auth::guard(null)->check()) {
 
@@ -195,7 +188,6 @@ class ProductsController extends Controller
 
             $products = $order->products()->get();
             $products = Products::viewDataJson($products);
-            $result = [];
 
             return response()->json(['status' => 'ok', 'data' => $products]);
         } else {
@@ -209,10 +201,11 @@ class ProductsController extends Controller
 
             $order = Orders::where([['user_id', Auth::guard(null)->user()->id], ['formed', 0]])->first();
 
-            $id = $request->input('id');
+            $id    = $request->input('id');
             $count = $request->input('count');
+            $price = $request->input('price');
 
-            if (empty($order) || empty($id) || empty($count)) {
+            if (empty($order) || empty($id) || empty($count) || empty($price)) {
                 return response()->json(['status' => 'bad', 'message' => trans('products.order-not-found')]);
             }
 
@@ -223,6 +216,7 @@ class ProductsController extends Controller
             }
 
             $attitude->quantity = $count;
+            $attitude->price_id = $price;
 
             if ($attitude->update()) {
                 return response()->json(['status' => 'ok']);
@@ -272,11 +266,11 @@ class ProductsController extends Controller
                 return redirect(url()->previous());
             }
 
-            $products = $order->products()->get();
+            $prices = $order->prices()->get();
             $sum = 0;
 
-            foreach ($products as $product) {
-                $sum += $product->price * $product->pivot->quantity;
+            foreach ($prices as $price) {
+                $sum += $price->price * $price->pivot->quantity;
             }
 
             $order->formed   = 1;

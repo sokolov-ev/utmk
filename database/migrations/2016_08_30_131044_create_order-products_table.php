@@ -17,6 +17,7 @@ class CreateOrderProductsTable extends Migration
             $table->integer('order_id');
             $table->integer('product_id');
             $table->integer('quantity'); // Количество
+            $table->integer('price_id');
             $table->integer('created_at');
             $table->integer('updated_at');
         });

@@ -4,6 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+use App;
+use Cache;
+
 class Menu extends Model
 {
 
@@ -50,5 +53,39 @@ class Menu extends Model
 
             $item->update();
         }
+    }
+
+    public static function getBreadcrumbs($id)
+    {
+        if (Cache::has('menu')) {
+            $menu = Cache::store('file')->get('menu');
+        } else {
+            $menu = Menu::all();
+
+            Cache::store('file')->put('menu', $menu->toArray(), 1440); // храним сутки
+        }
+
+        $array = static::getChain($menu, $id, []);
+
+        return array_reverse($array);
+    }
+
+    protected static function getChain($menu, $id, $chain)
+    {
+        $item = array_first($menu, function($key, $value) use ($id) {
+            return $value['id'] == $id;
+        });
+
+        if (empty($item)) {
+            return $chain;
+        }
+
+        $temp['id']   = $item['id'];
+        $temp['slug'] = $item['slug'];
+        $temp['name'] = json_decode($item['name'], true)[App::getLocale()];
+
+        $chain[] = $temp;
+
+        return static::getChain($menu, $item['parent_id'], $chain);
     }
 }

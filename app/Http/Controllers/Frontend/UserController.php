@@ -23,12 +23,7 @@ class UserController extends Controller
             $products = $order->products()->get();
 
             if (!empty($products)) {
-                $products = Products::viewDataAll($products);
-
-                foreach ($products as $key => $product) {
-                    $product['office'] = json_decode($product['office']['city'], true)[App::getLocale()];
-                    $result[] = array_except($product, ['description', 'menu_id']);
-                }
+                $result = Products::viewDataJson($products);
             }
         }
 
@@ -41,6 +36,7 @@ class UserController extends Controller
     {
         $orders = Orders::where([['user_id', Auth::guard(null)->user()->id], ['formed', 1]])->get();
         $orderStatus = Orders::getStatus();
+        $orders = Orders::parseData($orders);
 
         return view('frontend.user.formed-orders', [
             'orders' => $orders,

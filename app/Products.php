@@ -208,13 +208,23 @@ class Products extends Model
             $temp['title']  = $product['title'];
             $temp['description'] = $product['description'];
             $temp['work_link']   = "/catalog/details/".$product['slug_menu']."/".$product['slug']."/".$product['id'];
-            $temp['price']       = $product['price'];
-            $temp['price_type']  = trans('products.measures.'.$product['price_type']);
+
+            $array = [];
+            $temp['prices'] = [];
+            foreach ($product['prices'] as $price) {
+                $array['id']    = $price['id'];
+                $array['type']  = trans('products.measures.'.$price['type']);
+                $array['price'] = $price['price'];
+
+                $temp['prices_json'][] = $array;
+                $temp['prices'][$price['id']] = $array;
+            }
 
             $temp['office_title'] = $product['office_title'];
-            $temp['office_linck'] = '/office/'.$product['office_city'].'/'.$product['office']['id'];
+            $temp['office_linck'] = '/office/'.$product['office_city'].'/'.$product['office_id'];
 
             $temp['quantity'] = $product['quantity'];
+            $temp['price_id'] = $product['price_id'];
             $temp['bonds'] = $product['bonds'];
 
             $result[] = $temp;
@@ -229,13 +239,15 @@ class Products extends Model
         $array['menu_id'] = $product->menu_id;
 
         $array['images'] = $product->images->toArray();
-        $array['office'] = $product->office->toArray();
 
-        $officeTitle = json_decode($array['office']['title'], true);
+        $office = $product->office->toArray();
+        $array['office_id'] = $office['id'];
+
+        $officeTitle = json_decode($office['title'], true);
         $officeTitle = array_filter($officeTitle);
         $array['office_title'] = empty($officeTitle[App::getLocale()]) ? current($officeTitle) : $officeTitle[App::getLocale()];
 
-        $officeCity = json_decode($array['office']['city'], true)['en'];
+        $officeCity = json_decode($office['city'], true)['en'];
         $array['office_city'] = str_slug($officeCity, '_');
 
         $array['slug']      = $product->slug;
@@ -249,7 +261,10 @@ class Products extends Model
         $description = array_filter($description);
         $array['description'] = empty($description[App::getLocale()]) ? current($description) : $description[App::getLocale()];
 
+        $array['prices'] = $product->prices->toArray();
+
         $array['quantity'] = empty($product->pivot->quantity) ? null : $product->pivot->quantity;
+        $array['price_id'] = empty($product->pivot->price_id) ? null : $product->pivot->price_id;
         $array['bonds'] = empty($product->pivot->id) ? null : $product->pivot->id;
 
         return $array;

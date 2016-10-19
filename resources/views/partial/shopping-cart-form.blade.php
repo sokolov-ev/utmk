@@ -44,7 +44,7 @@
                             {{ trans('products.total') }}:
                         </div>
                         <div class="card-price">
-                            <div class="total-price"></div>
+                            <div class="total-sum-price"> </div>
                             <span class="card-price-uah">{{ trans('products.uah') }}</span>
                         </div>
 

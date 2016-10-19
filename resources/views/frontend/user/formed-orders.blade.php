@@ -33,7 +33,7 @@
     <div class="padding-top"></div>
 </section>
 
-@if (empty($orders->all()))
+@if (empty($orders))
 <section class="my-orders">
     <div class="container">
         <div class="orders-empty">
@@ -67,47 +67,45 @@
                                    data-parent="#accordion"
                                    aria-expanded="false"
                                    aria-controls="collapse-{{ $key }}">
-                                        <i class="fa fa-angle-down" aria-hidden="true"></i> № {{ $order->id }}
+                                        <i class="fa fa-angle-down" aria-hidden="true"></i> № {{ $order['order']['id'] }}
                                 </a>
                             </h4>
                         </div>
                         <div class="col-md-4 hidden-xs">
-                            {{ date("Y-m-d H:i", $order->created_at->getTimestamp()) }}
+                            {{ date("Y-m-d H:i", $order['order']['created_at']) }}
                         </div>
                         <div class="col-md-4 col-xs-6 text-right">
                             <div class="card-price">
-                                <div class="sum-price">{{ $order->total_cost }}</div>
+                                <div class="sum-price">{{ $order['order']['total_cost'] }}</div>
                                 <span class="card-price-uah">{{ trans('products.uah') }}</span>
                             </div>
                         </div>
-                        <div class="col-md-2 col-xs-12 orders-status {{ $orderStatus[$order->status] }}">
-                            <strong>{{ trans('orders.status.'.$orderStatus[$order->status]) }}</strong>
+                        <div class="col-md-2 col-xs-12 orders-status {{ $orderStatus[$order['order']['status']] }}">
+                            <strong>{{ trans('orders.status.'.$orderStatus[$order['order']['status']]) }}</strong>
                         </div>
                     </div>
                 </div>
                 <div id="collapse-{{ $key }}" class="collapse panel-collapse" role="tabpanel" aria-labelledby="heading-{{ $key }}" aria-expanded="false">
                     <div class="panel-body">
-                        <?php $products = $order->products()->get(); ?>
 
                         <table id="clients-table" class="table table-striped table-hover table-condensed" width="100%" cellspacing="0">
                             <tbody>
-                                @foreach ($products as $key => $product)
-                                    <?php
-                                        $params['slug_menu'] = $product['slug_menu'];
-                                        $params['slug_product'] = $product['slug'];
-                                        $params['id'] = $product['id'];
-                                    ?>
+                                @foreach ($order['products'] as $product)
                                     <tr>
                                         <td>
-                                            <a class="black-a" href="{{ route('products-view', $params) }}">
-                                                {{ json_decode($product->title, true)[App::getLocale()] }}
-                                            </a>
+                                            <a class="black-a" href="{{ $product['work_link'] }}" title="{{ $product['title'] }}">{{ $product['title'] }}</a>
                                         </td>
                                         <td class="text-right">
-                                            {{ $product->pivot->quantity }}
-                                            <span class="card-price-uah">{{ trans('products.measures.'.$product->price_type) }}</span>
+                                            {{ $product['quantity'] }}
+                                            <span class="card-price-uah">
+                                                {{ $product['prices'][$product['price_id']]['type'] }}
+                                            </span>
                                         </td>
-                                        <td class="text-right"><strong>{{ $product->price }}</strong> {{ trans('products.uah') }}</td>
+                                        <td class="text-right">
+                                            <strong>
+                                            {{ $product['prices'][$product['price_id']]['price'] * $product['quantity'] }}
+                                            </strong> {{ trans('products.uah') }}
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>

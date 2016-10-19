@@ -1548,8 +1548,29 @@
 }(jQuery, window, document));
 
 $(document).ready(function() {
-
     new WOW().init();
+
+    var checkError = function(event) {
+        $.each($("#login-form-send, #email-form-reset").find('.help-block'), function(key, val){
+            if ($(val).text()) {
+                $("#login-form").modal('show');
+                return false;
+            }
+        });
+    }();
+});
+
+    var prices = [];
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('input[name="_token"]').val(),
+        }
+    });
+
+    $("[data-target='#login-form']").click(function (event) {
+        $(".not-auth-user").addClass('hidden');
+    });
 
     $("#shopping-cart").on("show.bs.modal", function (event) {
         $.get("/products/get-order-data", function(response){
@@ -1568,12 +1589,36 @@ $(document).ready(function() {
                     var template = $('#shopping-cart-product').html();
                     Mustache.parse(template);
 
-                    $.each(response.data, function(key, product){
-                        product.work_price = product.price * product.quantity;
-                        product.work_id = key;
+                    prices = [];
+
+                    $.each(response.data, function(key, product) {
+                        product.work_key = key;
+
+                        var id = 0;
+                        var temp;
+
+                        $.each(product.prices, function(priceId, price){
+                            temp = {};
+
+                            temp.price = price.price;
+                            temp.bonds = product.bonds;
+
+                            prices[priceId] = temp;
+                        });
 
                         $(".product-list").append(Mustache.render(template, product));
                         $(".product-list").append('<hr/>');
+
+                        if (product.price_id > 0) {
+                            id = product.price_id;
+                        } else {
+                            id = product.prices[0].id;
+                        }
+
+                        $("option[value='" + id + "']").attr('selected', '');
+                        $(".price-" + key).text(prices[id].price);
+                        $(".quantity-" + key).data('priceid', id);
+                        $(".sum-price-" + key).text(prices[id].price * product.quantity);
                     });
 
                     totalSum();
@@ -1593,71 +1638,82 @@ $(document).ready(function() {
         });
     });
 
-    $("[data-target='#login-form']").click(function (event) {
-        $(".not-auth-user").addClass('hidden');
+    $("body").on('change', '.price-type', function(event) {
+        var tut = this;
+        var key = $(tut).data('workid');
+        var id  = $(tut).val();
+        var quantity = $(".quantity-" + key).val();
+
+        $(".price-" + key).text(prices[id].price);
+        $(".sum-price-" + key).text(quantity * prices[id].price);
+
+        changeCountProduct(prices[id].bonds, quantity, id);
+        totalSum();
     });
 
     $("body").on('click', ".cart-quantity-minus", function(event){
-        var id    = $(this).next("input").data('id');
-        var count = +$(this).next("input").val();
-        var price = $(this).next("input").data('price');
-        var bonds = $(this).next("input").data('bonds');
+        var tut = this;
+        var key = $(tut).data('workid');
+        var id  = $(".price-type-" + key).val();
+        var quantity = $(".quantity-" + key).val();
 
-        if (count > 1) {
-            $(this).next("input").val(--count);
-            $("#sum-price-" + id).html(price * count);
-            changeCountProduct(bonds, count);
+        if (quantity > 1) {
+            $(".quantity-" + key).val(--quantity);
+            $(".sum-price-" + key).text(quantity * prices[id].price);
+            changeCountProduct(prices[id].bonds, quantity, id);
         }
 
         totalSum();
     });
 
     $("body").on('click', ".cart-quantity-plus", function(event){
-        var id    = $(this).prev("input").data('id');
-        var count = +$(this).prev("input").val();
-        var price = $(this).prev("input").data('price');
-        var bonds = $(this).prev("input").data('bonds');
+        var tut = this;
+        var key = $(tut).data('workid');
+        var id  = $(".price-type-" + key).val();
+        var quantity = $(".quantity-" + key).val();
 
-        $(this).prev("input").val(++count);
-        $("#sum-price-" + id).html(price * count);
+        $(".quantity-" + key).val(++quantity);
+        $(".sum-price-" + key).text(prices[id].price * quantity);
 
-        changeCountProduct(bonds, count);
+        changeCountProduct(prices[id].bonds, quantity, id);
         totalSum();
     });
 
-    // $("body").on('change keyup', ".quantity", function(event){
-    //     var bonds = $(this).data('bonds');
+    $("body").on('change keyup', ".quantity", function(event){
+        var tut = this;
+        var key = $(tut).data('workid');
+        var id  = $(".price-type-" + key).val();
 
-    //     this.value = this.value.replace( /^\D+/g, '');
+        tut.value = tut.value.replace("/^\D+/g", '');
 
-    //     if ( (this.value == '') || (this.value < 1) ) {
-    //         this.value = 1;
-    //     }
+        if ( (tut.value == '') || (tut.value < 1) ) {
+            tut.value = 1;
+        }
 
-    //     changeCountProduct(bonds, this.value);
-    //     totalSum();
-    // });
+        $(".sum-price-" + key).text(prices[id].price * tut.value);
 
+        changeCountProduct(prices[id].bonds, tut.value, id);
+        totalSum();
+    });
 
-    var checkError = function(event) {
-        $.each($("#login-form-send, #email-form-reset").find('.help-block'), function(key, val){
-            if ($(val).text()) {
-                $("#login-form").modal('show');
-                return false;
-            }
-        });
-    }();
-});
-
-function changeCountProduct(id, count)
+function changeCountProduct(orderId, productCount, priceId)
 {
-    $.post('/products/change-count-products', {id: id, count: count}, function(response){});
+    $.post('/products/change-count-products', {id: orderId, count: productCount, price: priceId}, function(response){});
 }
 
 function totalSum()
 {
     var sum = 0;
-    $.each($('.sum-price'), function(key, price){
+
+    $.each($('#shopping-cart').find('.sum-price'), function(key, price){
+        sum += +$(price).text();
+    });
+
+    $(".modal-footer .total-sum-price").text(sum);
+
+    sum = 0;
+
+    $.each($('.product-card').find('.sum-price'), function(key, price){
         sum += +$(price).text();
     });
 
@@ -1690,12 +1746,6 @@ function deleteProduct(id)
         }
     });
 }
-
-$.ajaxSetup({
-    headers: {
-        'X-CSRF-TOKEN': $('input[name="_token"]').val(),
-    }
-});
 
 /* перемотка в верх */
 $(window).scroll(function () {

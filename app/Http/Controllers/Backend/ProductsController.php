@@ -325,9 +325,10 @@ class ProductsController extends Controller
         $product = Products::viewData($id);
         $images  = [];
         $office  = [];
+        $prices  = [];
 
         if (empty($product)) {
-            return response()->json(['status' => 'bad', 'message' => 'Продукция не найдена.']);
+            return response()->json(['status' => 'bad', 'message' => 'Товар не найден.']);
         }
 
         if ( Auth::guard('admin')->user()->role != Admin::ROLE_ADMIN ) {
@@ -336,32 +337,36 @@ class ProductsController extends Controller
             }
         }
 
+        $temp = [];
         foreach ($product['images'] as $key => $img) {
             $temp['key']  = ($key == 0) ? true : false;
             $temp['name'] = $img['name'];
             $images[] = $temp;
         }
+
         $product['images'] = $images;
 
         if (Auth::guard('admin')->user()->role == Admin::ROLE_ADMIN) {
-            $office['id'] = $product['office']['id'];
+            $office['id'] = $product['office_id'];
+            $office['office_work_title'] = trans('offices.office');
+            $office['title'] = $product['office_title'];
         } else {
             $office['id'] = false;
+            $office['office_work_title'] = false;
+            $office['title'] = false;
         }
-        $office['office_work_title'] = trans('offices.office');
-        $office['title'] = json_decode($product['office']['title'], true)[App::getLocale()];
 
         $product['office'] = $office;
 
+        $temp = [];
+        foreach ($product['prices'] as $price) {
+            $temp['price'] = $price['price'];
+            $temp['type']  = trans('products.measures.'.$price['type']);
+            $prices[] = $temp;
+        }
+
+        $product['prices'] = $prices;
+
         return response()->json(['status' => 'ok', 'data' => $product]);
     }
-
-    // public function view()
-    // {
-    //     $product = Products::viewData(3);
-
-    //     return view('backend.site.product-view', [
-    //         'product' => $product,
-    //     ]);
-    // }
 }

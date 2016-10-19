@@ -52,24 +52,31 @@ Route::group(['middleware' => ['web', 'language']], function () {
     Route::get('/home/upakovka', ['as' => 'upakovka', 'uses' => 'Frontend\IndexController@upakovka']);
     Route::get('/home/dostavka', ['as' => 'dostavka', 'uses' => 'Frontend\IndexController@dostavka']);
 
-    Route::get('/kontrol-kachestva-produkcii', ['as' => 'kontrol-kachestva', 'uses' => 'Frontend\IndexController@kontrolKachestva']);
+
+
     Route::get('/eksport-import-metallicheskih-izdelij', ['as' => 'eksport-import', 'uses' => 'Frontend\IndexController@eksportImport']);
     Route::get('/shirokij-eksport-import-mira', ['as' => 'shirokij-eksport-import', 'uses' => 'Frontend\IndexController@shirokijEksportImport']);
 
-    Route::get('/nadezhnyj-partner-dlya-vashego-biznesa', ['as' => 'nadezhnyj-partner', 'uses' => 'Frontend\IndexController@nadezhnyjPartner']);
+
+
+
     Route::get('/nashi-obemy-prodazh', ['as' => 'nashi-obemy-prodazh', 'uses' => 'Frontend\IndexController@nashiProdazh']);
     Route::get('/ustojchivoe-razvitie-kak-cel', ['as' => 'ustojchivoe-razvitie', 'uses' => 'Frontend\IndexController@ustojchivoeRazvitie']);
-
-    Route::get('/karernye-vozmozhnosti', ['as' => 'karernye-vozmozhnosti', 'uses' => 'Frontend\IndexController@karernyeVozmozhnosti']);
     Route::get('/my-stremimsya-dlya-nashix-klientov', ['as' => 'stremimsya-dlya-klientov', 'uses' => 'Frontend\IndexController@stremimsyaDlyaKlientov']);
-    Route::get('/vashi-zakazy-kak-mozhno-skoree', ['as' => 'vashi-zakazy-kak-mozhno-skoree', 'uses' => 'Frontend\IndexController@vashiZakazy']);
 
+    Route::get('/kontrol-kachestva-produkcii', ['as' => 'kontrol-kachestva', 'uses' => 'Frontend\IndexController@kontrolKachestva']);
+    Route::get('/vashi-zakazy-kak-mozhno-skoree', ['as' => 'vashi-zakazy-kak-mozhno-skoree', 'uses' => 'Frontend\IndexController@vashiZakazy']);
     Route::get('/struktury-vozmozhen-zakaz-pod-klyuch', ['as' => 'struktury-pod-klyuch', 'uses' => 'Frontend\IndexController@strukturyPodKlyuch']);
+
     Route::get('/stremitelno-menyayushhemsya-mire', ['as' => 'stremitelno-menyayushhemsya-mire', 'uses' => 'Frontend\IndexController@stremitelnoMenyayushhemsyaMire']);
     Route::get('/chto-novogo', ['as' => 'chto-novogo', 'uses' => 'Frontend\IndexController@chtoNovogo']);
-
     Route::get('/luchshie-prodavcy', ['as' => 'luchshie-prodavcy', 'uses' => 'Frontend\IndexController@luchshieProdavcy']);
+
     Route::get('/razvitie', ['as' => 'razvitie', 'uses' => 'Frontend\IndexController@razvitie']);
+    Route::get('/nasha-politika', ['as' => 'nasha-politika', 'uses' => 'Frontend\IndexController@nashaPolitika']);
+
+    Route::get('/nadezhnyj-partner-dlya-vashego-biznesa', ['as' => 'nadezhnyj-partner', 'uses' => 'Frontend\IndexController@nadezhnyjPartner']);
+    Route::get('/karernye-vozmozhnosti', ['as' => 'karernye-vozmozhnosti', 'uses' => 'Frontend\IndexController@karernyeVozmozhnosti']);
 
 
 // /СПРАВОЧНАЯ ИНФОРМАЦИЯ (статика)
@@ -88,22 +95,20 @@ Route::group(['middleware' => ['web', 'language']], function () {
     // AJAX подгружаем меню
     Route::get('/catalog/get-catalog', 'Frontend\ProductsController@getMenu');
     // AJAX подгружаем продукцию (menu, name, city, page)
-    Route::get('/catalog/get-products', 'Frontend\ProductsController@catalogProducts');
+    Route::get('/catalog/get-products', 'Frontend\ProductsController@getCatalog');
     // просмотр продукта
     Route::get('/catalog/details/{slug_menu}/{slug_product}/{id}', ['as' => 'products-view', 'uses' => 'Frontend\ProductsController@view']);
-    // Route::get('/catalog/details/{slug}/{id}', ['as' => 'products-view', 'uses' => 'Frontend\ProductsController@view']);
 
         // получить данные для отображения корзины
-        Route::get('/products/get-order-data', 'Frontend\ProductsController@getProductsCart');
+        Route::get('/products/get-order-data', 'Frontend\ProductsController@getShoppingCart');
         // добавить продукт в корзину
-        Route::post('/products/product-to-cart', 'Frontend\ProductsController@productToCart');
+        Route::post('/products/product-to-cart', 'Frontend\ProductsController@setToCart');
         // изменить количество продукции в корзине
         Route::post('/products/change-count-products', 'Frontend\ProductsController@countProductCart');
         // удалить продукт из корзины
         Route::post('/products/remove-product-to-cart', 'Frontend\ProductsController@deleteProductCart');
         // сформировать заказ
         Route::post('/products/formed-order', 'Frontend\ProductsController@formedOrder');
-
 
 
 // Authentication Routes...
@@ -125,6 +130,10 @@ Route::group(['middleware' => ['web', 'language']], function () {
     });
 });
 
+
+
+
+
 // БЕКЕНД
 
 Route::get('/administration/login','Adminauth\AuthController@showLoginForm');
@@ -144,7 +153,6 @@ Route::group(['middleware' => ['admin']], function () {
     Route::delete('/administration/clients', 'Backend\ClientsController@delete');
 
     Route::post('/administration/clients/filtering', 'Backend\ClientsController@filtering');
-
 
 // CRUD продукции и изображений продукции
     Route::get('/administration/products', 'Backend\ProductsController@index');
@@ -172,9 +180,11 @@ Route::group(['middleware' => ['admin']], function () {
 
     Route::get('/administration/orders/view/{id}', 'Backend\OrdersController@view');
 
-    Route::get('/administration/orders/get/{id}', 'Backend\OrdersController@getOrderProducts');
-    Route::post('/administration/orders/count', 'Backend\OrdersController@changeCountProduct');
-    Route::get('/administration/orders/delete/{id}/{bonds}', 'Backend\OrdersController@deleteProduct');
+    Route::get('/administration/orders/get/{id}', 'Backend\OrdersController@getShoppingCart');
+    Route::post('/administration/orders/change-product', 'Backend\OrdersController@changeProduct');
+
+    Route::post('/administration/orders/delete', 'Backend\OrdersController@deleteProduct');
+
     Route::get('/administration/orders/accept/{id}', 'Backend\OrdersController@accept');
     Route::get('/administration/orders/closed/{id}', 'Backend\OrdersController@closed');
 
@@ -210,8 +220,6 @@ Route::group(['middleware' => ['admin']], function () {
     // CRUD филиалов
         Route::get('/administration/offices/index/{id?}', 'Backend\OfficesController@getAll');
         Route::get('/administration/offices/get/{id}', 'Backend\OfficesController@getOffice');
-
-        // Route::get('/administration/offices/pre/view', 'Backend\OfficesController@view');
 
         Route::get('/administration/offices/add', 'Backend\OfficesController@addFormOffice');
         Route::post('/administration/offices/add', 'Backend\OfficesController@addOffice');

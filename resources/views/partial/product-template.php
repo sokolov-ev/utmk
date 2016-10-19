@@ -7,7 +7,7 @@
         <div class="box-body">
             <div class="row">
 
-                <div class="col-md-5">
+                <div class="col-md-5 col-sm-5 col-xs-12">
                     <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
                         <div class="carousel-inner" role="listbox">
                             {{#data.images}}
@@ -28,7 +28,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-7">
+                <div class="col-md-7 col-sm-5 col-xs-12">
                     <div class="visible-sm visible-xs padding-top-30"></div>
 
                     <p>{{{ data.description }}}</p>
@@ -37,7 +37,7 @@
                         <strong>
                             {{ data.office.office_work_title }}:
                             {{#data.office.id}}
-                                <a href="/administration/offices/{{ data.office.id }}" title="{{ data.office.title }}">
+                                <a href="/administration/offices/index/{{ data.office.id }}" title="{{ data.office.title }}">
                                     {{ data.office.title }}
                                 </a>
                             {{/data.office.id}}
@@ -48,9 +48,14 @@
                     </p>
 
                     <div class="row">
-                    {{#prices}}
-                        <div class="col-md-2">{{ type }}</div><div class="col-md-10">{{ price }} грн</div>
-                    {{/prices}}
+                    {{#data.prices}}
+                        <div class="col-md-2 col-sm-3 col-xs-6 up-first card-white-price">{{ type }}</div>
+                        <div class="col-md-10 col-sm-9 col-xs-6">
+                            <div class="card-price">
+                                {{ price }} <span class="card-price-uah">грн</span>
+                            </div>
+                        </div>
+                    {{/data.prices}}
                     </div>
 
                     <div class="padding-top-30"></div>

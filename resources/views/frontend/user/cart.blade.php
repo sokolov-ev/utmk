@@ -50,11 +50,13 @@
     <form class="" role="form" method="POST" action="{{ url('/products/formed-order') }}" id="finish-order">
         {{ csrf_field() }}
         <?php $sum = 0 ?>
-        <div class="product-list">
+        <div class="product-card">
 
             @foreach ($products as $key => $product)
-                <?php $total = $product['price'] * $product['quantity']; ?>
-                <?php $sum += $total ?>
+                <?php
+                    $sum += $product['prices'][$product['price_id']]['price'] * $product['quantity'];
+                    $counter = ($key + 1) * 797;
+                ?>
                 <div class="padding-block-2-2">
                     <div class="row" id="bonds-{{ $product['bonds'] }}">
 
@@ -68,44 +70,64 @@
 
                         <div class="col-md-10 col-sm-12 col-xs-12">
 
-                            <a class="text-black-h3" href="/catalog/details/{{ $product['slug'] }}/{{ $product['id'] }}" title="{{ $product['title'] }}">
+                            <a class="text-black-h3" href="{{ $product['work_link'] }}" title="{{ $product['title'] }}">
                                 {{ $product['title'] }}
                             </a>
 
                             <div class="padding-block-1-2">
-                                <strong>{{ trans('offices.office') }}</strong>: {{ $product['office'] }}
+                                <strong>{{ trans('offices.office') }}</strong>:
+                                <a class="orange-list-a" href="{{ $product['office_linck'] }}" title="{{ $product['office_title'] }}">
+                                    {{ $product['office_title'] }}
+                                </a>
                             </div>
 
-                            <div class="shopping-cart row">
-                                <div class="col-md-4 col-sm-4 col-xs-6">
-                                    <div class="card-price">
-                                        {{ $product['price'] }}
-                                        <span class="card-price-uah">{{ trans('products.uah') }}</span>
+                            <div class="row modal-body shopping-cart text-right">
+
+                                <div class="padding-horizon">
+                                    <div class="shopping-type-product">
+                                        <select name="price_type" class="form-control price-type price-type-{{ $counter }}" data-workid="{{ $counter }}">
+                                            @foreach($product['prices'] as $price)
+                                                @if($price['id'] == $product['price_id'])
+                                                    <option value="{{ $price['id'] }}" selected="">{{ $price['type'] }}</option>
+                                                @else
+                                                    <option value="{{ $price['id'] }}">{{ $price['type'] }}</option>
+                                                @endif
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+                                    <div class="shopping-price-product">
+                                        <div class="card-price">
+                                            <div class="price price-{{ $counter }}">{{ $product['prices'][$product['price_id']]['price'] }}</div>
+                                            <span class="card-price-uah">{{ trans('products.uah') }}</span>
+                                        </div>
                                     </div>
                                 </div>
 
-                                <div class="col-md-3 col-sm-3 col-xs-6 count-products text-right">
-                                    <button type="button" class="btn btn-link cart-quantity-minus">
-                                        <i class="fa fa-minus" aria-hidden="true"></i>
+                                <div class="shopping-count-product padding-horizon">
+                                    <button type="button" class="btn btn-link cart-quantity-minus" data-workid="{{ $counter }}">
+                                        <i class="fa fa-minus" aria-hidden="true"> </i>
                                     </button>
                                     <input type="text"
+                                           class="quantity quantity-{{ $counter }}"
                                            value="{{ $product['quantity'] }}"
-                                           class="quantity"
-                                           data-id="{{ ($key + 1) * 20 }}"
-                                           data-price="{{ $product['price'] }}"
-                                           data-bonds="{{ $product['bonds'] }}" />
-                                    <button type="button" class="btn btn-link cart-quantity-plus">
-                                        <i class="fa fa-plus" aria-hidden="true"></i>
+                                           data-workid="{{ $counter }}" />
+                                    <button type="button" class="btn btn-link cart-quantity-plus" data-workid="{{ $counter }}">
+                                        <i class="fa fa-plus" aria-hidden="true"> </i>
                                     </button>
                                 </div>
 
-                                <div class="col-md-5 col-sm-5 col-xs-12 price-total text-right">
+                                <div class="shopping-price-total padding-horizon">
                                     {{ trans('products.sum') }}:
-                                    <div class="card-sum-price">
-                                        <div id="sum-price-{{ ($key + 1) * 20 }}" class="sum-price">{{ $total }}</div>
+                                    <div class="card-price">
+                                        <div class="sum-price sum-price-{{ $counter }}">
+                                            {{ $product['prices'][$product['price_id']]['price'] * $product['quantity'] }}
+                                        </div>
+
                                         <span class="card-price-uah">{{ trans('products.uah') }}</span>
                                     </div>
                                 </div>
+
                             </div>
 
                         </div>
@@ -149,9 +171,39 @@
 @endsection
 
 @section('scripts')
-
     <script type="text/javascript">
+        $.get("/products/get-order-data", function(response){
+            if (response.status == "ok") {
+                var count = response.data.length;
+                prices = [];
 
+                if (count > 0) {
+                    $.each(response.data, function(key, product){
+                        product.work_key = (key + 1) * 797;
+
+                        var id = 0;
+                        var temp;
+
+                        $.each(product.prices, function(priceId, price){
+                            temp = {};
+
+                            temp.price = price.price;
+                            temp.bonds = product.bonds;
+
+                            prices[priceId] = temp;
+                        });
+
+                        if (product.price_id > 0) {
+                            id = product.price_id;
+                        } else {
+                            id = product.prices[0].id;
+                        }
+                    });
+
+                    totalSum();
+                }
+            }
+        });
     </script>
 @endsection
 

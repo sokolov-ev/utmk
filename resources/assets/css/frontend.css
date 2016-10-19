@@ -107,6 +107,10 @@ button {
   padding-top: 20px;
 }
 
+.margin-bottom-5 {
+  margin-bottom: 7px;
+}
+
 .btn {
   border-radius: 0;
   font-size: 16px;
@@ -339,6 +343,9 @@ button {
 
 .font-up {
   text-transform: uppercase;
+}
+.up-first {
+  text-transform: capitalize;
 }
 
 .flash-messages > section {

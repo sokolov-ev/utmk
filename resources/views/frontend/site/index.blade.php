@@ -51,7 +51,7 @@
 
         <div class="padding-top"></div>
         <div class="wow slideInRight">
-            <h1 class="welcome-text text-center">WELCOME!</h1>
+            <h1 class="welcome-text text-center font-up">Добро пожаловать!</h1>
         </div>
         <div class="padding-top"></div>
 
@@ -65,18 +65,20 @@
 
                 <div class="wow fadeInUp">
                     <div class="padding-block-2-2">
-                        <a class="text-black-h3" href="#" title="">OUR SALES VOLUMES</a>
+                        <a href="{{ route('nashi-obemy-prodazh') }}" class="text-black-h3" title="Наши объемы продаж">
+                            Наши объемы продаж
+                        </a>
                     </div>
                 </div>
 
                 <div class="wow fadeInUp">
-                    <p class="text-gray-16">All business lines improved their sales volumes year on year. Thanks to this growth in sales volumes and successful price increases in major markets, revenue improved moderately to €13,547 million (previous year: 12,128) despite substantial negative exchange rate effects of €417 million.</p>
+                    <p class="text-gray-16">Сортамент металла ЮТМК состоит из обширного ряда изделий, которые оттачиваются в заводских условиях строго по ГОСТу. Все металлоизделия классифицируются по видам, профилям, маркам, размерам. Сортамент компании металлопроката постоянно пополняется, поэтому объемы продаж увеличиваются и неизменно пользуются спросом.</p>
                 </div>
 
                 <div class="wow fadeInUp">
                     <div class="padding-block-2-2">
-                        <a href="#" class="text-orange-20">
-                            <span class="font-up">READ MORE</span>
+                        <a href="{{ route('nashi-obemy-prodazh') }}" class="text-orange-20">
+                            <span class="font-up">Читать далее</span>
                             <span class="fa span-arrow"> >> </span>
                         </a>
                     </div>
@@ -91,18 +93,20 @@
 
                 <div class="wow fadeInUp">
                     <div class="padding-block-2-2">
-                        <a class="text-black-h3" href="#" title="">SUSTAINABLE DEVELOPMENT</a>
+                        <a href="{{ route('ustojchivoe-razvitie') }}" class="text-black-h3" title="Устойчивое развитие как цель">
+                            Устойчивое развитие
+                        </a>
                     </div>
                 </div>
 
                 <div class="wow fadeInUp">
-                    <p class="text-gray-16">We’ve realised how sustainable development is important to us. Since the advent of the product we use natural resources. We understand that natural resources are exhaustive and should be used sparingly. Therefore, we have defined sustainable development as a strategic goal.</p>
+                    <p class="text-gray-16">Учитывая, что металл важен для человека не только как материал, но и как предмет получения прибыли, то постоянно открываются новые пути его обработки и применения. Для нашей компании устойчивое развитие – это основная цель, за которой стоит еще несколько задач, таких как пополнение ассортимента, доступные цены и неизменные критерии качества.</p>
                 </div>
 
                 <div class="wow fadeInUp">
                     <div class="padding-block-2-2">
-                        <a href="#" class="text-orange-20">
-                            <span class="font-up">READ MORE</span>
+                        <a href="{{ route('ustojchivoe-razvitie') }}" class="text-orange-20">
+                            <span class="font-up">Читать далее</span>
                             <span class="fa span-arrow"> >> </span>
                         </a>
                     </div>
@@ -117,17 +121,19 @@
 
                 <div class="wow fadeInUp">
                     <div class="padding-block-2-2">
-                        <a class="text-black-h3" href="#" title="">WE STRIVE FOR OUR CUSTOMERS</a>
+                        <a href="{{ route('stremimsya-dlya-klientov') }}" class="text-black-h3" title="Мы стремимся для наших клиентов">
+                            Мы стремимся для наших клиентов
+                        </a>
                     </div>
                 </div>
 
                 <div class="wow fadeInUp">
-                    <p class="text-gray-16">We work to build long-term and reliable cooperation with our customers, providing them with high-quality products and services. The satisfaction of our customers - that is the main task and mission of the company and in particular of the sales department.</p>
+                    <p class="text-gray-16">Вне зависимости от того, какое место наша компания занимает на мировой или отечественной арене, специалисты постоянно демонстрируют лидерство. Постоянно соблюдаются высокие стандарты работы, совершенствуются знания и проявляется ответственность за каждое принятое решение. </p>
                 </div>
                 <div class="wow fadeInUp">
                     <div class="padding-block-2-2">
-                        <a href="#" class="text-orange-20">
-                            <span class="font-up">READ MORE</span>
+                        <a href="{{ route('stremimsya-dlya-klientov') }}" class="text-orange-20">
+                            <span class="font-up">Читать далее</span>
                             <span class="fa span-arrow"> >> </span>
                         </a>
                     </div>
@@ -147,15 +153,17 @@
                 <div class="row green-section-block">
                     <div class="col-sm-5 col-xs-5">
                         <div class="wow slideInRight">
-                            <img class="green-img" src="/images/green-section/icon-1.png" alt="" title="" style="max-width: 119px;" />
+                            <img class="green-img" src="/images/green-section/icon-1.png" alt="Контроль качества" title="Контроль качества" style="max-width: 119px;" />
                         </div>
                     </div>
                     <div class="col-sm-7 col-xs-7">
                         <div class="wow slideInRight">
-                            <span class="green-section-title">Контроль качества</span>
+                            <a href="{{ route('kontrol-kachestva') }}" class="green-section-title" title="Контроль качества">
+                                Контроль качества
+                            </a>
                         </div>
                         <div class="wow slideInRight">
-                            <p class="green-section-body">(Our qualified specialists, who help us to create status of a group leader, provide us a full range of testing the quality.)</p>
+                            <p class="green-section-body">Высокая конкуренция заставила нашу компанию искать новые пути к успеху, для чего была разработана своя система качества продукции.</p>
                         </div>
                     </div>
                 </div>
@@ -164,15 +172,17 @@
                 <div class="row green-section-block">
                     <div class="col-sm-5 col-xs-5">
                         <div class="wow slideInRight">
-                            <img class="green-img" src="/images/green-section/icon-2.png" alt="" title="" style="max-width: 119px;" />
+                            <img class="green-img" src="/images/green-section/icon-2.png" alt="Доставка" title="Доставка" style="max-width: 119px;" />
                         </div>
                     </div>
                     <div class="col-sm-7 col-xs-7">
                         <div class="wow slideInRight">
-                            <span class="green-section-title">Доставка</span>
+                            <a href="{{ route('dostavka') }}" class="green-section-title" title="Доставка">
+                                Доставка
+                            </a>
                         </div>
                         <div class="wow slideInRight">
-                            <p class="green-section-body">(We deliver products, ordered by you, anywhere in the world. And we'll advise you on the exploitation.)</p>
+                            <p class="green-section-body">Хотите приобрести металл в интернете? Вы делаете правильный выбор как со стороны ценового фактора, так и со стороны широкого выбора.</p>
                         </div>
                     </div>
                 </div>
@@ -181,13 +191,13 @@
                 <div class="row green-section-block">
                     <div class="col-sm-5 col-xs-5">
                         <div class="wow slideInRight">
-                            <img class="green-img" src="/images/green-section/icon-3.png" alt="" title="" style="max-width: 119px;" />
+                            <img class="green-img" src="/images/green-section/icon-3.png" alt="Европейская сталь" title="Европейская сталь" style="max-width: 119px;" />
                         </div>
                     </div>
                     <div class="col-sm-7 col-xs-7">
                         <div class="wow slideInRight">
-                            <a class="green-section-title" href="{{ route('metall-iz-evropy', request()->query()) }}" title="{{ trans('index.menu.information.metall-iz-evropy') }}">
-                                {{ trans('index.menu.information.metall-iz-evropy') }}
+                            <a href="{{ route('metall-iz-evropy') }}" class="green-section-title" title="Европейская сталь">
+                                Европейская сталь
                             </a>
                         </div>
                         <div class="wow slideInRight">
@@ -202,15 +212,17 @@
                 <div class="row green-section-block">
                     <div class="col-sm-5 col-xs-5">
                         <div class="wow slideInRight">
-                            <img class="green-img" src="/images/green-section/icon-4.png" alt="" title="" style="max-width: 119px;" />
+                            <img class="green-img" src="/images/green-section/icon-4.png" alt="Ваши заказы" title="Ваши заказы" style="max-width: 119px;" />
                         </div>
                     </div>
                     <div class="col-sm-7 col-xs-7">
                         <div class="wow slideInRight">
-                            <span class="green-section-title">Ваши заказы</span>
+                            <a href="{{ route('vashi-zakazy-kak-mozhno-skoree') }}" class="green-section-title" title="Ваши заказы">
+                                Ваши заказы
+                            </a>
                         </div>
                         <div class="wow slideInRight">
-                            <p class="green-section-body">(Manufacture steel pipe of on order (seamless, welded, profile, stainless, boiler) as soon as possible.)</p>
+                            <p class="green-section-body">Характеристики исходных материалов играют большое значение, поэтому многие заказчики прибегают к персональному заказу.</p>
                         </div>
                     </div>
                 </div>
@@ -219,15 +231,17 @@
                 <div class="row green-section-block">
                     <div class="col-sm-5 col-xs-5">
                         <div class="wow slideInRight">
-                            <img class="green-img" src="/images/green-section/icon-5.png" alt="" title="" style="max-width: 119px;" />
+                            <img class="green-img" src="/images/green-section/icon-5.png" alt="Порезка" title="Порезка" style="max-width: 119px;" />
                         </div>
                     </div>
                     <div class="col-sm-7 col-xs-7">
                         <div class="wow slideInRight">
-                            <span class="green-section-title">Порезка</span>
+                            <a href="{{ route('porezka') }}" class="green-section-title" title="Порезка">
+                                Порезка
+                            </a>
                         </div>
                         <div class="wow slideInRight">
-                            <p class="green-section-body">(The cutting is carried out by guillotine on sheet with thickness up to 16 mm, cutting profiled by press-scissors.)</p>
+                            <p class="green-section-body">Резку заказанного металлопроката проводят по указанным размерам. Осуществляется порезка предварительно перед окончательным формированием заказа.</p>
                         </div>
                     </div>
                 </div>
@@ -236,15 +250,17 @@
                 <div class="row green-section-block">
                     <div class="col-sm-5 col-xs-5">
                         <div class="wow slideInRight">
-                            <img class="green-img" src="/images/green-section/icon-6.png" alt="" title="" style="max-width: 119px;" />
+                            <img class="green-img" src="/images/green-section/icon-6.png" alt="Структуры" title="Структуры" style="max-width: 119px;" />
                         </div>
                     </div>
                     <div class="col-sm-7 col-xs-7">
                         <div class="wow slideInRight">
-                            <span class="green-section-title">(Структуры)</span>
+                            <a href="{{ route('struktury-pod-klyuch') }}" class="green-section-title" title="Структуры">
+                                Структуры
+                            </a>
                         </div>
                         <div class="wow slideInRight">
-                            <p class="green-section-body">(Steel structures of platforms, ramps and bridges, span slabs, crossbars and support units,  lighting masts and towers.)</p>
+                            <p class="green-section-body">Свободные по форме изготовления металлоконструкции представляют собой структуры, которые можно покупать под заказ или выбирать из стандартного ряда.</p>
                         </div>
                     </div>
                 </div>
@@ -255,13 +271,13 @@
                 <div class="row green-section-block">
                     <div class="col-sm-5 col-xs-5">
                         <div class="wow slideInRight">
-                            <img class="green-img" src="/images/green-section/icon-7.png" alt="" title="" style="max-width: 119px;" />
+                            <img class="green-img" src="/images/green-section/icon-7.png" alt="Металлоконструкции" title="Металлоконструкции" style="max-width: 119px;" />
                         </div>
                     </div>
                     <div class="col-sm-7 col-xs-7">
                         <div class="wow slideInRight">
-                            <a class="green-section-title" href="{{ route('metallokonstruktsii', request()->query()) }}" title="{{ trans('index.menu.information.metallokonstruktsii') }}">
-                                {{ trans('index.menu.information.metallokonstruktsii') }}
+                            <a href="{{ route('metallokonstruktsii') }}" class="green-section-title" title="Металлоконструкции">
+                                Металлоконструкции
                             </a>
                         </div>
                         <div class="wow slideInRight">
@@ -274,13 +290,13 @@
                 <div class="row green-section-block">
                     <div class="col-sm-5 col-xs-5">
                         <div class="wow slideInRight">
-                            <img class="green-img" src="/images/green-section/icon-8.png" alt="" title="" style="max-width: 119px;" />
+                            <img class="green-img" src="/images/green-section/icon-8.png" alt="Модульные сооружения" title="Модульные сооружения" style="max-width: 119px;" />
                         </div>
                     </div>
                     <div class="col-sm-7 col-xs-7">
                         <div class="wow slideInRight">
-                            <a class="green-section-title" href="{{ route('modulnye-soorujeniya', request()->query()) }}" title="{{ trans('index.menu.information.modulnye-soorujeniya') }}">
-                                {{ trans('index.menu.information.modulnye-soorujeniya') }}
+                            <a href="{{ route('modulnye-soorujeniya') }}" class="green-section-title" title="Модульные сооружения">
+                                Модульные сооружения
                             </a>
                         </div>
                         <div class="wow slideInRight">
@@ -293,13 +309,13 @@
                 <div class="row green-section-block">
                     <div class="col-sm-5 col-xs-5">
                         <div class="wow slideInRight">
-                            <img class="green-img" src="/images/green-section/icon-9.png" alt="" title="" style="max-width: 119px;" />
+                            <img class="green-img" src="/images/green-section/icon-9.png" alt="Оцинкованные рулоны" title="Оцинкованные рулоны" style="max-width: 119px;" />
                         </div>
                     </div>
                     <div class="col-sm-7 col-xs-7">
                         <div class="wow slideInRight">
-                            <a class="green-section-title" href="{{ route('otsinkovannye-rulony', request()->query()) }}" title="{{ trans('index.menu.information.otsinkovannye-rulony') }}">
-                                {{ trans('index.menu.information.otsinkovannye-rulony') }}
+                            <a href="{{ route('otsinkovannye-rulony') }}" class="green-section-title" title="Оцинкованные рулоны">
+                                Оцинкованные рулоны
                             </a>
                         </div>
                         <div class="wow slideInRight">
@@ -328,14 +344,16 @@
                             </div>
                         </div>
                         <div class="col-sm-9">
-                            <p class="text-black-h3">We live in a rapidly changing world, and we witness profound changes in society, consciousness, foundations, business.</p>
+                            <a href="{{ route('stremitelno-menyayushhemsya-mire') }}" title="В стремительно меняющемся мире" class="text-black-h3">
+                                Мы живем в стремительно меняющемся мире, и мы являемся свидетелями глубоких изменений в обществе, сознание, фондов, бизнеса.
+                            </a>
 
                             <div class="padding-block-1-2">
-                                <span class="text-gray-16">But invariable were and still are the basic principles on which the activity of the company has been built - honesty in relations with customers and partners, an extensive range of products, consistently high quality of our cement, accessible prices, social responsibility, the desire for stability.</span>
+                                <span class="text-gray-16">Такие характеристики, как надежность, неизменно высокое качество, долговечность, доступные цены в современном мире играют главную роль. Продукцию из металла можно производить на оборудовании с профессиональными функциями, поэтому изготовление изделий любой сложности возможно в рамках разных объемов.</span>
                             </div>
 
-                            <a href="#" class="text-orange-20">
-                                <span class="font-up">READ MORE</span>
+                            <a href="{{ route('stremitelno-menyayushhemsya-mire') }}" class="text-orange-20">
+                                <span class="font-up">Читать далее</span>
                                 <span class="fa span-arrow"> >> </span>
                             </a>
                         </div>
@@ -401,19 +419,19 @@
             </div>
             <div class="col-md-7 col-sm-7 col-xs-12">
                 <div class="wow fadeInRight">
-                    <h3 class="title-orange">What's new?</h3>
+                    <h3 class="title-orange">Что нового?</h3>
                 </div>
 
                 <div class="wow fadeInRight">
                     <div class="padding-block-2-2">
-                        <span class="text-gray-16">The satisfaction of our customers - that is the main task and mission of the company and in particular of the sales department. In order to stay close to the customer constantly, to be aware of his needs, the company has established a dealer network, represented in almost all corners of the world. Our company is a competent and reliable partner. All our customers can always be sure in our assistance, support and obtain advice from our side.</span>
+                        <span class="text-gray-16">Изменением ассортимента продукции никого не удивишь, а вот высокое отношение к клиенту может предоставить не каждая компания. Высокий уровень удовлетворенности клиентов говорит о том, что продукт этого бренда достоин внимания. Для клиентов важно не только качество продукта, но и качество обслуживания – это своеобразная теорема.</span>
                     </div>
                 </div>
 
                 <div class="wow fadeInRight">
-                    <button type="button" class="btn btn-warning send-button font-up">
-                        CLICK HERE <span> >> </span>
-                    </button>
+                    <a href="{{ route('chto-novogo') }}" class="btn btn-warning send-button font-up">
+                        КЛИКНИТЕ СЮДА <span> >> </span>
+                    </a>
                 </div>
             </div>
         </div>
@@ -428,19 +446,19 @@
                     <div class="row">
                         <div class="col-md-11 show-left">
                             <div class="wow fadeInLeft">
-                                <span class="title-orange">Best sellers</span>
+                                <span class="title-orange">Лучшие продавцы</span>
                             </div>
 
                             <div class="wow fadeInLeft">
                                 <div class="padding-block-2-2">
-                                    <span class="text-gray-16">All business lines clearly improved their sales volumes year on year. Thanks to this growth in sales volumes and successful price increases in major markets, revenue improved moderately to €13,547 million (previous year: 12,128) despite substantial negative exchange rate effects of €417 million.</span>
+                                    <span class="text-gray-16">Только время способно в общей массе выделить лидеров, которые постоянно работают слаженно и не отходят от общих принципов. В каждом конкретном случае используется свой рецепт привлечения продаж и это – неизменно высокое качество, высокая ориентация на клиента, достойное обслуживание.</span>
                                 </div>
                             </div>
 
                             <div class="wow fadeInLeft">
-                                <button type="button" class="btn btn-warning send-button font-up">
-                                    CLICK HERE <span> >> </span>
-                                </button>
+                                <a href="{{ route('luchshie-prodavcy') }}" class="btn btn-warning send-button font-up">
+                                    КЛИКНИТЕ СЮДА <span> >> </span>
+                                </a>
                             </div>
                         </div>
                         <div class="col-md-1"> </div> {{-- ДА! это не ошибка, это часть верстки... --}}
@@ -468,66 +486,51 @@
 
     <div class="padding-top"></div>
     <div class="wow fadeInLeft">
-        <h2 class="welcome-text text-center">ARTICLES</h2>
+        <h2 class="welcome-text text-center">СТАТЬИ</h2>
     </div>
     <div class="padding-top"></div>
 
     <div class="row articles-block">
-        <div class="col-md-4">
+        <div class="col-md-6 col-sm-6">
             <div class="wow fadeInUp">
-                <p class="text-black-h2">DEVELOPMENT</p>
+                <p class="text-black-h2 font-up">Развитие</p>
             </div>
 
             <div class="wow fadeInUp">
-                <a title="" href="#" class="text-green-20">WE’VE REALISED HOW SUSTAINABLE DEVELOPMENT IS IMPORTANT TO US.</a>
+                <a href="{{ route('razvitie') }}" class="text-green-20 font-up" title="Наша политика">
+                    Наша политика – это глубокие изменения в обществе, бизнесе, фондах
+                </a>
             </div>
 
             <div class="wow fadeInUp">
-                <span class="text-gray-16">Since the advent of the product we use natural resources. We understand that natural resources are exhaustive and should be used sparingly. We have defined development as a strategic goal.</span>
+                <span class="text-gray-16">Устойчивое развитие – это то, к чему стоит стремиться всем современным компаниям. Этот фактор говорит не только о высоком социальном уровне, а и о наличие положительных изменений.</span>
             </div>
 
             <div class="wow fadeInUp">
-                <button type="button" class="btn btn-success send-button font-up">
-                    READ MORE <span> >> </span>
-                </button>
+                <a href="{{ route('razvitie') }}" class="btn btn-success send-button font-up">
+                    Читать далее <span> >> </span>
+                </a>
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-6 col-sm-6">
             <div class="wow fadeInUp">
-                <p class="text-black-h2">OUR POLICY</p>
+                <p class="text-black-h2 font-up">Наша политика</p>
             </div>
 
             <div class="wow fadeInUp">
-                <a title="" href="#" class="text-green-20">WE WITNESS PROFOUND CHANGES IN SOCIETY, FOUNDATIONS, BUSINESS.</a>
+                <a href="{{ route('nasha-politika') }}" class="text-green-20 font-up" title="Надежный партнер в сфере металла">
+                    Надежный партнер в сфере металла.
+                </a>
             </div>
 
             <div class="wow fadeInUp">
-                <span class="text-gray-16">But invariable were and still are the basic principles on which the activity of the company has been built - honesty in relations with customers and partners, an extensive range of products.</span>
+                <span class="text-gray-16">Наша компания занимается изготовлением металлоконструкций не один год, открывая широкие возможности доставки, порезки, транспортировки. Выгодно купить металла с доставкой можно на официальном сайте, затратив при этом минимум времени.</span>
             </div>
 
             <div class="wow fadeInUp">
-                <button type="button" class="btn btn-success send-button font-up">
-                    READ MORE <span> >> </span>
-                </button>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="wow fadeInUp">
-                <p class="text-black-h2">LINE STOPPING</p>
-            </div>
-
-            <div class="wow fadeInUp">
-                <a title="" href="#" class="text-green-20">OUR PROFESSIONAL LINE STOPPING TECHNIQUES BYPASS SECTIONS.</a>
-            </div>
-
-            <div class="wow fadeInUp">
-                <span class="text-gray-16">The stopping of the flow can be accomplished in minutes, without main shutdowns or interruption of service. This can be used in many different industries</span>
-            </div>
-
-            <div class="wow fadeInUp">
-                <button type="button" class="btn btn-success send-button font-up">
-                    READ MORE <span> >> </span>
-                </button>
+                <a href="{{ route('nasha-politika') }}" class="btn btn-success send-button font-up">
+                    Читать далее <span> >> </span>
+                </a>
             </div>
         </div>
     </div>
@@ -540,7 +543,7 @@
     <div class="container">
         <div class="padding-top"></div>
         <div class="wow fadeInRight">
-            <h2 class="welcome-text text-center">GALLERY</h2>
+            <h2 class="welcome-text text-center">ГАЛЕРЕЯ</h2>
         </div>
         <div class="padding-top"></div>
 

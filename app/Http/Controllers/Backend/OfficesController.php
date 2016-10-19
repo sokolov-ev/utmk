@@ -25,10 +25,10 @@ class OfficesController extends Controller
 
     public function getAll($id = null)
     {
-        if (empty($id)) {
-            $offices = Office::all();
-        } else {
+        if ($id) {
             $offices = Office::where('id', $id)->get();
+        } else {
+            $offices = Office::all();
         }
 
         $result = [];
@@ -40,7 +40,7 @@ class OfficesController extends Controller
         }
 
         return view('backend.site.offices', [
-            'offices'  => $result,
+            'offices' => $result,
         ]);
     }
 

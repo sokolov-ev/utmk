@@ -81,7 +81,6 @@
                             @endif
                         <td><input type="text" class="form-control" /></td>
                         <td> </td>
-                        <td> </td>
                         <td>
                             <select  class="form-control">
                                 <option value=""></option>

@@ -100,7 +100,7 @@ class OrdersController extends Controller
     {
         $order = Orders::findOrFail($id);
         $products = $order->products()->get();
-        $products = Products::viewDataAll($products);
+        $products = Products::viewDataJson($products);
         $isAdmin  = Auth::guard('admin')->user()->role == Admin::ROLE_ADMIN;
 
         if ($order->manager_id) {
@@ -115,6 +115,78 @@ class OrdersController extends Controller
             'isAdmin' => $isAdmin,
             'office'  => $office,
         ]);
+    }
+
+    public function getShoppingCart($id)
+    {
+        if (Auth::guard('admin')->user()->role == Admin::ROLE_ADMIN) {
+            $where = [];
+        } else {
+            $where = ['manager_id', Auth::guard('admin')->user()->id];
+        }
+
+        $order = Orders::where([['id', $id], ['formed', 1]])->where($where)->first();
+
+        if (empty($order)) {
+            return response()->json(['status' => 'bad', 'message' => 'Заказ не найден.']);
+        }
+
+        $products = $order->products()->get();
+        $products = Products::viewDataJson($products);
+
+        return response()->json(['status' => 'ok', 'data' => $products]);
+    }
+
+    public function changeProduct(Request $request)
+    {
+        $orderId = $request->input('order');
+        $bonds   = $request->input('bonds');
+
+        $count   = $request->input('count');
+        $priceId = $request->input('price');
+
+        if (Auth::guard('admin')->user()->role == Admin::ROLE_ADMIN) {
+            $where = [];
+        } else {
+            $where = ['manager_id', Auth::guard('admin')->user()->id];
+        }
+
+        $order = Orders::where([['id', $orderId], ['formed', 1]])->where($where)->first();
+
+        if (empty($order) || empty($bonds) || empty($count) || empty($priceId)) {
+            return response()->json(['status' => 'bad', 'message' => 'Заказ не найден.']);
+        }
+
+        $attitude = $order->attitude()->where('id', $bonds)->first();
+
+        if (empty($attitude)) {
+            return response()->json(['status' => 'bad', 'message' => 'Продукция не найдена.']);
+        }
+
+        $attitude->quantity = $count;
+        $attitude->price_id = $priceId;
+
+        $order = $this->calculateSum($order);
+
+        if ($attitude->update() && $order->save()) {
+            return response()->json(['status' => 'ok', 'data' => $order->total_cost]);
+        } else {
+            return response()->json(['status' => 'bad']);
+        }
+    }
+
+    protected function calculateSum($order)
+    {
+        $sum = 0;
+        $prices = $order->prices()->get();
+
+        foreach ($prices as $price) {
+            $sum += $price->price * $price->pivot->quantity;
+        }
+
+        $order->total_cost = $sum;
+
+        return $order;
     }
 
     public function accept($id)
@@ -157,12 +229,10 @@ class OrdersController extends Controller
         }
     }
 
-    public function changeCountProduct(Request $request)
+    public function deleteProduct(Request $request)
     {
-        $id    = $request->input('id');
-        $bonds = $request->input('bonds');
-        $count = $request->input('count');
-        $sum   = $request->input('sum');
+        $orderId = $request->input('order');
+        $bonds   = $request->input('bonds');
 
         if (Auth::guard('admin')->user()->role == Admin::ROLE_ADMIN) {
             $where = [];
@@ -170,62 +240,22 @@ class OrdersController extends Controller
             $where = ['manager_id', Auth::guard('admin')->user()->id];
         }
 
-        $order = Orders::where([['id', $id], ['formed', 1]])->where($where)->first();
-
-        if (empty($order) || empty($bonds) || empty($count)) {
-            return response()->json(['status' => 'bad', 'message' => 'Заказ не найден.']);
-        }
-
-        $order->total_cost = $sum;
-        $attitude = $order->attitude()->where('id', $bonds)->first();
-
-        if (empty($attitude)) {
-            return response()->json(['status' => 'bad', 'message' => 'Заказ не найден.']);
-        }
-
-        $attitude->quantity = $count;
-
-        if ($attitude->update() && $order->update()) {
-            return response()->json(['status' => 'ok']);
-        } else {
-            return response()->json(['status' => 'bad']);
-        }
-    }
-
-    public function deleteProduct($id, $bonds)
-    {
-        if (Auth::guard('admin')->user()->role == Admin::ROLE_ADMIN) {
-            $where = [];
-        } else {
-            $where = ['manager_id', Auth::guard('admin')->user()->id];
-        }
-
-        $order = Orders::where([['id', $id], ['formed', 1]])->where($where)->first();
+        $order = Orders::where([['id', $orderId], ['formed', 1]])->where($where)->first();
 
         if (empty($order)) {
-            session()->flash('error', 'Заказ не найден.');
-            return redirect()->back();
+            return response()->json(['status' => 'bad', 'message' => 'Заказ не найден.']);
         }
 
         $attitude = $order->attitude()->where('id', $bonds)->first();
 
         if (!empty($attitude) && $attitude->delete()) {
+            $order = $this->calculateSum($order);
 
-            $products = $order->products()->get();
-            $sum = 0;
-
-            foreach ($products as $product) {
-                $sum += $product->price * $product->pivot->quantity;
+            if ($order->save()) {
+                return response()->json(['status' => 'ok', 'data' => $order->total_cost]);
             }
-
-            $order->total_cost = $sum;
-            $order->update();
-
-            session()->flash('error', 'Продукт успешно удален из заказа.');
-        } else {
-            session()->flash('error', 'Возникла ошибка при удалении продукции из заказа.');
         }
 
-        return redirect()->back();
+        return response()->json(['status' => 'bad', 'message' => 'Возникла ошибка при удалении продукции из заказа.']);
     }
 }

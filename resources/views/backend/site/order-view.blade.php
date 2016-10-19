@@ -17,7 +17,7 @@
                 <dt>Заказ оформлен:</dt>
                 <dd>{{ date("Y-m-d H:i", $order->created_at->getTimestamp()) }}</dd>
                 <dt>Общая стоимость:</dt>
-                <dd><strong id="total-price-{{ $order->id }}">{{ $order->total_cost }}</strong> грн</dd>
+                <dd><strong class="order-id" data-id="{{ $order->id }}">{{ $order->total_cost }}</strong> грн</dd>
                 <dt>Клиент:</dt>
                 <dd>{{ $order->user->username }}</dd>
                 <dt>Контакты:</dt>
@@ -41,10 +41,11 @@
 
             <br/>
 
-            <table id="clients-table" class="table table-striped table-hover table-condensed dataTable" width="100%" cellspacing="0">
+            <table id="clients-table" class="table table-striped table-hover table-condensed dataTable shopping-product" width="100%" cellspacing="0">
                 <thead>
                     <tr role="row">
                         <th>Наименование</th>
+                        <th>Мера</th>
                         <th>Цена</th>
                         <th>Количество</th>
                         <th>Итого</th>
@@ -53,32 +54,60 @@
                 </thead>
                 <tbody>
                     @foreach ($products as $key => $product)
-                        <tr>
+                        <tr id="bonds-{{ $product['bonds'] }}">
                             <td>{{ $product['title'] }}</td>
-                            <td>{{ $product['price'] }}</td>
                             <td>
-                                @if ((($isAdmin) || ($order->manager_id == Auth::guard('admin')->user()->id)) && ($order->status != 3) )
-                                    <button type="button" class="btn btn-link cart-quantity-minus">
-                                        <i class="fa fa-minus" aria-hidden="true"></i>
-                                    </button>
-                                    <input type="text"
-                                           value="{{ $product['quantity'] }}"
-                                           class="product-price"
-                                           data-id="{{ $key }}"
-                                           data-price="{{ $product['price'] }}"
-                                           data-bonds="{{ $product['bonds'] }}"
-                                           data-order="{{ $order->id }}" />
-                                    <button type="button" class="btn btn-link cart-quantity-plus">
-                                        <i class="fa fa-plus" aria-hidden="true"></i>
-                                    </button>
+                                @if ( ( ($order->status == 2) && ($order->manager_id == Auth::guard('admin')->user()->id) ) || $isAdmin )
+                                    <div class="shopping-type-product">
+                                        <select name="price_type" class="form-control price-type price-type-{{ $key }}" data-workid="{{ $key }}">
+                                            @foreach($product['prices'] as $prod)
+                                                @if($prod['id'] == $product['price_id'])
+                                                    <option value="{{ $prod['id'] }}" selected="">{{ $prod['type'] }}</option>
+                                                @else
+                                                    <option value="{{ $prod['id'] }}">{{ $prod['type'] }}</option>
+                                                @endif
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                @else
+                                    {{ $product['prices'][$product['price_id']]['type'] }}
+                                @endif
+                            </td>
+                            <td>
+                                <div class="price price-{{ $key }}">
+                                    {{ $product['prices'][$product['price_id']]['price'] }}
+                                </div>
+                            </td>
+                            <td>
+                                @if ( ( ($order->status == 2) && ($order->manager_id == Auth::guard('admin')->user()->id) ) || $isAdmin )
+                                    <div class="shopping-cart">
+                                        <button type="button" class="btn btn-link cart-quantity-minus" data-workid="{{ $key }}">
+                                            <i class="fa fa-minus" aria-hidden="true"> </i>
+                                        </button>
+                                        <input type="text"
+                                               class="quantity quantity-{{ $key }}"
+                                               value="{{ $product['quantity'] }}"
+                                               data-workid="{{ $key }}" />
+                                        <button type="button" class="btn btn-link cart-quantity-plus" data-workid="{{ $key }}">
+                                            <i class="fa fa-plus" aria-hidden="true"> </i>
+                                        </button>
+                                    </div>
                                 @else
                                     {{ $product['quantity'] }}
                                 @endif
                             </td>
-                            <td><div id="sum-price-{{ $key }}" class="sum-price">{{ $product['price'] * $product['quantity'] }}</td>
                             <td>
-                                @if ((($isAdmin) || ($order->manager_id == Auth::guard('admin')->user()->id)) && ($order->status != 3) )
-                                    <a class="btn btn-danger btn-xs" href="{{ url('/administration/orders/delete/'.$product['bonds']) }}" title="Удалить">Удалить</a>
+                                <div class="sum-price sum-price-{{ $key }}">
+                                    {{ $product['prices'][$product['price_id']]['price'] * $product['quantity'] }}
+                                </div>
+                            </td>
+                            <td>
+                                @if ( ( ($order->status == 2) && ($order->manager_id == Auth::guard('admin')->user()->id) ) || $isAdmin )
+                                    <div class="text-center">
+                                        <button class="btn btn-danger btn-xs" onclick="deleteProduct({{ $product['bonds'] }})">
+                                            Удалить
+                                        </button>
+                                    </div>
                                 @endif
                             </td>
                         </tr>
@@ -92,7 +121,7 @@
                 <a class="btn btn-primary pull-right" href="{{ url('/administration/orders/accept/'.$order->id) }}">Принять заказ</a>
             @endif
 
-            @if ( ( ($order->status == 2) && ($order->manager_id == Auth::guard('admin')->user()->id) ) || ($isAdmin) )
+            @if ( ($order->status == 2) && ( ($order->manager_id == Auth::guard('admin')->user()->id) || $isAdmin ) )
                 <a class="btn btn-warning pull-right" href="{{ url('/administration/orders/closed/'.$order->id) }}">Закрыть заказ</a>
             @endif
         </div>
@@ -103,68 +132,114 @@
 
 @section('scripts')
 
-    <script>
+    <script type="text/javascript">
+
+        var prices  = [];
+        var orderID = $(".order-id").data('id');
+
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('input[name="_token"]').val(),
             }
         });
 
-        $("body").on('click', ".cart-quantity-minus", function(event) {
-            var id = $(this).next("input").data('id');
-            var count = +$(this).next("input").val();
-            var price = $(this).next("input").data('price');
-            var bonds = $(this).next("input").data('bonds');
-            var order = $(this).next("input").data('order');
+        $.get("/administration/orders/get/" + orderID, function(response){
+            if ( (response.status == "ok") && (response.data.length > 0) ) {
+                $.each(response.data, function(key, product){
+                    product.work_key = key;
 
-            if (count > 1) {
-                $(this).next("input").val(--count);
-                $("#sum-price-" + id).html(price * count);
+                    var id = 0;
+                    var temp;
 
-                fixPrice(count, bonds, order);
+                    $.each(product.prices, function(priceId, price){
+                        temp = {};
+
+                        temp.price = price.price;
+                        temp.bonds = product.bonds;
+
+                        prices[priceId] = temp;
+                    });
+                });
             }
         });
 
-        $("body").on('change keyup', ".product-price", function(event) {
-            var id    = $(this).data('id');
-            var price = $(this).data('price');
-            var bonds = $(this).data('bonds');
-            var order = $(this).data('order');
+        $("body").on('change', '.price-type', function(event) {
+            var tut = this;
+            var key = $(tut).data('workid');
+            var id  = $(tut).val();
+            var quantity = $(".quantity-" + key).val();
 
-            this.value = this.value.replace(/[^0-9]/g, '');
-            if ( (this.value == '') || (this.value < 1) ) {
-                this.value = 1;
+            $(".price-" + key).text(prices[id].price);
+            $(".sum-price-" + key).text(quantity * prices[id].price);
+
+            changeCountProduct(prices[id].bonds, quantity, id);
+        });
+
+        $("body").on('click', ".cart-quantity-minus", function(event){
+            var tut = this;
+            var key = $(tut).data('workid');
+            var id  = $(".price-type-" + key).val();
+            var quantity = $(".quantity-" + key).val();
+
+            if (quantity > 1) {
+                $(".quantity-" + key).val(--quantity);
+                $(".sum-price-" + key).text(quantity * prices[id].price);
+                changeCountProduct(prices[id].bonds, quantity, id);
             }
 
-            $("#sum-price-" + id).html(price * this.value);
-
-            fixPrice(count, bonds, order);
         });
 
-        $("body").on('click', '.cart-quantity-plus', function(event) {
-            var id    = $(this).prev("input").data('id');
-            var count = +$(this).prev("input").val();
-            var price = $(this).prev("input").data('price');
-            var bonds = $(this).prev("input").data('bonds');
-            var order = $(this).prev("input").data('order');
+        $("body").on('click', ".cart-quantity-plus", function(event){
+            var tut = this;
+            var key = $(tut).data('workid');
+            var id  = $(".price-type-" + key).val();
+            var quantity = $(".quantity-" + key).val();
 
-            $(this).prev("input").val(++count);
-            $("#sum-price-" + id).html(price * count);
+            $(".quantity-" + key).val(++quantity);
+            $(".sum-price-" + key).text(prices[id].price * quantity);
 
-            fixPrice(count, bonds, order);
+            changeCountProduct(prices[id].bonds, quantity, id);
         });
 
-        function fixPrice(count, bonds, order)
+        $("body").on('change keyup', ".quantity", function(event){
+            var tut = this;
+            var key = $(tut).data('workid');
+            var id  = $(".price-type-" + key).val();
+
+            tut.value = tut.value.replace("/^\D+/g", '');
+
+            if ( (tut.value == '') || (tut.value < 1) ) {
+                tut.value = 1;
+            }
+
+            $(".sum-price-" + key).text(prices[id].price * tut.value);
+
+            changeCountProduct(prices[id].bonds, tut.value, id);
+        });
+
+        function changeCountProduct(bonds, count, price)
         {
-            var sum = 0;
+            var data = {};
+            data.order = orderID;
+            data.bonds = bonds;
+            data.count = count;
+            data.price = price;
 
-            $.each($(".sum-price"), function(key, val){
-                sum += +$(val).text().trim();
+            $.post('/administration/orders/change-product', data, function(response){
+                if (response.status == 'ok') {
+                    $(".order-id").text(response.data);
+                }
             });
+        }
 
-            $("#total-price-" + order).text(sum);
-
-            $.post('/administration/orders/count', {id:order, count:count, bonds:bonds, sum:sum}, function(response){});
+        function deleteProduct(bonds)
+        {
+            $.post('/administration/orders/delete', {order: orderID, bonds: bonds}, function(response){
+                if (response.status == 'ok') {
+                    $("#bonds-" + bonds).remove();
+                    $(".order-id").text(response.data);
+                }
+            });
         }
     </script>
 
