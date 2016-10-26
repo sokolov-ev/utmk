@@ -113,13 +113,17 @@ class MenuController extends Controller
 
         $item = Menu::where('id', $id)->firstOrFail();
 
-        if ($item->delete()) {
-            session()->flash('success', 'Пункт меню успешно удален.');
-        } else {
-            session()->flash('error', 'Возникла ошибка удаления пункта меню.');
-        }
+        if ($item->products->count() > 0) {
+            if ($item->delete()) {
+                session()->flash('success', 'Пункт меню успешно удален.');
+            } else {
+                session()->flash('error', 'Возникла ошибка удаления пункта меню.');
+            }
 
-        Menu::checkParent();
+            Menu::checkParent();
+        } else {
+            session()->flash('warning', 'Не возможно удалить каталог, так как за ним закреплена продукция.');
+        }
 
         return redirect(url()->previous());
     }
