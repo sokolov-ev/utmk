@@ -4,12 +4,42 @@
     {{ trans('products.title') }}
 @endsection
 
+@section('meta')
+
+    <meta name="keywords" content="{{ $metatags['keywords'] }}" />
+    <meta name="title" content="{{ $metatags['title'] }}" />
+    <meta name="description" content="{{ $metatags['description'] }}" />
+
+    <!-- Schema.org markup (Google) -->
+    <meta itemprop="name" content="{{ $metatags['title'] }}">
+    <meta itemprop="description" content="{{ $metatags['description'] }}">
+    <meta itemprop="image" content="{{ url('/') }}/images/logo.jpeg">
+
+    <!-- Twitter Card markup-->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="{{ url()->current() }}">
+    <meta name="twitter:title" content="{{ $metatags['title'] }}">
+    <meta name="twitter:description" content="{{ $metatags['description'] }}">
+    <meta name="twitter:creator" content="">
+    <!-- Twitter summary card with large image must be at least 280x150px -->
+    <meta name="twitter:image" content="{{ url('/') }}/images/logo.jpeg">
+    <meta name="twitter:image:alt" content="">
+
+    <!-- Open Graph markup (Facebook, Pinterest) -->
+    <meta property="og:title" content="{{ $metatags['title'] }}" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="{{ url()->current() }}" />
+    <meta property="og:image" content="{{ url('/') }}/images/logo.jpeg" />
+    <meta property="og:description" content="{{ $metatags['description'] }}" />
+    <meta property="og:site_name" content="Metall Vsem" />
+
+@endsection
+
 @section('css')
 
 @endsection
 
 @section('content')
-
 
 <section class="container">
     <div class="padding-top"></div>
@@ -80,18 +110,14 @@
                 @endif
 
                 @foreach ($products as $product)
-                    <?php
-                        $params['slug_menu'] = $product['slug_menu'];
-                        $params['slug_product'] = $product['slug'];
-                        $params['id'] = $product['id'];
-                    ?>
+                    <?php $price = current($product['prices']); ?>
                     @if($format == 'cards')
                         <div class="col-md-4 col-sm-4 col-xs-12 card">
                             <div class="thumbnail">
                                 <img class="green-img" alt="{{ $product['title'] }}" src="{{ $product['images'] }}" style="max-width: 360px; max-height: 240px">
 
                                 <div class="caption">
-                                    <a class="text-black-h3" href="{{ route('products-view', $params) }}">{{ $product['title'] }}</a>
+                                    <a class="text-black-h3" href="{{ $product['work_link'] }}">{{ $product['title'] }}</a>
 
                                     <div class="padding-block-1-2">
                                         <span class="text-16">{!! $product['description'] !!}</span>
@@ -99,7 +125,7 @@
                                 </div>
 
                                 <div class="caption-footer">
-                                    <a class="btn btn-default pull-left" role="button" href="{{ route('products-view', $params) }}">{{ trans('products.more') }}</a>
+                                    <a class="btn btn-default pull-left" role="button" href="{{ $product['work_link'] }}">{{ trans('products.more') }}</a>
                                     <button type="button" class="btn btn-success pull-right add-cart" data-id="{{ $product['id'] }}">
                                         <i class="fa fa-cart-plus" aria-hidden="true"> </i>
                                         <span>{{ trans('products.add-cart') }}</span>
@@ -112,14 +138,16 @@
                         <div class="panel panel-default card">
                             <div class="panel-body">
                                 <div class="product-title pull-left">
-                                    <a class="text-black-h3" href="{{ route('products-view', $params) }}">{{ $product['title'] }}</a>
+                                    <a class="text-black-h3" href="{{ $product['work_link'] }}">{{ $product['title'] }}</a>
                                 </div>
 
                                 <div class="shopping-cart pull-right">
                                     <div class="card-price-block">
                                         <div class="card-price">
-                                            {{ $product['price'] }}
-                                            <span class="card-price-uah">{{ trans('products.uah') }} / {{ trans('products.measures.'.$product['price_type']) }}</span>
+                                            {{ $price['price'] }}
+                                            <span class="card-price-uah">
+                                                {{ trans('products.uah') }} / {{ $price['type'] }}
+                                            </span>
                                         </div>
                                     </div>
 

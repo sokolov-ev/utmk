@@ -4,6 +4,12 @@
     {{ trans('index.menu.company_profile') }}
 @endsection
 
+@section('meta')
+
+    @include('partial.metatags')
+
+@endsection
+
 @section('css')
 
 @endsection

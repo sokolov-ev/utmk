@@ -40,6 +40,16 @@ class Menu extends Model
         });
     }
 
+    public function products()
+    {
+        return $this->hasMany('App\Products', 'menu_id', 'id');
+    }
+
+    public function metatags()
+    {
+        return $this->hasOne('App\Metatags', 'slug', 'slug')->where('type', 'menu');
+    }
+
     public static function checkParent()
     {
         $items = Menu::all();

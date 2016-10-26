@@ -4,6 +4,12 @@
     {{ trans('index.menu.network_of_offices') }}
 @endsection
 
+@section('meta')
+
+    @include('partial.metatags')
+
+@endsection
+
 @section('css')
 
 @endsection

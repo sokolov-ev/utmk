@@ -14,6 +14,8 @@ use App\Products;
 use App\Office;
 use App\Orders;
 use App\OrdersProducts;
+use App\Metatags;
+
 
 class ProductsController extends Controller
 {
@@ -27,28 +29,34 @@ class ProductsController extends Controller
             $count  = 9;
         }
 
-        $page = $request->input('page')-1;
-        $page = empty($page) ? 0 : $count*$page;
+        $page = $request->input('page') - 1;
+        $page = empty($page) ? 0 : $count * $page;
 
         if (empty($id)) {
             $products = Products::where([['show_my', '1']])->orderBy('rating', 'DESC')->take($count)->get();
+
+            $metatags = Metatags::where([['type', 'menu'], ['slug', 'index']])->first();
         } else {
             $products = Products::where([['show_my', '1'], ['menu_id', $id]])
                                 ->orderBy('rating', 'DESC')
                                 ->take($count)
                                 ->skip($page)
                                 ->get();
+
+            $metatags = Metatags::where([['type', 'menu'], ['slug', $slug]])->first();
         }
 
         // преобразование данных для отображения
-        $result  = Products::viewDataAll($products);
+        $result  = Products::viewDataJson($products);
         $offices = Office::getOffices();
+        $metatags = Metatags::getViewData($metatags);
 
         return view('frontend.products.index', [
             'products' => $result,
             'offices'  => $offices,
             'menu_id'  => $id,
             'format'   => $format,
+            'metatags' => $metatags,
         ]);
     }
 
@@ -60,11 +68,18 @@ class ProductsController extends Controller
             return response()->view('errors.404', [], 404);
         }
 
+        $metatags = false;
+        if (!empty($slug_product)) {
+            $metatags = Metatags::where([['type', 'product'], ['slug', $slug_product]])->first();
+        }
+
+        $metatags = Metatags::getViewData($metatags);
         $menu = Menu::getBreadcrumbs($product['menu_id']);
 
         return view('frontend.products.view', [
             'product' => $product,
             'menu' => $menu,
+            'metatags' => $metatags,
         ]);
     }
 

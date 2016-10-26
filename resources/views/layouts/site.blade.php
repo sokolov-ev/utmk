@@ -27,42 +27,89 @@
 <body id="app-layout">
 
 <section id="top__content" class="container-fluid">
-    <div class="margin-15">
         <div class="row">
-
-            <div class="col-md-3 col-sm-4 col-xs-12">
-                <img src="/images/logo.jpg" title="Metall Vsem" alt="Metall Vsem" height="93px"/>
-            </div>
-
-            <div class="col-md-9 col-sm-8 col-xs-12">
-                <div class="user-block">
-                    @if (!Auth::guest())
-                        <a class="text-orange-20" href="{{ route('logout') }}" title="{{ trans('auth.logout') }}">
-                            <i class="fa fa-sign-out fa-4x" aria-hidden="true"></i>
-                        </a>
-                        <a href="#" class="text-green-20 shopping-cart-button" data-target="#shopping-cart" data-toggle="modal" title="{{ trans('products.shopping-cart') }}">
-                            <i class="fa fa-cart-plus fa-4x" aria-hidden="true"></i>
-                            @if ($user_cart > 0)
-                                <span class="shopping-cart-badge">{{ $user_cart }}</span>
-                            @else
-                                <span class="shopping-cart-badge hidden"></span>
-                            @endif
-                        </a>
-                    @endif
-                    @if (Auth::guest())
-                        <a href="#" class="text-green-20" data-target="#login-form" data-toggle="modal" title="{{ trans('auth.login') }}">
-                            <i class="fa fa-sign-in fa-4x" aria-hidden="true"></i>
-                        </a>
-                    @else
-                        <a href="{{ route('my-cart') }}" class="text-green-20" title="{{ trans('auth.my-office') }}">
-                            <i class="fa fa-user fa-4x" aria-hidden="true"></i>
-                        </a>
-                    @endif
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="laguage-block pull-right">
+                    <a href="{{ request()->fullUrlWithQuery(['lang' => 'en']) }}" title="{{ trans('index.speech.en') }}">
+                        <img src="/images/flags/en.gif" title="{{ trans('index.speech.en') }}" alt="{{ trans('index.speech.en') }}" />
+                    </a>
+                    <a href="{{ request()->fullUrlWithQuery(['lang' => 'ru']) }}" title="{{ trans('index.speech.ru') }}">
+                        <img src="/images/flags/ru.gif" title="{{ trans('index.speech.ru') }}" alt="{{ trans('index.speech.ru') }}" />
+                    </a>
+                    <a href="{{ request()->fullUrlWithQuery(['lang' => 'uk']) }}" title="{{ trans('index.speech.uk') }}">
+                        <img src="/images/flags/uk.gif" title="{{ trans('index.speech.uk') }}" alt="{{ trans('index.speech.uk') }}" />
+                    </a>
                 </div>
             </div>
-
         </div>
-    </div>
+        <div class="row">
+            <div class="col-md-3 col-sm-3 col-xs-12">
+                {{-- <div class="padding-block-2-0"> --}}
+                    <div class="logotype">
+                        <img src="/images/logo.jpeg" title="Metall Vsem" alt="Metall Vsem" />
+                    </div>
+                {{-- </div> --}}
+            </div>
+            <div class="col-md-6 col-sm-9 col-xs-12 text-center">
+
+                    <div class="contact-block">
+                        <div class="padding-block-2-0">
+                            <div class="padding-vert-15">
+                                <i class="text-green fa fa-phone fa-3x" aria-hidden="true"> </i>
+                            </div>
+                            <div class="padding-vert-15 text-left" style="max-width: 195px;">
+                                <span class="text-gray-contact">+38 (044) 502-50-45</span><br/>
+                                <span class="text-gray-contact">+38 (044) 503-50-46</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="contact-block">
+                        <div class="padding-block-2-2">
+                            <div class="padding-vert-15">
+                                <i class="text-green fa fa-map-marker fa-3x" aria-hidden="true"> </i>
+                            </div>
+                            <div class="padding-vert-15 text-left" style="max-width: 195px;">
+                                <span class="text-gray-contact">{{ $office_contacts['address'] }}</span>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+            <div class="col-md-3 col-sm-12 col-xs-12">
+                <div class="padding-block-2-2">
+                    <div class="user-block">
+                        @if (!Auth::guest())
+                            <a class="text-orange-20" href="{{ route('logout') }}" title="{{ trans('auth.logout') }}">
+                                <i class="fa fa-sign-out fa-3x" aria-hidden="true"></i>
+                            </a>
+                            <a href="#" class="text-green-20 shopping-cart-button" data-target="#shopping-cart" data-toggle="modal" title="{{ trans('products.shopping-cart') }}">
+                                <i class="fa fa-cart-plus fa-3x" aria-hidden="true"></i>
+                                @if ($user_cart > 0)
+                                    <span class="shopping-cart-badge">{{ $user_cart }}</span>
+                                @else
+                                    <span class="shopping-cart-badge hidden"></span>
+                                @endif
+                            </a>
+                        @endif
+                        @if (Auth::guest())
+                            <a href="#" class="text-green-20" data-target="#login-form" data-toggle="modal" title="{{ trans('auth.login') }}">
+                                <i class="fa fa-sign-in fa-3x" aria-hidden="true"></i>
+                            </a>
+                        @else
+                            <a href="{{ route('my-cart') }}" class="text-green-20" title="{{ trans('auth.my-office') }}">
+                                <i class="fa fa-user fa-3x" aria-hidden="true"></i>
+                            </a>
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
 </section>
 
 <header id="w-sticker">
@@ -78,7 +125,17 @@
         <div id="mettal-vsem-menu" class="collapse navbar-collapse">
 
             <ul class="nav navbar-nav">
-                <li class="home"><a href="{{ route('index-page') }}">{{ trans('index.menu.home') }}</a></li>
+                <li class="dropdown home">
+                    <a class="dropdown-toggle home" aria-expanded="false" aria-haspopup="true" role="button" href="{{ route('index-page') }}">
+                        {{ trans('index.menu.home') }} <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li> <a href="{{ route('porezka') }}">{{ trans('index.menu.information.cutting') }}</a> </li>
+                        <li> <a href="{{ route('upakovka') }}">{{ trans('index.menu.information.packaging') }}</a> </li>
+                        <li> <a href="{{ route('dostavka') }}">{{ trans('index.menu.information.delivery') }}</a> </li>
+                    </ul>
+                </li>
+
                 <li class="about-us"><a href="{{ route('about-us') }}">{{ trans('index.menu.about_us') }}</a></li>
                 <li class="company-profile"><a href="{{ route('profile') }}">{{ trans('index.menu.company_profile') }}</a></li>
                 <li class="products"><a href="{{ route('products-index') }}">{{ trans('index.menu.products') }}</a></li>
@@ -104,6 +161,23 @@
 <div class="scroller">
     <i class="fa fa-arrow-circle-up" aria-hidden="true"></i>
 </div>
+
+    <!-- Start SiteHeart code -->
+    <script>
+    (function(){
+        var widget_id = 856303;
+        _shcp = [{widget_id : widget_id}];
+        var lang = (navigator.language || navigator.systemLanguage || navigator.userLanguage ||"en").substr(0,2).toLowerCase();
+        var url = "widget.siteheart.com/widget/sh/"+ widget_id +"/"+ lang +"/widget.js";
+        var hcc = document.createElement("script");
+        hcc.type = "text/javascript";
+        hcc.async = true;
+        hcc.src = ("https:" == document.location.protocol ? "https" : "http") + "://" + url;
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hcc, s.nextSibling);
+    })();
+    </script>
+    <!-- End SiteHeart code -->
 
     <!-- JavaScripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js" integrity="sha384-I6F5OKECLVtK/BL+8iSLDEHowSAfUo76ZL9+kGAgTRdiByINKJaqTPH/QVNS1VDb" crossorigin="anonymous"></script>

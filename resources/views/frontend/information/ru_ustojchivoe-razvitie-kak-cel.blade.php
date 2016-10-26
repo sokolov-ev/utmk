@@ -1,38 +1,12 @@
 @extends('layouts.site')
 
 @section('title')
-    Устойчивое развитие как цель
+    {{ $metatags['title'] }}
 @endsection
 
 @section('meta')
 
-    <meta name="keywords" content="ООО ЮТМК гнутый профиль, арматура,трубы профильные, трубы стальные, трубы профильные бесшовные,трубы бесшовные холоднотянуые, черный металлопрокат, нержавеющий металлопрокат, гнутый швеллер купить,спецсталь, металлопрокат, купить, продам, металл, metallvsem, металлвсем, Швеллер гнутый, швеллер гнутый 09Г2Д, уголок гнутый, уголок гнутый 09Г2Д,  профиль С, профиль Z, Круг нержавеющий,инструментальная сталь, квадрат, круг, балка, швеллер, уголок, лист, труба, катанка, шестигранник, полоса, рельс,купить металл в киеве,дешевый металл, Прокат листовой ,горячекатаные листы, г/к, холоднокатаные листы х/к, профнастил, лист просечно-вытяжной ПВЛ, лист хардокс hardox,Сортовой  металлопрокат, уголок равнополочный, уголок неравнополочный, двутавр,двутавровая балка, балка IPE,Профиль гнутый, корытный профиль,трубы круглого сечения, трубы квадратного сечения , трубы прямоугольного сечения , трубы оцинкованные, 09г2с трубы, электросварные, котельные и бесшовные трубы" />
-
-    <meta name="title" content="Устойчивое развитие как цель" />
-    <meta name="description" content="Устойчивое развитие способно полностью удовлетворить потребности потенциальных клиентов и настоящего времени, не ставя под угрозу свои собственные принципы." />
-
-    <!-- Schema.org markup (Google) -->
-    <meta itemprop="name" content="Устойчивое развитие как цель">
-    <meta itemprop="description" content="Устойчивое развитие способно полностью удовлетворить потребности потенциальных клиентов и настоящего времени, не ставя под угрозу свои собственные принципы.">
-    <meta itemprop="image" content="">
-
-    <!-- Twitter Card markup-->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:site" content="http://metallvsem.com.ua/ustojchivoe-razvitie-kak-cel">
-    <meta name="twitter:title" content="Устойчивое развитие как цель">
-    <meta name="twitter:description" content="Устойчивое развитие способно полностью удовлетворить потребности потенциальных клиентов и настоящего времени, не ставя под угрозу свои собственные принципы.">
-    <meta name="twitter:creator" content="">
-    <!-- Twitter summary card with large image must be at least 280x150px -->
-    <meta name="twitter:image" content="">
-    <meta name="twitter:image:alt" content="">
-
-    <!-- Open Graph markup (Facebook, Pinterest) -->
-    <meta property="og:title" content="Устойчивое развитие как цель" />
-    <meta property="og:type" content="article" />
-    <meta property="og:url" content="http://metallvsem.com.ua/ustojchivoe-razvitie-kak-cel" />
-    <meta property="og:image" content="" />
-    <meta property="og:description" content="Устойчивое развитие способно полностью удовлетворить потребности потенциальных клиентов и настоящего времени, не ставя под угрозу свои собственные принципы." />
-    <meta property="og:site_name" content="Metall Vsem" />
+    @include('partial.metatags')
 
 @endsection
 

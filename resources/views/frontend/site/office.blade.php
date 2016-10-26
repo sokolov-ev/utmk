@@ -4,6 +4,36 @@
     {{ $office['title'] }}
 @endsection
 
+@section('meta')
+
+    <meta name="title" content="{{ $office['title'] }}" />
+    <meta name="description" content="{{ $office['description'] }}" />
+
+    <!-- Schema.org markup (Google) -->
+    <meta itemprop="name" content="{{ $office['title'] }}">
+    <meta itemprop="description" content="{{ $office['description'] }}">
+    <meta itemprop="image" content="{{ url('/') }}/images/logo.jpeg">
+
+    <!-- Twitter Card markup-->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="{{ url()->current() }}">
+    <meta name="twitter:title" content="{{ $office['title'] }}">
+    <meta name="twitter:description" content="{{ $office['description'] }}">
+    <meta name="twitter:creator" content="">
+    <!-- Twitter summary card with large image must be at least 280x150px -->
+    <meta name="twitter:image" content="{{ url('/') }}/images/logo.jpeg">
+    <meta name="twitter:image:alt" content="">
+
+    <!-- Open Graph markup (Facebook, Pinterest) -->
+    <meta property="og:title" content="{{ $office['title'] }}" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="{{ url()->current() }}" />
+    <meta property="og:image" content="{{ url('/') }}/images/logo.jpeg" />
+    <meta property="og:description" content="{{ $office['description'] }}" />
+    <meta property="og:site_name" content="Metall Vsem" />
+
+@endsection
+
 @section('css')
 
 @endsection

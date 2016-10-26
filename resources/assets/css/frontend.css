@@ -107,6 +107,15 @@ button {
   padding-top: 20px;
 }
 
+.padding-block-2-1 {
+  padding-top: 20px;
+  padding-bottom: 10px;
+}
+
+.padding-vert-15 {
+  padding: 0 15px;
+}
+
 .margin-bottom-5 {
   margin-bottom: 7px;
 }
@@ -350,4 +359,54 @@ button {
 
 .flash-messages > section {
   padding: 0 !important;
+}
+
+.laguage-block {
+  background-color: #eeeeee;
+  padding: 2px 10px;
+  border-radius: 0 0 4px 4px;
+}
+
+.laguage-block img {
+  height: 15px;
+  margin: 0 2px;
+}
+
+.logotype { text-align: left; }
+@media(max-width: 767px) {
+  .logotype { text-align: center; }
+}
+
+.logotype img {
+  height: 100px;
+}
+
+.contact-block {
+  display: inline-block;
+}
+
+.contact-block div {
+  display: inline-block;
+}
+
+.text-green {
+  color: #39a9a4;
+}
+
+.text-gray-contact {
+  color: #808080;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.1;
+}
+@media(max-width: 767px) {
+  .text-gray-contact {
+    font-size: 14px;
+    line-height: 1.2;
+  }
+}
+
+.sh_btn_bottom_right {
+  right: 0 !important;
 }

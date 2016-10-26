@@ -4,11 +4,13 @@
     {{ trans('index.menu.home') }}
 @endsection
 
+@section('meta')
+
+    @include('partial.metatags')
+
+@endsection
+
 @section('css')
-
-    <style type="text/css" media="screen">
-
-    </style>
 
 @endsection
 

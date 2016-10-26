@@ -13,22 +13,38 @@ use Validator;
 use JsValidator;
 
 use App\Office;
+use App\Metatags;
 
 class IndexController extends Controller
 {
     public function porezka()
     {
-        return view('frontend.information.ru_porezka');
+        $metatags = Metatags::where([['type', 'article'], ['slug', 'porezka']])->first();
+        $metatags = Metatags::getViewData($metatags);
+
+        return view('frontend.information.ru_porezka', [
+            'metatags' => $metatags,
+        ]);
     }
 
     public function upakovka()
     {
-        return view('frontend.information.ru_upakovka');
+        $metatags = Metatags::where([['type', 'article'], ['slug', 'upakovka']])->first();
+        $metatags = Metatags::getViewData($metatags);
+
+        return view('frontend.information.ru_upakovka', [
+            'metatags' => $metatags,
+        ]);
     }
 
     public function dostavka()
     {
-        return view('frontend.information.ru_dostavka');
+        $metatags = Metatags::where([['type', 'article'], ['slug', 'dostavka']])->first();
+        $metatags = Metatags::getViewData($metatags);
+
+        return view('frontend.information.ru_dostavka', [
+            'metatags' => $metatags,
+        ]);
     }
 
 //---------------------------------------------------------------------
@@ -42,201 +58,401 @@ class IndexController extends Controller
         // } elseif (App::getLocale() == "uk") {
         //     return view('frontend.information.metallokonstruktsii_uk');
         // }
-        return view('frontend.information.ru_metallokonstruktsii');
+        $metatags = Metatags::where([['type', 'article'], ['slug', 'metallokonstruktsii']])->first();
+        $metatags = Metatags::getViewData($metatags);
+
+        return view('frontend.information.ru_metallokonstruktsii', [
+            'metatags' => $metatags,
+        ]);
     }
 
     public function modulnyeSoorujeniya()
     {
-        return view('frontend.information.ru_modulnye-soorujeniya');
+        $metatags = Metatags::where([['type', 'article'], ['slug', 'modulnye-soorujeniya']])->first();
+        $metatags = Metatags::getViewData($metatags);
+
+        return view('frontend.information.ru_modulnye-soorujeniya', [
+            'metatags' => $metatags,
+        ]);
     }
 
     public function otsinkovannyeRulony()
     {
-        return view('frontend.information.ru_otsinkovannye-rulony');
+        $metatags = Metatags::where([['type', 'article'], ['slug', 'otsinkovannye-rulony']])->first();
+        $metatags = Metatags::getViewData($metatags);
+
+        return view('frontend.information.ru_otsinkovannye-rulony', [
+            'metatags' => $metatags,
+        ]);
     }
 
     public function metallIzEvropy()
     {
-        return view('frontend.information.ru_metall-iz-evropy');
+        $metatags = Metatags::where([['type', 'article'], ['slug', 'metall-iz-evropy']])->first();
+        $metatags = Metatags::getViewData($metatags);
+
+        return view('frontend.information.ru_metall-iz-evropy', [
+            'metatags' => $metatags,
+        ]);
     }
 
 //*
     public function armatura()
     {
-        return view('frontend.information.ru_armatura');
+        $metatags = Metatags::where([['type', 'article'], ['slug', 'armatura']])->first();
+        $metatags = Metatags::getViewData($metatags);
+
+        return view('frontend.information.ru_armatura', [
+            'metatags' => $metatags,
+        ]);
     }
 
     public function balkaDvutavr()
     {
-        return view('frontend.information.ru_balka-dvutavr');
+        $metatags = Metatags::where([['type', 'article'], ['slug', 'balka-dvutavr']])->first();
+        $metatags = Metatags::getViewData($metatags);
+
+        return view('frontend.information.ru_balka-dvutavr', [
+            'metatags' => $metatags,
+        ]);
     }
 
     public function katanka()
     {
-        return view('frontend.information.ru_katanka');
+        $metatags = Metatags::where([['type', 'article'], ['slug', 'katanka']])->first();
+        $metatags = Metatags::getViewData($metatags);
+
+        return view('frontend.information.ru_katanka', [
+            'metatags' => $metatags,
+        ]);
     }
 
 //*
     public function kvadrat()
     {
-        return view('frontend.information.ru_kvadrat');
+        $metatags = Metatags::where([['type', 'article'], ['slug', 'kvadrat']])->first();
+        $metatags = Metatags::getViewData($metatags);
+
+        return view('frontend.information.ru_kvadrat', [
+            'metatags' => $metatags,
+        ]);
     }
 
     public function krug()
     {
-        return view('frontend.information.ru_krug');
+        $metatags = Metatags::where([['type', 'article'], ['slug', 'krug']])->first();
+        $metatags = Metatags::getViewData($metatags);
+
+        return view('frontend.information.ru_krug', [
+            'metatags' => $metatags,
+        ]);
     }
 
     public function polosa()
     {
-        return view('frontend.information.ru_polosa');
+        $metatags = Metatags::where([['type', 'article'], ['slug', 'polosa']])->first();
+        $metatags = Metatags::getViewData($metatags);
+
+        return view('frontend.information.ru_polosa', [
+            'metatags' => $metatags,
+        ]);
     }
 
 //*
     public function rels()
     {
-        return view('frontend.information.ru_rels');
+        $metatags = Metatags::where([['type', 'article'], ['slug', 'rels']])->first();
+        $metatags = Metatags::getViewData($metatags);
+
+        return view('frontend.information.ru_rels', [
+            'metatags' => $metatags,
+        ]);
     }
 
     public function ugolok()
     {
-        return view('frontend.information.ru_ugolok');
+        $metatags = Metatags::where([['type', 'article'], ['slug', 'ugolok']])->first();
+        $metatags = Metatags::getViewData($metatags);
+
+        return view('frontend.information.ru_ugolok', [
+            'metatags' => $metatags,
+        ]);
     }
 
     public function shveller()
     {
-        return view('frontend.information.ru_shveller');
+        $metatags = Metatags::where([['type', 'article'], ['slug', 'shveller']])->first();
+        $metatags = Metatags::getViewData($metatags);
+
+        return view('frontend.information.ru_shveller', [
+            'metatags' => $metatags,
+        ]);
     }
 
 //*
     public function shestigrannik()
     {
-        return view('frontend.information.ru_shestigrannik');
+        $metatags = Metatags::where([['type', 'article'], ['slug', 'shestigrannik']])->first();
+        $metatags = Metatags::getViewData($metatags);
+
+        return view('frontend.information.ru_shestigrannik', [
+            'metatags' => $metatags,
+        ]);
     }
 
     public function staltrub()
     {
-        return view('frontend.information.ru_staltrub');
+        $metatags = Metatags::where([['type', 'article'], ['slug', 'staltrub']])->first();
+        $metatags = Metatags::getViewData($metatags);
+
+        return view('frontend.information.ru_staltrub', [
+            'metatags' => $metatags,
+        ]);
     }
 
     public function trubyKotelnye()
     {
-        return view('frontend.information.ru_truby-kotelnye');
+        $metatags = Metatags::where([['type', 'article'], ['slug', 'truby-kotelnye']])->first();
+        $metatags = Metatags::getViewData($metatags);
+
+        return view('frontend.information.ru_truby-kotelnye', [
+            'metatags' => $metatags,
+        ]);
     }
 
 //*
     public function pokovka()
     {
-        return view('frontend.information.ru_pokovka');
+        $metatags = Metatags::where([['type', 'article'], ['slug', 'pokovka']])->first();
+        $metatags = Metatags::getViewData($metatags);
+
+        return view('frontend.information.ru_pokovka', [
+            'metatags' => $metatags,
+        ]);
     }
 
     public function listHardox()
     {
-        return view('frontend.information.ru_list-hardox');
+        $metatags = Metatags::where([['type', 'article'], ['slug', 'list-hardox']])->first();
+        $metatags = Metatags::getViewData($metatags);
+
+        return view('frontend.information.ru_list-hardox', [
+            'metatags' => $metatags,
+        ]);
     }
 
     public function listStalnoj()
     {
-        return view('frontend.information.ru_list-stalnoj');
+        $metatags = Metatags::where([['type', 'article'], ['slug', 'list-stalnoj']])->first();
+        $metatags = Metatags::getViewData($metatags);
+
+        return view('frontend.information.ru_list-stalnoj', [
+            'metatags' => $metatags,
+        ]);
     }
 
 //*
     public function shvellerGnutyj()
     {
-        return view('frontend.information.ru_shveller-gnutyj');
+        $metatags = Metatags::where([['type', 'article'], ['slug', 'shveller-gnutyj']])->first();
+        $metatags = Metatags::getViewData($metatags);
+
+        return view('frontend.information.ru_shveller-gnutyj', [
+            'metatags' => $metatags,
+        ]);
     }
 
     public function ugolokGnutyj()
     {
-        return view('frontend.information.ru_ugolok-gnutyj');
+        $metatags = Metatags::where([['type', 'article'], ['slug', 'ugolok-gnutyj']])->first();
+        $metatags = Metatags::getViewData($metatags);
+
+        return view('frontend.information.ru_ugolok-gnutyj', [
+            'metatags' => $metatags,
+        ]);
     }
 
     public function obraznyjProfil()
     {
-        return view('frontend.information.ru_z-obraznyj-profil');
+        $metatags = Metatags::where([['type', 'article'], ['slug', 'z-obraznyj-profil']])->first();
+        $metatags = Metatags::getViewData($metatags);
+
+        return view('frontend.information.ru_z-obraznyj-profil', [
+            'metatags' => $metatags,
+        ]);
     }
 
 //*
     public function kontrolKachestva()
     {
-        return view('frontend.information.ru_kontrol-kachestva-produkcii');
+        $metatags = Metatags::where([['type', 'article'], ['slug', 'kontrol-kachestva-produkcii']])->first();
+        $metatags = Metatags::getViewData($metatags);
+
+        return view('frontend.information.ru_kontrol-kachestva-produkcii', [
+            'metatags' => $metatags,
+        ]);
     }
     public function eksportImport()
     {
-        return view('frontend.information.ru_eksport-import-metallicheskih-izdelij');
+        $metatags = Metatags::where([['type', 'article'], ['slug', 'eksport-import-metallicheskih-izdelij']])->first();
+        $metatags = Metatags::getViewData($metatags);
+
+        return view('frontend.information.ru_eksport-import-metallicheskih-izdelij', [
+            'metatags' => $metatags,
+        ]);
     }
     public function shirokijEksportImport()
     {
-        return view('frontend.information.ru_shirokij-eksport-import');
+        $metatags = Metatags::where([['type', 'article'], ['slug', 'shirokij-eksport-import-mira']])->first();
+        $metatags = Metatags::getViewData($metatags);
+
+        return view('frontend.information.ru_shirokij-eksport-import', [
+            'metatags' => $metatags,
+        ]);
     }
 //*
     public function nadezhnyjPartner()
     {
-        return view('frontend.information.ru_nadezhnyj-partner-dlya-vashego-biznesa');
+        $metatags = Metatags::where([['type', 'article'], ['slug', 'nadezhnyj-partner-dlya-vashego-biznesa']])->first();
+        $metatags = Metatags::getViewData($metatags);
+
+        return view('frontend.information.ru_nadezhnyj-partner-dlya-vashego-biznesa', [
+            'metatags' => $metatags,
+        ]);
     }
     public function nashiProdazh()
     {
-        return view('frontend.information.ru_nashi-obemy-prodazh');
+        $metatags = Metatags::where([['type', 'article'], ['slug', 'nashi-obemy-prodazh']])->first();
+        $metatags = Metatags::getViewData($metatags);
+
+        return view('frontend.information.ru_nashi-obemy-prodazh', [
+            'metatags' => $metatags,
+        ]);
     }
     public function ustojchivoeRazvitie()
     {
-        return view('frontend.information.ru_ustojchivoe-razvitie-kak-cel');
+        $metatags = Metatags::where([['type', 'article'], ['slug', 'ustojchivoe-razvitie-kak-cel']])->first();
+        $metatags = Metatags::getViewData($metatags);
+
+        return view('frontend.information.ru_ustojchivoe-razvitie-kak-cel', [
+            'metatags' => $metatags,
+        ]);
     }
 //*
     public function karernyeVozmozhnosti()
     {
-        return view('frontend.information.ru_karernye-vozmozhnosti');
+        $metatags = Metatags::where([['type', 'article'], ['slug', 'karernye-vozmozhnosti']])->first();
+        $metatags = Metatags::getViewData($metatags);
+
+        return view('frontend.information.ru_karernye-vozmozhnosti', [
+            'metatags' => $metatags,
+        ]);
     }
     public function stremimsyaDlyaKlientov()
     {
-        return view('frontend.information.ru_my-stremimsya-dlya-nashix-klientov');
+        $metatags = Metatags::where([['type', 'article'], ['slug', 'my-stremimsya-dlya-nashix-klientov']])->first();
+        $metatags = Metatags::getViewData($metatags);
+
+        return view('frontend.information.ru_my-stremimsya-dlya-nashix-klientov', [
+            'metatags' => $metatags,
+        ]);
     }
     public function vashiZakazy()
     {
-        return view('frontend.information.ru_vashi-zakazy-kak-mozhno-skoree');
+        $metatags = Metatags::where([['type', 'article'], ['slug', 'vashi-zakazy-kak-mozhno-skoree']])->first();
+        $metatags = Metatags::getViewData($metatags);
+
+        return view('frontend.information.ru_vashi-zakazy-kak-mozhno-skoree', [
+            'metatags' => $metatags,
+        ]);
     }
 //*
     public function strukturyPodKlyuch()
     {
-        return view('frontend.information.ru_struktury-vozmozhen-zakaz-pod-klyuch');
+        $metatags = Metatags::where([['type', 'article'], ['slug', 'struktury-vozmozhen-zakaz-pod-klyuch']])->first();
+        $metatags = Metatags::getViewData($metatags);
+
+        return view('frontend.information.ru_struktury-vozmozhen-zakaz-pod-klyuch', [
+            'metatags' => $metatags,
+        ]);
     }
     public function stremitelnoMenyayushhemsyaMire()
     {
-        return view('frontend.information.ru_stremitelno-menyayushhemsya-mire');
+        $metatags = Metatags::where([['type', 'article'], ['slug', 'stremitelno-menyayushhemsya-mire']])->first();
+        $metatags = Metatags::getViewData($metatags);
+
+        return view('frontend.information.ru_stremitelno-menyayushhemsya-mire', [
+            'metatags' => $metatags,
+        ]);
     }
     public function chtoNovogo()
     {
-        return view('frontend.information.ru_chto-novogo');
+        $metatags = Metatags::where([['type', 'article'], ['slug', 'chto-novogo']])->first();
+        $metatags = Metatags::getViewData($metatags);
+
+        return view('frontend.information.ru_chto-novogo', [
+            'metatags' => $metatags,
+        ]);
     }
 //*
     public function luchshieProdavcy()
     {
-        return view('frontend.information.ru_luchshie-prodavcy');
+        $metatags = Metatags::where([['type', 'article'], ['slug', 'luchshie-prodavcy']])->first();
+        $metatags = Metatags::getViewData($metatags);
+
+        return view('frontend.information.ru_luchshie-prodavcy', [
+            'metatags' => $metatags,
+        ]);
     }
     public function razvitie()
     {
-        return view('frontend.information.ru_razvitie');
+        $metatags = Metatags::where([['type', 'article'], ['slug', 'razvitie']])->first();
+        $metatags = Metatags::getViewData($metatags);
+
+        return view('frontend.information.ru_razvitie', [
+            'metatags' => $metatags,
+        ]);
     }
     public function nashaPolitika()
     {
-        return view('frontend.information.ru_nasha-politika');
+        $metatags = Metatags::where([['type', 'article'], ['slug', 'nasha-politika']])->first();
+        $metatags = Metatags::getViewData($metatags);
+
+        return view('frontend.information.ru_nasha-politika', [
+            'metatags' => $metatags,
+        ]);
     }
 
 //---------------------------------------------------------------------
 
     public function index()
     {
-        return view('frontend.site.index');
+        $metatags = Metatags::where([['type', 'article'], ['slug', 'home']])->first();
+        $metatags = Metatags::getViewData($metatags);
+
+        return view('frontend.site.index', [
+            'metatags' => $metatags,
+        ]);
     }
 
     public function aboutUs()
     {
-        return view('frontend.site.ru_about-us');
+        $metatags = Metatags::where([['type', 'article'], ['slug', 'yutmk-energy']])->first();
+        $metatags = Metatags::getViewData($metatags);
+
+        return view('frontend.site.ru_about-us', [
+            'metatags' => $metatags,
+        ]);
     }
 
     public function companyProfile()
     {
-        return view('frontend.site.company-profile');
+        $metatags = Metatags::where([['type', 'article'], ['slug', 'company-profile']])->first();
+        $metatags = Metatags::getViewData($metatags);
+
+        return view('frontend.site.company-profile', [
+            'metatags' => $metatags,
+        ]);
     }
 
     public function officeView($city, $id)
@@ -252,9 +468,12 @@ class IndexController extends Controller
     public function salesNetwork()
     {
         $offices = Office::getOfficesContacts();
+        $metatags = Metatags::where([['type', 'article'], ['slug', 'network-of-offices']])->first();
+        $metatags = Metatags::getViewData($metatags);
 
         return view('frontend.site.sales-network', [
             'offices' => $offices,
+            'metatags' => $metatags,
         ]);
     }
 
@@ -271,9 +490,12 @@ class IndexController extends Controller
             [],
             "#contacts-form"
         );
+        $metatags = Metatags::where([['type', 'article'], ['slug', 'contacts']])->first();
+        $metatags = Metatags::getViewData($metatags);
 
         return view('frontend.site.contacts', [
             'validator' => $addValidator,
+            'metatags' => $metatags,
         ]);
     }
 
@@ -311,10 +533,5 @@ class IndexController extends Controller
         }
 
         return redirect(url()->previous());
-    }
-
-    public function test(Request $request)
-    {
-
     }
 }

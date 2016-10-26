@@ -154,6 +154,12 @@ desired effect
                         <li class="header">FRONTEND</li>
                         <!-- Optionally, you can add icons to the links -->
                         <li>
+                            <a href="{{ url('/administration/metatags') }}">
+                                <i class="fa fa-tags" aria-hidden="true"></i>
+                                <span>Метатеги</span>
+                            </a>
+                        </li>
+                        <li>
                             <a href="{{ url('/administration/menu') }}">
                                 <i class="fa fa-list-ol"></i>
                                 <span>Меню сайта</span>

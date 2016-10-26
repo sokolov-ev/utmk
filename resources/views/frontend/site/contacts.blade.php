@@ -4,6 +4,12 @@
     {{ trans('index.contacts.title') }}
 @endsection
 
+@section('meta')
+
+    @include('partial.metatags')
+
+@endsection
+
 @section('css')
 
 @endsection

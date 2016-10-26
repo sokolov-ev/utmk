@@ -131,7 +131,7 @@ return [
         'contacts_type.*' => 'Contact type',
 
         'images' => 'Images',
-        'price'  => 'Price',
+        'price.*'  => 'Price',
         'rating' => 'Rating',
 
         'phone' => 'Phone',

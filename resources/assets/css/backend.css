@@ -274,3 +274,9 @@ div.dataTables_length select {
 .up-first {
   text-transform: capitalize;
 }
+
+.catalog-list {
+  counter-reset: li;
+  list-style: outside none none;
+  padding-left: 15px;
+}

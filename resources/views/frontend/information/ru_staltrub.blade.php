@@ -1,38 +1,12 @@
 @extends('layouts.site')
 
 @section('title')
-    Трубы стальные
+    {{ $metatags['title'] }}
 @endsection
 
 @section('meta')
 
-    <meta name="keywords" content="ООО ЮТМК гнутый профиль, арматура,трубы профильные, трубы стальные, трубы профильные бесшовные,трубы бесшовные холоднотянуые, черный металлопрокат, нержавеющий металлопрокат, гнутый швеллер купить,спецсталь, металлопрокат, купить, продам, металл, metallvsem, металлвсем, Швеллер гнутый, швеллер гнутый 09Г2Д, уголок гнутый, уголок гнутый 09Г2Д,  профиль С, профиль Z, Круг нержавеющий,инструментальная сталь, квадрат, круг, балка, швеллер, уголок, лист, труба, катанка, шестигранник, полоса, рельс,купить металл в киеве,дешевый металл, Прокат листовой ,горячекатаные листы, г/к, холоднокатаные листы х/к, профнастил, лист просечно-вытяжной ПВЛ, лист хардокс hardox,Сортовой  металлопрокат, уголок равнополочный, уголок неравнополочный, двутавр,двутавровая балка, балка IPE,Профиль гнутый, корытный профиль,трубы круглого сечения, трубы квадратного сечения , трубы прямоугольного сечения , трубы оцинкованные, 09г2с трубы, электросварные, котельные и бесшовные трубы" />
-
-    <meta name="title" content="Трубы стальные" />
-    <meta name="description" content="Стальные трубы по назначению делятся на разные виды – из всех более популярны круглые или с квадратным и прямоугольным сечением. По праву трубы стальные можно считать универсальным видом металлопроката." />
-
-    <!-- Schema.org markup (Google) -->
-    <meta itemprop="name" content="Трубы стальные">
-    <meta itemprop="description" content="Стальные трубы по назначению делятся на разные виды – из всех более популярны круглые или с квадратным и прямоугольным сечением. По праву трубы стальные можно считать универсальным видом металлопроката.">
-    <meta itemprop="image" content="">
-
-    <!-- Twitter Card markup-->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:site" content="http://metallvsem.com.ua/staltrub">
-    <meta name="twitter:title" content="Трубы стальные">
-    <meta name="twitter:description" content="Стальные трубы по назначению делятся на разные виды – из всех более популярны круглые или с квадратным и прямоугольным сечением. По праву трубы стальные можно считать универсальным видом металлопроката.">
-    <meta name="twitter:creator" content="">
-    <!-- Twitter summary card with large image must be at least 280x150px -->
-    <meta name="twitter:image" content="">
-    <meta name="twitter:image:alt" content="">
-
-    <!-- Open Graph markup (Facebook, Pinterest) -->
-    <meta property="og:title" content="Трубы стальные" />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="http://metallvsem.com.ua/staltrub" />
-    <meta property="og:image" content="" />
-    <meta property="og:description" content="Стальные трубы по назначению делятся на разные виды – из всех более популярны круглые или с квадратным и прямоугольным сечением. По праву трубы стальные можно считать универсальным видом металлопроката." />
-    <meta property="og:site_name" content="Metall Vsem" />
+    @include('partial.metatags')
 
 @endsection
 

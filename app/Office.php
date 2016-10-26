@@ -140,6 +140,8 @@ class Office extends Model
             $temp['longitude']   = $office->longitude;
             $temp['contacts']    = $office->contacts->toArray();
 
+            $temp['updated_at']    = $office->updated_at->getTimestamp();
+
             $result[] = $temp;
         }
 

@@ -48,9 +48,9 @@ Route::group(['middleware' => ['web', 'language']], function () {
     Route::get('/ugolok-gnutyj', ['as' => 'ugolok-gnutyj', 'uses' => 'Frontend\IndexController@ugolokGnutyj']);
     Route::get('/z-obraznyj-profil', ['as' => 'z-obraznyj-profil', 'uses' => 'Frontend\IndexController@obraznyjProfil']);
 
-    Route::get('/home/porezka', ['as' => 'porezka', 'uses' => 'Frontend\IndexController@porezka']);
-    Route::get('/home/upakovka', ['as' => 'upakovka', 'uses' => 'Frontend\IndexController@upakovka']);
-    Route::get('/home/dostavka', ['as' => 'dostavka', 'uses' => 'Frontend\IndexController@dostavka']);
+    Route::get('/porezka', ['as' => 'porezka', 'uses' => 'Frontend\IndexController@porezka']);
+    Route::get('/upakovka', ['as' => 'upakovka', 'uses' => 'Frontend\IndexController@upakovka']);
+    Route::get('/dostavka', ['as' => 'dostavka', 'uses' => 'Frontend\IndexController@dostavka']);
 
 
 
@@ -198,6 +198,9 @@ Route::group(['middleware' => ['admin']], function () {
         Route::post('/administration/moderator', 'Adminauth\AuthController@createModerator');
         Route::put('/administration/moderator', 'Adminauth\AuthController@editModerator');
         Route::delete('/administration/moderator', 'Adminauth\AuthController@deleteModerator');
+
+        Route::get('/administration/metatags/{type?}/{slug?}', 'Backend\MetatagsContraller@index');
+        Route::post('/administration/metatags', 'Backend\MetatagsContraller@add');
 
     // CRUD меню продукции сайта
         // Страница с редактором меню
