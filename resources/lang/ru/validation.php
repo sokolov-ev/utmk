@@ -144,6 +144,12 @@ return [
         'password' => 'Пароль',
         'activity' => 'Активность',
 
+        'mail_username' => 'Имя пользователя',
+        'mail_company'  => 'Компания',
+        'mail_email'    => 'E-mail',
+        'mail_phone'    => 'Телефон',
+        'mail_message'  => 'Сообщение',
+
         // Офисы / Филиалы
         'title_en' => 'Заголовок Англ.',
         'title_ru' => 'Заголовок Рус.',

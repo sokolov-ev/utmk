@@ -3746,7 +3746,7 @@ button {
 .scroller {
   background-color: #fff;
   border-radius: 50%;
-  bottom: 50px;
+  bottom: 100px;
   cursor: pointer;
   display: none;
   height: 32px;
@@ -3758,10 +3758,30 @@ button {
 }
 .scroller i {
   color: #e1704b;
-  font-size: 37px;
+  font-size: 39px;
   left: -1px;
   position: absolute;
-  top: -3px;
+  top: -4px;
+}
+
+.call-me-pleas {
+  background-color: #39a9a4;
+  border-radius: 50%;
+  bottom: 50px;
+  cursor: pointer;
+  height: 40px;
+  position: fixed;
+  right: 21px;
+  transition: all 0.5s ease 0s;
+  width: 40px;
+  z-index: 510;
+}
+.call-me-pleas i {
+  color: #ffffff;
+  font-size: 27px;
+  left: 10px;
+  position: absolute;
+  top: 5px;
 }
 
 .padding-top { padding-top: 100px; }

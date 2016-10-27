@@ -118,6 +118,12 @@ return [
         'password' => 'Password',
         'activity' => 'Activity',
 
+        'mail_username' => 'User Name',
+        'mail_company'  => 'Company',
+        'mail_email'    => 'E-mail',
+        'mail_phone'    => 'Phone',
+        'mail_message'  => 'Message',
+
         // Offices / Branches
         'title_en' => 'Title En.',
         'title_ru' => 'Title Ru.',

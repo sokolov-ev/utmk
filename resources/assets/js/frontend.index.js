@@ -200,7 +200,7 @@ function deleteProduct(id)
 
 /* перемотка в верх */
 $(window).scroll(function () {
-    if ($(this).scrollTop() > 10) {
+    if ($(this).scrollTop() > 40) {
         $('.scroller').fadeIn();
     } else {
         $('.scroller').fadeOut();

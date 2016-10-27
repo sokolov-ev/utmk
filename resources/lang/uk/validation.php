@@ -120,6 +120,12 @@ return [
         'password' => 'Пароль',
         'activity' => 'Активність',
 
+        'mail_username' => "Ім'я користувача",
+        'mail_company'  => 'Компанія',
+        'mail_email'    => 'E-mail',
+        'mail_phone'    => 'Телефон',
+        'mail_message'  => 'Повідомлення',
+
         // Офіси / Філії
         'title_en' => 'Заголовок Англ.',
         'title_ru' => 'Заголовок Рос.',

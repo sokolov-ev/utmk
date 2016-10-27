@@ -16,6 +16,9 @@
 Route::group(['middleware' => ['web', 'language']], function () {
 
     Route::get('/', ['as' => 'index-page', 'uses' => 'Frontend\IndexController@index']);
+
+    Route::post('/call-me-back', 'Frontend\ServiceController@sendSms');
+
     // Route::get('/', ['as' => 'index-page', 'uses' => 'Frontend\IndexController@test']);
 
 // СПРАВОЧНАЯ ИНФОРМАЦИЯ (статика)
@@ -52,13 +55,8 @@ Route::group(['middleware' => ['web', 'language']], function () {
     Route::get('/upakovka', ['as' => 'upakovka', 'uses' => 'Frontend\IndexController@upakovka']);
     Route::get('/dostavka', ['as' => 'dostavka', 'uses' => 'Frontend\IndexController@dostavka']);
 
-
-
     Route::get('/eksport-import-metallicheskih-izdelij', ['as' => 'eksport-import', 'uses' => 'Frontend\IndexController@eksportImport']);
     Route::get('/shirokij-eksport-import-mira', ['as' => 'shirokij-eksport-import', 'uses' => 'Frontend\IndexController@shirokijEksportImport']);
-
-
-
 
     Route::get('/nashi-obemy-prodazh', ['as' => 'nashi-obemy-prodazh', 'uses' => 'Frontend\IndexController@nashiProdazh']);
     Route::get('/ustojchivoe-razvitie-kak-cel', ['as' => 'ustojchivoe-razvitie', 'uses' => 'Frontend\IndexController@ustojchivoeRazvitie']);
@@ -190,6 +188,9 @@ Route::group(['middleware' => ['admin']], function () {
 
     // Зона админа
     Route::group(['middleware' => 'isAdmin'], function() {
+
+        Route::get('/administration/sms', 'Backend\ServiceController@sms');
+        Route::post('/administration/sms/filtering', 'Backend\ServiceController@smsFiltering');
 
         Route::get('/administration/orders/edit', 'Backend\OrdersController@editForm');
 

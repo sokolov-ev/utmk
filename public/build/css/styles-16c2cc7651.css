@@ -1,0 +1,466 @@
+@import url(//fonts.googleapis.com/css?family=Lato:100,100italic,300,300italic,regular,italic,700,700italic,900,900italic|PT+Sans:regular,italic,700,700italic|Roboto:100,100italic,300,300italic,regular,italic,500,500italic,700,700italic,900,900italic|Roboto+Slab:100,300,regular,700&subset=latin,latin-ext,cyrillic,vietnamese,cyrillic-ext,greek-ext,greek);
+
+body {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    padding: 0;
+    margin: 0;
+    overflow-x: hidden;
+    position: relative;
+}
+
+.logo-contacts {
+  margin: 10px 20px;
+}
+.section-padding {
+  display: inline-block;
+  padding-bottom: 100px;
+}
+
+.scroller {
+  bottom: 50px;
+  right: 25px;
+  transition: all 0.5s ease 0s;
+  cursor: pointer;
+  position: fixed;
+  z-index: 500;
+  display: none;
+}
+.scroller i {
+  color: #e1704b;
+  font-size: 37px;
+}
+
+.welcome {
+  padding-bottom: 100px;
+}
+.welcome-text {
+  color: #333333;
+  font-family: "Roboto",sans-serif;
+  font-size: 60px;
+  font-style: normal;
+  font-weight: 300;
+  letter-spacing: 0;
+  line-height: 1;
+  padding-bottom: 100px;
+}
+.welcome-card img {
+  height: auto;
+  width: 100%;
+  padding-bottom: 20px;
+}
+.welcome-card p {
+  text-align: justify;
+  color: #999;
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 1.4;
+}
+.welocme-cartd-title {
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.1;
+  text-transform: uppercase;
+  color: #333;
+  text-decoration: none;
+  padding-bottom: 20px;
+  display: block;
+}
+.welocme-cartd-title:hover {
+  color: #e1704b;
+  text-decoration: none;
+}
+.welocme-cartd-more {
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.1;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #e1704b;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  display: block;
+}
+.welocme-cartd-more:hover {
+  color: #39a9a4;
+  text-decoration: none;
+}
+.welcome-card a > span {
+  position: relative;
+  top: -3px;
+}
+
+.green-section {
+  color: #fff;
+  background-color: #39a9a4;
+  font-family: "Roboto",sans-serif;
+  font-style: normal;
+  letter-spacing: 0;
+}
+
+.green-section-title {
+  font-size: 20px;
+  line-height: 1.1;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+.green-section-body {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.4;
+  padding-bottom: 20px;
+}
+.green-section-block {
+  padding-bottom: 10px;
+}
+/* Стили Шамова Дмитрия, главное меню */
+.navbar-collapse {
+  padding: 0;
+  z-index: 100;
+}
+@media(max-width:767px) {
+  .navbar-collapse {
+    position: absolute;
+    width: 100%;
+    background-color: #333;
+  }
+}
+.b-btn {
+  color: #fff;
+  border-radius: 0;
+  background-color: #e1704b;
+  float: none;
+  padding: 0;
+  margin: 10px;
+}
+.b-btn:focus {
+  color: #fff;
+}
+.fa.fa-bars {
+  position: relative;
+  display: inline-block;
+  margin: 12px 18px;
+}
+.b-fixed__nav {
+  border: none;
+  margin-bottom: 0;
+}
+.b-fixed__nav.active {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 500;
+}
+
+ul.b-nav,
+ul.b-menu__sub {
+  list-style: none;
+}
+
+.b-nav {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  background-color: #eee;
+}
+@media(max-width:767px) {
+  .b-nav {
+    background-color: #333;
+  }
+}
+.b-nav > .active {
+  color: #e1704b;
+  background-color: #333;
+}
+.b-nav > .active > a {
+  color: #e1704b;
+}
+.b-nav > li {
+  position: relative;
+  position: relative;
+}
+@media(max-width:767px) {
+  .b-nav > li {
+    display: block;
+  }
+
+  .b-nav > li + li {
+    border-top: 1px solid #1a1a1a;
+  }
+}
+.b-nav > li > a {
+  color: #333;
+  display: block;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  padding: 0 37px;
+  text-decoration: none;
+  font-family: "Roboto",sans-serif;
+  line-height: 80px;
+  text-transform: uppercase;
+}
+.b-nav > li > a:hover,
+.b-nav > li > a:focus {
+  color: #e1704b;
+  background-color: #333;
+}
+@media(max-width:1160px) {
+  .b-nav > li > a {
+    font-size: 17px;
+    padding: 0 25px;
+    line-height: 65px;
+  }
+}
+@media(max-width:767px) {
+  .b-nav > li > a {
+    color: #fff;
+    font-size: 16px;
+    line-height: 35px;
+    padding: 0 15px;
+    text-align: left;
+  }
+}
+.b-nav > li:hover {
+  color: #e1704b;
+  background-color: #333;
+}
+.b-nav > li:hover .b-menu__sub.level1 {
+  display: block;
+}
+.b-nav > li:hover > a {
+  color: #e1704b;
+}
+.b-menu__sub {
+  z-index: 10;
+  padding: 0;
+  display: none;
+  min-width: 210px;
+  position: absolute;
+  white-space: nowrap;
+  padding: 20px 0 20px 0;
+  background-color: #333;
+}
+@media(max-width:767px) {
+  .b-menu__sub {
+    padding: 0;
+    display: block;
+    position: static;
+  }
+}
+.b-menu__sub > li {
+  position: relative;
+}
+.b-menu__sub > li > a {
+  color: #fff;
+  display: block;
+  padding: 0 20px;
+  font-size: 14px;
+  line-height: 40px;
+  position: relative;
+  text-decoration: none;
+}
+.b-menu__sub > li > a .icon {
+  top: 50%;
+  right: 10px;
+  font-weight: 300;
+  position: absolute;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+@media(max-width:767px) {
+  .b-menu__sub > li > a .icon {
+    display: none;
+  }
+}
+.b-menu__sub > li > a:hover {
+  color: #ffffff;
+  text-decoration: none;
+  background-color: #39a9a4;
+}
+.b-menu__sub.level1 {
+  left: 0;
+  top: 100%;
+}
+@media(max-width:767px) {
+  .b-menu__sub.level1 {
+    padding-left: 15px;
+  }
+}
+.b-menu__sub.level2 {
+  top: 0;
+  left: 100%;
+}
+@media(max-width:767px) {
+  .b-menu__sub.level2 {
+    padding-left: 20px;
+  }
+}
+.b-menu__sub.level1 > li:hover .b-menu__sub.level2 {
+  display: block;
+}
+.w-nav {
+  position: relative;
+}
+@media(max-width:767px) {
+  .w-nav {
+    padding: 10px;
+    background-color: #eee;
+  }
+}
+.w-nav .b-btn {
+  margin: 0 auto;
+}
+.w-nav.open .b-nav {
+  display: block;
+  margin-top: 10px;
+  margin-bottom: -10px;
+}
+.w-navbar__header {
+  text-align: center;
+}
+.w-navbar__header .b-btn {
+  float: none;
+}
+@media(max-width:767px) {
+  .w-navbar__header {
+    background-color: #eee;
+  }
+}
+/* /Стили Шамова Дмитрия, главное меню */
+.carousel-fade .carousel-inner .item {
+  -webkit-transition-property: opacity;
+  transition-property: opacity;
+}
+.carousel-fade .carousel-inner .item,
+.carousel-fade .carousel-inner .active.left,
+.carousel-fade .carousel-inner .active.right {
+  opacity: 0;
+}
+.carousel-fade .carousel-inner .active,
+.carousel-fade .carousel-inner .next.left,
+.carousel-fade .carousel-inner .prev.right {
+  opacity: 1;
+}
+.carousel-fade .carousel-inner .next,
+.carousel-fade .carousel-inner .prev,
+.carousel-fade .carousel-inner .active.left,
+.carousel-fade .carousel-inner .active.right {
+  left: 0;
+  -webkit-transform: translate3d(0, 0, 0);
+          transform: translate3d(0, 0, 0);
+}
+
+.carousel-indicators {
+  left: 20%;
+  position: absolute;
+  text-align: left;
+  top: 70%;
+  width: 150px;
+  bottom: 0;
+  margin-left: 0;
+  padding-left: 0;
+}
+@media(max-width:1039px) {
+  .carousel-indicators {
+    left: 10%;
+    top: 65%;
+  }
+}
+@media(max-width:767px) {
+  .carousel-indicators {
+    left: 15%;
+    top: 65%;
+  }
+}
+
+.carousel-indicators li {
+  border-radius: 50%;
+  display: inline-block;
+  font-size: 0;
+  height: 14px;
+  margin: 0 4px;
+  text-align: center;
+  width: 14px;
+  background-color: #e1704b;
+  border: none;
+}
+@media(max-width:767px) {
+  .carousel-indicators li {
+    height: 10px;
+    width: 10px;
+  }
+}
+.carousel-indicators li.active {
+  background-color: #fff;
+  height: 14px;
+  width: 14px;
+  margin: 0 4px;
+}
+@media(max-width:767px) {
+  .carousel-indicators li.active {
+    height: 10px;
+    width: 10px;
+  }
+}
+
+.ci_caption {
+  left: 20%;
+  text-align: left;
+  top: 60%;
+  transform: translateY(-50%);
+  width: 60%;
+
+  color: #fff;
+  font-family: "Roboto",sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  text-decoration: none;
+
+  bottom: 0;
+  margin: 0;
+  padding: 0;
+}
+@media(max-width:1024px) {
+  .ci_caption {
+    left: 10%;
+    top: 50%;
+    width: 70%;
+  }
+}
+@media(max-width:767px) {
+  .ci_caption {
+    left: 15%;
+    top: 45%;
+    width: 80%;
+  }
+}
+@media(max-width:480px) {
+  .ci_caption {
+    left: 15%;
+    top: 40%;
+    width: 80%;
+  }
+}
+
+.ci_caption span {
+  font-size: 60px;
+  line-height: 1;
+}
+@media(max-width:1039px) {
+  .ci_caption span {
+    font-size: 34px;
+  }
+}
+@media(max-width:767px) {
+  .ci_caption span {
+    font-size: 25px;
+  }
+}
+@media(max-width:479px) {
+  .ci_caption span {
+    font-size: 15px;
+  }
+}
+/*# sourceMappingURL=styles.css.map */

@@ -146,6 +146,12 @@ desired effect
                             </ul>
                         </li>
                         <li>
+                            <a href="{{ url('/administration/sms') }}">
+                                <i class="fa fa-commenting-o" aria-hidden="true"></i>
+                                <span>TurboSMS</span>
+                            </a>
+                        </li>
+                        <li>
                             <a href="{{ url('/administration/offices/index') }}">
                                 <i class="fa fa-cubes"></i>
                                 <span>Филиалы</span>

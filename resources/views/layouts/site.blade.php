@@ -32,7 +32,11 @@
     <meta name="theme-color" content="#ffffff">
 
     <!-- Fonts -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
+    {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.0/css/font-awesome.min.css" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
+
+ --}}
+    <link rel="stylesheet" href="https://use.fontawesome.com/0dbe2628bf.css">
+
 
     <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
     <!-- Ionicons -->
@@ -126,11 +130,6 @@
             </div>
         </div>
 
-
-
-
-
-
 </section>
 
 <header id="w-sticker">
@@ -170,6 +169,10 @@
 
 </header>
 
+<div class="flash-messages">
+    @include('partial.flash-messages')
+</div>
+
     @yield('content')
 
     @include('partial.footer')
@@ -178,6 +181,12 @@
 
     @include('partial.shopping-cart-form')
     @include('partial.shopping-cart-product')
+
+    @include('partial.call-me')
+
+<a href="#" class="call-me-pleas" data-toggle="modal" data-target="#call-me-back-modal">
+    <i class="fa fa-volume-control-phone" aria-hidden="true"> </i>
+</a>
 
 <div class="scroller">
     <i class="fa fa-arrow-circle-up" aria-hidden="true"></i>

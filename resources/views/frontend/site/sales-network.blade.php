@@ -69,12 +69,12 @@
                 center: {lat: 49.027500, lng: 31.482778},
                 // disableDefaultUI: true,
                 scrollwheel: false,
-                styles: [{
-                    featureType: "poi",
-                    stylers: [
-                        { visibility: "off" }
-                    ]
-                }]
+                // styles: [{
+                //     featureType: "poi",
+                //     stylers: [
+                //         { visibility: "off" }
+                //     ]
+                // }]
             };
 
         function initMap() {
@@ -88,7 +88,7 @@
                     map: map,
                     anchorPoint: new google.maps.Point(0, -29),
 
-                    label: text,
+                    label: text[0],
                     title: text,
                 });
 

@@ -12,6 +12,8 @@ use Mail;
 use Validator;
 use JsValidator;
 
+use TurboSms;
+
 use App\Office;
 use App\Metatags;
 
@@ -480,11 +482,11 @@ class IndexController extends Controller
     public function contacts()
     {
         $addValidator = JsValidator::make([
-                'username' => 'string|min:3',
-                'company'  => 'required|string|min:3',
-                'email'    => 'required|email',
-                'phone'    => 'required|string',
-                'message'  => 'string',
+                'mail_username' => 'string|min:3',
+                'mail_company'  => 'required|string|min:3',
+                'mail_email'    => 'required|email',
+                'mail_phone'    => 'required|string',
+                'mail_message'  => 'string',
             ],
             [],
             [],
@@ -504,29 +506,27 @@ class IndexController extends Controller
         $data = $request->all();
 
         $validator = Validator::make($data, [
-            'username' => 'string|min:3',
-            'company'  => 'required|string|min:3',
-            'email'    => 'required|email',
-            'phone'    => 'required|string',
-            'message'  => 'string',
+            'mail_username' => 'string|min:3',
+            'mail_company'  => 'required|string|min:3',
+            'mail_email'    => 'required|email',
+            'mail_phone'    => 'required|string',
+            'mail_message'  => 'string',
         ]);
 
         if ($validator->fails()) {
             session()->flash('error', trans('index.contacts.error-send'));
 
-            $this->throwValidationException(
-                $request, $validator
-            );
+            return redirect(url()->previous())->withErrors($validator)->withInput();
         }
 
         $data['msg'] = $data['message'];
 
-        $sent = Mail::send('emails.contacts', $data, function($message) use ($data)
-        {
-            $message->to('metallvsem@ukr.net')->subject('Связатся с нами - '.$data['company']);
-        });
+        // $sent = Mail::send('emails.contacts', $data, function($message) use ($data)
+        // {
+        //     $message->to('metallvsem@ukr.net')->subject('Связатся с нами - '.$data['company']);
+        // });
 
-        if ($sent) {
+        if (false) {
             session()->flash('info', trans('index.contacts.success-send'));
         } else {
             session()->flash('error', trans('index.contacts.error-send'));

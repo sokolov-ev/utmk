@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "e20222df718916551e21e8ba70fa0b8e",
-    "content-hash": "4e01b98bb32fc43b92aa3f5155f2d167",
+    "hash": "cb557573b1374225758420a6a26034ec",
+    "content-hash": "e67c3ee962da2eaa4988cd747d8b9e20",
     "packages": [
         {
             "name": "classpreloader/classpreloader",
@@ -160,6 +160,51 @@
                 "string"
             ],
             "time": "2015-11-06 14:35:42"
+        },
+        {
+            "name": "evheniys/turbosms",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/evheniys/laravel-turbosms.git",
+                "reference": "f30bc1e17ed514169f3e6390c41164f518fa794f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/evheniys/laravel-turbosms/zipball/f30bc1e17ed514169f3e6390c41164f518fa794f",
+                "reference": "f30bc1e17ed514169f3e6390c41164f518fa794f",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "5.*",
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Evheniys\\Turbosms\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ieghenii Shapoval",
+                    "email": "evheniys@gmail.com",
+                    "homepage": "http://shapoval.info",
+                    "role": "Developer"
+                }
+            ],
+            "description": "TurboSMS API wrapper for sending sms text messages for Laravel 5.",
+            "keywords": [
+                "api",
+                "laravel",
+                "sms",
+                "turbosms"
+            ],
+            "time": "2015-03-29 19:49:53"
         },
         {
             "name": "guzzlehttp/psr7",
@@ -3393,7 +3438,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "evheniys/turbosms": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

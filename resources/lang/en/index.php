@@ -73,4 +73,6 @@ return [
     ],
 
     'not-found' => ':name not found',
+    'enter-phone' => 'Enter your phone number',
+    'enter-phone-notif' => 'The phone number should be in the international format, for example: 38 093 000 00 00',
 ];

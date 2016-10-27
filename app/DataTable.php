@@ -128,5 +128,22 @@ class DataTable extends Model
     }
     // *SECTION ORDERS
 
+    public static function getOrderSms($data)
+    {
+        return ["turbo_sms_send.".$data['columns'][ $data['order'][0]['column'] ]['data'], $data['order'][0]['dir']];
+    }
+
+    public static function getSearchSms($data)
+    {
+        $result = [];
+
+        foreach ($data['columns'] as $column) {
+            if ($column['search']['value'] != '') {
+                $result[] = [$column['data'], "LIKE", '%'.$column['search']['value'].'%'];
+            }
+        }
+
+        return $result;
+    }
 
 }

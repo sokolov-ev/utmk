@@ -164,6 +164,8 @@ return [
         Proengsoft\JsValidation\JsValidationServiceProvider::class,
 
         Intervention\Image\ImageServiceProvider::class,
+
+        Evheniys\Turbosms\TurbosmsServiceProvider::class,
     ],
 
     /*
@@ -212,6 +214,8 @@ return [
 
         'JsValidator' => Proengsoft\JsValidation\Facades\JsValidatorFacade::class,
         'Image' => Intervention\Image\Facades\Image::class,
+
+        'TurboSms' => Evheniys\Turbosms\Facades\Turbosms::class,
     ],
 
 ];

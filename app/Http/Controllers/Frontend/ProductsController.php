@@ -23,14 +23,13 @@ class ProductsController extends Controller
     {
         if (empty($request->get('format')) || ($request->get('format') == 'cards')) {
             $format = 'cards';
-            $count  = 20;
         } else {
             $format = 'list';
-            $count  = 9;
         }
 
-        $page = $request->input('page') - 1;
-        $page = empty($page) ? 0 : $count * $page;
+        $count = 9;
+        $page  = $request->input('page') - 1;
+        $page  = empty($page) ? 0 : $count * $page;
 
         if (empty($id)) {
             $products = Products::where([['show_my', '1']])->orderBy('rating', 'DESC')->take($count)->get();
@@ -47,8 +46,8 @@ class ProductsController extends Controller
         }
 
         // преобразование данных для отображения
-        $result  = Products::viewDataJson($products);
-        $offices = Office::getOffices();
+        $result   = Products::viewDataJson($products);
+        $offices  = Office::getOffices();
         $metatags = Metatags::getViewData($metatags);
 
         return view('frontend.products.index', [
@@ -110,7 +109,7 @@ class ProductsController extends Controller
         $page = $request->input('page')-1;
 
         $count = 9;
-        $page  = empty($page) ? 0 : $count*$page;
+        $page  = empty($page) ? 0 : $count * $page;
         // top products
         $where = [['show_my', '1']];
 

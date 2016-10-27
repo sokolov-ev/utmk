@@ -7,39 +7,52 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
 use App;
-use Auth;
-use App\Admin;
-use App\User;
-use App\Office;
+use App\Sendsms;
+use App\DataTable;
 
 class ServiceController extends Controller
 {
-    // отключил AJAX загрузку списка модераторов
-    // public function getModerators()
-    // {
-    //     $result = [];
-    //     $role = Admin::getRoleTable();
-    //     $status = Admin::getStatus();
-    //     $moderators = Admin::all();
+    public function sms()
+    {
+        $sms = Sendsms::all();
 
-    //     foreach ($moderators as $key => $moderator) {
-    //         $moderator->buttons  = '
-    //             <button class="btn btn-default btn-sm"><i class="fa fa-pencil" aria-hidden="true"></i></button>
-    //             <button class="btn btn-danger btn-sm"
-    //                     data-target=".delete-moderator"
-    //                     data-toggle="modal"
-    //                     data-id="'.$moderator->id.'"
-    //                     data-name="'.$moderator->username.'">
-    //                 <i class="fa fa-trash-o" aria-hidden="true"></i>
-    //             </button>';
-    //         $moderator->role = $role[$moderator->role];
-    //         $moderator->status = empty($moderator->status) ? '<i class="text-danger">(нет данных)</i>' : $status[$moderator->status];
-    //         $moderator->activity = empty($moderator->activity) ? '<i class="text-danger">(нет данных)</i>' : date('H:i d-m-Y', +$moderator->activity);
-    //         $moderator->date_created = date('d-m-Y', $moderator->created_at->getTimestamp());
-    //         $result[] = $moderator;
-    //     }
+        return view('backend.admin.sms', [
+            'sms' => $sms,
+        ]);
+    }
 
-    //     return '{"data":'.json_encode($result, JSON_UNESCAPED_UNICODE).'}';
-    // }
+    public function smsFiltering(Request $request)
+    {
+        $count = empty($request->get("length")) ? 20 : $request->get("length");
+        $page  = $count * $request->get("start");
 
+        list($orderName, $orderDir) = DataTable::getOrderSms($request->all());
+        $where = DataTable::getSearchSms($request->all());
+
+        $sendsms = Sendsms::where($where)->orderBy($orderName, $orderDir)->take($count)->skip($page)->get();
+
+        $result = [];
+        $totalData = Sendsms::count();
+        $totalFiltered = $totalData;
+
+        foreach ($sendsms as $sms) {
+            $temp['id'] = (string) $sms->id;
+            $temp['date_sent'] = $sms->date_sent;
+            $temp['text'] = $sms->text;
+            $temp['message'] = $sms->message;
+            $temp['status'] = $sms->status ? 'Да' : 'Нет';
+
+            $result[] = $temp;
+        }
+
+        $totalFiltered = count($result);
+
+        return response()->json([
+            "status" => "ok",
+            "draw" => $request->get("draw"),
+            "recordsTotal" => (string) $totalData,
+            "recordsFiltered" => (string) $totalFiltered,
+            "data" => $result,
+        ]);
+    }
 }

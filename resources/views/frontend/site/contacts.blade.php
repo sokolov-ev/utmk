@@ -18,10 +18,6 @@
 
 <section class="container sales-title text-center">
 
-    <div class="flash-messages">
-        @include('partial.flash-messages')
-    </div>
-
     <div class="padding-top"></div>
     <div class="wow slideInRight">
         <h1 class="welcome-text">{{ trans('index.contacts.title') }}</h1>
@@ -31,52 +27,52 @@
     <form id="contacts-form" class="contacts-form" role="form" method="POST" action="{{ url('/contacts') }}">
         {{ csrf_field() }}
 
-        <div class="form-group{{ $errors->has('username') ? ' has-error' : '' }}">
-            <input id="username" type="text" class="form-control" name="username" value="{{ old('username') }}" placeholder="{{ trans('auth.username') }}">
+        <div class="form-group{{ $errors->has('mail_username') ? ' has-error' : '' }}">
+            <input id="mail_username" type="text" class="form-control" name="mail_username" value="{{ old('mail_username') }}" placeholder="{{ trans('auth.username') }}">
 
-            @if ($errors->has('username'))
+            @if ($errors->has('mail_username'))
                 <span class="help-block text-left">
-                    <strong>{{ $errors->first('username') }}</strong>
+                    <strong>{{ $errors->first('mail_username') }}</strong>
                 </span>
             @endif
         </div>
 
-        <div class="form-group{{ $errors->has('company') ? ' has-error' : '' }}">
-            <input id="company" type="text" class="form-control" name="company" value="{{ old('company') }}" placeholder="{{ trans('auth.company') }} *" required="">
+        <div class="form-group{{ $errors->has('mail_company') ? ' has-error' : '' }}">
+            <input id="mail_company" type="text" class="form-control" name="mail_company" value="{{ old('mail_company') }}" placeholder="{{ trans('auth.company') }} *" required="">
 
-            @if ($errors->has('company'))
+            @if ($errors->has('mail_company'))
                 <span class="help-block text-left">
-                    <strong>{{ $errors->first('company') }}</strong>
+                    <strong>{{ $errors->first('mail_company') }}</strong>
                 </span>
             @endif
         </div>
 
-        <div class="form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
-            <input id="phone" type="text" class="form-control" name="phone" value="{{ old('phone') }}" placeholder="{{ trans('auth.phone') }} *" required="">
+        <div class="form-group{{ $errors->has('mail_phone') ? ' has-error' : '' }}">
+            <input id="mail_phone" type="text" class="form-control" name="mail_phone" value="{{ old('mail_phone') }}" placeholder="{{ trans('auth.phone') }} *" required="">
 
-            @if ($errors->has('phone'))
+            @if ($errors->has('mail_phone'))
                 <span class="help-block text-left">
-                    <strong>{{ $errors->first('phone') }}</strong>
+                    <strong>{{ $errors->first('mail_phone') }}</strong>
                 </span>
             @endif
         </div>
 
-        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-            <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" placeholder="{{ trans('auth.email-address') }} *" required="">
+        <div class="form-group{{ $errors->has('mail_email') ? ' has-error' : '' }}">
+            <input id="mail_email" type="email" class="form-control" name="mail_email" value="{{ old('mail_email') }}" placeholder="{{ trans('auth.email-address') }} *" required="">
 
-            @if ($errors->has('email'))
+            @if ($errors->has('mail_email'))
                 <span class="help-block text-left">
-                    <strong>{{ $errors->first('email') }}</strong>
+                    <strong>{{ $errors->first('mail_email') }}</strong>
                 </span>
             @endif
         </div>
 
-        <div class="form-group{{ $errors->has('message') ? ' has-error' : '' }}">
-            <textarea id="message" name="message" class="form-control" placeholder="{{ trans('index.contacts.message') }}" rows="4">{{ old('message') }}</textarea>
+        <div class="form-group{{ $errors->has('mail_message') ? ' has-error' : '' }}">
+            <textarea id="mail_message" name="mail_message" class="form-control" placeholder="{{ trans('index.contacts.message') }}" rows="4">{{ old('mail_message') }}</textarea>
 
-            @if ($errors->has('message'))
+            @if ($errors->has('mail_message'))
                 <span class="help-block">
-                    <strong>{{ $errors->first('message') }}</strong>
+                    <strong>{{ $errors->first('mail_message') }}</strong>
                 </span>
             @endif
         </div>
