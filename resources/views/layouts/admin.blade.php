@@ -162,7 +162,7 @@ desired effect
                         <li>
                             <a href="{{ url('/administration/menu') }}">
                                 <i class="fa fa-list-ol"></i>
-                                <span>Меню сайта</span>
+                                <span>Каталог продукции</span>
                             </a>
                         </li>
                     @else
