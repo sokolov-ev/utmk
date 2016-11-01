@@ -20,12 +20,12 @@ class ServiceController extends Controller
         $text = preg_replace('~\D~', '', $text);
 
         if (!empty($text) && strlen($text) < 25) {
-            $status = TurboSms::send('Перезвоните мне: '.$text, '380930877809');
+            $status = TurboSms::send('Перезвоните мне: '.$text, '380989371555');
 
             $sms = new Sendsms();
             $sms->date_sent = date('Y-m-d H:i');
             $sms->text      = $text;
-            $sms->phone     = '380930877809';
+            $sms->phone     = '380989371555';
 
             if ($status === true) {
                 $sms->message = 'Сообщение успешно отправлено.';

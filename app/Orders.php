@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Auth;
 
 class Orders extends Model
 {
@@ -94,5 +95,18 @@ class Orders extends Model
         }
 
         return $result;
+    }
+
+    public static function isLocked()
+    {
+        if (Auth::guard(null)->check()) {
+            $order = Orders::where([['user_id', Auth::guard(null)->user()->id], ['formed', 0]])->first();
+
+            if (!empty($order) && !empty($order->office_id)) {
+                return $order->office_id;
+            }
+        }
+
+        return false;
     }
 }

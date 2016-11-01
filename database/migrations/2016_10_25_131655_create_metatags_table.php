@@ -16,9 +16,10 @@ class CreateMetatagsTable extends Migration
             $table->increments('id');
             $table->string('type');
             $table->string('slug');
-            $table->string('keywords');
-            $table->string('title');
-            $table->string('description');
+            $table->text('keywords');
+            $table->text('title');
+            $table->text('description');
+            $table->text('articles');
             $table->integer('created_at');
             $table->integer('updated_at');
         });

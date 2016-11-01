@@ -32,8 +32,8 @@
 
                         <div class="col-md-6">
                             <select name="edit_office_id" id="edit_office_id" class="form-control">
-                                @foreach($offices as $key => $office)
-                                    <option value="{{ $key }}">{{ $office }}</option>
+                                @foreach($offices as $office)
+                                    <option value="{{ $office['id'] }}">{{ json_decode($office['city'], true)['ru'] }}</option>
                                 @endforeach
                             </select>
 

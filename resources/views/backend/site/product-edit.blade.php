@@ -341,9 +341,11 @@
         @for($i = 1; $i < count( old('price', $prices['price']) ); $i++)
             <div class="form-group{{ $errors->has('price.'.$i) ? ' has-error' : '' }}">
                 <div class="flex">
-                    <?php $id    = empty($prices['id'][$i]) ? '' : $prices['id'][$i] ?>
-                    <?php $price = empty($prices['price'][$i]) ? '' : $prices['price'][$i] ?>
-                    <?php $type  = empty($prices['type'][$i]) ? 'piece' : $prices['type'][$i] ?>
+                    <?php
+                      $id    = empty($prices['id'][$i]) ? '' : $prices['id'][$i];
+                      $price = empty($prices['price'][$i]) ? '' : $prices['price'][$i];
+                      $type  = empty($prices['type'][$i]) ? 'piece' : $prices['type'][$i];
+                    ?>
                     <input type="hidden" name="price_id[]" value="{{ old('price_id.'.$i, $id) }}">
                     <div>
                         <input type="text"

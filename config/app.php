@@ -162,9 +162,7 @@ return [
         */
 
         Proengsoft\JsValidation\JsValidationServiceProvider::class,
-
         Intervention\Image\ImageServiceProvider::class,
-
         Evheniys\Turbosms\TurbosmsServiceProvider::class,
     ],
 

@@ -521,17 +521,21 @@ class IndexController extends Controller
 
         $data['msg'] = $data['message'];
 
-        // $sent = Mail::send('emails.contacts', $data, function($message) use ($data)
-        // {
-        //     $message->to('metallvsem@ukr.net')->subject('Связатся с нами - '.$data['company']);
-        // });
+        $sent = Mail::send('emails.contacts', $data, function($message) use ($data){
+            $message->to('metallvsem@ukr.net')->subject('Связатся с нами - '.$data['company']);
+        });
 
-        if (false) {
+        if ($sent) {
             session()->flash('info', trans('index.contacts.success-send'));
         } else {
             session()->flash('error', trans('index.contacts.error-send'));
         }
 
         return redirect(url()->previous());
+    }
+
+    public function test(Request $request)
+    {
+        var_dump($request->all());
     }
 }

@@ -58,10 +58,14 @@
             </div>
 
             <div class="col-md-3 col-sm-5 col-xs-12 padding-block-1-1">
-                <select id="product-city" name="product-city" class="form-control">
+                @if($ordersLocked)
+                    <select id="product-city" name="product-city" class="form-control" disabled="">
+                @else
+                    <select id="product-city" name="product-city" class="form-control">
+                @endif
                     <option value="">{{ trans('products.select-city') }}...</option>
-                    @foreach($offices as $id => $name)
-                        <option value="{{ $id }}">{{ $name }}</option>
+                    @foreach($offices as $office)
+                        <option value="{{ $office['id'] }}">{{ json_decode($office['city'], true)[App::getLocale()] }}</option>
                     @endforeach
                 </select>
             </div>
@@ -96,6 +100,26 @@
 
     <div class="row">
         <div class="col-md-3 col-sm-12 col-xs-12" style="padding: 0;">
+            <div class="padding-block-0-1">
+                @if($ordersLocked)
+                    <select id="filter-city" name="filter-city" class="form-control" disabled="">
+                @else
+                    <select id="filter-city" name="filter-city" class="form-control">
+                @endif
+                    @foreach($offices as $office)
+                        @if($office['id'] == $filterCity)
+                            <option value="{{ $office['id'] }}" data-city="{{ json_decode($office['city'], true)['en'] }}" selected="">
+                                {{ json_decode($office['city'], true)[App::getLocale()] }}
+                            </option>
+                        @else
+                            <option value="{{ $office['id'] }}" data-city="{{ json_decode($office['city'], true)['en'] }}">
+                                {{ json_decode($office['city'], true)[App::getLocale()] }}
+                            </option>
+                        @endif
+                    @endforeach
+                </select>
+            </div>
+
             <div class="products-menu-block">
                 <div class="menu-selected hidden" data-id="{{ $menu_id }}"> </div>
                 <ul class="list-unstyled catalog" id="catalog-content"> </ul>
@@ -105,11 +129,11 @@
         <div class="col-md-9 col-sm-12 col-xs-12">
 
             <div class="row products-cards">
-                @if (empty($products))
+                @if (empty($result))
                     <div class="col-md-12 col-sm-12 col-xs-12 card text-center font-up text-black-h2">{{ trans('products.products-missing') }}</div>
                 @endif
 
-                @foreach ($products as $product)
+                @foreach ($result as $product)
                     <?php $price = current($product['prices']); ?>
                     @if($format == 'cards')
                         <div class="col-md-4 col-sm-4 col-xs-12 card">
@@ -164,7 +188,29 @@
         </div>
     </div>
 
-    <div id="pagination" class="text-center"> </div>
+    <div class="row">
+        <div class="col-md-3 col-sm-12 col-xs-12"> </div>
+        <div class="col-md-9 col-sm-12 col-xs-12">
+            <div class="text-center default-pagination">
+                @if (!empty($menu_id))
+                    {{ $products->render() }}
+                @endif
+            </div>
+            <div id="pagination" class="text-center"> </div>
+        </div>
+    </div>
+
+    @if(!empty($metatags['articles']))
+        <div class="row articles">
+            <div class="col-md-3 col-sm-12 col-xs-12"> </div>
+            <div class="col-md-9 col-sm-12 col-xs-12">
+                <span class="text-gray-16 text-justify">
+                    {{ $metatags['articles'] }}
+                </span>
+            </div>
+        </div>
+    @endif
+
     <div class="first hidden">{{ trans('pagination.first') }}</div>
     <div class="last hidden">{{ trans('pagination.last') }}</div>
     <div class="format hidden">{{ $format }}</div>

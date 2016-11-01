@@ -18,18 +18,22 @@
                 <dd>{{ date("Y-m-d H:i", $order->created_at->getTimestamp()) }}</dd>
                 <dt>Общая стоимость:</dt>
                 <dd><strong class="order-id" data-id="{{ $order->id }}">{{ $order->total_cost }}</strong> грн</dd>
-                <dt>Клиент:</dt>
-                <dd>{{ $order->user->username }}</dd>
-                <dt>Контакты:</dt>
-                <dd>{{ $order->user->phone }}<br/>{{ $order->user->email }}</dd>
-                @if ($order->contacts)
-                    <dt>Доп. контакты:</dt>
-                    <dd>{{ $order->contacts }}</dd>
+
+                @if(($isAdmin) || ($order->manager_id == $manager->id))
+                    <dt>Клиент:</dt>
+                    <dd>{{ $order->user->username }}</dd>
+                    <dt>Контакты:</dt>
+                    <dd>{{ $order->user->phone }}<br/>{{ $order->user->email }}</dd>
+                    @if ($order->contacts)
+                        <dt>Доп. контакты:</dt>
+                        <dd>{{ $order->contacts }}</dd>
+                    @endif
+                    @if ($order->wish)
+                        <dt>Пожелания:</dt>
+                        <dd>{{ $order->wish }}</dd>
+                    @endif
                 @endif
-                @if ($order->wish)
-                    <dt>Пожелания:</dt>
-                    <dd>{{ $order->wish }}</dd>
-                @endif
+
                 @if ( ($isAdmin) && ($order->manager_id) )
                     <br/>
                     <dt>Менеджер:</dt>

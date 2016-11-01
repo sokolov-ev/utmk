@@ -49,7 +49,7 @@ class AuthController extends Controller
         $role     = Admin::getRoleTable();
         $roleForm = Admin::getRole();
         $status   = Admin::getStatus();
-        $offices  = Office::getOffices();
+        $offices  = Office::select('id', 'city')->get();
 
         $addValidator = JsValidator::make([
                 'username' => 'required|string|min:3',

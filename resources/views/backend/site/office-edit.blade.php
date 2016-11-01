@@ -315,9 +315,11 @@
                             @for($i = 1; $i < count( old('contacts_data', $contacts['data']) ); $i++)
                                 <div class="form-group{{ $errors->has('contacts_data.'.$i) ? ' has-error' : '' }}">
                                     <div class="flex">
-                                        <?php $id = empty($contacts['id'][$i]) ? '' : $contacts['id'][$i] ?>
-                                        <?php $data = empty($contacts['data'][$i]) ? '' : $contacts['data'][$i] ?>
-                                        <?php $type = empty($contacts['type'][$i]) ? 'mobile' : $contacts['type'][$i] ?>
+                                        <?php
+                                            $id = empty($contacts['id'][$i]) ? '' : $contacts['id'][$i];
+                                            $data = empty($contacts['data'][$i]) ? '' : $contacts['data'][$i];
+                                            $type = empty($contacts['type'][$i]) ? 'mobile' : $contacts['type'][$i];
+                                        ?>
                                         <input type="hidden" id="" name="contacts_id[]" value="{{ old('contacts_id.'.$i, $id) }}">
                                         <div>
                                             <select id="" name="contacts_type[]" class="form-control contacts-type">

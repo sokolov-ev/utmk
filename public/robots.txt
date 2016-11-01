@@ -1,2 +1,9 @@
 User-agent: *
-Disallow:
+Disallow: /login
+Disallow: /logout
+Disallow: /register
+Disallow: /password/reset
+Disallow: /password/email
+Disallow: /my-room/cart
+Disallow: /my-room/formed-orders
+Host: metallvsem.com.ua

@@ -129,9 +129,6 @@ Route::group(['middleware' => ['web', 'language']], function () {
 });
 
 
-
-
-
 // БЕКЕНД
 
 Route::get('/administration/login','Adminauth\AuthController@showLoginForm');
@@ -145,12 +142,6 @@ Route::group(['middleware' => ['admin']], function () {
     Route::get('/administration/logout','Adminauth\AuthController@logout');
 
     Route::get('/administration', 'Backend\EmployeeController@view');
-
-    Route::get('/administration/clients', 'Backend\ClientsController@index');
-    Route::put('/administration/clients', 'Backend\ClientsController@edit');
-    Route::delete('/administration/clients', 'Backend\ClientsController@delete');
-
-    Route::post('/administration/clients/filtering', 'Backend\ClientsController@filtering');
 
 // CRUD продукции и изображений продукции
     Route::get('/administration/products', 'Backend\ProductsController@index');
@@ -188,6 +179,12 @@ Route::group(['middleware' => ['admin']], function () {
 
     // Зона админа
     Route::group(['middleware' => 'isAdmin'], function() {
+
+        Route::get('/administration/clients', 'Backend\ClientsController@index');
+        Route::put('/administration/clients', 'Backend\ClientsController@edit');
+        Route::delete('/administration/clients', 'Backend\ClientsController@delete');
+
+        Route::post('/administration/clients/filtering', 'Backend\ClientsController@filtering');
 
         Route::get('/administration/sms', 'Backend\ServiceController@sms');
         Route::post('/administration/sms/filtering', 'Backend\ServiceController@smsFiltering');

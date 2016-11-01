@@ -75,7 +75,7 @@ class ClientsController extends Controller
     public function filtering(Request $request)
     {
         $count = empty($request->get("length")) ? 10 : $request->get("length");
-        $page  = $count * $request->get("start");
+        $page  = $request->get("start");
 
         list($orderName, $orderDir) = DataTable::getOrderClients($request->all());
         $where = DataTable::getSearchClients($request->all());
@@ -109,8 +109,8 @@ class ClientsController extends Controller
         return response()->json([
             "status" => "ok",
             "draw" => $request->get("draw"),
-            "recordsTotal" => (string) $totalData,
-            "recordsFiltered" => (string) $totalFiltered,
+            "recordsTotal" => (string) $totalFiltered,
+            "recordsFiltered" => (string) $totalData,
             "data" => $result,
         ]);
     }

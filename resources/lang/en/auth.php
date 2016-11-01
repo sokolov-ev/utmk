@@ -39,7 +39,7 @@ return [
 
     'more-contacts' => 'More contacts',
     'my-office' => 'My office',
-    'not-auth' => 'You are not authorized',
+    'not-auth' => 'Authentication is required to perform this action.',
 
     // ну да! такое уже есть, но звучит по другому)
     'password-reset' => 'Password reset',

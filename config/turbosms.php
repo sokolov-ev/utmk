@@ -5,9 +5,9 @@
  *
  */
 return array (
-    'login' => 'UserHall',
-    'password' => 'gfho3UiyrFvzM7zPn0Ze',
-    'sender' => 'ReserveHall',
+    'login' => 'MetUser',
+    'password' => 'dL4Kt6nxt3XpSvYvOyn4',
+    'sender' => 'InfoNomer',
     'debug' => false,
-    'default_sender' => 'pika',
+    'default_sender' => 'InfoNomer',
 );

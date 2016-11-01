@@ -69,11 +69,9 @@
         </div>
         <div class="row">
             <div class="col-md-3 col-sm-3 col-xs-12">
-                {{-- <div class="padding-block-2-0"> --}}
-                    <div class="logotype">
-                        <img src="/images/logo.jpeg" title="Metall Vsem" alt="Metall Vsem" />
-                    </div>
-                {{-- </div> --}}
+                <a href="{{ url('/') }}" class="logotype">
+                    <img src="/images/logo.jpeg" title="Metall Vsem" alt="Metall Vsem" />
+                </a>
             </div>
             <div class="col-md-6 col-sm-9 col-xs-12 text-center">
 
@@ -84,7 +82,7 @@
                             </div>
                             <div class="padding-vert-15 text-left" style="max-width: 195px;">
                                 <span class="text-gray-contact">+38 (044) 502-50-45</span><br/>
-                                <span class="text-gray-contact">+38 (044) 503-50-46</span>
+                                <span class="text-gray-contact">+38 (044) 503-50-45</span>
                             </div>
                         </div>
                     </div>
@@ -184,13 +182,34 @@
 
     @include('partial.call-me')
 
-<a href="#" class="call-me-pleas" data-toggle="modal" data-target="#call-me-back-modal">
-    <i class="fa fa-volume-control-phone" aria-hidden="true"> </i>
-</a>
 
-<div class="scroller">
-    <i class="fa fa-arrow-circle-up" aria-hidden="true"></i>
-</div>
+    <div id="info-modal" class="modal fade" aria-labelledby="label-info-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" aria-label="Close" data-dismiss="modal" type="button">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <h4 id="label-info-modal" class="modal-title">{{ trans('products.info') }}</h4>
+                </div>
+
+                <div class="modal-body"> </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-default" type="button" data-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <a href="#" class="call-me-pleas" data-toggle="modal" data-target="#call-me-back-modal">
+        <i class="fa fa-volume-control-phone" aria-hidden="true"> </i>
+    </a>
+    <div class="gps_ring"> </div>
+
+    <div class="scroller">
+        <i class="fa fa-arrow-circle-up" aria-hidden="true"></i>
+    </div>
 
     <!-- Start SiteHeart code -->
     <script>

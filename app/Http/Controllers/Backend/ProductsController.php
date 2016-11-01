@@ -62,7 +62,7 @@ class ProductsController extends Controller
     public function filtering(Request $request)
     {
         $count = empty($request->get("length")) ? 10 : $request->get("length");
-        $page  = $count * $request->get("start");
+        $page  = $request->get("start");
         $isAdmin = Auth::guard('admin')->user()->role == Admin::ROLE_ADMIN;
 
         list($orderName, $orderDir) = DataTable::getOrderProducts($request->all());
@@ -113,8 +113,8 @@ class ProductsController extends Controller
         return response()->json([
             "status" => "ok",
             "draw" => $request->get("draw"),
-            "recordsTotal" => (string) $totalData,
-            "recordsFiltered" => (string) $totalFiltered,
+            "recordsTotal" => (string) $totalFiltered,
+            "recordsFiltered" => (string) $totalData,
             "data" => $result,
         ]);
     }

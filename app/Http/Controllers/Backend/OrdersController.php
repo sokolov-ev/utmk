@@ -31,15 +31,20 @@ class OrdersController extends Controller
     public function filtering(Request $request)
     {
         $count = empty($request->get("length")) ? 10 : $request->get("length");
-        $page  = $count * $request->get("start");
+        $page  = $request->get("start");
+
         $isAdmin = Auth::guard('admin')->user()->role == Admin::ROLE_ADMIN;
         $orderStatus = Orders::getStatus();
 
         list($orderName, $orderDir) = DataTable::getOrderOrders($request->all());
         $where = DataTable::getSearchOrders($request->all());
 
+        if (!$isAdmin) {
+            $where[] = ['orders.office_id', Auth::guard('admin')->user()->office_id];
+        }
+
         $orders = DB::table('orders')
-                      ->select('orders.*', 'users.username AS user', 'admins.username AS moderator', 'offices.city AS office') //
+                      ->select('orders.*', 'users.username AS user', 'admins.username AS moderator', 'offices.city AS office')
                       ->join('users', 'users.id', '=', 'orders.user_id')
                       ->leftJoin('offices', 'offices.id', '=', 'orders.office_id')
                       ->leftJoin('admins', 'admins.id', '=', 'orders.manager_id')
@@ -90,8 +95,8 @@ class OrdersController extends Controller
         return response()->json([
             "status" => "ok",
             "draw" => $request->get("draw"),
-            "recordsTotal" => (string) $totalData,
-            "recordsFiltered" => (string) $totalFiltered,
+            "recordsTotal" => (string) $totalFiltered,
+            "recordsFiltered" => (string) $totalData,
             "data" => $result,
         ]);
     }
@@ -99,9 +104,15 @@ class OrdersController extends Controller
     public function view($id)
     {
         $order = Orders::findOrFail($id);
+        $manager = Auth::guard('admin')->user();
+        $isAdmin = $manager->role == Admin::ROLE_ADMIN;
+
+        if ((!$isAdmin) && ($order->office_id != Auth::guard('admin')->user()->office_id)) {
+            return response(view('errors.403'), 403);
+        }
+
         $products = $order->products()->get();
         $products = Products::viewDataJson($products);
-        $isAdmin  = Auth::guard('admin')->user()->role == Admin::ROLE_ADMIN;
 
         if ($order->manager_id) {
             $office = Office::find($order->manager->office_id);
@@ -114,18 +125,19 @@ class OrdersController extends Controller
             'products' => $products,
             'isAdmin' => $isAdmin,
             'office'  => $office,
+            'manager' => $manager,
         ]);
     }
 
     public function getShoppingCart($id)
     {
         if (Auth::guard('admin')->user()->role == Admin::ROLE_ADMIN) {
-            $where = [];
+            $where = [['id', $id], ['formed', 1]];
         } else {
-            $where = ['manager_id', Auth::guard('admin')->user()->id];
+            $where = [['id', $id], ['formed', 1], ['manager_id', Auth::guard('admin')->user()->id]];
         }
 
-        $order = Orders::where([['id', $id], ['formed', 1]])->where($where)->first();
+        $order = Orders::where($where)->first();
 
         if (empty($order)) {
             return response()->json(['status' => 'bad', 'message' => 'Заказ не найден.']);
@@ -146,12 +158,12 @@ class OrdersController extends Controller
         $priceId = $request->input('price');
 
         if (Auth::guard('admin')->user()->role == Admin::ROLE_ADMIN) {
-            $where = [];
+            $where = [['id', $orderId], ['formed', 1]];
         } else {
-            $where = ['manager_id', Auth::guard('admin')->user()->id];
+            $where = [['id', $orderId], ['formed', 1], ['manager_id', Auth::guard('admin')->user()->id]];
         }
 
-        $order = Orders::where([['id', $orderId], ['formed', 1]])->where($where)->first();
+        $order = Orders::where($where)->first();
 
         if (empty($order) || empty($bonds) || empty($count) || empty($priceId)) {
             return response()->json(['status' => 'bad', 'message' => 'Заказ не найден.']);
@@ -166,9 +178,10 @@ class OrdersController extends Controller
         $attitude->quantity = $count;
         $attitude->price_id = $priceId;
 
-        $order = $this->calculateSum($order);
+        if ($attitude->update()) {
+            $order = $this->calculateSum($order);
+            $order->save();
 
-        if ($attitude->update() && $order->save()) {
             return response()->json(['status' => 'ok', 'data' => $order->total_cost]);
         } else {
             return response()->json(['status' => 'bad']);

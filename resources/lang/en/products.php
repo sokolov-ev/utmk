@@ -27,6 +27,7 @@ return [
     'wish' => 'Wish',
 
     'order-not-found' => 'Order not found',
+    'order-complete' => 'Order formed',
 
     'measures' => [
         'piece' => 'piece',
@@ -37,4 +38,7 @@ return [
 
     'list' => 'List',
     'cards' => 'Cards',
+
+    'info' => 'Info',
+    'first-product' => 'Due to the technical peculiarities of the site you can add the products only of a particular branch. To add the products from other company you should finish the current order and add the products you are interested in to a new order.',
 ];

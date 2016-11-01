@@ -23,8 +23,8 @@ class ServiceController extends Controller
 
     public function smsFiltering(Request $request)
     {
-        $count = empty($request->get("length")) ? 20 : $request->get("length");
-        $page  = $count * $request->get("start");
+        $count = empty($request->get("length")) ? 10 : $request->get("length");
+        $page  = $request->get("start");
 
         list($orderName, $orderDir) = DataTable::getOrderSms($request->all());
         $where = DataTable::getSearchSms($request->all());
@@ -50,8 +50,8 @@ class ServiceController extends Controller
         return response()->json([
             "status" => "ok",
             "draw" => $request->get("draw"),
-            "recordsTotal" => (string) $totalData,
-            "recordsFiltered" => (string) $totalFiltered,
+            "recordsTotal" => (string) $totalFiltered,
+            "recordsFiltered" => (string) $totalData,
             "data" => $result,
         ]);
     }

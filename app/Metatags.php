@@ -15,7 +15,7 @@ class Metatags extends Model
      * @var array
      */
     protected $fillable = [
-        'type', 'slug', 'keywords', 'title', 'description'
+        'type', 'slug', 'keywords', 'title', 'description', 'articles'
     ];
 
     /**
@@ -44,6 +44,7 @@ class Metatags extends Model
             $metatags->keywords = '{"en":"","ru":"","uk":""}';
             $metatags->title = '{"en":"","ru":"","uk":""}';
             $metatags->description = '{"en":"","ru":"","uk":""}';
+            $metatags->articles = '{"en":"","ru":"","uk":""}';
         }
 
         $result['type'] = $metatags->type;
@@ -63,6 +64,11 @@ class Metatags extends Model
         $result['description_en'] = $description['en'];
         $result['description_ru'] = $description['ru'];
         $result['description_uk'] = $description['uk'];
+
+        $articles = json_decode($metatags->articles, true);
+        $result['articles_en'] = $articles['en'];
+        $result['articles_ru'] = $articles['ru'];
+        $result['articles_uk'] = $articles['uk'];
 
         return $result;
     }
@@ -93,6 +99,11 @@ class Metatags extends Model
         $array['uk'] = $data['description_uk'];
         $metatags->description = json_encode($array, JSON_UNESCAPED_UNICODE);
 
+        $array['en'] = $data['articles_en'];
+        $array['ru'] = $data['articles_ru'];
+        $array['uk'] = $data['articles_uk'];
+        $metatags->articles = json_encode($array, JSON_UNESCAPED_UNICODE);
+
         if ($metatags->save()) {
             return $metatags;
         } else {
@@ -105,13 +116,15 @@ class Metatags extends Model
         $result = [];
 
         if (empty($data)) {
-            $result['keywords'] = '';
-            $result['title'] = '';
+            $result['keywords']    = '';
+            $result['title']       = '';
             $result['description'] = '';
+            $result['articles']    = '';
         } else {
-            $result['keywords'] = json_decode($data->keywords, true)[App::getLocale()];
-            $result['title'] = json_decode($data->title, true)[App::getLocale()];
+            $result['keywords']    = json_decode($data->keywords, true)[App::getLocale()];
+            $result['title']       = json_decode($data->title, true)[App::getLocale()];
             $result['description'] = json_decode($data->description, true)[App::getLocale()];
+            $result['articles']    = json_decode($data->articles, true)[App::getLocale()];
         }
 
         return $result;

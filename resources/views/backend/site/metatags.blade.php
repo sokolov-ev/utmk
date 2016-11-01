@@ -341,6 +341,106 @@
                             </div>
                         </div>
 
+{{-- Статьи --}}
+                @if ($metatags['type'] == 'menu')
+                    <div class="catalog">
+                @else
+                    <div class="catalog hidden">
+                @endif
+                    <div class="form-group{{ ($errors->has('articles_en') || $errors->has('articles_ru') || $errors->has('articles_uk')) ? ' has-error' : '' }}" style="margin-bottom: 0;">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label class="control-label tab-articles" for="articles">Статья</label>
+                            </div>
+                            <div class="col-md-8 customize-tab">
+                                <ul class="nav nav-pills pull-right customize-tab" role="tablist">
+                                    <li role="presentation">
+                                        <a id="articles_en-tab"
+                                           class="tab-nice{{ $errors->has('articles_en') ? ' has-error-label' : '' }}"
+                                           href="#articles_en-body"
+                                           role="tab"
+                                           data-toggle="tab"
+                                           aria-controls="articles_en"
+                                           aria-expanded="true">
+                                            Английский
+                                        </a>
+                                    </li>
+                                    <li class="active" role="presentation">
+                                        <a id="articles_ru-tab"
+                                           class="tab-nice{{ $errors->has('articles_ru') ? ' has-error-label' : '' }}"
+                                           href="#articles_ru-body"
+                                           role="tab"
+                                           data-toggle="tab"
+                                           aria-controls="articles_ru">
+                                            Русский
+                                        </a>
+                                    </li>
+                                    <li role="presentation">
+                                        <a id="articles_uk-tab"
+                                           class="tab-nice{{ $errors->has('articles_uk') ? ' has-error-label' : '' }}"
+                                           href="#articles_uk-body"
+                                           role="tab"
+                                           data-toggle="tab"
+                                           aria-controls="articles_uk">
+                                            Украинский
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="tabarticles" class="tab-content">
+                        <div id="articles_en-body" class="tab-pane fade" role="tabpanel" aria-labelledby="articles_en-tab">
+                            <div class="form-group{{ $errors->has('articles_en') ? ' has-error' : '' }}">
+                                <textarea id="articles_en"
+                                          name="articles_en"
+                                          class="form-control"
+                                          placeholder="Английский"
+                                          rows="4">{{ old('articles_en', $metatags['articles_en']) }}</textarea>
+
+                                @if ($errors->has('articles_en'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('articles_en') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                        <div id="articles_ru-body" class="tab-pane fade in active" role="tabpanel" aria-labelledby="articles_ru-tab">
+                            <div class="form-group{{ $errors->has('articles_ru') ? ' has-error' : '' }}">
+                                <textarea id="articles_ru"
+                                          name="articles_ru"
+                                          class="form-control"
+                                          placeholder="Русский"
+                                          rows="4">{{ old('articles_ru', $metatags['articles_ru']) }}</textarea>
+
+                                @if ($errors->has('articles_ru'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('articles_ru') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                        <div id="articles_uk-body" class="tab-pane fade" role="tabpanel" aria-labelledby="articles_uk-tab">
+                            <div class="form-group{{ $errors->has('articles_ru') ? ' has-error' : '' }}">
+                                <textarea id="articles_uk"
+                                          name="articles_uk"
+                                          class="form-control"
+                                          placeholder="Украинский"
+                                          rows="4">{{ old('articles_uk', $metatags['articles_uk']) }}</textarea>
+
+                                @if ($errors->has('articles_uk'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('articles_uk') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+{{-- /Статьи --}}
+
                         <button class="btn btn-success pull-right" type="submit">
                             Добавить
                         </button>

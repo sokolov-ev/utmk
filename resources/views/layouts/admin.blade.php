@@ -171,13 +171,6 @@ desired effect
                                 <span>Каталог продукции</span>
                             </a>
                         </li>
-                    @else
-                        <li>
-                            <a href="{{ url('/administration/clients') }}">
-                                <i class="fa fa-users"></i>
-                                <span>Клиенты</span>
-                            </a>
-                        </li>
                     @endif
                     <li>
                         <a href="{{ url('/administration/products') }}">
