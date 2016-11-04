@@ -20,7 +20,7 @@
 
     <div class="padding-top"></div>
     <div class="wow fadeInRight">
-        <h1 class="welcome-text text-center">Дымовые котельные трубы</h1>
+        <h1 class="welcome-text text-center">Трубы котельные</h1>
     </div>
     <div class="padding-top"></div>
 

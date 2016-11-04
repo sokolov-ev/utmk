@@ -12,7 +12,7 @@ class Admin extends Authenticatable
 
     const ROLE_ADMIN = 'Admin';
     const ROLE_MODERATOR = 'Moderator';
-    const ROLE_SENIOR_MANAGER = 'SeniorModerator';
+    const ROLE_SEO = 'SEO';
 
     /**
      * The attributes that are mass assignable.
@@ -36,7 +36,6 @@ class Admin extends Authenticatable
 
     public function office()
     {
-        // return $this->belongsTo('App\Office', 'office_id', 'id');
         return $this->hasOne('App\Office', 'id', 'office_id');
     }
 
@@ -45,7 +44,7 @@ class Admin extends Authenticatable
         return [
                 self::ROLE_ADMIN => 'Администратор',
                 self::ROLE_MODERATOR => 'Менеджер',
-                self::ROLE_SENIOR_MANAGER => 'Старший менеджер',
+                self::ROLE_SEO => 'СЕО',
             ];
     }
 
@@ -53,7 +52,7 @@ class Admin extends Authenticatable
     {
         return [
                 self::ROLE_MODERATOR => 'Менеджер',
-                self::ROLE_SENIOR_MANAGER => 'Старший менеджер',
+                self::ROLE_SEO => 'СЕО',
             ];
     }
 

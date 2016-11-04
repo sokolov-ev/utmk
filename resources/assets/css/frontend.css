@@ -108,7 +108,6 @@ button {
     100% {-webkit-transform: scale(1.2, 1.2); opacity: 0.0;}
 }
 
-
 .padding-top { padding-top: 100px; }
 @media(max-width: 1024px) {
   .padding-top { padding-top: 30px; }

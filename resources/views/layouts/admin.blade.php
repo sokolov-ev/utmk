@@ -86,18 +86,21 @@ desired effect
                 <!-- Navbar Right Menu -->
                 <div class="navbar-custom-menu">
                     <ul class="nav navbar-nav">
-                        <!-- Messages: style can be found in dropdown.less-->
-                        <li class="dropdown messages-menu">
-                            <!-- Menu toggle button -->
-                            <a href="{{ url('/administration/orders?status=1') }}">
-                                <i class="fa fa-file-text-o"></i>
-                                @if ($unprocessed_orders > 0)
-                                    <span class="label label-danger">{{ $unprocessed_orders }}</span>
-                                @endif
-                            </a>
 
-                        </li>
-                        <!-- /.messages-menu -->
+                        @if (Auth::guard('admin')->user()->role != 'SEO')
+                            <!-- Messages: style can be found in dropdown.less-->
+                            <li class="dropdown messages-menu">
+                                <!-- Menu toggle button -->
+                                <a href="{{ url('/administration/orders?status=1') }}">
+                                    <i class="fa fa-file-text-o"></i>
+                                    @if ($unprocessed_orders > 0)
+                                        <span class="label label-danger">{{ $unprocessed_orders }}</span>
+                                    @endif
+                                </a>
+
+                            </li>
+                            <!-- /.messages-menu -->
+                        @endif
 
                         <!-- User Account Menu -->
                         <li class="dropdown user user-menu">
@@ -158,7 +161,6 @@ desired effect
                             </a>
                         </li>
                         <li class="header">FRONTEND</li>
-                        <!-- Optionally, you can add icons to the links -->
                         <li>
                             <a href="{{ url('/administration/metatags') }}">
                                 <i class="fa fa-tags" aria-hidden="true"></i>
@@ -171,19 +173,53 @@ desired effect
                                 <span>Каталог продукции</span>
                             </a>
                         </li>
+                        <li>
+                            <a href="{{ url('/administration/products') }}">
+                                <i class="fa fa-shopping-cart"></i>
+                                <span>Продукция</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ url('/administration/orders') }}">
+                                <i class="fa fa-file-text-o"></i>
+                                <span>Заказы</span>
+                            </a>
+                        </li>
                     @endif
-                    <li>
-                        <a href="{{ url('/administration/products') }}">
-                            <i class="fa fa-shopping-cart"></i>
-                            <span>Продукция</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ url('/administration/orders') }}">
-                            <i class="fa fa-file-text-o"></i>
-                            <span>Заказы</span>
-                        </a>
-                    </li>
+                    @if (Auth::guard('admin')->user()->role == 'Moderator')
+                        <li>
+                            <a href="{{ url('/administration/products') }}">
+                                <i class="fa fa-shopping-cart"></i>
+                                <span>Продукция</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ url('/administration/orders') }}">
+                                <i class="fa fa-file-text-o"></i>
+                                <span>Заказы</span>
+                            </a>
+                        </li>
+                    @endif
+                    @if (Auth::guard('admin')->user()->role == 'SEO')
+                        <li>
+                            <a href="{{ url('/administration/metatags') }}">
+                                <i class="fa fa-tags" aria-hidden="true"></i>
+                                <span>Метатеги</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ url('/administration/menu') }}">
+                                <i class="fa fa-list-ol"></i>
+                                <span>Каталог продукции</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ url('/administration/products') }}">
+                                <i class="fa fa-shopping-cart"></i>
+                                <span>Продукция</span>
+                            </a>
+                        </li>
+                    @endif
                 </ul>
                 <!-- /.sidebar-menu -->
             </section>

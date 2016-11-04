@@ -138,52 +138,43 @@ Route::post('/administration/login','Adminauth\AuthController@postLogin');
 // Route::get('/administration/register','Adminauth\AuthController@showRegistrationForm');
 // Route::post('/administration/register','Adminauth\AuthController@postRegister');
 
-Route::group(['middleware' => ['admin']], function () {
-    Route::get('/administration/logout','Adminauth\AuthController@logout');
+Route::group(['middleware' => ['adminAuth']], function () {
 
+    Route::get('/administration/logout','Adminauth\AuthController@logout');
     Route::get('/administration', 'Backend\EmployeeController@view');
 
 // CRUD продукции и изображений продукции
     Route::get('/administration/products', 'Backend\ProductsController@index');
     Route::get('/administration/products/get/{id}', 'Backend\ProductsController@getProduct');
-
     Route::get('/administration/products/view', 'Backend\ProductsController@view');
-
     Route::get('/administration/product/add', 'Backend\ProductsController@addForm');
     Route::post('administration/product/add', 'Backend\ProductsController@add');
-
     Route::get('/administration/product/edit/{id}', 'Backend\ProductsController@editForm');
     Route::put('/administration/product/edit/{id}', 'Backend\ProductsController@edit');
-
     Route::delete('/administration/products', 'Backend\ProductsController@delete');
-
     Route::get('/administration/product/img/download/{id}', 'Backend\ProductsController@downloadImg');
     Route::post('/administration/product/img/sort', 'Backend\ProductsController@sortImg');
     Route::post('/administration/product/img/delete', 'Backend\ProductsController@deleteImg');
-
     Route::post('/administration/products/filtering', 'Backend\ProductsController@filtering');
 
+    Route::group(['middleware' => 'adminPermision:Admin,Moderator'], function() {
     // CRUD заказов
-    Route::get('/administration/orders', 'Backend\OrdersController@index');
-    Route::post('/administration/orders/filtering', 'Backend\OrdersController@filtering');
-
-    Route::get('/administration/orders/view/{id}', 'Backend\OrdersController@view');
-
-    Route::get('/administration/orders/get/{id}', 'Backend\OrdersController@getShoppingCart');
-    Route::post('/administration/orders/change-product', 'Backend\OrdersController@changeProduct');
-
-    Route::post('/administration/orders/delete', 'Backend\OrdersController@deleteProduct');
-
-    Route::get('/administration/orders/accept/{id}', 'Backend\OrdersController@accept');
-    Route::get('/administration/orders/closed/{id}', 'Backend\OrdersController@closed');
+        Route::get('/administration/orders', 'Backend\OrdersController@index');
+        Route::post('/administration/orders/filtering', 'Backend\OrdersController@filtering');
+        Route::get('/administration/orders/view/{id}', 'Backend\OrdersController@view');
+        Route::get('/administration/orders/get/{id}', 'Backend\OrdersController@getShoppingCart');
+        Route::post('/administration/orders/change-product', 'Backend\OrdersController@changeProduct');
+        Route::post('/administration/orders/delete', 'Backend\OrdersController@deleteProduct');
+        Route::get('/administration/orders/accept/{id}', 'Backend\OrdersController@accept');
+        Route::get('/administration/orders/closed/{id}', 'Backend\OrdersController@closed');
+    });
 
     // Зона админа
-    Route::group(['middleware' => 'isAdmin'], function() {
+    Route::group(['middleware' => 'adminPermision:Admin'], function() {
 
         Route::get('/administration/clients', 'Backend\ClientsController@index');
         Route::put('/administration/clients', 'Backend\ClientsController@edit');
         Route::delete('/administration/clients', 'Backend\ClientsController@delete');
-
         Route::post('/administration/clients/filtering', 'Backend\ClientsController@filtering');
 
         Route::get('/administration/sms', 'Backend\ServiceController@sms');
@@ -197,9 +188,20 @@ Route::group(['middleware' => ['admin']], function () {
         Route::put('/administration/moderator', 'Adminauth\AuthController@editModerator');
         Route::delete('/administration/moderator', 'Adminauth\AuthController@deleteModerator');
 
-        Route::get('/administration/metatags/{type?}/{slug?}', 'Backend\MetatagsContraller@index');
-        Route::post('/administration/metatags', 'Backend\MetatagsContraller@add');
+    // CRUD филиалов
+        Route::get('/administration/offices/index/{id?}', 'Backend\OfficesController@getAll');
+        Route::get('/administration/offices/get/{id}', 'Backend\OfficesController@getOffice');
 
+        Route::get('/administration/offices/add', 'Backend\OfficesController@addFormOffice');
+        Route::post('/administration/offices/add', 'Backend\OfficesController@addOffice');
+
+        Route::get('/administration/offices/edit/{id}', 'Backend\OfficesController@editFormOffice');
+        Route::post('/administration/offices/edit/{id}', 'Backend\OfficesController@editOffice');
+
+        Route::delete('/administration/offices','Backend\OfficesController@deleteOffice');
+    });
+
+    Route::group(['middleware' => 'adminPermision:Admin,SEO'], function() {
     // CRUD меню продукции сайта
         // Страница с редактором меню
         Route::get('/administration/menu', function(){
@@ -218,16 +220,7 @@ Route::group(['middleware' => ['admin']], function () {
         // Удалить пункт меню
         Route::delete('/administration/menu', 'Backend\MenuController@deleteMenu');
 
-    // CRUD филиалов
-        Route::get('/administration/offices/index/{id?}', 'Backend\OfficesController@getAll');
-        Route::get('/administration/offices/get/{id}', 'Backend\OfficesController@getOffice');
-
-        Route::get('/administration/offices/add', 'Backend\OfficesController@addFormOffice');
-        Route::post('/administration/offices/add', 'Backend\OfficesController@addOffice');
-
-        Route::get('/administration/offices/edit/{id}', 'Backend\OfficesController@editFormOffice');
-        Route::post('/administration/offices/edit/{id}', 'Backend\OfficesController@editOffice');
-
-        Route::delete('/administration/offices','Backend\OfficesController@deleteOffice');
+        Route::get('/administration/metatags/{type?}/{slug?}', 'Backend\MetatagsContraller@index');
+        Route::post('/administration/metatags', 'Backend\MetatagsContraller@add');
     });
 });

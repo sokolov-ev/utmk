@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 
 use App;
+use App\Contacts;
 
 class Office extends Model
 {

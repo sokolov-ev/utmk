@@ -16,7 +16,7 @@ class SiteMap extends Command
      *
      * @var string
      */
-    protected $signature = 'site-map';
+    protected $signature = 'sitemap';
 
     /**
      * The console command description.
@@ -47,11 +47,11 @@ class SiteMap extends Command
             if ($article['slug'] == 'home') {
                 $url .= '<url><loc>'.url('/').'</loc>';
                 $url .= '<lastmod>'.date(DATE_W3C, $article['updated_at']).'</lastmod>';
-                $url .= '<changefreq>daily</changefreq><priority>0.9</priority></url>';
+                $url .= '<changefreq>weekly</changefreq><priority>0.9</priority></url>';
             } else {
                 $url .= '<url><loc>'.url('/').'/'.$article['slug'].'</loc>';
                 $url .= '<lastmod>'.date(DATE_W3C, $article['updated_at']).'</lastmod>';
-                $url .= '<changefreq>daily</changefreq><priority>0.9</priority></url>';
+                $url .= '<changefreq>weekly</changefreq><priority>0.9</priority></url>';
             }
 
             $sitemap .= $url;
@@ -62,7 +62,7 @@ class SiteMap extends Command
 
             $url .= '<url><loc>'.url('/').'/office/'.$office['city'].'/'.$office['id'].'</loc>';
             $url .= '<lastmod>'.date(DATE_W3C, $office['updated_at']).'</lastmod>';
-            $url .= '<changefreq>daily</changefreq><priority>0.9</priority></url>';
+            $url .= '<changefreq>weekly</changefreq><priority>0.9</priority></url>';
 
             $sitemap .= $url;
         }
@@ -77,7 +77,7 @@ class SiteMap extends Command
                 $url .= empty($title['en']) ? '' : '<xhtml:link rel="alternate" hreflang="en" href="'.$link.'?lang=en" />';
                 $url .= empty($title['uk']) ? '' : '<xhtml:link rel="alternate" hreflang="uk" href="'.$link.'?lang=uk" />';
                 $url .= '<lastmod>'.date(DATE_W3C, $item->updated_at->getTimestamp()).'</lastmod>';
-                $url .= '<changefreq>daily</changefreq><priority>0.9</priority></url>';
+                $url .= '<changefreq>weekly</changefreq><priority>0.9</priority></url>';
 
                 $sitemap .= $url;
             }
@@ -92,15 +92,15 @@ class SiteMap extends Command
             $url .= empty($title['en']) ? '' : '<xhtml:link rel="alternate" hreflang="en" href="'.$link.'?lang=en" />';
             $url .= empty($title['uk']) ? '' : '<xhtml:link rel="alternate" hreflang="uk" href="'.$link.'?lang=uk" />';
             $url .= '<lastmod>'.date(DATE_W3C, $product['updated_at']).'</lastmod>';
-            $url .= '<changefreq>daily</changefreq><priority>0.9</priority></url>';
+            $url .= '<changefreq>weekly</changefreq><priority>0.9</priority></url>';
 
             $sitemap .= $url;
         }
 
         $sitemap .= '</urlset>';
 
-        file_put_contents('public/sitemap.xml', $sitemap);
-        // file_put_contents('/home/sokolov/www/restaurants/frontend/web/sitemap.xml', $sitemap);
+        // file_put_contents('public/sitemap.xml', $sitemap);
+        file_put_contents('/home/metallvs/metallvsem.com.ua/www/public/sitemap.xml', $sitemap);
 
         return true;
     }

@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Admin;
 
-class RedirectIfNotAdmin
+class RedirectIfNotAdminAuth
 {
     /**
      * Handle an incoming request.
