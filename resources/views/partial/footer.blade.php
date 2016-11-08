@@ -140,10 +140,20 @@
                 <div class="pull-right text-right">
                     <p class="footer-title">{{ trans('index.footer.contact') }}</p>
 
-                    <div class="row footer-contacts">
+                    <div class="row footer-contacts footer-link-block">
                         @foreach ($office_contacts['contacts'] as $contact)
                             <div class="col-md-7 col-sm-8 col-xs-6 text-right">{{ $contact['type'] }}:</div>
-                            <div class="col-md-5 col-sm-4 col-xs-6 text-right">{{ $contact['data'] }}</div>
+                            @if (in_array($contact['work_type'], ['mobile', 'phone', 'accounting-tel']))
+                                <div class="col-md-5 col-sm-4 col-xs-6 text-right">
+                                    <a href="tel:{{ preg_replace('~\D+~','',$contact['data']) }}">{{ $contact['data'] }}</a>
+                                </div>
+                            @elseif ($contact['work_type'] == 'email')
+                                <div class="col-md-5 col-sm-4 col-xs-6 text-right">
+                                    <a href="mailto:{{ $contact['data'] }}">{{ $contact['data'] }}</a>
+                                </div>
+                            @else
+                                <div class="col-md-5 col-sm-4 col-xs-6 text-right">{{ $contact['data'] }}</div>
+                            @endif
                         @endforeach
                     </div>
 

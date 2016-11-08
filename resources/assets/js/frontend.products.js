@@ -144,7 +144,7 @@ function viewProducts(response, id) {
             $('.products-cards').append(Mustache.render(template, item));
         });
 
-        if (response.count < pageSize) {
+        if (response.count <= pageSize) {
             $('#pagination').twbsPagination('destroy');
         } else {
             $('.default-pagination').addClass('hidden');
@@ -156,6 +156,8 @@ function viewProducts(response, id) {
         $('.products-cards').append('<div class="col-md-12 col-sm-12 col-xs-12 card text-center font-up text-black-h2">' + response.message + '</div>');
         $('#pagination').twbsPagination('destroy');
     }
+
+    $('.articles').addClass('hidden');
 }
 
 function changeUrl(title, url) {

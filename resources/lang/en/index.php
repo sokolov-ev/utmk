@@ -3,6 +3,8 @@
 return [
     'menu' => [
         'home' => 'Home',
+        'services' => 'Services',
+        'blog' => 'Blog',
 
         'information' => [
             'cutting' => 'Cutting',
@@ -43,6 +45,7 @@ return [
         'company_profile' => 'Company Profile',
         'products' => 'Products',
         'network_of_offices' => 'Network Of Offices',
+        'network_of_offices_h1' => 'A network of offices selling rolled metal products in Ukraine',
         'contact_us' => 'Contact Us',
     ],
 
@@ -75,4 +78,6 @@ return [
     'not-found' => ':name not found',
     'enter-phone' => 'Enter your phone number',
     'enter-phone-notif' => 'Enter your phone number and we will call you back.',
+
+    'read-more' => 'Read more',
 ];

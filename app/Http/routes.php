@@ -13,13 +13,11 @@
 
 // ФРОНТЕНД
 
-Route::group(['middleware' => ['web', 'language']], function () {
+Route::group(['middleware' => ['web', 'language', 'redirect-www']], function () {
 
     Route::get('/', ['as' => 'index-page', 'uses' => 'Frontend\IndexController@index']);
 
     Route::post('/call-me-back', 'Frontend\ServiceController@sendSms');
-
-    // Route::get('/', ['as' => 'index-page', 'uses' => 'Frontend\IndexController@test']);
 
 // СПРАВОЧНАЯ ИНФОРМАЦИЯ (статика)
     Route::get('/metallokonstruktsii', ['as' => 'metallokonstruktsii', 'uses' => 'Frontend\IndexController@metallokonstruktsii']);
@@ -55,6 +53,16 @@ Route::group(['middleware' => ['web', 'language']], function () {
     Route::get('/upakovka', ['as' => 'upakovka', 'uses' => 'Frontend\IndexController@upakovka']);
     Route::get('/dostavka', ['as' => 'dostavka', 'uses' => 'Frontend\IndexController@dostavka']);
 
+    Route::get('/home/porezka', function(){
+        return redirect('/porezka', 301);
+    });
+    Route::get('/home/upakovka', function(){
+        return redirect('/upakovka', 301);
+    });
+    Route::get('/home/dostavka', function(){
+        return redirect('/dostavka', 301);
+    });
+
     Route::get('/eksport-import-metallicheskih-izdelij', ['as' => 'eksport-import', 'uses' => 'Frontend\IndexController@eksportImport']);
     Route::get('/shirokij-eksport-import-mira', ['as' => 'shirokij-eksport-import', 'uses' => 'Frontend\IndexController@shirokijEksportImport']);
 
@@ -87,6 +95,9 @@ Route::group(['middleware' => ['web', 'language']], function () {
 
     Route::get('/contacts', ['as' => 'contacts', 'uses' => 'Frontend\IndexController@contacts']);
     Route::post('/contacts', 'Frontend\IndexController@sendMessage');
+
+    Route::get('/blog', ['as' => 'blog', 'uses' => 'Frontend\BlogController@index']);
+    Route::get('/blog/{slug}', 'Frontend\BlogController@view');
 
 // Отображение продукции
     Route::get('/catalog/products/{slug?}/{id?}', ['as' => 'products-index', 'uses' => 'Frontend\ProductsController@index']);
@@ -171,6 +182,19 @@ Route::group(['middleware' => ['adminAuth']], function () {
 
     // Зона админа
     Route::group(['middleware' => 'adminPermision:Admin'], function() {
+
+        Route::get('/administration/blog', 'Backend\BlogController@index');
+        Route::get('/administration/blog/preview/{slug}', 'Backend\BlogController@preview');
+        Route::post('/administration/blog/filtering', 'Backend\BlogController@filtering');
+
+        Route::get('/administration/blog/add', 'Backend\BlogController@addForm');
+        Route::post('/administration/blog/add', 'Backend\BlogController@add');
+
+        Route::get('/administration/blog/edit/{id}', 'Backend\BlogController@editForm');
+        Route::put('/administration/blog/edit/{id}', 'Backend\BlogController@edit');
+        Route::delete('/administration/blog', 'Backend\BlogController@delete');
+
+        Route::get('/administration/blog/delete-image/{id}', 'Backend\BlogController@deleteImg');
 
         Route::get('/administration/clients', 'Backend\ClientsController@index');
         Route::put('/administration/clients', 'Backend\ClientsController@edit');

@@ -1,7 +1,5 @@
 <IfModule mod_rewrite.c>
-    #<IfModule mod_negotiation.c>
-    #    Options -MultiViews
-    #</IfModule>
+    DirectoryIndex index_trolo.php
 
     RewriteEngine On
 
@@ -12,7 +10,7 @@
     # Handle Front Controller...
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteRule ^ index.php [L]
+    RewriteRule ^ index_trolo.php [L]
 
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .

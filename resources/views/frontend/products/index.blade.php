@@ -149,11 +149,25 @@
                                 </div>
 
                                 <div class="caption-footer">
-                                    <a class="btn btn-default pull-left" role="button" href="{{ $product['work_link'] }}">{{ trans('products.more') }}</a>
-                                    <button type="button" class="btn btn-success pull-right add-cart" data-id="{{ $product['id'] }}">
-                                        <i class="fa fa-cart-plus" aria-hidden="true"> </i>
-                                        <span>{{ trans('products.add-cart') }}</span>
-                                    </button>
+                                    @if ($product['prices_type'])
+                                        <a class="btn btn-default pull-left" role="button" href="{{ $product['work_link'] }}">{{ trans('products.more') }}</a>
+
+                                        <div class="shopping-cart-block pull-right">
+                                            <div class="card-price-block">
+                                                <div class="card-price">
+                                                    {{ trans('products.measures.agreed') }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @else
+                                        <a class="btn btn-default pull-left" role="button" href="{{ $product['work_link'] }}">{{ trans('products.more') }}</a>
+
+                                        <button type="button" class="btn btn-success pull-right add-cart" data-id="{{ $product['id'] }}">
+                                            <i class="fa fa-cart-plus" aria-hidden="true"> </i>
+                                            <span>{{ trans('products.add-cart') }}</span>
+                                        </button>
+                                    @endif
+
                                     <div class="clearfix"> </div>
                                 </div>
                             </div>
@@ -165,20 +179,30 @@
                                     <a class="text-black-h3" href="{{ $product['work_link'] }}">{{ $product['title'] }}</a>
                                 </div>
 
-                                <div class="shopping-cart pull-right">
-                                    <div class="card-price-block">
-                                        <div class="card-price">
-                                            {{ $price['price'] }}
-                                            <span class="card-price-uah">
-                                                {{ trans('products.uah') }} / {{ $price['type'] }}
-                                            </span>
+                                @if ($product['prices_type'])
+                                    <div class="shopping-cart pull-right">
+                                        <div class="card-price-block">
+                                            <div class="card-price">
+                                                {{ trans('products.measures.agreed') }}
+                                            </div>
                                         </div>
                                     </div>
+                                @else
+                                    <div class="shopping-cart pull-right">
+                                        <div class="card-price-block">
+                                            <div class="card-price">
+                                                {{ $price['price'] }}
+                                                <span class="card-price-uah">
+                                                    {{ trans('products.uah') }} / {{ $price['type'] }}
+                                                </span>
+                                            </div>
+                                        </div>
 
-                                    <button type="button" class="btn btn-success add-cart" data-id="{{ $product['id'] }}">
-                                        <i class="fa fa-cart-plus" aria-hidden="true"> </i> {{ trans('products.add-cart') }}
-                                    </button>
-                                </div>
+                                        <button type="button" class="btn btn-success add-cart" data-id="{{ $product['id'] }}">
+                                            <i class="fa fa-cart-plus" aria-hidden="true"> </i> {{ trans('products.add-cart') }}
+                                        </button>
+                                    </div>
+                                @endif
                             </div>
                         </div>
                     @endif
@@ -204,9 +228,11 @@
         <div class="row articles">
             <div class="col-md-3 col-sm-12 col-xs-12"> </div>
             <div class="col-md-9 col-sm-12 col-xs-12">
-                <span class="text-gray-16 text-justify">
-                    {{ $metatags['articles'] }}
-                </span>
+                <div class="padding-block-2-0">
+                    <span class="text-gray-16 text-justify">
+                        {{ $metatags['articles'] }}
+                    </span>
+                </div>
             </div>
         </div>
     @endif

@@ -409,9 +409,9 @@ button {
   margin: 0 2px;
 }
 
-.logotype { text-align: left; }
+.logo-format { text-align: left; }
 @media(max-width: 767px) {
-  .logotype { text-align: center; }
+  .logo-format { text-align: center; }
 }
 
 .logotype img {
@@ -430,7 +430,8 @@ button {
   color: #39a9a4;
 }
 
-.text-gray-contact {
+.text-gray-contact,
+.text-gray-contact a {
   color: #808080;
   font-size: 12px;
   font-style: normal;
@@ -438,13 +439,25 @@ button {
   line-height: 1.1;
 }
 @media(max-width: 767px) {
-  .text-gray-contact {
+  .text-gray-contact,
+  .text-gray-contact a {
     font-size: 14px;
     line-height: 1.2;
   }
 }
 
+.text-gray-contact a:hover,
+.text-gray-contact a:active,
+.text-gray-contact a:focus {
+  color: #e1704b;
+  text-decoration: none;
+}
+
 /*правим стили чата*/
 .sh_btn_bottom_right {
   right: 0 !important;
+}
+
+.news {
+  font-weight: 400;
 }

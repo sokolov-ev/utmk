@@ -30,26 +30,23 @@ class Prices extends Model
         parent::boot();
 
         static::deleting(function($product){
-            // $images = Images::where('product_id', $product->id)->get();
 
-            // foreach ($images as $key => $img) {
-            //     $img->delete();
-            // }
         });
     }
 
     public static function listMeasures()
     {
-        return "piece,sq-m,ton,meter";
+        return "agreed,piece,sq-m,ton,meter";
     }
 
     public static function getMeasures()
     {
         return [
-            'piece' => 'piece',
-            'sq-m'  => 'sq-m',
-            'ton'   => 'ton',
-            'meter' => 'meter',
+            'agreed' => 'agreed',
+            'piece'  => 'piece',
+            'sq-m'   => 'sq-m',
+            'ton'    => 'ton',
+            'meter'  => 'meter',
         ];
     }
 

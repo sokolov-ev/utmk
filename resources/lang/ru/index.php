@@ -3,6 +3,8 @@
 return [
     'menu' => [
         'home' => 'Главная',
+        'services' => 'Услуги',
+        'blog' => 'Блог',
 
         'information' => [
             'cutting' => 'Порезка',
@@ -43,7 +45,8 @@ return [
         'company_profile' => 'Профиль Компании',
         'products' => 'Продукция',
         'network_of_offices' => 'Сеть офисов',
-        'contact_us' => 'Связаться с нами',
+        'network_of_offices_h1' => 'Сеть офисов по продаже металлопроката в Украине',
+        'contact_us' => 'Связаться',
     ],
     'footer' => [
         'company' => 'Компания',
@@ -74,4 +77,6 @@ return [
     'not-found' => ':name не найден',
     'enter-phone' => 'Введите ваш номер телефона',
     'enter-phone-notif' => 'Введите свой номер телефона и мы вам перезвоним.',
+
+    'read-more' => 'Читать далее',
 ];

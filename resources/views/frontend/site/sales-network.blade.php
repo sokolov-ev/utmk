@@ -1,7 +1,7 @@
 @extends('layouts.site')
 
 @section('title')
-    {{ trans('index.menu.network_of_offices') }}
+    {{ trans('index.menu.network_of_offices_h1') }}
 @endsection
 
 @section('meta')
@@ -19,7 +19,7 @@
 <section class="container sales-title text-center">
     <div class="padding-top"></div>
     <div class="wow slideInRight">
-        <h1 class="welcome-text">{{ trans('index.menu.network_of_offices') }}</h1>
+        <h1 class="welcome-text">{{ trans('index.menu.network_of_offices_h1') }}</h1>
     </div>
     <div class="padding-top"></div>
 
@@ -48,7 +48,18 @@
                     <div class="padding-block-0-2 row">
                         @foreach ($office['contacts'] as $contact)
                             <div class="col-md-6 col-sm-6 col-xs-6 text-gray-16">{{ trans('offices.contactType.'.$contact['type']) }}:</div>
-                            <div class="col-md-6 col-sm-6 col-xs-6 text-gray-16">{{ $contact['contact'] }}</div>
+
+                            @if (in_array($contact['type'], ['mobile', 'phone', 'accounting-tel']))
+                                <div class="col-md-6 col-sm-6 col-xs-6 text-gray-16">
+                                    <a href="tel:{{ preg_replace('~\D+~','',$contact['contact']) }}">{{ $contact['contact'] }}</a>
+                                </div>
+                            @elseif ($contact['type'] == 'email')
+                                <div class="col-md-6 col-sm-6 col-xs-6 text-gray-16">
+                                    <a href="mailto:{{ $contact['contact'] }}">{{ $contact['contact'] }}</a>
+                                </div>
+                            @else
+                                <div class="col-md-6 col-sm-6 col-xs-6 text-gray-16">{{ $contact['contact'] }}</div>
+                            @endif
                         @endforeach
                     </div>
                 </div>

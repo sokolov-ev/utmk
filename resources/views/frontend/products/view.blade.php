@@ -51,14 +51,12 @@
 
 
     <div class="padding-block-0-2">
-        <?php
-            $count = count($menu)-1;
-        ?>
+        <?php $count = count($menu) - 1; ?>
         <ul class="breadcrumb">
             <li> <a class="orange-list-a" href="{{ route('products-index') }}" title="">{{ trans('index.menu.products') }}</a> </li>
             @foreach($menu AS $key => $item)
                 @if($key == $count)
-                    <li> <a class="orange-list-a" href="{{ route('products-index', $item) }}" title="">{{ $item['name'] }}</a> </li>
+                    <li> <a class="orange-list-a" href="{{ route('products-index', array_slice($item, 0, -1)) }}" title="">{{ $item['name'] }}</a> </li>
                 @else
                     <li class="active">{{ $item['name'] }}</li>
                 @endif
@@ -112,25 +110,41 @@
                 </a>
             </div>
 
-
+            <?php $flag = true; ?>
             @foreach($product['prices'] as $price)
-                <div class="row margin-bottom-5">
-                    <div class="col-md-2 col-sm-3 col-xs-6 up-first card-white-price up-first">{{ trans('products.measures.'.$price['type']) }}</div>
-                    <div class="col-md-10 col-sm-9 col-xs-6">
-                        <div class="card-price">
-                            {{ $price['price'] }} <span class="card-price-uah">{{ trans('products.uah') }}</span>
+                <div class="margin-bottom-5">
+                    @if ($price['type'] == 'agreed')
+                        <div class="shopping-cart-block">
+                            <div class="card-price-block">
+                                <div class="card-price" style="border-radius: 4px;">
+                                    {{ trans('products.measures.'.$price['type']) }}
+                                </div>
+                            </div>
                         </div>
-                    </div>
+                        <?php $flag = false; ?>
+                    @else
+                        <div class="shopping-cart">
+                            <div class="card-price-block">
+                                <div class="card-price">
+                                    {{ $price['price'] }}
+                                    <span class="card-price-uah">
+                                        {{ trans('products.uah') }} / {{ trans('products.measures.'.$price['type']) }}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
                 </div>
             @endforeach
 
-
-            <div class="padding-block-2-2">
-                <button type="button" class="btn btn-success add-cart pull-right" data-id="{{ $product['id'] }}">
-                    <i class="fa fa-cart-plus" aria-hidden="true"> </i> {{ trans('products.add-cart') }}
-                </button>
-                <div class="clearfix"> </div>
-            </div>
+            @if ($flag)
+                <div class="padding-block-2-2">
+                    <button type="button" class="btn btn-success add-cart pull-right" data-id="{{ $product['id'] }}">
+                        <i class="fa fa-cart-plus" aria-hidden="true"> </i> {{ trans('products.add-cart') }}
+                    </button>
+                    <div class="clearfix"> </div>
+                </div>
+            @endif
         </div>
 
     </div>

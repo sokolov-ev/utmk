@@ -143,7 +143,7 @@ class ProductsController extends Controller
         if (empty($products)) {
             return response()->json(['status' => 'bad', 'message' => trans('products.products-missing')]);
         } else {
-            return response()->json(['status' => 'ok', 'data' => $products, 'count' => $total]);
+            return response()->json(['status' => 'ok', 'data' => $products, 'count' => empty($menu) ? $count : $total]);
         }
     }
 

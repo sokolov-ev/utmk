@@ -14,12 +14,21 @@
 
             <div class="caption-footer">
                 <a class="btn btn-default pull-left" role="button" href="@{{ work_link }}">{{ trans('products.more') }}</a>
-
-                <button type="button" class="btn btn-success pull-right add-cart" data-id="@{{ id }}">
-                    <i class="fa fa-cart-plus" aria-hidden="true"> </i>
-                    <span>{{ trans('products.add-cart') }}</span>
-                </button>
-
+                @{{^prices_type}}
+                    <button type="button" class="btn btn-success pull-right add-cart" data-id="@{{ id }}">
+                        <i class="fa fa-cart-plus" aria-hidden="true"> </i>
+                        <span>{{ trans('products.add-cart') }}</span>
+                    </button>
+                @{{/prices_type}}
+                @{{#prices_type}}
+                    <div class="shopping-cart-block pull-right">
+                        <div class="card-price-block">
+                            <div class="card-price">
+                                {{ trans('products.measures.agreed') }}
+                            </div>
+                        </div>
+                    </div>
+                @{{/prices_type}}
                 <div class="clearfix"> </div>
             </div>
         </div>

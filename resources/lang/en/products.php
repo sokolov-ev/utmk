@@ -30,10 +30,11 @@ return [
     'order-complete' => 'Order formed',
 
     'measures' => [
-        'piece' => 'piece',
-        'sq-m'  => 'sq.m.',
-        'ton'   => 'ton',
-        'meter' => 'meter',
+        'agreed' => 'Agreed price',
+        'piece'  => 'piece',
+        'sq-m'   => 'sq.m.',
+        'ton'    => 'ton',
+        'meter'  => 'meter',
     ],
 
     'list' => 'List',

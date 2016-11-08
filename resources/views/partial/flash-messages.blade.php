@@ -1,4 +1,4 @@
-<section class="" style="padding: 15px;">
+<section class="container-fluid" style="padding: 15px;">
 
     @if(Session::has('success'))
         <div class="alert alert-success alert-dismissible" role="alert">

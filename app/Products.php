@@ -209,8 +209,10 @@ class Products extends Model
             $temp['description'] = $product['description'];
             $temp['work_link']   = "/catalog/details/".$product['slug_menu']."/".$product['slug']."/".$product['id'];
 
+            $flag  = true;
             $array = [];
             $temp['prices'] = [];
+
             foreach ($product['prices'] as $price) {
                 $array['id']    = $price['id'];
                 $array['type']  = trans('products.measures.'.$price['type']);
@@ -218,7 +220,13 @@ class Products extends Model
 
                 $temp['prices_json'][] = $array;
                 $temp['prices'][$price['id']] = $array;
+
+                if ($price['type'] == 'agreed') {
+                    $flag = true;
+                }
             }
+
+            $temp['prices_type'] = $flag;
 
             $temp['office_title'] = $product['office_title'];
             $temp['office_linck'] = '/office/'.$product['office_city'].'/'.$product['office_id'];

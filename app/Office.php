@@ -269,11 +269,12 @@ class Office extends Model
         $result['address'] = empty($address[App::getLocale()]) ? current($address) : $address[App::getLocale()];
 
         $contacts = [];
-        $contactType = Contacts::getType();
+        // $contactType = Contacts::getType();
 
         foreach ($office->contacts->toArray() as $key => $contact) {
-            $temp['type'] = trans('offices.contactType.'.$contactType[$contact['type']]);
+            $temp['type'] = trans('offices.contactType.'.$contact['type']);
             $temp['data'] = $contact['contact'];
+            $temp['work_type'] = $contact['type'];
             $contacts[] = $temp;
         }
 

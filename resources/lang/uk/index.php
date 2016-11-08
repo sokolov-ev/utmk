@@ -3,6 +3,8 @@
 return [
     'menu' => [
         'home' => 'Головна',
+        'services' => 'Послуги',
+        'blog' => 'Блог',
 
         'information' => [
             'cutting' => 'Порізка',
@@ -43,7 +45,8 @@ return [
         'company_profile' => 'Профіль компанії',
         'products' => 'Продукція',
         'network_of_offices' => 'Мережа офісів',
-        'contact_us' => "Зв'язатися з нами",
+        'network_of_offices_h1' => 'Мережа офісів з продажу металопрокату в Україні',
+        'contact_us' => "Зв'язатися",
     ],
     'footer' => [
         'company' => 'Компанія',
@@ -74,4 +77,6 @@ return [
     'not-found' => ':name не знайдений',
     'enter-phone' => 'Введіть ваш номер телефону',
     'enter-phone-notif' => 'Введіть свій номер телефону і ми вам передзвонимо.',
+
+    'read-more' => 'Читати далі',
 ];

@@ -6,18 +6,29 @@
                 <a class="text-black-h3" href="@{{ work_link }}">@{{ title }}</a>
             </div>
 
-            <div class="shopping-cart pull-right">
-                <div class="card-price-block">
-                    <div class="card-price">
-                        @{{ price }}
-                        <span class="card-price-uah">{{ trans('products.uah') }} / @{{ price_type }}</span>
+            @{{^prices_type}}
+                <div class="shopping-cart pull-right">
+                    <div class="card-price-block">
+                        <div class="card-price">
+                            @{{ price }}
+                            <span class="card-price-uah">{{ trans('products.uah') }} / @{{ price_type }}</span>
+                        </div>
+                    </div>
+
+                    <button type="button" class="btn btn-success add-cart" data-id="@{{ id }}">
+                        <i class="fa fa-cart-plus" aria-hidden="true"> </i> {{ trans('products.add-cart') }}
+                    </button>
+                </div>
+            @{{/prices_type}}
+            @{{#prices_type}}
+                <div class="shopping-cart pull-right">
+                    <div class="card-price-block">
+                        <div class="card-price">
+                            {{ trans('products.measures.agreed') }}
+                        </div>
                     </div>
                 </div>
-
-                <button type="button" class="btn btn-success add-cart" data-id="@{{ id }}">
-                    <i class="fa fa-cart-plus" aria-hidden="true"> </i> {{ trans('products.add-cart') }}
-                </button>
-            </div>
+            @{{/prices_type}}
         </div>
     </div>
 

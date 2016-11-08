@@ -37,26 +37,23 @@
 .navbar-nav > li > a {
   background-color: transparent;
   color: #333 !important;
-  font-family: "Roboto",sans-serif;
+  display: block;
+  font-size: 18px;
   font-style: normal;
   font-weight: 700;
-  text-decoration: none;
-
-  display: block;
-  font-size: 20px;
-  padding: 0 35px;
-
   line-height: 80px;
+  padding: 0 28px;
   text-align: center;
-
+  text-decoration: none;
   text-transform: uppercase;
 }
 
 @media(max-width: 1279px) {
-  .navbar-nav > li > a { padding: 0 24px; font-size: 17px; }
+  .navbar-nav > li > a { padding: 0 18px; font-size: 15px; line-height: 70px; }
 }
-@media(max-width: 1023px) {
-  .navbar-nav > li > a { padding: 0 10px; font-size: 15px; line-height: 70px; }
+
+@media(max-width: 991px) {
+  .navbar-nav > li > a { padding: 0 10px; font-size: 13px; line-height: 70px; }
 }
 
 @media(max-width: 767px) {

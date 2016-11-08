@@ -56,5 +56,7 @@ class Kernel extends HttpKernel
         'language'   => \App\Http\Middleware\LanguageMiddleware::class,
 
         'authorized'   => \App\Http\Middleware\RedirectIfNotAuth::class,
+
+        'redirect-www' => \App\Http\Middleware\RedirectWww::class,
     ];
 }

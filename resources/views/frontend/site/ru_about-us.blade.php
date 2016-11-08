@@ -1,7 +1,8 @@
 @extends('layouts.site')
 
 @section('title')
-    {{ trans('index.menu.about_us') }}
+    {{-- {{ trans('index.menu.about_us') }} --}}
+    {{ $metatags['title'] }}
 @endsection
 
 @section('meta')

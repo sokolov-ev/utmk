@@ -341,10 +341,12 @@ class ProductsController extends Controller
         foreach ($product['images'] as $key => $img) {
             $temp['key']  = ($key == 0) ? true : false;
             $temp['name'] = $img['name'];
+
             $images[] = $temp;
         }
 
         $product['images'] = $images;
+        $product['image_count'] = (count($images) > 1) ? true : false;
 
         if (Auth::guard('admin')->user()->role == Admin::ROLE_ADMIN) {
             $office['id'] = $product['office_id'];
@@ -362,6 +364,8 @@ class ProductsController extends Controller
         foreach ($product['prices'] as $price) {
             $temp['price'] = $price['price'];
             $temp['type']  = trans('products.measures.'.$price['type']);
+            $temp['work_type'] = ($price['type'] == 'agreed') ? true : false;
+
             $prices[] = $temp;
         }
 

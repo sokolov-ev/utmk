@@ -146,4 +146,23 @@ class DataTable extends Model
         return $result;
     }
 
+
+    public static function getOrderBlog($data)
+    {
+        return ["blog.".$data['columns'][ $data['order'][0]['column'] ]['data'], $data['order'][0]['dir']];
+    }
+
+    public static function getSearchBlog($data)
+    {
+        $result = [];
+
+        foreach ($data['columns'] as $column) {
+            if ($column['search']['value'] != '') {
+                $result[] = [$column['data'], "LIKE", '%'.$column['search']['value'].'%'];
+            }
+        }
+
+        return $result;
+    }
+
 }

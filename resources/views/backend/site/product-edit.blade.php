@@ -296,93 +296,93 @@
                                 </div>
                             </div>
                         </div>
+{{-- Начало гемороя с ценами --}}
+                        <div id="product-prices">
+                            <div class="form-group{{ $errors->has('price.0') ? ' has-error' : '' }}" style="margin-bottom: 0;">
+                                <label for="" class="control-label">Цены</label>
+                            </div>
 
-<div id="product-prices">
-    <div class="form-group{{ $errors->has('price.0') ? ' has-error' : '' }}" style="margin-bottom: 0;">
-        <label for="" class="control-label">Цены</label>
-    </div>
+                            <div class="form-group{{ $errors->has('price.0') ? ' has-error' : '' }}">
+                                <div class="flex">
+                                    <input type="hidden" name="price_id[]" class="price-id" value="{{ old('price_id.0', $prices['id'][0]) }}">
+                                    <div>
+                                        <input type="text"
+                                               name="price[]"
+                                               class="form-control price-data"
+                                               value="{{ old('price.0', $prices['price'][0]) }}"
+                                               placeholder="Цена">
+                                    </div>
+                                    <div class="price-type">
+                                        <select name="price_type[]" class="form-control price-type">
+                                            @foreach($priceType as $key => $type)
+                                                @if ($key == old('price_type.0', $prices['type'][0]))
+                                                    <option value="{{$key}}" selected="">{{ trans('products.measures.'.$type) }}</option>
+                                                @else
+                                                    <option value="{{$key}}">{{ trans('products.measures.'.$type) }}</option>
+                                                @endif
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="btn-wrap">
+                                        <button class="btn btn-success btn-add" type="button">
+                                            <i class="fa fa-plus" aria-hidden="true"></i>
+                                        </button>
+                                    </div>
+                                </div>
 
-    <div class="form-group{{ $errors->has('price.0') ? ' has-error' : '' }}">
-        <div class="flex">
-            <input type="hidden" name="price_id[]" class="contacts-id" value="{{ old('price_id.0', $prices['id'][0]) }}">
-            <div>
-                <input type="text"
-                       name="price[]"
-                       class="form-control contacts-data"
-                       value="{{ old('price.0', $prices['price'][0]) }}"
-                       placeholder="Цена">
-            </div>
-            <div class="price-type">
-                <select name="price_type[]" class="form-control price-type">
-                    @foreach($priceType as $key => $type)
-                        @if ($key == old('price_type.0', $prices['type'][0]))
-                            <option value="{{$key}}" selected="">{{ trans('products.measures.'.$type) }}</option>
-                        @else
-                            <option value="{{$key}}">{{ trans('products.measures.'.$type) }}</option>
-                        @endif
-                    @endforeach
-                </select>
-            </div>
-            <div class="btn-wrap">
-                <button class="btn btn-success btn-add" type="button">
-                    <i class="fa fa-plus" aria-hidden="true"></i>
-                </button>
-            </div>
-        </div>
-
-        @if ($errors->has('price.0'))
-            <span class="help-block">
-                <strong>{{ $errors->first('price.0') }}</strong>
-            </span>
-        @endif
-    </div>
-
-    @if (count(old('price', $prices['price'])) > 1)
-        @for($i = 1; $i < count( old('price', $prices['price']) ); $i++)
-            <div class="form-group{{ $errors->has('price.'.$i) ? ' has-error' : '' }}">
-                <div class="flex">
-                    <?php
-                      $id    = empty($prices['id'][$i]) ? '' : $prices['id'][$i];
-                      $price = empty($prices['price'][$i]) ? '' : $prices['price'][$i];
-                      $type  = empty($prices['type'][$i]) ? 'piece' : $prices['type'][$i];
-                    ?>
-                    <input type="hidden" name="price_id[]" value="{{ old('price_id.'.$i, $id) }}">
-                    <div>
-                        <input type="text"
-                               name="price[]"
-                               class="form-control contacts-data"
-                               value="{{ old('price.'.$i, $price) }}"
-                               placeholder="Цена">
-                    </div>
-                    <div class="price-type">
-                        <select name="price_type[]" class="form-control price-type">
-                            @foreach($priceType as $key => $type)
-                                @if ($key == old('price_type.'.$i, $prices['type'][$i]))
-                                    <option value="{{$key}}" selected="">{{ trans('products.measures.'.$type) }}</option>
-                                @else
-                                    <option value="{{$key}}">{{ trans('products.measures.'.$type) }}</option>
+                                @if ($errors->has('price.0'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('price.0') }}</strong>
+                                    </span>
                                 @endif
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="btn-wrap">
-                        <button class="btn btn-danger btn-delete" type="button">
-                            <i class="fa fa-trash-o" aria-hidden="true"></i>
-                        </button>
-                    </div>
-                </div>
+                            </div>
 
-                @if ($errors->has('price.'.$i))
-                    <span class="help-block">
-                        <strong>{{ $errors->first('price.'.$i) }}</strong>
-                    </span>
-                @endif
-            </div>
-        @endfor
-    @endif
+                            @if (count(old('price', $prices['price'])) > 1)
+                                @for($i = 1; $i < count( old('price', $prices['price']) ); $i++)
+                                    <div class="form-group{{ $errors->has('price.'.$i) ? ' has-error' : '' }}">
+                                        <div class="flex">
+                                            <?php
+                                              $id    = empty($prices['id'][$i]) ? '' : $prices['id'][$i];
+                                              $price = empty($prices['price'][$i]) ? '' : $prices['price'][$i];
+                                              $type  = empty($prices['type'][$i]) ? 'piece' : $prices['type'][$i];
+                                            ?>
+                                            <input type="hidden" name="price_id[]" value="{{ old('price_id.'.$i, $id) }}">
+                                            <div>
+                                                <input type="text"
+                                                       name="price[]"
+                                                       class="form-control price-data"
+                                                       value="{{ old('price.'.$i, $price) }}"
+                                                       placeholder="Цена">
+                                            </div>
+                                            <div class="price-type">
+                                                <select name="price_type[]" class="form-control price-type">
+                                                    @foreach($priceType as $key => $type)
+                                                        @if ($key == old('price_type.'.$i, $prices['type'][$i]))
+                                                            <option value="{{$key}}" selected="">{{ trans('products.measures.'.$type) }}</option>
+                                                        @else
+                                                            <option value="{{$key}}">{{ trans('products.measures.'.$type) }}</option>
+                                                        @endif
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="btn-wrap">
+                                                <button class="btn btn-danger btn-delete" type="button">
+                                                    <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                                </button>
+                                            </div>
+                                        </div>
 
-</div>
+                                        @if ($errors->has('price.'.$i))
+                                            <span class="help-block">
+                                                <strong>{{ $errors->first('price.'.$i) }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                @endfor
+                            @endif
 
+                        </div>
+{{-- Конец гемороя с ценами --}}
                         <div class="form-group{{ $errors->has('rating') ? ' has-error' : '' }}">
                             <label for="rating" class="control-label">Рейтинг</label>
 
@@ -502,6 +502,20 @@
             content: function () {
                 return $(this).prop('title');
             }
+        });
+
+        $(".btn-add").click(function(event){
+            var body = $(this).closest('.form-group').clone();
+            $(body).find('.price-id').val('');
+            $(body).find('.price-type').val('piece');
+            $(body).find('.price-data').val('');
+            $(body).find('button').removeClass('btn-add btn-success').addClass('btn-danger btn-delete');
+            $(body).find('i').removeClass('fa-plus').addClass('fa-trash-o');
+            $("#product-prices").append(body);
+        });
+
+        $("#product-prices").on('click', '.btn-delete', function(event){
+            $(this).closest('.form-group').remove();
         });
     </script>
 

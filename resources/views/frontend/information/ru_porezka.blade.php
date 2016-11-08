@@ -81,6 +81,6 @@
 
 @section('scripts')
     <script type="text/javascript">
-        $(".home").addClass('active');
+        $(".services").addClass('active');
     </script>
 @endsection

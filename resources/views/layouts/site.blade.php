@@ -8,6 +8,11 @@
 
     <title>@yield('title')</title>
 
+    <meta name="google-site-verification" content="5ZkMrakvEh1lCyA4eCxke53NFBBCtyMTBFKBWKXyp7Y" />
+    <meta name="yandex-verification" content="47760e8501424890" />
+
+    <link href="https://plus.google.com/+%D0%9E%D0%9E%D0%9E%D0%AE%D0%A2%D0%9C%D0%9A%D0%9A%D0%B8%D1%97%D0%B2" rel="publisher" />
+
     @yield('meta')
 
     <link rel="apple-touch-icon" sizes="57x57" href="/images/icons/apple-touch-icon-57x57.png">
@@ -48,6 +53,19 @@
 
     @yield('css')
 
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-86822260-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript"> (function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter40647919 = new Ya.Metrika({ id:40647919, clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true }); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = "https://mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks"); </script>
+    <noscript><div><img src="https://mc.yandex.ru/watch/40647919" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <!-- /Yandex.Metrika counter -->
 </head>
 <body id="app-layout">
 
@@ -68,21 +86,26 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-3 col-sm-3 col-xs-12">
+            <div class="col-md-2 col-sm-3 col-xs-12 logo-format">
                 <a href="{{ url('/') }}" class="logotype">
                     <img src="/images/logo.jpeg" title="Metall Vsem" alt="Metall Vsem" />
                 </a>
             </div>
-            <div class="col-md-6 col-sm-9 col-xs-12 text-center">
+            <div class="col-md-7 col-sm-9 col-xs-12 text-center">
 
                     <div class="contact-block">
                         <div class="padding-block-2-0">
                             <div class="padding-vert-15">
                                 <i class="text-green fa fa-phone fa-3x" aria-hidden="true"> </i>
                             </div>
-                            <div class="padding-vert-15 text-left" style="max-width: 195px;">
-                                <span class="text-gray-contact">+38 (044) 502-50-45</span><br/>
-                                <span class="text-gray-contact">+38 (044) 503-50-45</span>
+                            <div class="padding-vert-15 text-left" style="width: 195px;">
+                                <span class="text-gray-contact">
+                                    <a href="tel:+380445025045">+38 (044) 502-50-45</a>
+                                </span>
+                                <br/>
+                                <span class="text-gray-contact">
+                                    <a href="tel:+380445035045">+38 (044) 503-50-45</a>
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -143,9 +166,11 @@
         <div id="mettal-vsem-menu" class="collapse navbar-collapse">
 
             <ul class="nav navbar-nav">
-                <li class="dropdown home">
-                    <a class="dropdown-toggle home" aria-expanded="false" aria-haspopup="true" role="button" href="{{ route('index-page') }}">
-                        {{ trans('index.menu.home') }} <span class="caret"></span>
+                <li class="home"><a href="{{ route('index-page') }}">{{ trans('index.menu.home') }}</a></li>
+
+                <li class="dropdown services">
+                    <a class="dropdown-toggle" aria-expanded="false" aria-haspopup="true" role="button" href="#">
+                        {{ trans('index.menu.services') }} <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
                         <li> <a href="{{ route('porezka') }}">{{ trans('index.menu.information.cutting') }}</a> </li>
@@ -159,6 +184,8 @@
                 <li class="products"><a href="{{ route('products-index') }}">{{ trans('index.menu.products') }}</a></li>
                 <li class="network-of-offices"><a href="{{ route('network-of-offices') }}">{{ trans('index.menu.network_of_offices') }}</a></li>
                 <li class="contact-us"><a href="{{ route('contacts') }}">{{ trans('index.menu.contact_us') }}</a></li>
+
+                <li class="blog"><a href="{{ route('blog') }}">{{ trans('index.menu.blog') }}</a></li>
             </ul>
 
         </div>

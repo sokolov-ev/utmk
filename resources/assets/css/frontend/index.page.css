@@ -92,7 +92,8 @@
   }
 }
 
-.text-gray-16 {
+.text-gray-16,
+.text-gray-16 a {
   color: #999999;
   font-size: 16px;
   font-weight: 400;
@@ -100,11 +101,20 @@
   display: inline-block;
 }
 @media(max-width: 767px) {
-  .text-gray-16 {
+  .text-gray-16,
+  .text-gray-16 a {
     font-size: 13px;
     line-height: 1.5;
   }
 }
+
+.text-gray-16 a:hover,
+.text-gray-16 a:active,
+.text-gray-16 a:focus {
+  color: #e1704b;
+  text-decoration: none;
+}
+
 
 .span-arrow {
   display: inline-block;
