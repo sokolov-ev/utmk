@@ -6,18 +6,21 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use App\Blog;
+use App\Menu;
 use App\Metatags;
 use App\Products;
-use App\Menu;
 use App\Articles;
+
 
 class MetatagsContraller extends Controller
 {
     public function index($type = 'menu', $slug = 'index')
     {
         $metatags = Metatags::where([['type', $type], ['slug', $slug]])->first();
-
         $metatags = Metatags::getEditData($metatags, $type, $slug);
+
+        $news     = Blog::select('slug', 'title AS name')->get();
         $menu     = Menu::select('slug', 'name')->where('parent_exist', 0)->orderBy('weight', 'ASC')->get();
         $products = Products::select('slug', 'title AS name')->where('show_my', 1)->orderBy('title', 'ASC')->get();
         $articles = Articles::select('slug', 'name')->orderBy('name', 'ASC')->get();
@@ -25,6 +28,7 @@ class MetatagsContraller extends Controller
         return view('backend.site.metatags', [
             'metatags' => $metatags,
             'menu'     => $menu->toArray(),
+            'news'     => $news->toArray(),
             'products' => $products->toArray(),
             'articles' => $articles->toArray(),
         ]);

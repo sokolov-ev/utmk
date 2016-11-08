@@ -178,10 +178,6 @@ Route::group(['middleware' => ['adminAuth']], function () {
         Route::post('/administration/orders/delete', 'Backend\OrdersController@deleteProduct');
         Route::get('/administration/orders/accept/{id}', 'Backend\OrdersController@accept');
         Route::get('/administration/orders/closed/{id}', 'Backend\OrdersController@closed');
-    });
-
-    // Зона админа
-    Route::group(['middleware' => 'adminPermision:Admin'], function() {
 
         Route::get('/administration/blog', 'Backend\BlogController@index');
         Route::get('/administration/blog/preview/{slug}', 'Backend\BlogController@preview');
@@ -195,6 +191,10 @@ Route::group(['middleware' => ['adminAuth']], function () {
         Route::delete('/administration/blog', 'Backend\BlogController@delete');
 
         Route::get('/administration/blog/delete-image/{id}', 'Backend\BlogController@deleteImg');
+    });
+
+    // Зона админа
+    Route::group(['middleware' => 'adminPermision:Admin'], function() {
 
         Route::get('/administration/clients', 'Backend\ClientsController@index');
         Route::put('/administration/clients', 'Backend\ClientsController@edit');

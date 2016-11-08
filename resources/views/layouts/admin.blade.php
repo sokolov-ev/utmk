@@ -208,6 +208,12 @@ desired effect
                     @endif
                     @if (Auth::guard('admin')->user()->role == 'SEO')
                         <li>
+                            <a href="{{ url('/administration/blog') }}">
+                                <i class="fa fa-newspaper-o" aria-hidden="true"></i>
+                                <span>Блог</span>
+                            </a>
+                        </li>
+                        <li>
                             <a href="{{ url('/administration/metatags') }}">
                                 <i class="fa fa-tags" aria-hidden="true"></i>
                                 <span>Метатеги</span>

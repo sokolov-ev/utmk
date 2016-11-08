@@ -19,6 +19,19 @@
 
             <div class="row">
                 <div class="col-md-4">
+                    <button type="button" class="btn btn-link" onclick="$('.blog').toggleClass('hidden');" style="padding-left: 0;">
+                        <strong>Блог</strong>
+                    </button>
+
+                    <input type="text" id="blog" name="blog" value="" class="form-control" style="margin-bottom: 10px;" />
+
+                    <ul class="catalog-list blog hidden">
+                        <li><a href="/administration/metatags/blog/blog">Главная страница блога</a></li>
+                        @foreach($news as $post)
+                            <li><a href="/administration/metatags/blog/{{ $post['slug'] }}">{{ $post['name'] }}</a></li>
+                        @endforeach
+                    </ul>
+
                     <button type="button" class="btn btn-link" onclick="$('.products').toggleClass('hidden');" style="padding-left: 0;">
                         <strong>Продукция</strong>
                     </button>
