@@ -86,7 +86,7 @@ class BlogController extends Controller
 
         $validator = Validator::make($data, [
             'image' => 'image',
-            'slug'  => 'unique:blog,slug',
+            'slug'  => 'required|unique:blog,slug',
             'title' => 'string|min:3',
             'description' => 'string|min:10',
         ]);
@@ -122,7 +122,7 @@ class BlogController extends Controller
 
         $validator = Validator::make($data, [
             'image' => 'image',
-            'slug'  => 'unique:blog,slug,'.$id,
+            'slug'  => 'required|unique:blog,slug,'.$id,
             'title' => 'string|min:3',
             'description' => 'string|min:10',
         ]);
