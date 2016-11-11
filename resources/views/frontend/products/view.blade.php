@@ -51,15 +51,18 @@
 
 
     <div class="padding-block-0-2">
-        <?php $count = count($menu) - 1; ?>
         <ul class="breadcrumb">
-            <li> <a class="orange-list-a" href="{{ route('products-index') }}" title="">{{ trans('index.menu.products') }}</a> </li>
-            @foreach($menu AS $key => $item)
-                @if($key == $count)
-                    <li> <a class="orange-list-a" href="{{ route('products-index', array_slice($item, 0, -1)) }}" title="">{{ $item['name'] }}</a> </li>
-                @else
-                    <li class="active">{{ $item['name'] }}</li>
-                @endif
+            <li>
+                <a class="orange-list-a" href="{{ route('products-index') }}" title="{{ trans('index.menu.products') }}">
+                    {{ trans('index.menu.products') }}
+                </a>
+            </li>
+            @foreach($menu as $item)
+                <li>
+                    <a class="orange-list-a" href="{{ url($item['slug']) }}" title="{{ $item['name'] }}">
+                        {{ $item['name'] }}
+                    </a>
+                </li>
             @endforeach
             <li class="active">{{ $product['title'] }}</li>
         </ul>

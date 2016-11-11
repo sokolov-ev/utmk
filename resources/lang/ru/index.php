@@ -44,6 +44,7 @@ return [
         'about_us' => 'О нас',
         'company_profile' => 'Профиль Компании',
         'products' => 'Продукция',
+        'price' => 'Прайс',
         'network_of_offices' => 'Сеть офисов',
         'network_of_offices_h1' => 'Сеть офисов по продаже металлопроката в Украине',
         'contact_us' => 'Связаться',
@@ -79,4 +80,6 @@ return [
     'enter-phone-notif' => 'Введите свой номер телефона и мы вам перезвоним.',
 
     'read-more' => 'Читать далее',
+
+    'uploaded' => 'Загружено',
 ];

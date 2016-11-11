@@ -1,8 +1,10 @@
 var pageSize = 9;
 var query    = '';
-var url      = '';
+var url      = location.pathname;
 var format   = $('.format').text();
 var menuId   = null;
+
+$('.products').addClass('active');
 
 $('.change-format').click(function(event){
     if (format == 'cards') {
@@ -16,18 +18,16 @@ $('.change-format').click(function(event){
     }
 
     if (query == '') {
-        url = 'format=' + format;
+        url += '?format=' + format;
     } else {
         url += '&format=' + format;
     }
 
-    $.get('/catalog/get-products?' + query + url, function(response){
+    $.get('/catalog/get-products' + location.search, function(response){
         viewProducts(response);
-        changeUrl(format, '/catalog/products?' + query + url);
+        changeLocation('format', format);
     });
 });
-
-$('.products').addClass('active');
 
 $('#filter-city').change(function(event){
     var id = $(this).val();
@@ -69,6 +69,13 @@ $.get('/catalog/get-catalog', function(response){
 });
 
 $('#catalog-content').on('click', 'span',function(event){
+    var slug = $(this).closest('li').data('slug');
+    var cityId = $('#filter-city').val();
+    var cityName = $('#filter-city > option[value="' + cityId + '"]').data('city');
+
+    url = slug + '?city=' + cityName;
+    window.history.replaceState('', '', url);
+
     if ($(this).siblings('ul').children().is('li')) {
         if ($(this).siblings('ul').css('display') == 'none') {
             $(this).siblings('ul').slideDown(200);
@@ -78,21 +85,17 @@ $('#catalog-content').on('click', 'span',function(event){
             $(this).siblings('i').removeClass('fa-angle-down').addClass('fa-angle-right');
         }
     } else {
-        var id   = $(this).closest('li').attr('id');
-        var slug = $(this).closest('li').data('slug');
-        var cityId = $('#filter-city').val();
-        var cityName = $('#filter-city > option[value="' + cityId + '"]').data('city');
+        var id = $(this).closest('li').attr('id');
 
         $('.text-black-h3').removeClass('active');
         $(this).addClass('active');
 
-        url   = '/catalog/products/' + slug + '/' + id + '?city=' + cityName;
         query = 'menu=' + id + '&city=' + cityId;
 
         $.get('/catalog/get-products?' + query, function(response){
             $('#pagination').twbsPagination('destroy');
+
             viewProducts(response, id);
-            changeUrl(id, url);
 
             $(".articles").addClass("hidden");
         });
@@ -107,17 +110,24 @@ $("#product-name").on('change keyup', function(event){
 
 function searchProducts()
 {
-    var id   = $("#product-city").val();
+    var cityId = $('#product-city').val();
+    var cityName = $('#product-city > option[value="' + cityId + '"]').data('city');
+
     var name = $("#product-name").val();
 
     if ((name != undefined) && (name != '')) {
-        query = 'name=' + name;
-        if ((id != undefined) && (id != '')) {
-            query += '&id=' + id;
+        changeLocation('name', name);
+
+        if ((cityId != undefined) && (cityId != '')) {
+            changeLocation('city', cityName);
         }
 
-        $.get('/catalog/get-products?' + query, function(response){
-            viewProducts(response, id);
+        $.get('/catalog/get-products' + location.search, function(response){
+            url = '/products' + location.search;
+            window.history.replaceState('', '', url);
+            $('#pagination').twbsPagination('destroy');
+            viewProducts(response, cityId);
+            $(".articles").addClass("hidden");
         });
     }
 
@@ -160,23 +170,14 @@ function viewProducts(response, id) {
     $('.articles').addClass('hidden');
 }
 
-function changeUrl(title, url) {
-    if (typeof (history.pushState) != "undefined") {
-        var obj = { Title: title, Url: url };
-        history.pushState(obj, obj.Title, obj.Url);
-    } else {
-        alert("Browser does not support HTML5.");
-    }
-}
+
 
 function changeLocation(partLinck, data) {
     var get = location.search;
-    var url = '?';
+    var address = '?';
     var flag = false;
 
-    if (get) {
-        get = get.substr(1).split('&');
-
+    if (get = get.substr(1).split('&')) {
         $.each(get, function(key, val){
             if ( (val != '') && (val != undefined) ) {
                 part = val.split('=');
@@ -186,21 +187,21 @@ function changeLocation(partLinck, data) {
                         part[1] = data;
                         flag = true;
                     }
-                    url += part[0] + '=' + part[1] + '&';
+                    address += part[0] + '=' + part[1] + '&';
                 }
             }
         });
 
         if (flag) {
-            url = url.slice(0, -1);
+            address = address.slice(0, -1);
         } else {
-            url += partLinck + '=' + data;
+            address += partLinck + '=' + data;
         }
     } else {
-        url += partLinck + '=' + data;
+        address += partLinck + '=' + data;
     }
 
-    window.history.replaceState('', '', url);
+    window.history.replaceState('', '', address);
 }
 
 function initPagination(count)
@@ -215,9 +216,9 @@ function initPagination(count)
         next: '»',
         last: false,
         onPageClick: function (event, page) {
-            $.get('/catalog/get-products?' + query + '&page=' + page, function(response){
+            changeLocation('page', page);
+            $.get('/catalog/get-products' + location.search, function(response){
                 viewProducts(response);
-                changeLocation('page', page)
             });
         }
     });

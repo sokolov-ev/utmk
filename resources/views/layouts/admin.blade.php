@@ -174,6 +174,12 @@ desired effect
                             </a>
                         </li>
                         <li>
+                            <a href="{{ url('/administration/price') }}">
+                                <i class="fa fa-table" aria-hidden="true"></i>
+                                <span>Прайсы</span>
+                            </a>
+                        </li>
+                        <li>
                             <a href="{{ url('/administration/menu') }}">
                                 <i class="fa fa-list-ol"></i>
                                 <span>Каталог продукции</span>

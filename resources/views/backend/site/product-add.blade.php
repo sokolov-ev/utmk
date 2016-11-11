@@ -27,6 +27,7 @@
 
             <form id="form-add-product" role="form" method="POST" action="{{ url('administration/product/add') }}" enctype="multipart/form-data">
                 {{ csrf_field() }}
+                <input type="hidden" name="id" value="">
 
                 <div class="row">
                     <div class="col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-12">
@@ -78,6 +79,17 @@
                         @else
                             <input type="hidden" name="office_id" id="office_id" value="{{ old('office_id', $offices) }}">
                         @endif
+
+                        <div class="form-group{{ $errors->has('slug') ? ' has-error' : '' }}">
+                            <label for="slug" class="control-label">Slug (отображение в адресной строке)</label>
+                            <input id="slug" name="slug" type="text" class="form-control" value="{{ old('slug') }}">
+
+                            @if ($errors->has('slug'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('slug') }}</strong>
+                                </span>
+                            @endif
+                        </div>
 
                         <div class="form-group{{ ($errors->has('title_en') || $errors->has('title_ru') || $errors->has('title_uk')) ? ' has-error' : '' }}" style="margin-bottom: 0;">
                             <div class="row">

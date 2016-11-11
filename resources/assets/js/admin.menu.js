@@ -1,9 +1,3 @@
-// $.ajaxSetup({
-//     headers: {
-//         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-//     }
-// });
-
 $(document).ready(function(){
 
     $(".lang").click(function(event){
@@ -17,6 +11,7 @@ $(document).ready(function(){
     {
         $.get('/administration/menu/' + $(".check-language").data("lang"), function(response){
             if (response.status == 'ok') {
+
                 $('#tree').empty();
                 var template = $('#menu-template').html();
                 Mustache.parse(template);
@@ -57,7 +52,7 @@ $(document).ready(function(){
                             parent = [];
 
                         $(".root li").each(function(index) {
-                            $(this).attr('sort', index+1);
+                            $(this).attr('sort', index + 1);
 
                             id.push($(this).attr('id'));
                             weight.push($(this).attr('sort'));
@@ -86,29 +81,6 @@ $(document).ready(function(){
 
     loadMenu();
 
-    $("#form-menu").submit(function(event){
-        event.preventDefault();
-
-        $.post('/administration/menu', $('#form-menu').serialize(), function(response){
-            if (response.status == 'ok') {
-                $("#menu-en").val('');
-                $("#menu-ru").val('');
-                $("#menu-uk").val('');
-                $("#menu-id").val('');
-
-                $("#form-menu > [name='_method']").val('POST');
-                loadMenu();
-
-                $(".item-status-body").text(response.message);
-                $("#modalMenuStatus").modal("show");
-
-                formSend = false;
-            }
-        }, 'json');
-
-        return false;
-    });
-
     $("#tree").on('click', 'span',function(event){
         if ($(this).siblings('ol').children().is('li')) {
             if ($(this).siblings('ol').css('display') == 'none') {
@@ -126,12 +98,11 @@ $(document).ready(function(){
             if (response.status == 'ok') {
                 var name = JSON.parse(response.data.name);
 
+                $("#slug").val(response.data.slug);
                 $("#menu-en").val(name.en);
                 $("#menu-ru").val(name.ru);
                 $("#menu-uk").val(name.uk);
                 $("#menu-id").val(response.data.id);
-
-                $("#form-menu > [name='_method']").val('PUT');
             }
         }, "json");
     });

@@ -21,12 +21,10 @@ class Products extends Model
         'office_id',
         'slug',
         'slug_menu',
-
         'title',
         'description',
         'rating',
         'show_my',
-
         'creator_id'
     ];
 
@@ -89,9 +87,9 @@ class Products extends Model
     {
         $product = Products::findOrFail($id);
 
-        $array["id"] = $product->id;
-
+        $array['id']     = $product->id;
         $array['images'] = Images::where('product_id', $product->id)->orderBy('weight', 'ASC')->get();
+        $array['slug']   = $product->slug;
 
         $array['menu_id']   = $product->menu_id;
         $array['office_id'] = $product->office_id;
@@ -130,15 +128,9 @@ class Products extends Model
         $product->menu_id = $data['menu_id'];
         $product->office_id = $data['office_id'];
 
-        if (!empty($data['title_en'])) {
-            $product->slug = str_slug($data['title_en'], '_');
-        } elseif (!empty($data['title_ru'])) {
-            $product->slug = str_slug($data['title_ru'], '_');
-        } elseif (!empty($data['title_uk'])) {
-            $product->slug = str_slug($data['title_en'], '_');
-        }
+        $product->slug = $data['slug'];
 
-        $product->slug_menu = empty($menu->slug) ? 'catalog' : $menu->slug;
+        $product->slug_menu = $menu->full_path_slug.'/'.$data['slug'];
 
         $array['en'] = $data['title_en'];
         $array['ru'] = $data['title_ru'];
@@ -207,18 +199,18 @@ class Products extends Model
             $temp['images'] = '/images/products/'.$product['images'][0]['name'];
             $temp['title']  = $product['title'];
             $temp['description'] = $product['description'];
-            $temp['work_link']   = "/catalog/details/".$product['slug_menu']."/".$product['slug']."/".$product['id'];
+            $temp['work_link']   = $product['slug_menu'];
 
-            $flag  = true;
+            $flag  = false;
             $array = [];
             $temp['prices'] = [];
 
-            foreach ($product['prices'] as $price) {
+            foreach ($product['prices'] as $key => $price) {
                 $array['id']    = $price['id'];
                 $array['type']  = trans('products.measures.'.$price['type']);
                 $array['price'] = $price['price'];
 
-                $temp['prices_json'][] = $array;
+                $temp['prices_json'][$key] = $array;
                 $temp['prices'][$price['id']] = $array;
 
                 if ($price['type'] == 'agreed') {

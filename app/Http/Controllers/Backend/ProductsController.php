@@ -229,8 +229,14 @@ class ProductsController extends Controller
 
     protected function validator($request, $action)
     {
-        $validator = Validator::make($request->all(), [
+        $id = $request->input('id');
+        $data = $request->all();
+        $data['slug'] = str_slug($data['slug'], '-');
+
+        $validator = Validator::make($data, [
             'images.*' => 'image',
+
+            'slug' => 'required|unique:products,slug,'.$id,
 
             'title_en' => 'string|min:3',
             'title_ru' => 'string|min:3',

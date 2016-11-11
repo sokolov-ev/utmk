@@ -65,7 +65,9 @@
                 @endif
                     <option value="">{{ trans('products.select-city') }}...</option>
                     @foreach($offices as $office)
-                        <option value="{{ $office['id'] }}">{{ json_decode($office['city'], true)[App::getLocale()] }}</option>
+                        <option value="{{ $office['id'] }}" data-city="{{ $office['slug'] }}">
+                            {{ json_decode($office['city'], true)[App::getLocale()] }}
+                        </option>
                     @endforeach
                 </select>
             </div>
@@ -138,8 +140,9 @@
                     @if($format == 'cards')
                         <div class="col-md-4 col-sm-4 col-xs-12 card">
                             <div class="thumbnail">
-                                <img class="green-img" alt="{{ $product['title'] }}" src="{{ $product['images'] }}" style="max-width: 360px; max-height: 240px">
-
+                                <a class="text-black-h3" href="{{ $product['work_link'] }}">
+                                    <img class="green-img" alt="{{ $product['title'] }}" src="{{ $product['images'] }}" style="max-width: 360px; max-height: 240px">
+                                </a>
                                 <div class="caption">
                                     <a class="text-black-h3" href="{{ $product['work_link'] }}">{{ $product['title'] }}</a>
 
@@ -150,22 +153,33 @@
 
                                 <div class="caption-footer">
                                     @if ($product['prices_type'])
-                                        <a class="btn btn-default pull-left" role="button" href="{{ $product['work_link'] }}">{{ trans('products.more') }}</a>
-
-                                        <div class="shopping-cart-block pull-right">
+                                        <div class="shopping-cart-block pull-left">
                                             <div class="card-price-block">
                                                 <div class="card-price">
                                                     {{ trans('products.measures.agreed') }}
                                                 </div>
                                             </div>
                                         </div>
-                                    @else
-                                        <a class="btn btn-default pull-left" role="button" href="{{ $product['work_link'] }}">{{ trans('products.more') }}</a>
 
-                                        <button type="button" class="btn btn-success pull-right add-cart" data-id="{{ $product['id'] }}">
-                                            <i class="fa fa-cart-plus" aria-hidden="true"> </i>
-                                            <span>{{ trans('products.add-cart') }}</span>
-                                        </button>
+                                        <a class="btn btn-default pull-right" role="button" href="{{ $product['work_link'] }}">{{ trans('products.more') }}</a>
+                                    @else
+                                        <div class="shopping-cart-block pull-left">
+                                            <div class="card-price-block">
+                                                <div class="card-price">
+                                                    {{ $price['price'] }}
+                                                    <span class="card-price-uah">
+                                                        {{ trans('products.uah') }} / {{ $price['type'] }}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="shopping-cart pull-right">
+                                            <button type="button" class="btn btn-success add-cart" data-id="{{ $product['id'] }}">
+                                                <i class="fa fa-cart-plus" aria-hidden="true"> </i>
+                                                {{ trans('products.add-cart') }}
+                                            </button>
+                                        </div>
                                     @endif
 
                                     <div class="clearfix"> </div>
@@ -216,8 +230,8 @@
         <div class="col-md-3 col-sm-12 col-xs-12"> </div>
         <div class="col-md-9 col-sm-12 col-xs-12">
             <div class="text-center default-pagination">
-                @if (!empty($menu_id))
-                    {{ $products->render() }}
+                @if (!$offPaginate)
+                    {{ $products->appends($query)->render() }}
                 @endif
             </div>
             <div id="pagination" class="text-center"> </div>

@@ -94,6 +94,12 @@ Route::group(['middleware' => ['adminAuth']], function () {
         Route::post('/administration/offices/edit/{id}', 'Backend\OfficesController@editOffice');
 
         Route::delete('/administration/offices','Backend\OfficesController@deleteOffice');
+
+        Route::get('/administration/price', 'Backend\PriceController@index');
+        Route::post('/administration/price', 'Backend\PriceController@add');
+
+        Route::get('/administration/price/load/{id}', 'Backend\PriceController@download');
+        Route::get('/administration/price/delete/{id}', 'Backend\PriceController@delete');
     });
 
     Route::group(['middleware' => 'adminPermision:Admin,SEO'], function() {
@@ -107,9 +113,9 @@ Route::group(['middleware' => ['adminAuth']], function () {
         // Получаем пункт меню для редактирования
         Route::get('/administration/menu-item/{id}', 'Backend\MenuController@getMenuItem');
         // Добавляем пункт меню
-        Route::post('/administration/menu', 'Backend\MenuController@addMenu');
-        // Редактируем пункт меню
-        Route::put('/administration/menu', 'Backend\MenuController@editMenu');
+        Route::post('/administration/menu', 'Backend\MenuController@actionMenu');
+        // // Редактируем пункт меню
+        // Route::put('/administration/menu', 'Backend\MenuController@editMenu');
         // Сохраняем струкетуру меню (порядок, вес, вложеность)
         Route::post('/administration/menu-sort', 'Backend\MenuController@sortMenu');
         // Удалить пункт меню
@@ -127,38 +133,23 @@ Route::group(['middleware' => ['web', 'language', 'redirect-www']], function () 
 
     Route::get('/', ['as' => 'index-page', 'uses' => 'Frontend\IndexController@index']);
 
-    Route::post('/call-me-back', 'Frontend\IndexController@sendSms');
+    Route::post('/call-me-back', 'Frontend\ServiceController@sendSms');
+    Route::get('/contacts', ['as' => 'contacts', 'uses' => 'Frontend\ServiceController@contacts']);
+    Route::post('/contacts', 'Frontend\ServiceController@sendMessage');
+
+    Route::get('/price', ['as' => 'prices', 'uses' => 'Frontend\ServiceController@prices']);
+    Route::get('/price/{id}', 'Frontend\ServiceController@priceDownload');
+
     Route::get('/yutmk-energy', ['as' => 'about-us', 'uses' => 'Frontend\IndexController@aboutUs']);
     Route::get('/company-profile', ['as' => 'profile', 'uses' => 'Frontend\IndexController@companyProfile']);
     Route::get('/network-of-offices', ['as' => 'network-of-offices', 'uses' => 'Frontend\IndexController@salesNetwork']);
     Route::get('/office/{city}/{id}', ['as' => 'office', 'uses' => 'Frontend\IndexController@officeView']);
-    Route::get('/contacts', ['as' => 'contacts', 'uses' => 'Frontend\IndexController@contacts']);
-    Route::post('/contacts', 'Frontend\IndexController@sendMessage');
+
+
+
 
 // СПРАВОЧНАЯ ИНФОРМАЦИЯ (статика)
 
-    Route::get('/metallokonstruktsii', ['as' => 'metallokonstruktsii', 'uses' => 'Frontend\IndexController@metallokonstruktsii']);
-    Route::get('/modulnye-soorujeniya', ['as' => 'modulnye-soorujeniya', 'uses' => 'Frontend\IndexController@modulnyeSoorujeniya']);
-    Route::get('/otsinkovannye-rulony', ['as' => 'otsinkovannye-rulony', 'uses' => 'Frontend\IndexController@otsinkovannyeRulony']);
-    Route::get('/metall-iz-evropy', ['as' => 'metall-iz-evropy', 'uses' => 'Frontend\IndexController@metallIzEvropy']);
-    Route::get('/armatura', ['as' => 'armatura', 'uses' => 'Frontend\IndexController@armatura']);
-    Route::get('/balka-dvutavr', ['as' => 'balka-dvutavr', 'uses' => 'Frontend\IndexController@balkaDvutavr']);
-    Route::get('/katanka', ['as' => 'katanka', 'uses' => 'Frontend\IndexController@katanka']);
-    Route::get('/kvadrat', ['as' => 'kvadrat', 'uses' => 'Frontend\IndexController@kvadrat']);
-    Route::get('/krug', ['as' => 'krug', 'uses' => 'Frontend\IndexController@krug']);
-    Route::get('/polosa', ['as' => 'polosa', 'uses' => 'Frontend\IndexController@polosa']);
-    Route::get('/rels', ['as' => 'rels', 'uses' => 'Frontend\IndexController@rels']);
-    Route::get('/ugolok', ['as' => 'ugolok', 'uses' => 'Frontend\IndexController@ugolok']);
-    Route::get('/shveller', ['as' => 'shveller', 'uses' => 'Frontend\IndexController@shveller']);
-    Route::get('/shestigrannik', ['as' => 'shestigrannik', 'uses' => 'Frontend\IndexController@shestigrannik']);
-    Route::get('/staltrub', ['as' => 'staltrub', 'uses' => 'Frontend\IndexController@staltrub']);
-    Route::get('/truby-kotelnye', ['as' => 'truby-kotelnye', 'uses' => 'Frontend\IndexController@trubyKotelnye']);
-    Route::get('/pokovka', ['as' => 'pokovka', 'uses' => 'Frontend\IndexController@pokovka']);
-    Route::get('/list-hardox', ['as' => 'list-hardox', 'uses' => 'Frontend\IndexController@listHardox']);
-    Route::get('/list-stalnoj', ['as' => 'list-stalnoj', 'uses' => 'Frontend\IndexController@listStalnoj']);
-    Route::get('/shveller-gnutyj', ['as' => 'shveller-gnutyj', 'uses' => 'Frontend\IndexController@shvellerGnutyj']);
-    Route::get('/ugolok-gnutyj', ['as' => 'ugolok-gnutyj', 'uses' => 'Frontend\IndexController@ugolokGnutyj']);
-    Route::get('/z-obraznyj-profil', ['as' => 'z-obraznyj-profil', 'uses' => 'Frontend\IndexController@obraznyjProfil']);
     Route::get('/porezka', ['as' => 'porezka', 'uses' => 'Frontend\IndexController@porezka']);
     Route::get('/upakovka', ['as' => 'upakovka', 'uses' => 'Frontend\IndexController@upakovka']);
     Route::get('/dostavka', ['as' => 'dostavka', 'uses' => 'Frontend\IndexController@dostavka']);
@@ -189,29 +180,29 @@ Route::group(['middleware' => ['web', 'language', 'redirect-www']], function () 
     Route::get('/nadezhnyj-partner-dlya-vashego-biznesa', ['as' => 'nadezhnyj-partner', 'uses' => 'Frontend\IndexController@nadezhnyjPartner']);
     Route::get('/karernye-vozmozhnosti', ['as' => 'karernye-vozmozhnosti', 'uses' => 'Frontend\IndexController@karernyeVozmozhnosti']);
 
-
     Route::get('/blog', ['as' => 'blog', 'uses' => 'Frontend\BlogController@index']);
     Route::get('/blog/{slug}', 'Frontend\BlogController@view');
 
-// Отображение продукции
-    Route::get('/catalog/products/{slug?}/{id?}', ['as' => 'products-index', 'uses' => 'Frontend\ProductsController@index']);
+    Route::get('/products', ['as' => 'products-index', 'uses' => 'Frontend\ProductsController@index']);
+
+
     // AJAX подгружаем меню
     Route::get('/catalog/get-catalog', 'Frontend\ProductsController@getMenu');
     // AJAX подгружаем продукцию (menu, name, city, page)
     Route::get('/catalog/get-products', 'Frontend\ProductsController@getCatalog');
-    // просмотр продукта
-    Route::get('/catalog/details/{slug_menu}/{slug_product}/{id}', ['as' => 'products-view', 'uses' => 'Frontend\ProductsController@view']);
+    // // просмотр продукта
+    // Route::get('/catalog/details/{slug_menu}/{slug_product}/{id}', ['as' => 'products-view', 'uses' => 'Frontend\ProductsController@view']);
 
-        // получить данные для отображения корзины
-        Route::get('/products/get-order-data', 'Frontend\ProductsController@getShoppingCart');
-        // добавить продукт в корзину
-        Route::post('/products/product-to-cart', 'Frontend\ProductsController@setToCart');
-        // изменить количество продукции в корзине
-        Route::post('/products/change-count-products', 'Frontend\ProductsController@countProductCart');
-        // удалить продукт из корзины
-        Route::post('/products/remove-product-to-cart', 'Frontend\ProductsController@deleteProductCart');
-        // сформировать заказ
-        Route::post('/products/formed-order', 'Frontend\ProductsController@formedOrder');
+// КОРЗИНА
+    Route::get('/products/get-order-data', 'Frontend\ProductsController@getShoppingCart');
+    // добавить продукт в корзину
+    Route::post('/products/product-to-cart', 'Frontend\ProductsController@setToCart');
+    // изменить количество продукции в корзине
+    Route::post('/products/change-count-products', 'Frontend\ProductsController@countProductCart');
+    // удалить продукт из корзины
+    Route::post('/products/remove-product-to-cart', 'Frontend\ProductsController@deleteProductCart');
+    // сформировать заказ
+    Route::post('/products/formed-order', 'Frontend\ProductsController@formedOrder');
 
 
 // Authentication Routes...
@@ -222,7 +213,7 @@ Route::group(['middleware' => ['web', 'language', 'redirect-www']], function () 
     Route::get('/register', 'Auth\AuthController@showRegistrationForm');
     Route::post('/register', 'Auth\AuthController@register');
 
-    // // Password Reset Routes...
+    // Password Reset Routes...
     Route::get('/password/reset/{token?}', 'Auth\PasswordController@showResetForm');
     Route::post('/password/email', 'Auth\PasswordController@sendResetLinkEmail');
     Route::post('/password/reset', 'Auth\PasswordController@reset');
@@ -235,3 +226,26 @@ Route::group(['middleware' => ['web', 'language', 'redirect-www']], function () 
 
 
 Route::get('/{slug}', 'Frontend\RouteController@index')->where('slug', '.+?');
+
+    Route::get('/metallokonstruktsii', ['as' => 'metallokonstruktsii', 'uses' => 'Frontend\IndexController@metallokonstruktsii']);
+    Route::get('/modulnye-soorujeniya', ['as' => 'modulnye-soorujeniya', 'uses' => 'Frontend\IndexController@modulnyeSoorujeniya']);
+    Route::get('/otsinkovannye-rulony', ['as' => 'otsinkovannye-rulony', 'uses' => 'Frontend\IndexController@otsinkovannyeRulony']);
+    Route::get('/metall-iz-evropy', ['as' => 'metall-iz-evropy', 'uses' => 'Frontend\IndexController@metallIzEvropy']);
+    Route::get('/armatura', ['as' => 'armatura', 'uses' => 'Frontend\IndexController@armatura']);
+    Route::get('/balka-dvutavr', ['as' => 'balka-dvutavr', 'uses' => 'Frontend\IndexController@balkaDvutavr']);
+    Route::get('/katanka', ['as' => 'katanka', 'uses' => 'Frontend\IndexController@katanka']);
+    Route::get('/kvadrat', ['as' => 'kvadrat', 'uses' => 'Frontend\IndexController@kvadrat']);
+    Route::get('/krug', ['as' => 'krug', 'uses' => 'Frontend\IndexController@krug']);
+    Route::get('/polosa', ['as' => 'polosa', 'uses' => 'Frontend\IndexController@polosa']);
+    Route::get('/rels', ['as' => 'rels', 'uses' => 'Frontend\IndexController@rels']);
+    Route::get('/ugolok', ['as' => 'ugolok', 'uses' => 'Frontend\IndexController@ugolok']);
+    Route::get('/shveller', ['as' => 'shveller', 'uses' => 'Frontend\IndexController@shveller']);
+    Route::get('/shestigrannik', ['as' => 'shestigrannik', 'uses' => 'Frontend\IndexController@shestigrannik']);
+    Route::get('/staltrub', ['as' => 'staltrub', 'uses' => 'Frontend\IndexController@staltrub']);
+    Route::get('/truby-kotelnye', ['as' => 'truby-kotelnye', 'uses' => 'Frontend\IndexController@trubyKotelnye']);
+    Route::get('/pokovka', ['as' => 'pokovka', 'uses' => 'Frontend\IndexController@pokovka']);
+    Route::get('/list-hardox', ['as' => 'list-hardox', 'uses' => 'Frontend\IndexController@listHardox']);
+    Route::get('/list-stalnoj', ['as' => 'list-stalnoj', 'uses' => 'Frontend\IndexController@listStalnoj']);
+    Route::get('/shveller-gnutyj', ['as' => 'shveller-gnutyj', 'uses' => 'Frontend\IndexController@shvellerGnutyj']);
+    Route::get('/ugolok-gnutyj', ['as' => 'ugolok-gnutyj', 'uses' => 'Frontend\IndexController@ugolokGnutyj']);
+    Route::get('/z-obraznyj-profil', ['as' => 'z-obraznyj-profil', 'uses' => 'Frontend\IndexController@obraznyjProfil']);

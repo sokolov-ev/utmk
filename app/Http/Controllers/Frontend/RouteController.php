@@ -8,11 +8,108 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
 use App;
+use App\Menu;
+use App\Metatags;
+use App\Office;
+use App\Orders;
+use App\Products;
 
 class RouteController extends Controller
 {
-    public function index($slug)
+    public function index(Request $request, $slug)
     {
-        dd($slug);
+        $part = explode('/', $slug);
+
+        if ($part[0] == 'index.php') {
+            return redirect('/', 301);
+        }
+
+        $slug = array_pop($part);
+
+        $item = ($item = Menu::where('slug', $slug)->first()) ? $item->toArray() : null;
+
+        if (null === $item) {
+            $product = Products::where('slug', $slug)->first();
+
+            if (empty($product)) {
+                abort(404);
+            } else {
+
+                $menu = Menu::getBreadcrumbs($product['menu_id']);
+                $product = Products::toArrayProduct($product);
+
+                $metatags = Metatags::where([['type', 'product'], ['slug', $slug]])->first();
+                $metatags = Metatags::getViewData($metatags);
+
+                return view('frontend.products.view', [
+                    'product'  => $product,
+                    'menu'     => $menu,
+                    'metatags' => $metatags,
+                ]);
+            }
+        }
+
+        $offices = Office::select('id', 'city')->get();
+        $ordersLocked = Orders::isLocked();
+        $filterOffice = $ordersLocked ? $ordersLocked : Office::getOfficeId($request->get('city'));
+
+        $format = 'list';
+        if (empty($request->get('format')) || ($request->get('format') == 'cards')) {
+            $format = 'cards';
+        }
+
+        $menu  = Menu::all();
+        $array = $this->getCatalogId($item['id'], $menu->toArray());
+
+        $products = Products::whereIn('menu_id', $array)->where([['office_id', $filterOffice], ['show_my', 1]])->orderBy('rating', 'DESC')->paginate(9);
+        $result   = Products::viewDataJson($products);
+
+        $metatags = Metatags::where([['type', 'menu'], ['slug', $slug]])->first();
+        $metatags = Metatags::getViewData($metatags);
+
+        return view('frontend.products.index', [
+            'products' => $products,
+            'result'   => $result,
+            'offices'  => $offices,
+            'menu_id'  => $item['id'],
+            'format'   => $format,
+            'metatags' => $metatags,
+            'filterCity'   => $filterOffice,
+            'ordersLocked' => $ordersLocked,
+            'query' => $request->except('page'),
+            'offPaginate' => false,
+        ]);
+    }
+
+    protected function getCatalogId($id, $catalog)
+    {
+        $menu[] = $id;
+
+        $child = array_filter($catalog, function($innerArray) use ($id) {
+            return $innerArray['parent_id'] == $id;
+        });
+
+        foreach ($child as $value) {
+            $temp = $this->getCatalogId($value['id'], $catalog);
+
+            array_push($menu, $temp);
+        }
+
+        return $this->wat($menu);
+    }
+
+    protected function wat(array $menu)
+    {
+        $result = [];
+
+        foreach ($menu as $key => $value) {
+            if (is_array($value)) {
+                $result = array_merge($result, $this->wat($value));
+            } else {
+                $result[] = $value;
+            }
+        }
+
+        return $result;
     }
 }

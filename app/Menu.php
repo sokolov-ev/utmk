@@ -18,7 +18,7 @@ class Menu extends Model
      * @var array
      */
     protected $fillable = [
-        'parent_id', 'parent_exist', 'weight', 'name', 'slug'
+        'parent_id', 'parent_exist', 'weight', 'name', 'slug', 'full_path_slug'
     ];
 
     /**
@@ -35,7 +35,7 @@ class Menu extends Model
     {
         parent::boot();
 
-        static::deleting(function($menu){
+        static::deleting(function($menu) {
             Menu::where('parent_id', $menu->id)->delete();
         });
     }
@@ -50,18 +50,53 @@ class Menu extends Model
         return $this->hasOne('App\Metatags', 'slug', 'slug')->where('type', 'menu');
     }
 
-    public static function checkParent()
+    public static function formingAdditionalData()
     {
-        $items = Menu::all();
+        $menu = Menu::all();
 
-        foreach ($items as $item) {
-            if (Menu::where('parent_id', $item->id)->exists()) {
+        foreach ($menu as $item) {
+
+            $parent = array_filter($menu->toArray(), function($innerArray) use ($item) {
+                return $innerArray['parent_id'] == $item->id;
+            });
+
+            if (!empty($parent)) {
                 $item->parent_exist = 1;
             } else {
                 $item->parent_exist = 0;
             }
 
-            $item->update();
+            if ($item->parent_id != 0) {
+                $slug = array_merge([$item->slug], static::getCatalogSlug($item->parent_id, $menu->toArray(), []));
+                $slug = array_reverse($slug);
+                $item->full_path_slug = '/'.implode('/', $slug);
+            } else {
+                $item->full_path_slug = '/'.$item->slug;
+            }
+
+            if ($item->update()) {
+                $products = Products::where('menu_id', $item->id)->get();
+
+                foreach ($products as $product) {
+                    $product->slug_menu = $item->full_path_slug.'/'.$product->slug;
+                    $product->update();
+                }
+            }
+        }
+    }
+
+    protected static function getCatalogSlug($id, $catalog, $slug)
+    {
+        $parent = array_filter($catalog, function($innerArray) use ($id) {
+            return $innerArray['id'] == $id;
+        });
+
+        if (empty($parent)) {
+            return $slug;
+        } else {
+            $parent = current($parent);
+            $slug[] = $parent['slug'];
+            return static::getCatalogSlug($parent['parent_id'], $catalog, $slug);
         }
     }
 
@@ -91,7 +126,7 @@ class Menu extends Model
         }
 
         $temp['id']   = $item['id'];
-        $temp['slug'] = $item['slug'];
+        $temp['slug'] = $item['full_path_slug'];
         $temp['name'] = json_decode($item['name'], true)[App::getLocale()];
 
         $chain[] = $temp;

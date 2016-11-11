@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMenuTable extends Migration
+class CreateFilePriceTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,14 +12,10 @@ class CreateMenuTable extends Migration
      */
     public function up()
     {
-        Schema::create('menu', function (Blueprint $table) {
+        Schema::create('file_price', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('parent_id');
-            $table->smallInteger('parent_exist');
-            $table->integer('weight');
-            $table->string('name');
-            $table->string('slug');
-            $table->string('full_path_slug', 512);
+            $table->text('name');
+            $table->text('slug');
             $table->integer('created_at');
             $table->integer('updated_at');
         });
@@ -32,6 +28,6 @@ class CreateMenuTable extends Migration
      */
     public function down()
     {
-        Schema::drop('menu');
+        Schema::drop('file_price');
     }
 }

@@ -181,7 +181,16 @@
 
                 <li class="about-us"><a href="{{ route('about-us') }}">{{ trans('index.menu.about_us') }}</a></li>
                 <li class="company-profile"><a href="{{ route('profile') }}">{{ trans('index.menu.company_profile') }}</a></li>
-                <li class="products"><a href="{{ route('products-index') }}">{{ trans('index.menu.products') }}</a></li>
+
+                <li class="dropdown products">
+                    <a class="dropdown-toggle" aria-expanded="false" aria-haspopup="true" role="button" href="{{ route('products-index') }}">
+                        {{ trans('index.menu.products') }} <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li> <a href="{{ route('prices') }}">{{ trans('index.menu.price') }}</a> </li>
+                    </ul>
+                </li>
+
                 <li class="network-of-offices"><a href="{{ route('network-of-offices') }}">{{ trans('index.menu.network_of_offices') }}</a></li>
                 <li class="contact-us"><a href="{{ route('contacts') }}">{{ trans('index.menu.contact_us') }}</a></li>
 

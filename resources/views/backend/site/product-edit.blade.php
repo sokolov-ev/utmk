@@ -26,8 +26,10 @@
             <div class="hidden language" data-lang="{{ App::getLocale() }}"></div>
 
             <form id="form-edit-product" role="form" method="POST" action="{{ url('administration/product/edit/'.$product['id']) }}" enctype="multipart/form-data">
-                <input type="hidden" name="_method" value="PUT">
                 {{ csrf_field() }}
+                <input type="hidden" name="_method" value="PUT">
+                <input type="hidden" name="id" value="{{ old('id', $product['id']) }}">
+
 
                 <div class="row">
                     <div class="col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-12">
@@ -112,6 +114,17 @@
                         @else
                             <input type="hidden" name="office_id" id="office_id" value="{{ old('office_id', $offices) }}">
                         @endif
+
+                        <div class="form-group{{ $errors->has('slug') ? ' has-error' : '' }}">
+                            <label for="slug" class="control-label">Slug (отображение в адресной строке)</label>
+                            <input id="slug" name="slug" type="text" class="form-control" value="{{ old('slug', $product['slug']) }}">
+
+                            @if ($errors->has('slug'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('slug') }}</strong>
+                                </span>
+                            @endif
+                        </div>
 
                         <div class="form-group{{ ($errors->has('title_en') || $errors->has('title_ru') || $errors->has('title_uk')) ? ' has-error' : '' }}" style="margin-bottom: 0;">
                             <div class="row">

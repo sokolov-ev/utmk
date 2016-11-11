@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
 use App;
+use Validator;
 use App\Menu;
 
 class MenuController extends Controller
@@ -31,7 +32,7 @@ class MenuController extends Controller
 
     public function getMenuItem($id)
     {
-        $item = Menu::select('id', 'name')->where('id', $id)->first();
+        $item = Menu::select('id', 'name', 'slug')->where('id', $id)->first();
 
         if (empty($item)) {
             return response()->json(['status' => 'bad', 'message' => 'Пункт меню не найден.']);
@@ -40,46 +41,52 @@ class MenuController extends Controller
         }
     }
 
-    public function addMenu(Request $request)
-    {
-        $array['en'] = $request->input('menu-en');
-        $array['ru'] = $request->input('menu-ru');
-        $array['uk'] = $request->input('menu-uk');
-
-        $menu = Menu::create([
-            'name' => json_encode($array, JSON_UNESCAPED_UNICODE),
-            'slug' => str_slug($array['ru'], '_'),
-        ]);
-
-        if ($menu) {
-            return response()->json(['status' => 'ok', 'message' => 'Пункт меню добавлен.']);
-        } else {
-            return response()->json(['status' => 'ok', 'message' => 'Возникла ошибка при добавлении пункта меню.']);
-        }
-    }
-
-    public function editMenu(Request $request)
+    public function actionMenu(Request $request)
     {
         $id = $request->input('menu-id');
+        $data = $request->all();
+        $data['slug'] = str_slug($data['slug'], '-');
 
-        $item = Menu::where('id', $id)->first();
+        if (empty($id)) {
+            $menu = new Menu();
 
-        if (empty($item)) {
-            return response()->json(['status' => 'bad', 'message' => 'Пункт меню не найден.']);
-        }
-
-        $array['en'] = $request->input('menu-en');
-        $array['ru'] = $request->input('menu-ru');
-        $array['uk'] = $request->input('menu-uk');
-
-        $item->name = json_encode($array, JSON_UNESCAPED_UNICODE);
-        $item->slug = str_slug($array['ru'], '_');
-
-        if ($item->update()) {
-            return response()->json(['status' => 'ok', 'message' => 'Пункт меню изменен.']);
+            $validator = Validator::make($data, [
+                'slug' => 'required|unique:menu,slug',
+            ]);
         } else {
-            return response()->json(['status' => 'bad', 'message' => 'Возникла ошибка при редактировании пункта меню.']);
+            $menu = Menu::where('id', $id)->first();
+
+            if (empty($menu)) {
+                session()->flash('error', 'Каталог не найден.');
+                return redirect()->back();
+            }
+
+            $validator = Validator::make($data, [
+                'slug' => 'required|unique:blog,slug,'.$id,
+            ]);
         }
+
+        if ($validator->fails()) {
+            session()->flash('error', $validator->errors()->first());
+            $this->throwValidationException($request, $validator);
+        }
+
+        $array['en'] = $data['menu-en'];
+        $array['ru'] = $data['menu-ru'];
+        $array['uk'] = $data['menu-uk'];
+
+        $menu->name = json_encode($array, JSON_UNESCAPED_UNICODE);
+        $menu->slug = str_slug($data['slug'], '-');
+
+        if ($menu->save()) {
+            Menu::formingAdditionalData();
+
+            session()->flash('success', 'Каталог сохранен.');
+        } else {
+            session()->flash('error', 'Возникла ошибка при добавлении пункта каталога.');
+        }
+
+        return redirect()->back();
     }
 
     public function sortMenu(Request $request)
@@ -87,22 +94,27 @@ class MenuController extends Controller
         $id     = $request->input('id');
         $weight = $request->input('weight');
         $parent = $request->input('parent');
+        $array  = [];
+
 
         if (empty($id) || empty($weight)) {
             return response()->json(['status' => 'bad', 'message' => 'Данные для сортировки отсутствуют.']);
         }
 
-        for ($i = 0; $i < count($weight); $i++) {
-            $item = Menu::where('id', $id[$i])->first();
-
-            if (!empty($item)) {
-                $item->parent_id = $parent[$i];
-                $item->weight = $weight[$i];
-                $item->update();
-            }
+        for ($i = 0; $i < count($id); $i++) {
+            $array[$id[$i]]['parent'] = $parent[$i];
+            $array[$id[$i]]['weight'] = $weight[$i];
         }
 
-        Menu::checkParent();
+        $menu = Menu::all();
+
+        foreach ($menu as $item) {
+            $item->parent_id = $array[$item->id]['parent'];
+            $item->weight = $array[$item->id]['weight'];
+            $item->update();
+        }
+
+        Menu::formingAdditionalData();
 
         return response()->json(['status' => 'ok', 'message' => 'Сортировка сохранена.']);
     }
@@ -115,12 +127,12 @@ class MenuController extends Controller
 
         if ($item->products->count() > 0) {
             if ($item->delete()) {
+                Menu::formingAdditionalData();
+
                 session()->flash('success', 'Пункт меню успешно удален.');
             } else {
                 session()->flash('error', 'Возникла ошибка удаления пункта меню.');
             }
-
-            Menu::checkParent();
         } else {
             session()->flash('warning', 'Не возможно удалить каталог, так как за ним закреплена продукция.');
         }

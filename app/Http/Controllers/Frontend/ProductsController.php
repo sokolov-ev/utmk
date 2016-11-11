@@ -21,8 +21,10 @@ use Validator;
 
 class ProductsController extends Controller
 {
-    public function index(Request $request, $slug = null, $id = null)
+    public function index(Request $request)
     {
+        $name = $request->get('name');
+
         $offices = Office::select('id', 'city')->get();
         $ordersLocked = Orders::isLocked();
         $filterOffice = $ordersLocked ? $ordersLocked : Office::getOfficeId($request->get('city'));
@@ -32,17 +34,23 @@ class ProductsController extends Controller
             $format = 'cards';
         }
 
-        if (empty($id)) {
-            $products = Products::where([['office_id', $filterOffice], ['show_my', '1']])->orderBy('rating', 'DESC')->take(9)->get();
+        $count = 9;
+        $offPaginate = false;
 
-            $metatags = Metatags::where([['type', 'menu'], ['slug', 'index']])->first();
+        // top products
+        $where = [['show_my', 1], ['office_id', $filterOffice]];
+
+        // поиск по названию
+        if (!empty($name)) {
+            $where[] = ['title', 'LIKE', '%'.$name.'%'];
+
+            $products = Products::where($where)->orderBy('rating', 'DESC')->paginate($count);
         } else {
-            $products = Products::where([['office_id', $filterOffice], ['show_my', '1'], ['menu_id', $id]])
-                                ->orderBy('rating', 'DESC')
-                                ->paginate(9);
-
-            $metatags = Metatags::where([['type', 'menu'], ['slug', $slug]])->first();
+            $products = Products::where($where)->orderBy('rating', 'DESC')->take($count)->get();
+            $offPaginate = true;
         }
+
+        $metatags = Metatags::where([['type', 'menu'], ['slug', 'products']])->first();
 
         // преобразование данных для отображения
         $result   = Products::viewDataJson($products);
@@ -52,46 +60,30 @@ class ProductsController extends Controller
             'products' => $products,
             'result'   => $result,
             'offices'  => $offices,
-            'menu_id'  => $id,
+            'menu_id'  => null,
             'format'   => $format,
             'metatags' => $metatags,
-            'filterCity' => $filterOffice,
+            'filterCity'   => $filterOffice,
             'ordersLocked' => $ordersLocked,
+            'query' => $request->except('page'),
+            'offPaginate' => $offPaginate,
         ]);
     }
 
-    public function view($slug_menu, $slug_product, $id)
+    public function price()
     {
-        $product = Products::viewData($id);
 
-        if (empty($product)) {
-            return response()->view('errors.404', [], 404);
-        }
-
-        $metatags = false;
-        if (!empty($slug_product)) {
-            $metatags = Metatags::where([['type', 'product'], ['slug', $slug_product]])->first();
-        }
-
-        $metatags = Metatags::getViewData($metatags);
-        $menu = Menu::getBreadcrumbs($product['menu_id']);
-
-        return view('frontend.products.view', [
-            'product' => $product,
-            'menu' => $menu,
-            'metatags' => $metatags,
-        ]);
     }
 
     public function getMenu()
     {
         $result = [];
-        $menu = Menu::select('id', 'parent_id AS parent', 'name', 'slug')
-                    ->orderBy('weight', 'ASC')
-                    ->get();
+        $menu = Menu::select('id', 'parent_id AS parent', 'name', 'full_path_slug')->orderBy('weight', 'ASC')->get()->toArray();
 
-        foreach ($menu->toArray() as $item) {
+        foreach ($menu as $item) {
             $item['name'] = json_decode($item['name'], true)[App::getLocale()];
+            $item['slug'] = $item['full_path_slug'];
+
             $result[] = $item;
         }
 
@@ -104,17 +96,17 @@ class ProductsController extends Controller
 
     public function getCatalog(Request $request)
     {
-        $menu = $request->input('menu');
-        $name = $request->input('name');
-        $city = $request->input('city');
-        $page = $request->input('page')-1;
+        $menu = $request->get('menu');
+        $name = $request->get('name');
+        $page = $request->get('page')-1;
+
         $ordersLocked = Orders::isLocked();
-        $city = $ordersLocked ? $ordersLocked : $city;
+        $city = $ordersLocked ? $ordersLocked : Office::getOfficeId($request->get('city'));
 
         $count = 9;
         $page  = empty($page) ? 0 : $count * $page;
         // top products
-        $where = [['show_my', '1']];
+        $where = [['show_my', 1]];
 
         // выгребаем по разделу меню
         if (!empty($menu)) {
@@ -129,7 +121,11 @@ class ProductsController extends Controller
             $where[] = ['office_id', $city];
         }
 
-        $total = Products::where($where)->count();
+        if (empty($menu) && empty($name)) {
+            $total = $count;
+        } else {
+            $total = Products::where($where)->count();
+        }
 
         $products = Products::where($where)
                             ->orderBy('rating', 'DESC')
@@ -143,7 +139,7 @@ class ProductsController extends Controller
         if (empty($products)) {
             return response()->json(['status' => 'bad', 'message' => trans('products.products-missing')]);
         } else {
-            return response()->json(['status' => 'ok', 'data' => $products, 'count' => empty($menu) ? $count : $total]);
+            return response()->json(['status' => 'ok', 'data' => $products, 'count' => $total]);
         }
     }
 

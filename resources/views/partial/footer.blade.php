@@ -164,7 +164,7 @@
             </div>
         </div>
 
-        <div class="row">
+      {{--   <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <p class="footer-title">{{ trans('index.footer.reference') }}</p>
                 <span class="footer-link-block">
@@ -236,7 +236,7 @@
                     </a>
                 </span>
             </div>
-        </div>
+        </div> --}}
         <div class="clearfix padding-top"></div>
     </div>
 </section>
