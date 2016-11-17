@@ -111,4 +111,9 @@ $(document).ready(function(){
         $("#menu-item-id").val($(this).data('id'));
         $(".delete-name-item").html($(this).data('name'));
     });
+
+    $("#tree").on('click', '.btn-clean', function(event){
+        $(".clean-btn-send").attr('href', '/administration/menu-clean/' + $(this).data('id'));
+        $(".clean-price").html($(this).data('name'));
+    });
 });

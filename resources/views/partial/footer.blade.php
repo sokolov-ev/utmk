@@ -52,25 +52,18 @@
                     <div class="col-md-4 col-sm-4 col-xs-12">
                         <p class="footer-title">{{ trans('index.speech.languages') }}</p>
                         <ul class="list-unstyled footer-link-block">
-                            <?php
-                                $path = request()->path();
-                                $link = url($locale);
-                                if (in_array(App::getLocale(), ['en', 'uk'])) {
-                                    $path = substr($path, 2, strlen($path)-1);
-                                }
-                            ?>
                             <li>
-                                <a href="{{ url('/en'.$path) }}" title="{{ trans('index.speech.en') }}">
+                                <a href="{{ url('/en/'.$path) }}" title="{{ trans('index.speech.en') }}">
                                     {{ trans('index.speech.en') }}
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ url('/ru'.$path) }}" title="{{ trans('index.speech.ru') }}">
+                                <a href="{{ url('/'.$path) }}" title="{{ trans('index.speech.ru') }}">
                                     {{ trans('index.speech.ru') }}
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ url('/uk'.$path) }}" title="{{ trans('index.speech.uk') }}">
+                                <a href="{{ url('/uk/'.$path) }}" title="{{ trans('index.speech.uk') }}">
                                     {{ trans('index.speech.uk') }}
                                 </a>
                             </li>
@@ -78,13 +71,14 @@
 
                         <p class="footer-title">{{ trans('index.footer.tell-us') }}</p>
                         <ul class="list-unstyled footer-link-block tell-us">
+                            <?php $link = empty($locale) ? '/' : $locale; ?>
                             <li>
                                 <div class="row">
                                     <div class="col-sm-2 col-xs-1">
                                         <i class="fa fa-google-plus" aria-hidden="true"></i>
                                     </div>
                                     <div class="col-sm-10 col-xs-10">
-                                        <a href="https://plus.google.com/share?url={{ $link }}"
+                                        <a href="https://plus.google.com/share?url={{ url($link) }}"
                                            title="Google +"
                                            class="footer-link"
                                            onclick="window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=610,width=600'); return false;">Google +</a>
@@ -97,7 +91,7 @@
                                         <i class="fa fa-twitter" aria-hidden="true"></i>
                                     </div>
                                     <div class="col-sm-10 col-xs-10">
-                                        <a href="https://twitter.com/intent/tweet?text=Metall+Vsem+{{ $link }}+via+@metallvsem+%23MetallVsem"
+                                        <a href="https://twitter.com/intent/tweet?text=Metall+Vsem+{{ url($link) }}+via+@metallvsem+%23MetallVsem"
                                            title="Twitter"
                                            class="footer-link"
                                            onclick="window.open(this.href, '', 'width=640,height=436'); return false;">Twitter</a>
@@ -110,7 +104,7 @@
                                         <i class="fa fa-facebook" aria-hidden="true"></i>
                                     </div>
                                     <div class="col-sm-10 col-xs-10">
-                                        <a href="https://www.facebook.com/sharer/sharer.php?u={{ $link }}"
+                                        <a href="https://www.facebook.com/sharer/sharer.php?u={{ url($link) }}"
                                            title="Facebook"
                                            class="footer-link"
                                            onclick="window.open(this.href, '', 'width=640, height=436'); return false;">Facebook</a>
@@ -123,7 +117,7 @@
                                         <i class="fa fa-linkedin" aria-hidden="true"></i>
                                     </div>
                                     <div class="col-sm-10 col-xs-10">
-                                        <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ $link }}"
+                                        <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ url($link) }}"
                                            title="LinkedIn"
                                            class="footer-link"
                                            onclick="window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=610,width=600'); return false;">LinkedIn</a>

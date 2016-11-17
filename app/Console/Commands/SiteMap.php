@@ -118,7 +118,7 @@ class SiteMap extends Command
 
         $sitemap .= '</urlset>';
 
-        file_put_contents('public/sitemap.xml', $sitemap);
+        // file_put_contents('public/sitemap.xml', $sitemap);
         file_put_contents('/home/metallvs/metallvsem.com.ua/www/public/sitemap.xml', $sitemap);
 
         return true;

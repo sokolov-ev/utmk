@@ -71,8 +71,9 @@
                 <div class="laguage-block pull-right">
                     <?php
                         $path = request()->path();
+
                         if (in_array(App::getLocale(), ['en', 'uk'])) {
-                            $path = substr($path, 2, strlen($path)-1);
+                            $path = substr($path, 3, strlen($path)-1);
                         }
                         //Да! это костыли! привет СЕО
                         if (in_array(App::getLocale(), ['en', 'uk'])) {
@@ -81,13 +82,13 @@
                             $locale = '';
                         }
                     ?>
-                    <a href="{{ url('/en'.$path) }}" title="{{ trans('index.speech.en') }}">
+                    <a href="{{ url('/en/'.$path) }}" title="{{ trans('index.speech.en') }}">
                         <img src="/images/flags/en.gif" title="{{ trans('index.speech.en') }}" alt="{{ trans('index.speech.en') }}" />
                     </a>
-                    <a href="{{ url('/ru'.$path) }}" title="{{ trans('index.speech.ru') }}">
+                    <a href="{{ url('/'.$path) }}" title="{{ trans('index.speech.ru') }}">
                         <img src="/images/flags/ru.gif" title="{{ trans('index.speech.ru') }}" alt="{{ trans('index.speech.ru') }}" />
                     </a>
-                    <a href="{{ url('/uk'.$path) }}" title="{{ trans('index.speech.uk') }}">
+                    <a href="{{ url('/uk/'.$path) }}" title="{{ trans('index.speech.uk') }}">
                         <img src="/images/flags/uk.gif" title="{{ trans('index.speech.uk') }}" alt="{{ trans('index.speech.uk') }}" />
                     </a>
                 </div>

@@ -26,15 +26,23 @@ class RouteController extends Controller
 
         if (in_array($part[0], ['en', 'ru', 'uk'])) {
             App::setLocale($part[0]);
+
+            $slug = '/'.substr($slug, 3, strlen($slug));
+
+            if ($part[0] == 'ru') {
+                return redirect($slug, 301);
+            }
         } else {
             App::setLocale('ru');
+
+            $slug = '/'.$slug;
         }
 
-        $slug = array_pop($part);
-
-        $item = ($item = Menu::where('slug', $slug)->first()) ? $item->toArray() : null;
+        $item = ($item = Menu::where('full_path_slug', $slug)->first()) ? $item->toArray() : null;
 
         if (null === $item) {
+            $slug = array_pop($part);
+
             $product = Products::where('slug', $slug)->first();
 
             if (empty($product)) {

@@ -126,7 +126,7 @@
             </div>
             <div class="modal-body">
                 Вы действительно хотите удалить пункт меню:
-                "<div class="delete-name-item" style="display: inline-block;"></div>"
+                "<div class="delete-name-item" style="display: inline-block;"></div>" ?
             </div>
             <div class="modal-footer">
                 <form id="form-delete-item" role="form" method="POST" action="/administration/menu">
@@ -137,6 +137,26 @@
                     <button class="btn btn-danger pull-left" type="submit">Удалить</button>
                     <button class="btn btn-default" data-dismiss="modal" type="button">Отмена</button>
                 </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="cleanPrice" aria-labelledby="labelCleanPrice" role="dialog" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 id="labelCleanPrice" class="modal-title">Удаление продукции</h4>
+            </div>
+            <div class="modal-body">
+                Вы действительно хотите удалить всю продукцию из пункта меню: <br/>
+                "<div class="clean-price" style="display: inline-block; font-weight: bold;"></div>" ?
+            </div>
+            <div class="modal-footer">
+                <a class="btn btn-danger pull-left clean-btn-send" href="">Очистить</a>
+                <button class="btn btn-default" data-dismiss="modal" type="button">Отмена</button>
             </div>
         </div>
     </div>

@@ -9,6 +9,7 @@ use Illuminate\Routing\Controller;
 use App;
 use Validator;
 use App\Menu;
+use App\Products;
 
 class MenuController extends Controller
 {
@@ -138,5 +139,19 @@ class MenuController extends Controller
         }
 
         return redirect(url()->previous());
+    }
+
+    public function cleanPrice($id)
+    {
+        $menu = Menu::findOrFail($id);
+        $count = $menu->products()->count();
+
+        if ($menu->products()->delete()) {
+            session()->flash('success', 'Было удалено: '.$count.' записей.');
+        } else {
+            session()->flash('warning', 'Возникла ошибка при удалении подукции.');
+        }
+
+        return redirect()->back();
     }
 }

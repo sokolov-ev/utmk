@@ -103,13 +103,15 @@ class Menu extends Model
 
     public static function getBreadcrumbs($id)
     {
-        if (Cache::has('menu')) {
-            $menu = Cache::store('file')->get('menu');
-        } else {
-            $menu = Menu::all();
+        // if (Cache::has('menu')) {
+        //     $menu = Cache::store('file')->get('menu');
+        // } else {
+        //     $menu = Menu::all();
 
-            Cache::store('file')->put('menu', $menu->toArray(), 1440); // храним сутки
-        }
+        //     Cache::store('file')->put('menu', $menu->toArray(), 1440); // храним сутки
+        // }
+
+        $menu = Menu::all();
 
         $array = static::getChain($menu, $id, []);
 

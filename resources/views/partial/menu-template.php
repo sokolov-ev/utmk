@@ -9,6 +9,10 @@
         <button class="btn btn-default btn-xs btn-edit" data-id="{{id}}">
             <i class="glyphicon glyphicon-pencil text-success" style="top: 3px;"></i>
         </button>
+
+        <button class="btn btn-default btn-xs btn-clean" data-id="{{id}}" data-name="{{name}}" data-toggle="modal" data-target="#cleanPrice">
+            <i class="fa fa-trash-o" aria-hidden="true" style="top: 3px;"></i>
+        </button>
         <ol class="menu menu-empty"> </ol>
     </li>
 

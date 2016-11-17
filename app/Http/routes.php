@@ -115,7 +115,7 @@ Route::group(['middleware' => ['adminAuth']], function () {
         // Добавляем пункт меню
         Route::post('/administration/menu', 'Backend\MenuController@actionMenu');
         // // Редактируем пункт меню
-        // Route::put('/administration/menu', 'Backend\MenuController@editMenu');
+        Route::get('/administration/menu-clean/{id}', 'Backend\MenuController@cleanPrice');
         // Сохраняем струкетуру меню (порядок, вес, вложеность)
         Route::post('/administration/menu-sort', 'Backend\MenuController@sortMenu');
         // Удалить пункт меню
@@ -226,7 +226,7 @@ Route::group(['middleware' => ['web', 'language', 'redirect-www']], function () 
 
     $locale = Request::segment(1);
 
-    if (in_array($locale, ['en', 'ru', 'uk'])) {
+    if (in_array($locale, ['en', 'uk'])) {
 
         Route::group(['prefix' => $locale], function() {
 
