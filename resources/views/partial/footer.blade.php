@@ -52,31 +52,31 @@
                     <div class="col-md-4 col-sm-4 col-xs-12">
                         <p class="footer-title">{{ trans('index.speech.languages') }}</p>
                         <ul class="list-unstyled footer-link-block">
+                            <?php
+                                $path = request()->path();
+                                $link = url($locale);
+                                if (in_array(App::getLocale(), ['en', 'uk'])) {
+                                    $path = substr($path, 2, strlen($path)-1);
+                                }
+                            ?>
                             <li>
-                                <a href="{{ request()->fullUrlWithQuery(['lang' => 'en']) }}" title="{{ trans('index.speech.en') }}">
+                                <a href="{{ url('/en'.$path) }}" title="{{ trans('index.speech.en') }}">
                                     {{ trans('index.speech.en') }}
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ request()->fullUrlWithQuery(['lang' => 'ru']) }}" title="{{ trans('index.speech.ru') }}">
+                                <a href="{{ url('/ru'.$path) }}" title="{{ trans('index.speech.ru') }}">
                                     {{ trans('index.speech.ru') }}
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ request()->fullUrlWithQuery(['lang' => 'uk']) }}" title="{{ trans('index.speech.uk') }}">
+                                <a href="{{ url('/uk'.$path) }}" title="{{ trans('index.speech.uk') }}">
                                     {{ trans('index.speech.uk') }}
                                 </a>
                             </li>
                         </ul>
 
                         <p class="footer-title">{{ trans('index.footer.tell-us') }}</p>
-                        <?php
-                            if (App::getLocale() == 'ru') {
-                                $link = url('/');
-                            } else {
-                                $link = url('/')."?lang=".App::getLocale();
-                            }
-                        ?>
                         <ul class="list-unstyled footer-link-block tell-us">
                             <li>
                                 <div class="row">

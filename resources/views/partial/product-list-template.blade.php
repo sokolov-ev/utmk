@@ -16,7 +16,8 @@
                     </div>
 
                     <button type="button" class="btn btn-success add-cart" data-id="@{{ id }}">
-                        <i class="fa fa-cart-plus" aria-hidden="true"> </i> {{ trans('products.add-cart') }}
+                        {{-- <i class="fa fa-cart-plus" aria-hidden="true"> </i>  --}}
+                        {{ trans('products.add-cart') }}
                     </button>
                 </div>
             @{{/prices_type}}

@@ -59,7 +59,7 @@ class Blog extends Model
             $filename = str_slug($img->getClientOriginalName(), '_') . '_' . time() . '.' . $img->getClientOriginalExtension();
             $path = 'images/blog/' . $filename;
 
-            if (Image::make($img->getRealPath())->resize(280, 220)->save($path)) {
+            if (Image::make($img->getRealPath())->resize(225, 225)->save($path)) {
                 static::deleteImage($news->image);
                 $news->image = $filename;
             }

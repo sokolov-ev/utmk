@@ -21,7 +21,7 @@ class MetatagsContraller extends Controller
         $metatags = Metatags::getEditData($metatags, $type, $slug);
 
         $news     = Blog::select('slug', 'title AS name')->get();
-        $menu     = Menu::select('slug', 'name')->where('parent_exist', 0)->orderBy('weight', 'ASC')->get();
+        $menu     = Menu::select('slug', 'name')->orderBy('weight', 'ASC')->get();
         $products = Products::select('slug', 'title AS name')->where('show_my', 1)->orderBy('title', 'ASC')->get();
         $articles = Articles::select('slug', 'name')->orderBy('name', 'ASC')->get();
 

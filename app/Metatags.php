@@ -33,6 +33,11 @@ class Metatags extends Model
         parent::boot();
     }
 
+    public function menu()
+    {
+        return $this->hasOne('App\Menu', 'slug', 'slug');
+    }
+
     public static function getEditData($metatags, $type, $slug)
     {
         $result = [];

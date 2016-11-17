@@ -6,7 +6,6 @@
 
 @section('css')
     <link href="{{ elixir('css/fileinput.css') }}" rel="stylesheet">
-    {{-- <link href="{{ elixir('css/select2.css') }}" rel="stylesheet"> --}}
 @endsection
 
 @section('content')

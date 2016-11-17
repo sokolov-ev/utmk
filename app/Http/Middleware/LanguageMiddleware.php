@@ -9,8 +9,10 @@ class LanguageMiddleware
 {
     public function handle($request, Closure $next)
     {
-        if (in_array($request->lang, ['en', 'ru', 'uk'])) {
-            App::setLocale($request->lang);
+        $locale = $request->segment(1);
+
+        if (in_array($locale, ['en', 'ru', 'uk'])) {
+            App::setLocale($locale);
         } else {
             if (in_array($request->cookie('language'), ['en', 'ru', 'uk'])) {
                 App::setLocale($request->cookie('language'));
@@ -23,5 +25,7 @@ class LanguageMiddleware
         $response->headers->setCookie(cookie('language', App::getLocale(), 86400));
 
         return $response;
+
+        // return $next($request);
     }
 }

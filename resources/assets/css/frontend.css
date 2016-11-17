@@ -36,6 +36,10 @@ button {
   .map { height: 250px; }
 }
 
+.width-100 {
+  width: 100%;
+}
+
 .well {
   border: 0;
   margin-bottom: 0;
@@ -53,7 +57,7 @@ button {
 .scroller {
   background-color: #fff;
   border-radius: 50%;
-  bottom: 120px;
+  bottom: 160px;
   cursor: pointer;
   display: none;
   height: 32px;
@@ -71,41 +75,93 @@ button {
   top: -4px;
 }
 
+/*.call-me-pleas {
+  background-color: #39a9a4;
+  border-radius: 50%;
+  bottom: 60px;
+  cursor: pointer;
+  height: 80px;
+  position: fixed;
+  right: 21px;
+  transition: all 0.5s ease 0s;
+  width: 80px;
+  z-index: 510;
+}*/
+
 .call-me-pleas {
   background-color: #39a9a4;
   border-radius: 50%;
   bottom: 60px;
   cursor: pointer;
-  height: 40px;
+  height: 80px;
   position: fixed;
   right: 21px;
   transition: all 0.5s ease 0s;
-  width: 40px;
+  width: 80px;
   z-index: 510;
 }
-.call-me-pleas i {
+
+/*.call-me-pleas i {
   color: #ffffff;
   font-size: 27px;
   left: 10px;
   position: absolute;
   top: 5px;
+}*/
+
+.call-me-pleas i {
+  color: #ffffff;
+  font-size: 40px;
+  left: 25px;
+  position: absolute;
+  top: 17px;
 }
 
 .gps_ring {
-  animation: 1s ease-out 0s normal none infinite running pulsate;
+  -webkit-animation: 1s ease-out 0s normal none infinite running pulsate; /* Safari 4+ */
+  -moz-animation:    1s ease-out 0s normal none infinite running pulsate; /* Fx 5+ */
+  -o-animation:      1s ease-out 0s normal none infinite running pulsate; /* Opera 12+ */
+  animation:         1s ease-out 0s normal none infinite running pulsate; /* IE 10+, Fx 29+ */
+
+/*
   border: 4px solid #39a9a4;
   border-radius: 30px;
   bottom: 50px;
-  height: 60px;
+  height: 90px;
   opacity: 0;
   position: fixed;
   right: 11px;
-  width: 60px;
+  width: 90px;
+*/
+
+  border: 4px solid #39a9a4;
+  border-radius: 50%;
+  bottom: 56px;
+  height: 90px;
+  opacity: 0;
+  position: fixed;
+  right: 16px;
+  width: 90px;
 }
 @-webkit-keyframes pulsate {
-    0% {-webkit-transform: scale(0.1, 0.1); opacity: 0.0;}
-    50% {opacity: 1.0;}
-    100% {-webkit-transform: scale(1.2, 1.2); opacity: 0.0;}
+  0% {-webkit-transform: scale(0.1, 0.1); opacity: 0.0;}
+  50% {opacity: 1.0;}
+  100% {-webkit-transform: scale(1.2, 1.2); opacity: 0.0;}
+}
+@-moz-keyframes pulsate {
+  0% {-webkit-transform: scale(0.1, 0.1); opacity: 0.0;}
+  50% {opacity: 1.0;}
+  100% {-webkit-transform: scale(1.2, 1.2); opacity: 0.0;}
+}
+@-o-keyframes pulsate {
+  0% {-webkit-transform: scale(0.1, 0.1); opacity: 0.0;}
+  50% {opacity: 1.0;}
+  100% {-webkit-transform: scale(1.2, 1.2); opacity: 0.0;}
+}
+@keyframes pulsate {
+  0% {-webkit-transform: scale(0.1, 0.1); opacity: 0.0;}
+  50% {opacity: 1.0;}
+  100% {-webkit-transform: scale(1.2, 1.2); opacity: 0.0;}
 }
 
 .padding-top { padding-top: 100px; }
@@ -460,4 +516,16 @@ button {
 
 .news {
   font-weight: 400;
+}
+
+.shared-buttons #vkshare0 td:nth-child(2) a {
+  height: 21px !important;
+}
+
+.style-pinterest > span {
+  top: -7px;
+}
+
+.style-vk {
+  display: inline-block;
 }

@@ -74,14 +74,15 @@ class Menu extends Model
                 $item->full_path_slug = '/'.$item->slug;
             }
 
-            if ($item->update()) {
-                $products = Products::where('menu_id', $item->id)->get();
+            $item->update();
+            // if () {
+            //     $products = Products::where('menu_id', $item->id)->get();
 
-                foreach ($products as $product) {
-                    $product->slug_menu = $item->full_path_slug.'/'.$product->slug;
-                    $product->update();
-                }
-            }
+            //     foreach ($products as $product) {
+            //         $product->slug_menu = $item->full_path_slug.'/'.$product->slug;
+            //         $product->update();
+            //     }
+            // }
         }
     }
 

@@ -47,6 +47,15 @@
   padding-top: 4px;
 }
 
+.caption-footer .shopping-cart-block {
+  text-align: center;
+  margin-bottom: 4px;
+}
+.caption-footer .card-price,
+.caption-footer .btn {
+  width: 100%;
+}
+
 /* Карточка превью изображения продукции */
 .file-preview-body { background-color: #fff; }
 .file-preview-body .file-preview-frame { margin: 0; margin-right: 5px; }

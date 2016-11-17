@@ -6,8 +6,42 @@
 
 @section('meta')
 
-    @include('partial.metatags')
+    <meta name="keywords" content="{{ $metatags['keywords'] }}" />
+    <meta name="title" content="{{ $metatags['title'] }}" />
+    <meta name="description" content="{{ $metatags['description'] }}" />
 
+    <!-- Schema.org markup (Google) -->
+    <meta itemprop="name" content="{{ $metatags['title'] }}">
+    <meta itemprop="description" content="{{ $metatags['description'] }}">
+    <meta itemprop="image" content="{{ url('/') }}/images/blog/{{ $news->image }}">
+
+    <!-- Twitter Card markup-->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="{{ url()->current() }}">
+    <meta name="twitter:title" content="{{ $metatags['title'] }}">
+    <meta name="twitter:description" content="{{ $metatags['description'] }}">
+    <meta name="twitter:creator" content="">
+    <!-- Twitter summary card with large image must be at least 280x150px -->
+    <meta name="twitter:image" content="{{ url('/') }}/images/blog/{{ $news->image }}">
+    <meta name="twitter:image:alt" content="">
+
+    <!-- Open Graph markup (Facebook, Pinterest) -->
+    <meta property="og:title" content="{{ $metatags['title'] }}" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="{{ url()->current() }}" />
+    <meta property="og:image" content="{{ url('/') }}/images/blog/{{ $news->image }}" />
+    <meta property="og:description" content="{{ $metatags['description'] }}" />
+    <meta property="og:site_name" content="Metall Vsem" />
+
+    <script type="text/javascript" src="//vk.com/js/api/share.js?94" charset="windows-1251"></script>
+
+    <script type="text/javascript" src="//platform.linkedin.com/in.js">
+        lang: ru_RU
+    </script>
+    <script src="https://apis.google.com/js/platform.js" async defer>
+      {lang: 'ru'}
+    </script>
+    <script src="//assets.pinterest.com/js/pinit.js" async defer> </script>
 @endsection
 
 @section('css')
@@ -36,6 +70,15 @@
     <div class="news">
         {!! $news['body'] !!}
     </div>
+    <hr />
+    <div class="shared-buttons">
+        <div id="vk_like" class="style-vk"> </div>
+        <div class="g-plus" data-action="share" data-annotation="bubble"> </div>
+        <script type="IN/Share" data-counter="right"> </script>
+        <span class="style-pinterest">
+            <a data-pin-do="buttonBookmark" data-pin-lang="ru" data-pin-save="true" data-pin-count="beside" href="https://www.pinterest.com/pin/create/button/"> </a>
+        </span>
+    </div>
     <div class="padding-top"></div>
 </section>
 
@@ -43,6 +86,7 @@
 
 @section('scripts')
     <script type="text/javascript">
-        $(".blog").addClass('active');
+        $('.blog').addClass('active');
+        $('#vk_like').append(VK.Share.button(false, {type: "round", text: "Сохранить", height: 20}));
     </script>
 @endsection

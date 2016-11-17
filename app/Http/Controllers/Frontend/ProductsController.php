@@ -70,11 +70,6 @@ class ProductsController extends Controller
         ]);
     }
 
-    public function price()
-    {
-
-    }
-
     public function getMenu()
     {
         $result = [];
@@ -314,10 +309,10 @@ class ProductsController extends Controller
                 session()->flash('error', trans('products.order-error-complete'));
             }
 
-            return redirect(url()->previous());
+            return redirect()->back();
         } else {
             session()->flash('error', trans('auth.not-auth'));
-            return redirect(url()->previous());
+            return redirect()->back();
         }
     }
 }

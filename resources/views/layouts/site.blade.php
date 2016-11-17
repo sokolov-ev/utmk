@@ -8,10 +8,11 @@
 
     <title>@yield('title')</title>
 
-    <meta name="google-site-verification" content="5ZkMrakvEh1lCyA4eCxke53NFBBCtyMTBFKBWKXyp7Y" />
-    <meta name="yandex-verification" content="47760e8501424890" />
-
     <link href="https://plus.google.com/+%D0%9E%D0%9E%D0%9E%D0%AE%D0%A2%D0%9C%D0%9A%D0%9A%D0%B8%D1%97%D0%B2" rel="publisher" />
+
+    <meta name="google-site-verification" content="5ZkMrakvEh1lCyA4eCxke53NFBBCtyMTBFKBWKXyp7Y" />
+    <meta name="p:domain_verify" content="50a81879bc21c0c0b38188e4a7960e14"/>
+    <meta name="yandex-verification" content="47760e8501424890" />
 
     @yield('meta')
 
@@ -36,12 +37,7 @@
     <meta name="msapplication-config" content="/images/icons/browserconfig.xml">
     <meta name="theme-color" content="#ffffff">
 
-    <!-- Fonts -->
-    {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.0/css/font-awesome.min.css" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
-
- --}}
     <link rel="stylesheet" href="https://use.fontawesome.com/0dbe2628bf.css">
-
 
     <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
     <!-- Ionicons -->
@@ -73,13 +69,25 @@
         <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="laguage-block pull-right">
-                    <a href="{{ request()->fullUrlWithQuery(['lang' => 'en']) }}" title="{{ trans('index.speech.en') }}">
+                    <?php
+                        $path = request()->path();
+                        if (in_array(App::getLocale(), ['en', 'uk'])) {
+                            $path = substr($path, 2, strlen($path)-1);
+                        }
+                        //Да! это костыли! привет СЕО
+                        if (in_array(App::getLocale(), ['en', 'uk'])) {
+                            $locale = '/'.App::getLocale();
+                        } else {
+                            $locale = '';
+                        }
+                    ?>
+                    <a href="{{ url('/en'.$path) }}" title="{{ trans('index.speech.en') }}">
                         <img src="/images/flags/en.gif" title="{{ trans('index.speech.en') }}" alt="{{ trans('index.speech.en') }}" />
                     </a>
-                    <a href="{{ request()->fullUrlWithQuery(['lang' => 'ru']) }}" title="{{ trans('index.speech.ru') }}">
+                    <a href="{{ url('/ru'.$path) }}" title="{{ trans('index.speech.ru') }}">
                         <img src="/images/flags/ru.gif" title="{{ trans('index.speech.ru') }}" alt="{{ trans('index.speech.ru') }}" />
                     </a>
-                    <a href="{{ request()->fullUrlWithQuery(['lang' => 'uk']) }}" title="{{ trans('index.speech.uk') }}">
+                    <a href="{{ url('/uk'.$path) }}" title="{{ trans('index.speech.uk') }}">
                         <img src="/images/flags/uk.gif" title="{{ trans('index.speech.uk') }}" alt="{{ trans('index.speech.uk') }}" />
                     </a>
                 </div>

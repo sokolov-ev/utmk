@@ -16,6 +16,15 @@
 
 @section('content')
 
+<?php
+    //Да! это костыли! привет СЕО
+    if (in_array(App::getLocale(), ['en', 'uk'])) {
+        $locale = '/'.App::getLocale();
+    } else {
+        $locale = '';
+    }
+?>
+
 <section class="container sales-title text-center">
     <div class="padding-top"></div>
     <div class="wow slideInRight">
@@ -34,7 +43,7 @@
         @foreach ($offices as $office)
             <div class="col-md-4 col-sm-6 col-xs-12">
                 <div class="wow fadeInUp">
-                    <a class="text-green-20 font-up" href="{{ url('/office/'.$office['city'].'/'.$office['id']) }}" title="">{{ $office['title'] }}</a>
+                    <a class="text-green-20 font-up" href="{{ url($locale.'/office/'.$office['city'].'/'.$office['id']) }}" title="">{{ $office['title'] }}</a>
                     <div class="hidden sales-office-address" data-latitude="{{ $office['latitude'] }}" data-longitude="{{ $office['longitude'] }}"></div>
                 </div>
 

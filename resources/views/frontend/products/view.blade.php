@@ -59,7 +59,7 @@
             </li>
             @foreach($menu as $item)
                 <li>
-                    <a class="orange-list-a" href="{{ url($item['slug']) }}" title="{{ $item['name'] }}">
+                    <a class="orange-list-a" href="{{ url($locale.$item['slug']) }}" title="{{ $item['name'] }}">
                         {{ $item['name'] }}
                     </a>
                 </li>

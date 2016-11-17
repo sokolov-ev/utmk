@@ -17,6 +17,15 @@
 
 @section('content')
 
+<?php
+    //Да! это костыли! привет СЕО
+    if (in_array(App::getLocale(), ['en', 'uk'])) {
+        $locale = '/'.App::getLocale();
+    } else {
+        $locale = '';
+    }
+?>
+
 <section class="slider section-padding">
 
     <div id="carousel-example-generic" class="carousel slide carousel-fade" data-ride="carousel">
@@ -199,7 +208,7 @@
                     </div>
                     <div class="col-sm-7 col-xs-7">
                         <div class="wow slideInRight">
-                            <a href="{{ route('metall-iz-evropy') }}" class="green-section-title" title="Европейская сталь">
+                            <a href="{{ url($locale.'/metall-iz-evropy') }}" class="green-section-title" title="Европейская сталь">
                                 Европейская сталь
                             </a>
                         </div>
@@ -279,7 +288,7 @@
                     </div>
                     <div class="col-sm-7 col-xs-7">
                         <div class="wow slideInRight">
-                            <a href="{{ route('metallokonstruktsii') }}" class="green-section-title" title="Металлоконструкции">
+                            <a href="{{ url($locale.'/metallokonstruktsii') }}" class="green-section-title" title="Металлоконструкции">
                                 Металлоконструкции
                             </a>
                         </div>
@@ -298,7 +307,7 @@
                     </div>
                     <div class="col-sm-7 col-xs-7">
                         <div class="wow slideInRight">
-                            <a href="{{ route('modulnye-soorujeniya') }}" class="green-section-title" title="Модульные сооружения">
+                            <a href="{{ url($locale.'/modulnye-soorujeniya') }}" class="green-section-title" title="Модульные сооружения">
                                 Модульные сооружения
                             </a>
                         </div>
@@ -317,7 +326,7 @@
                     </div>
                     <div class="col-sm-7 col-xs-7">
                         <div class="wow slideInRight">
-                            <a href="{{ route('otsinkovannye-rulony') }}" class="green-section-title" title="Оцинкованные рулоны">
+                            <a href="{{ url($locale.'/otsinkovannye-rulony') }}" class="green-section-title" title="Оцинкованные рулоны">
                                 Оцинкованные рулоны
                             </a>
                         </div>

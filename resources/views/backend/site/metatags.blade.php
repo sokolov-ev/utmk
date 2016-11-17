@@ -410,7 +410,7 @@
                                           name="articles_en"
                                           class="form-control"
                                           placeholder="Английский"
-                                          rows="4">{{ old('articles_en', $metatags['articles_en']) }}</textarea>
+                                          rows="6">{{ old('articles_en', $metatags['articles_en']) }}</textarea>
 
                                 @if ($errors->has('articles_en'))
                                     <span class="help-block">
@@ -425,7 +425,7 @@
                                           name="articles_ru"
                                           class="form-control"
                                           placeholder="Русский"
-                                          rows="4">{{ old('articles_ru', $metatags['articles_ru']) }}</textarea>
+                                          rows="6">{{ old('articles_ru', $metatags['articles_ru']) }}</textarea>
 
                                 @if ($errors->has('articles_ru'))
                                     <span class="help-block">
@@ -440,7 +440,7 @@
                                           name="articles_uk"
                                           class="form-control"
                                           placeholder="Украинский"
-                                          rows="4">{{ old('articles_uk', $metatags['articles_uk']) }}</textarea>
+                                          rows="6">{{ old('articles_uk', $metatags['articles_uk']) }}</textarea>
 
                                 @if ($errors->has('articles_uk'))
                                     <span class="help-block">
@@ -454,7 +454,7 @@
                 </div>
 {{-- /Статьи --}}
 
-                        <button class="btn btn-success pull-right" type="submit">
+                        <button class="btn btn-success pull-right" type="submit" onclick="saveArticle();">
                             Добавить
                         </button>
 
@@ -470,6 +470,9 @@
 @endsection
 
 @section('scripts')
+
+    <script src="{{ elixir('js/jquery-ui.js') }}"></script>
+    <script src="{{ asset('tinymce/tinymce.min.js') }}"></script>
 
     <script>
 
@@ -549,6 +552,45 @@
                 $(val).addClass('hidden');
             })
         }
+
+        function saveArticle()
+        {
+            articleEn.triggerSave();
+            articleRu.triggerSave();
+            articleUk.triggerSave();
+        }
+
+        var articleEn = tinyMCE.init({
+                selector: '#articles_en',
+                language: 'ru',
+                plugins: 'textcolor colorpicker advlist autolink link image media lists charmap table preview',
+                toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | forecolor backcolor'
+            });
+
+        var articleRu = tinyMCE.init({
+                selector: '#articles_ru',
+                language: 'ru',
+                plugins: 'textcolor colorpicker advlist autolink link image media lists charmap table preview',
+                toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | forecolor backcolor'
+            });
+
+        var articleUk = tinyMCE.init({
+                selector: '#articles_uk',
+                language: 'ru',
+                plugins: 'textcolor colorpicker advlist autolink link image media lists charmap table preview',
+                toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | forecolor backcolor'
+            });
+
+        $(document).ready(function() {
+            $("iframe").removeAttr('title');
+        });
+
+
+        $(document).tooltip({
+            content: function () {
+                return $(this).prop('title');
+            }
+        });
 
     </script>
 

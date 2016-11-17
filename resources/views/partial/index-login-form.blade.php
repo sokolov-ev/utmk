@@ -50,7 +50,7 @@
                         </div>
                 </div>
                 <div class="register-link">
-                    <a class="btn btn-success" href="{{ url('/register') }}" style="width: 100%; padding: 15px;">
+                    <a class="btn btn-success" href="{{ route('register') }}" style="width: 100%; padding: 15px;">
                         {{ trans('auth.register') }}
                     </a>
                 </div>

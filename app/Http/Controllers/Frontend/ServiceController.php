@@ -73,7 +73,7 @@ class ServiceController extends Controller
             session()->flash('error', trans('index.contacts.error-send'));
         }
 
-        return redirect(url()->previous());
+        return redirect()->back();
     }
 
     public function sendSms(Request $request)
@@ -105,7 +105,7 @@ class ServiceController extends Controller
             session()->flash('error', trans('index.contacts.error-send'));
         }
 
-        return redirect(url()->previous());
+        return redirect()->back();
     }
 
     public function prices()

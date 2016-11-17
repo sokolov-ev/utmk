@@ -30,7 +30,7 @@ class PasswordController extends Controller
      */
     public function __construct()
     {
-        $this->redirectTo = '/';
+        $this->redirectTo = route('index-page');
         $this->subject = trans('auth.password-reset');
         $this->middleware('guest');
     }

@@ -24,6 +24,12 @@ class RouteController extends Controller
             return redirect('/', 301);
         }
 
+        if (in_array($part[0], ['en', 'ru', 'uk'])) {
+            App::setLocale($part[0]);
+        } else {
+            App::setLocale('ru');
+        }
+
         $slug = array_pop($part);
 
         $item = ($item = Menu::where('slug', $slug)->first()) ? $item->toArray() : null;
@@ -41,10 +47,17 @@ class RouteController extends Controller
                 $metatags = Metatags::where([['type', 'product'], ['slug', $slug]])->first();
                 $metatags = Metatags::getViewData($metatags);
 
+                if (in_array(App::getLocale(), ['en', 'uk'])) {
+                    $locale = '/'.App::getLocale();
+                } else {
+                    $locale = '';
+                }
+
                 return view('frontend.products.view', [
                     'product'  => $product,
                     'menu'     => $menu,
                     'metatags' => $metatags,
+                    'locale'   => $locale,
                 ]);
             }
         }

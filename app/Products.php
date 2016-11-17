@@ -20,7 +20,6 @@ class Products extends Model
         'menu_id',
         'office_id',
         'slug',
-        'slug_menu',
         'title',
         'description',
         'rating',
@@ -130,8 +129,6 @@ class Products extends Model
 
         $product->slug = $data['slug'];
 
-        $product->slug_menu = $menu->full_path_slug.'/'.$data['slug'];
-
         $array['en'] = $data['title_en'];
         $array['ru'] = $data['title_ru'];
         $array['uk'] = $data['title_uk'];
@@ -199,7 +196,12 @@ class Products extends Model
             $temp['images'] = '/images/products/'.$product['images'][0]['name'];
             $temp['title']  = $product['title'];
             $temp['description'] = $product['description'];
-            $temp['work_link']   = $product['slug_menu'];
+
+            if (in_array(App::getLocale(), ['en', 'uk'])) {
+                $temp['work_link'] = '/'.App::getLocale().$product['menu']['full_path_slug'].'/'.$product['slug'];
+            } else {
+                $temp['work_link'] = $product['menu']['full_path_slug'].'/'.$product['slug'];
+            }
 
             $flag  = false;
             $array = [];
@@ -236,7 +238,7 @@ class Products extends Model
     protected static function toArrayProduct($product)
     {
         $array['id'] = $product->id;
-        $array['menu_id'] = $product->menu_id;
+        $array['menu'] = $product->menu->toArray();
 
         $array['images'] = $product->images->toArray();
 
@@ -250,8 +252,8 @@ class Products extends Model
         $officeCity = json_decode($office['city'], true)['en'];
         $array['office_city'] = str_slug($officeCity, '_');
 
-        $array['slug']      = $product->slug;
-        $array['slug_menu'] = $product->slug_menu;
+        $array['slug'] = $product->slug;
+        // $array['slug_menu'] = $product->slug_menu;
 
         $title = json_decode($product->title, true);
         $title = array_filter($title);

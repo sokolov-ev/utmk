@@ -6,6 +6,7 @@ use App\Articles;
 use App\Office;
 use App\Menu;
 use App\Products;
+use App\Metatags;
 use Illuminate\Console\Command;
 use Illuminate\Foundation\Inspiring;
 
@@ -38,8 +39,9 @@ class SiteMap extends Command
 
         $articles = Articles::all();
         $offices  = Office::getOfficesContacts();
-        $menu = Menu::select('id', 'slug', 'updated_at')->where('parent_exist', 0)->orderBy('weight', 'ASC')->get();
-        $products = Products::select('slug_menu', 'slug', 'id', 'updated_at', 'title')->where([['show_my', '1']])->orderBy('rating', 'DESC')->get();
+        $metatagsMenu = Metatags::where('type', 'menu')->orderBy('slug', 'ASC')->get();
+        $metatagsBlog = Metatags::where('type', 'blog')->orderBy('slug', 'ASC')->get();
+        $products = Products::where([['show_my', '1']])->orderBy('rating', 'DESC')->get();
 
         foreach ($articles->toArray() as $article) {
             $url = '';
@@ -61,21 +63,24 @@ class SiteMap extends Command
             $url = '';
 
             $url .= '<url><loc>'.url('/').'/office/'.$office['city'].'/'.$office['id'].'</loc>';
+            $url .= '<xhtml:link rel="alternate" hreflang="en" href="'.url('/').'/en/office/'.$office['city'].'/'.$office['id'].'" />';
+            $url .= '<xhtml:link rel="alternate" hreflang="uk" href="'.url('/').'/uk/office/'.$office['city'].'/'.$office['id'].'" />';
             $url .= '<lastmod>'.date(DATE_W3C, $office['updated_at']).'</lastmod>';
             $url .= '<changefreq>weekly</changefreq><priority>0.9</priority></url>';
 
             $sitemap .= $url;
         }
 
-        foreach ($menu as $item) {
-            if ($item->products->count() > 0) {
-                $url   = '';
-                $title = json_decode($item->metatags['title'], true);
-                $link  = url('/').'/catalog/products/'.$item->slug.'/'.$item->id;
+        foreach ($metatagsMenu as $item) {
+            $title = json_decode($item->title, true);
 
-                $url .= '<url><loc>'.$link.'</loc>';
-                $url .= empty($title['en']) ? '' : '<xhtml:link rel="alternate" hreflang="en" href="'.$link.'?lang=en" />';
-                $url .= empty($title['uk']) ? '' : '<xhtml:link rel="alternate" hreflang="uk" href="'.$link.'?lang=uk" />';
+            if (!empty($title['ru']) || !empty($title['uk']) || !empty($title['en'])) {
+                $url  = '';
+                $link = $item->menu->full_path_slug;
+
+                $url .= '<url><loc>'.url('/').$link.'</loc>';
+                $url .= empty($title['en']) ? '' : '<xhtml:link rel="alternate" hreflang="en" href="'.url('/').'/en'.$link.'" />';
+                $url .= empty($title['uk']) ? '' : '<xhtml:link rel="alternate" hreflang="uk" href="'.url('/').'/uk'.$link.'" />';
                 $url .= '<lastmod>'.date(DATE_W3C, $item->updated_at->getTimestamp()).'</lastmod>';
                 $url .= '<changefreq>weekly</changefreq><priority>0.9</priority></url>';
 
@@ -83,15 +88,29 @@ class SiteMap extends Command
             }
         }
 
-        foreach ($products->toArray() as $product) {
-            $url   = '';
-            $title = json_decode($product['title'], true);
-            $link  = url('/').'/catalog/details/'.$product['slug_menu'].'/'.$product['slug'].'/'.$product['id'];
+        foreach ($metatagsBlog as $news) {
+            $title = json_decode($news->title, true);
 
-            $url .= '<url><loc>'.$link.'</loc>';
-            $url .= empty($title['en']) ? '' : '<xhtml:link rel="alternate" hreflang="en" href="'.$link.'?lang=en" />';
-            $url .= empty($title['uk']) ? '' : '<xhtml:link rel="alternate" hreflang="uk" href="'.$link.'?lang=uk" />';
-            $url .= '<lastmod>'.date(DATE_W3C, $product['updated_at']).'</lastmod>';
+            if (!empty($title['ru']) || !empty($title['ru']) || !empty($title['ru'])) {
+                $url  = '';
+
+                $url .= '<url><loc>'.url('/').'/'.$news->slug.'</loc>';
+                $url .= '<lastmod>'.date(DATE_W3C, $news->updated_at->getTimestamp()).'</lastmod>';
+                $url .= '<changefreq>weekly</changefreq><priority>0.9</priority></url>';
+
+                $sitemap .= $url;
+            }
+        }
+
+        foreach ($products as $product) {
+            $url   = '';
+            $title = json_decode($product->title, true);
+            $link  = $product->menu->full_path_slug.'/'.$product->slug;
+
+            $url .= '<url><loc>'.url('/').$link.'</loc>';
+            $url .= empty($title['en']) ? '' : '<xhtml:link rel="alternate" hreflang="en" href="'.url('/').'/en'.$link.'" />';
+            $url .= empty($title['uk']) ? '' : '<xhtml:link rel="alternate" hreflang="uk" href="'.url('/').'/uk'.$link.'" />';
+            $url .= '<lastmod>'.date(DATE_W3C, $product->updated_at->getTimestamp()).'</lastmod>';
             $url .= '<changefreq>weekly</changefreq><priority>0.9</priority></url>';
 
             $sitemap .= $url;
@@ -99,7 +118,7 @@ class SiteMap extends Command
 
         $sitemap .= '</urlset>';
 
-        // file_put_contents('public/sitemap.xml', $sitemap);
+        file_put_contents('public/sitemap.xml', $sitemap);
         file_put_contents('/home/metallvs/metallvsem.com.ua/www/public/sitemap.xml', $sitemap);
 
         return true;
