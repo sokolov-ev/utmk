@@ -85,6 +85,8 @@ class RouteController extends Controller
         $products = Products::whereIn('menu_id', $array)->where([['office_id', $filterOffice], ['show_my', 1]])->orderBy('rating', 'DESC')->paginate(9);
         $result   = Products::viewDataJson($products);
 
+        $slug = array_pop($part);
+
         $metatags = Metatags::where([['type', 'menu'], ['slug', $slug]])->first();
         $metatags = Metatags::getViewData($metatags);
 

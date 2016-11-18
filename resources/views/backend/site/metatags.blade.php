@@ -453,6 +453,9 @@
 
                 </div>
 {{-- /Статьи --}}
+                        <button class="btn btn-primary pull-left action-editer" type="button">
+                            Редактор - выкл.
+                        </button>
 
                         <button class="btn btn-success pull-right" type="submit" onclick="saveArticle();">
                             Добавить
@@ -475,6 +478,26 @@
     <script src="{{ asset('tinymce/tinymce.min.js') }}"></script>
 
     <script>
+
+        var action = true;
+
+        $('.action-editer').click(function(event){
+            // console.log(tinyMCE.get('articles_ru'));
+            if (action) {
+                action = false;
+
+                saveArticle();
+                destroyArticle();
+
+                $(this).text('Редактор - вкл.');
+            } else {
+                action = true;
+
+                initArticle();
+
+                $(this).text('Редактор - выкл.');
+            }
+        });
 
         $('#products').keyup(function(event){
             var tut = this;
@@ -555,31 +578,43 @@
 
         function saveArticle()
         {
-            articleEn.triggerSave();
-            articleRu.triggerSave();
-            articleUk.triggerSave();
+            tinyMCE.get('articles_en').save();
+            tinyMCE.get('articles_ru').save();
+            tinyMCE.get('articles_uk').save();
         }
 
-        var articleEn = tinyMCE.init({
+        function initArticle()
+        {
+            tinyMCE.init({
                 selector: '#articles_en',
                 language: 'ru',
                 plugins: 'textcolor colorpicker advlist autolink link image media lists charmap table preview',
                 toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | forecolor backcolor'
             });
 
-        var articleRu = tinyMCE.init({
+            tinyMCE.init({
                 selector: '#articles_ru',
                 language: 'ru',
                 plugins: 'textcolor colorpicker advlist autolink link image media lists charmap table preview',
                 toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | forecolor backcolor'
             });
 
-        var articleUk = tinyMCE.init({
+            tinyMCE.init({
                 selector: '#articles_uk',
                 language: 'ru',
                 plugins: 'textcolor colorpicker advlist autolink link image media lists charmap table preview',
                 toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | forecolor backcolor'
             });
+        }
+
+        initArticle();
+
+        function destroyArticle()
+        {
+            tinyMCE.get('articles_en').remove();
+            tinyMCE.get('articles_ru').remove();
+            tinyMCE.get('articles_uk').remove();
+        }
 
         $(document).ready(function() {
             $("iframe").removeAttr('title');

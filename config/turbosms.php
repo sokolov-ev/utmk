@@ -7,7 +7,7 @@
 return array (
     'login' => 'MetUser',
     'password' => 'dL4Kt6nxt3XpSvYvOyn4',
-    'sender' => 'InfoNomer',
+    'sender' => 'Msg',
     'debug' => false,
-    'default_sender' => 'InfoNomer',
+    'default_sender' => 'Msg',
 );

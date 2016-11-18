@@ -22,6 +22,8 @@ class Sendsms extends Model
      */
     protected $hidden = [];
 
+    protected $dateFormat = 'U';
+
     // this is a recommended way to declare event handlers
     protected static function boot()
     {

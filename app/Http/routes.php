@@ -49,33 +49,28 @@ Route::group(['middleware' => ['adminAuth']], function () {
         Route::post('/administration/orders/delete', 'Backend\OrdersController@deleteProduct');
         Route::get('/administration/orders/accept/{id}', 'Backend\OrdersController@accept');
         Route::get('/administration/orders/closed/{id}', 'Backend\OrdersController@closed');
+    });
 
+    Route::group(['middleware' => 'adminPermision:Admin'], function() {
+
+        Route::get('/administration/orders/edit', 'Backend\OrdersController@editForm');
+
+    // CRUD Блог
         Route::get('/administration/blog', 'Backend\BlogController@index');
         Route::get('/administration/blog/preview/{slug}', 'Backend\BlogController@preview');
         Route::post('/administration/blog/filtering', 'Backend\BlogController@filtering');
-
         Route::get('/administration/blog/add', 'Backend\BlogController@addForm');
         Route::post('/administration/blog/add', 'Backend\BlogController@add');
-
         Route::get('/administration/blog/edit/{id}', 'Backend\BlogController@editForm');
         Route::put('/administration/blog/edit/{id}', 'Backend\BlogController@edit');
         Route::delete('/administration/blog', 'Backend\BlogController@delete');
-
         Route::get('/administration/blog/delete-image/{id}', 'Backend\BlogController@deleteImg');
-    });
 
-    // Зона админа
-    Route::group(['middleware' => 'adminPermision:Admin'], function() {
-
+    // CRUD Клиенты сайта
         Route::get('/administration/clients', 'Backend\ClientsController@index');
         Route::put('/administration/clients', 'Backend\ClientsController@edit');
         Route::delete('/administration/clients', 'Backend\ClientsController@delete');
         Route::post('/administration/clients/filtering', 'Backend\ClientsController@filtering');
-
-        Route::get('/administration/sms', 'Backend\ServiceController@sms');
-        Route::post('/administration/sms/filtering', 'Backend\ServiceController@smsFiltering');
-
-        Route::get('/administration/orders/edit', 'Backend\OrdersController@editForm');
 
     // CRUD Менеджеры/Модераторы админки
         Route::get('/administration/moderators/{id?}', 'Adminauth\AuthController@moderators');
@@ -83,28 +78,28 @@ Route::group(['middleware' => ['adminAuth']], function () {
         Route::put('/administration/moderator', 'Adminauth\AuthController@editModerator');
         Route::delete('/administration/moderator', 'Adminauth\AuthController@deleteModerator');
 
-    // CRUD филиалов
+    // CRUD Офисы/Филиалы
         Route::get('/administration/offices/index/{id?}', 'Backend\OfficesController@getAll');
         Route::get('/administration/offices/get/{id}', 'Backend\OfficesController@getOffice');
-
         Route::get('/administration/offices/add', 'Backend\OfficesController@addFormOffice');
         Route::post('/administration/offices/add', 'Backend\OfficesController@addOffice');
-
         Route::get('/administration/offices/edit/{id}', 'Backend\OfficesController@editFormOffice');
         Route::post('/administration/offices/edit/{id}', 'Backend\OfficesController@editOffice');
-
         Route::delete('/administration/offices','Backend\OfficesController@deleteOffice');
-
-        Route::get('/administration/price', 'Backend\PriceController@index');
-        Route::post('/administration/price', 'Backend\PriceController@add');
-
-        Route::get('/administration/price/load/{id}', 'Backend\PriceController@download');
-        Route::get('/administration/price/delete/{id}', 'Backend\PriceController@delete');
     });
 
     Route::group(['middleware' => 'adminPermision:Admin,SEO'], function() {
+    //SMS
+        Route::get('/administration/sms', 'Backend\ServiceController@sms');
+        Route::post('/administration/sms/filtering', 'Backend\ServiceController@smsFiltering');
+
+    //Прайслисты
+        Route::get('/administration/price', 'Backend\PriceController@index');
+        Route::post('/administration/price', 'Backend\PriceController@add');
+        Route::get('/administration/price/load/{id}', 'Backend\PriceController@download');
+        Route::get('/administration/price/delete/{id}', 'Backend\PriceController@delete');
+
     // CRUD меню продукции сайта
-        // Страница с редактором меню
         Route::get('/administration/menu', function(){
             return view('backend.site.menu');
         });
@@ -121,6 +116,7 @@ Route::group(['middleware' => ['adminAuth']], function () {
         // Удалить пункт меню
         Route::delete('/administration/menu', 'Backend\MenuController@deleteMenu');
 
+    //Метатеги
         Route::get('/administration/metatags/{type?}/{slug?}', 'Backend\MetatagsContraller@index');
         Route::post('/administration/metatags', 'Backend\MetatagsContraller@add');
     });

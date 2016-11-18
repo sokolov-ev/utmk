@@ -83,21 +83,31 @@ class ServiceController extends Controller
         $text = preg_replace('~\D~', '', $text);
 
         if (!empty($text) && strlen($text) < 25) {
-            $status = TurboSms::send('Перезвоните мне: '.$text, '380989371555');
+
+            // 380989371555
+
+            $sendSesult = TurboSms::send('Перезвоните мне: '.$text, '380989371555');
 
             $sms = new Sendsms();
             $sms->date_sent = date('Y-m-d H:i');
             $sms->text      = $text;
             $sms->phone     = '380989371555';
 
-            if ($status === true) {
+            if ($sendSesult === true) {
                 $sms->message = 'Сообщение успешно отправлено.';
                 $sms->status = 1;
                 session()->flash('info', trans('index.contacts.success-send'));
             } else {
-                $sms->message = $status['status'];
+                if (is_array($sendSesult['status'])) {
+                    $message = implode('|', $sendSesult['status']);
+                    session()->flash('error', mb_convert_encoding($sendSesult['status'][0], "UTF-8"));
+                } else {
+                    $message = $sendSesult['status'];
+                    session()->flash('error', mb_convert_encoding($message, "UTF-8"));
+                }
+
+                $sms->message = $message;
                 $sms->status = 0;
-                session()->flash('error', $status['status']);
             }
 
             $sms->save();
