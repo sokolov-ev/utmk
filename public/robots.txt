@@ -1,6 +1,7 @@
 User-agent: *
 
-Disallow: *?*
+Disallow: ?
+Disallow: /en/
 Disallow: /login
 Disallow: /logout
 Disallow: /register

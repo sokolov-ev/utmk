@@ -1,7 +1,7 @@
 @extends('layouts.site')
 
 @section('title')
-    {{ trans('products.title') }}
+    {{ $metatags['title'] }}
 @endsection
 
 @section('meta')
@@ -41,14 +41,7 @@
 
 @section('content')
 
-<section class="container">
-    <div class="padding-top"></div>
-    <div class="wow slideInRight">
-        <h1 class="welcome-text text-center">{{ trans('products.title') }}</h1>
-    </div>
-    <div class="padding-top"></div>
-</section>
-
+<div class="padding-top"></div>
 <section class="products-search-block">
     <div class="container">
 

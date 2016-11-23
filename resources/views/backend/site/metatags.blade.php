@@ -482,7 +482,6 @@
         var action = true;
 
         $('.action-editer').click(function(event){
-            // console.log(tinyMCE.get('articles_ru'));
             if (action) {
                 action = false;
 

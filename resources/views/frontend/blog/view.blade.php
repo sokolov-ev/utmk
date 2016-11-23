@@ -41,7 +41,7 @@
     <script src="https://apis.google.com/js/platform.js" async defer>
       {lang: 'ru'}
     </script>
-    <script src="//assets.pinterest.com/js/pinit.js" async defer> </script>
+
 @endsection
 
 @section('css')
@@ -49,6 +49,15 @@
 @endsection
 
 @section('content')
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/ru_RU/sdk.js#xfbml=1&version=v2.8&appId=197519390702830";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
 
 <section class="container">
     <div class="padding-top"></div>
@@ -78,6 +87,8 @@
         <span class="style-pinterest">
             <a data-pin-do="buttonBookmark" data-pin-lang="ru" data-pin-save="true" data-pin-count="beside" href="https://www.pinterest.com/pin/create/button/"> </a>
         </span>
+        <!-- Your share button code -->
+        <div class="fb-share-button" data-href="{{ url()->current() }}" data-layout="button_count"> </div>
     </div>
     <div class="padding-top"></div>
 </section>
@@ -85,6 +96,7 @@
 @endsection
 
 @section('scripts')
+    <script src="https://assets.pinterest.com/js/pinit.js" async defer> </script>
     <script type="text/javascript">
         $('.blog').addClass('active');
         $('#vk_like').append(VK.Share.button(false, {type: "round", text: "Сохранить", height: 20}));

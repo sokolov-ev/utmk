@@ -529,3 +529,7 @@ button {
 .style-vk {
   display: inline-block;
 }
+
+.fb-share-button {
+  top: -6px;
+}

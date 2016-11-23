@@ -40,6 +40,7 @@ Route::group(['middleware' => ['adminAuth']], function () {
     Route::post('/administration/products/filtering', 'Backend\ProductsController@filtering');
 
     Route::group(['middleware' => 'adminPermision:Admin,Moderator'], function() {
+
     // CRUD заказов
         Route::get('/administration/orders', 'Backend\OrdersController@index');
         Route::post('/administration/orders/filtering', 'Backend\OrdersController@filtering');
@@ -49,22 +50,12 @@ Route::group(['middleware' => ['adminAuth']], function () {
         Route::post('/administration/orders/delete', 'Backend\OrdersController@deleteProduct');
         Route::get('/administration/orders/accept/{id}', 'Backend\OrdersController@accept');
         Route::get('/administration/orders/closed/{id}', 'Backend\OrdersController@closed');
+        
     });
 
     Route::group(['middleware' => 'adminPermision:Admin'], function() {
 
         Route::get('/administration/orders/edit', 'Backend\OrdersController@editForm');
-
-    // CRUD Блог
-        Route::get('/administration/blog', 'Backend\BlogController@index');
-        Route::get('/administration/blog/preview/{slug}', 'Backend\BlogController@preview');
-        Route::post('/administration/blog/filtering', 'Backend\BlogController@filtering');
-        Route::get('/administration/blog/add', 'Backend\BlogController@addForm');
-        Route::post('/administration/blog/add', 'Backend\BlogController@add');
-        Route::get('/administration/blog/edit/{id}', 'Backend\BlogController@editForm');
-        Route::put('/administration/blog/edit/{id}', 'Backend\BlogController@edit');
-        Route::delete('/administration/blog', 'Backend\BlogController@delete');
-        Route::get('/administration/blog/delete-image/{id}', 'Backend\BlogController@deleteImg');
 
     // CRUD Клиенты сайта
         Route::get('/administration/clients', 'Backend\ClientsController@index');
@@ -89,6 +80,18 @@ Route::group(['middleware' => ['adminAuth']], function () {
     });
 
     Route::group(['middleware' => 'adminPermision:Admin,SEO'], function() {
+
+    // CRUD Блог
+        Route::get('/administration/blog', 'Backend\BlogController@index');
+        Route::get('/administration/blog/preview/{slug}', 'Backend\BlogController@preview');
+        Route::post('/administration/blog/filtering', 'Backend\BlogController@filtering');
+        Route::get('/administration/blog/add', 'Backend\BlogController@addForm');
+        Route::post('/administration/blog/add', 'Backend\BlogController@add');
+        Route::get('/administration/blog/edit/{id}', 'Backend\BlogController@editForm');
+        Route::put('/administration/blog/edit/{id}', 'Backend\BlogController@edit');
+        Route::delete('/administration/blog', 'Backend\BlogController@delete');
+        Route::get('/administration/blog/delete-image/{id}', 'Backend\BlogController@deleteImg');
+
     //SMS
         Route::get('/administration/sms', 'Backend\ServiceController@sms');
         Route::post('/administration/sms/filtering', 'Backend\ServiceController@smsFiltering');
