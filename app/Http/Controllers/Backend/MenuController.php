@@ -124,18 +124,24 @@ class MenuController extends Controller
     {
         $id = $request->input('id');
 
-        $item = Menu::where('id', $id)->firstOrFail();
+        $menu = Menu::where('id', $id)->firstOrFail();
 
-        if ($item->products->count() > 0) {
-            if ($item->delete()) {
+        if ($menu->parent_exist) {
+            session()->flash('warning', 'Не возможно удалить категорию, в нем есть подкатегории.');
+
+            return redirect(url()->previous());
+        }
+
+        if ($menu->products->count() == 0) {
+            if ($menu->delete()) {
                 Menu::formingAdditionalData();
 
-                session()->flash('success', 'Пункт меню успешно удален.');
+                session()->flash('success', 'Категория успешно удалена.');
             } else {
-                session()->flash('error', 'Возникла ошибка удаления пункта меню.');
+                session()->flash('error', 'Возникла ошибка при удалинеии категории.');
             }
         } else {
-            session()->flash('warning', 'Не возможно удалить каталог, так как за ним закреплена продукция.');
+            session()->flash('warning', 'Не возможно удалить категорию, так как за ней закреплена продукция.');
         }
 
         return redirect(url()->previous());

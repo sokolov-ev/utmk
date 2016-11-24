@@ -60,10 +60,10 @@ class Menu extends Model
                 return $innerArray['parent_id'] == $item->id;
             });
 
-            if (!empty($parent)) {
-                $item->parent_exist = 1;
-            } else {
+            if (empty($parent)) {
                 $item->parent_exist = 0;
+            } else {
+                $item->parent_exist = 1;
             }
 
             if ($item->parent_id != 0) {
@@ -75,14 +75,6 @@ class Menu extends Model
             }
 
             $item->update();
-            // if () {
-            //     $products = Products::where('menu_id', $item->id)->get();
-
-            //     foreach ($products as $product) {
-            //         $product->slug_menu = $item->full_path_slug.'/'.$product->slug;
-            //         $product->update();
-            //     }
-            // }
         }
     }
 
@@ -103,14 +95,6 @@ class Menu extends Model
 
     public static function getBreadcrumbs($id)
     {
-        // if (Cache::has('menu')) {
-        //     $menu = Cache::store('file')->get('menu');
-        // } else {
-        //     $menu = Menu::all();
-
-        //     Cache::store('file')->put('menu', $menu->toArray(), 1440); // храним сутки
-        // }
-
         $menu = Menu::all();
 
         $array = static::getChain($menu, $id, []);
