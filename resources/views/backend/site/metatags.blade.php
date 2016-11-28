@@ -37,7 +37,7 @@
                     </button>
 
                     <input type="text" id="products" name="products" value="" class="form-control" style="margin-bottom: 10px;" />
-
+    
                     <ul class="catalog-list products hidden">
                         @foreach($products as $product)
                             <li><a href="/administration/metatags/product/{{ $product['slug'] }}">{{ json_decode($product['name'], true)['ru'] }}</a></li>
@@ -52,7 +52,7 @@
 
                     <ul class="catalog-list menu hidden">
                         <li>
-                            <a href="/administration/metatags/menu/index">Главная страница (каталога)</a>
+                            <a href="/administration/metatags/menu/products">Главная страница каталога</a>
                         </li>
                         @foreach($menu as $item)
                             <li><a href="/administration/metatags/menu/{{ $item['slug'] }}">{{ json_decode($item['name'], true)['ru'] }}</a></li>

@@ -71,8 +71,9 @@
                 <div class="laguage-block pull-right">
                     <?php
                         $path = request()->path();
-
-                        if (in_array(App::getLocale(), ['en', 'uk'])) {
+                        $partPath = explode('/', $path);
+                        
+                        if (in_array($partPath[0], ['en', 'uk'])) {
                             $path = substr($path, 3, strlen($path)-1);
                         }
                         //Да! это костыли! привет СЕО

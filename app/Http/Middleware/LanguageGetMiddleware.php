@@ -5,16 +5,19 @@ namespace App\Http\Middleware;
 use App;
 use Closure;
 
-class LanguageMiddleware
+class LanguageGetMiddleware
 {
     public function handle($request, Closure $next)
     {
         $locale = $request->segment(1);
 
         if (in_array($locale, ['en', 'ru', 'uk'])) {
+        
             App::setLocale($locale);
-        } else {
-            App::setLocale('ru');
+        
+        } else if (in_array($request->cookie('language'), ['en', 'ru', 'uk'])) {
+
+            App::setLocale($request->cookie('language'));
         }
 
         $response = $next($request);
