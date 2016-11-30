@@ -7,7 +7,7 @@
 return array (
     'login' => 'MetUser',
     'password' => 'dL4Kt6nxt3XpSvYvOyn4',
-    'sender' => 'Msg',
+    'sender' => 'UTMK TOV',
     'debug' => false,
-    'default_sender' => 'Msg',
+    'default_sender' => 'UTMK TOV',
 );

@@ -34,8 +34,16 @@ class Images extends Model
         parent::boot();
 
         static::deleting(function($image){
-            if (!empty($image->name) && (file_exists('./images/products/'.$image->name))) {
-                unlink('./images/products/'.$image->name);
+            if (!empty($image->name)) {
+                if (file_exists('./images/products/'.$image->name)) {
+                    
+                    unlink('./images/products/'.$image->name);
+
+                } else if (file_exists('./images/other/'.$image->name)) {
+
+                    unlink('./images/other/'.$image->name);
+
+                }
             }
         });
     }
@@ -54,7 +62,25 @@ class Images extends Model
 
                 if (Image::make($img->getRealPath())->resize(370, 270)->save($path)) {
                     $imgModel = new Images();
+                    $imgModel->type = 'product';
                     $imgModel->product_id = $id;
+                    $imgModel->name = $filename;
+                    $imgModel->save();
+                }
+            }
+        }
+    }
+
+    public static function addImagesLinck($images)
+    {
+        if (!empty($images[0])) {
+            foreach ($images as $img) {
+                $filename  = str_slug($img->getClientOriginalName(), '_').'_'.time().'.'.$img->getClientOriginalExtension();
+                $path = 'images/other/' . $filename;
+
+                if (Image::make($img->getRealPath())->save($path)) {
+                    $imgModel = new Images();
+                    $imgModel->type = 'other';
                     $imgModel->name = $filename;
                     $imgModel->save();
                 }

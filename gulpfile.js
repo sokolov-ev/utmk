@@ -48,6 +48,8 @@ elixir(function(mix) {
 
 
     // СКРИПТЫ ----------------------------------------
+    
+    mix.scripts('clipboard.js', 'public/js/clipboard.js');
     mix.scripts('adminlte.js', 'public/js/adminlte.js');
     mix.scripts('mustache.js', 'public/js/mustache.js');
     mix.scripts('jquery-ui.js', 'public/js/jquery-ui.js');
@@ -104,6 +106,7 @@ elixir(function(mix) {
         "js/fileinput.js",
         "js/products.js",
         "js/magnific.js",
+        "js/clipboard.js",
     ]);
 
     mix.browserSync({

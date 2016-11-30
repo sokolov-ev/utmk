@@ -161,11 +161,16 @@ desired effect
                             </a>
                         </li>
                         <li class="header">FRONTEND</li>
-                        <li>
-                            <a href="{{ url('/administration/blog') }}">
-                                <i class="fa fa-newspaper-o" aria-hidden="true"></i>
-                                <span>Блог</span>
+                        <li class="treeview">
+                            <a href="#"><i class="fa fa-newspaper-o" aria-hidden="true"></i> <span>Блог</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
                             </a>
+                            <ul class="treeview-menu">
+                                <li><a href="{{ url('/administration/blog') }}">Редактор блога</a></li>
+                                <li><a href="{{ url('/administration/images') }}">Загрузка изображений</a></li>
+                            </ul>
                         </li>
                         <li>
                             <a href="{{ url('/administration/metatags') }}">
@@ -219,11 +224,16 @@ desired effect
                                 <span>TurboSMS</span>
                             </a>
                         </li>
-                        <li>
-                            <a href="{{ url('/administration/blog') }}">
-                                <i class="fa fa-newspaper-o" aria-hidden="true"></i>
-                                <span>Блог</span>
+                        <li class="treeview">
+                            <a href="#"><i class="fa fa-newspaper-o" aria-hidden="true"></i> <span>Блог</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
                             </a>
+                            <ul class="treeview-menu">
+                                <li><a href="{{ url('/administration/blog') }}">Редактор блога</a></li>
+                                <li><a href="{{ url('/administration/images') }}">Загрузка изображений</a></li>
+                            </ul>
                         </li>
                         <li>
                             <a href="{{ url('/administration/metatags') }}">

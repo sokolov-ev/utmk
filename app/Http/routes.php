@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/testing','Frontend\TestController@index');
+// Route::get('/testing','Frontend\TestController@index');
 
 // БЕКЕНД
 
@@ -94,6 +94,10 @@ Route::group(['middleware' => ['adminAuth']], function () {
         Route::delete('/administration/blog', 'Backend\BlogController@delete');
         Route::get('/administration/blog/delete-image/{id}', 'Backend\BlogController@deleteImg');
 
+
+        Route::get('/administration/images', 'Backend\ImagesController@index');
+        Route::post('/administration/images/add', 'Backend\ImagesController@add');
+        Route::get('/administration/images/delete/{id}', 'Backend\ImagesController@delete');
     //SMS
         Route::get('/administration/sms', 'Backend\ServiceController@sms');
         Route::post('/administration/sms/filtering', 'Backend\ServiceController@smsFiltering');
