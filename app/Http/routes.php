@@ -164,7 +164,6 @@ Route::group(['middleware' => ['web', 'redirect-www', 'language-get']], function
     // Authentication Routes...
         Route::post('/login', 'Auth\AuthController@login');
         Route::get('/logout', ['as' => 'logout', 'uses' => 'Auth\AuthController@logout']);
-        
     });
 
 

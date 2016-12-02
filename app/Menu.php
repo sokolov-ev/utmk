@@ -37,6 +37,7 @@ class Menu extends Model
 
         static::deleting(function($menu) {
             Menu::where('parent_id', $menu->id)->delete();
+            Metatags::where('slug', $menu->slug)->delete();
         });
     }
 

@@ -19,6 +19,8 @@ use App\Office;
 use App\Metatags;
 use App\FilePrice;
 
+use App\Temp;
+
 class ServiceController extends Controller
 {
     public function contacts()

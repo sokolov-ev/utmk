@@ -10,6 +10,8 @@ use App\Metatags;
 use Illuminate\Console\Command;
 use Illuminate\Foundation\Inspiring;
 
+use Log;
+
 class SiteMap extends Command
 {
     /**
@@ -33,6 +35,9 @@ class SiteMap extends Command
      */
     public function handle()
     {
+
+        Log::info('Start');
+
         // начало карты сайта
         $sitemap  = '<?xml version="1.0" encoding="UTF-8"?>'.PHP_EOL;
         $sitemap .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">';
@@ -118,8 +123,12 @@ class SiteMap extends Command
 
         $sitemap .= '</urlset>';
 
-        // file_put_contents('public/sitemap.xml', $sitemap);
-        file_put_contents('/home/metallvs/metallvsem.com.ua/www/public/sitemap.xml', $sitemap);
+        Log::info('End');
+
+        // $result = file_put_contents('public/sitemap.xml', $sitemap);
+        $result = file_put_contents('/home/metallvs/metallvsem.com.ua/www/public/sitemap.xml', $sitemap);
+
+        Log::info('Result: '.$result);
 
         return true;
     }
