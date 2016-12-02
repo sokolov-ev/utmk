@@ -36,7 +36,7 @@
                             </a>
                             <br/>
                             <span class="text-gray-contact">
-                                {{ trans('index.uploaded').': '.date('Y-m-d', $file->created_at->getTimestamp()) }}
+                                {{ trans('index.updated').': '.date('Y-m-d', $file->created_at->getTimestamp()) }}
                             </span>
                         </div>
                     </div>

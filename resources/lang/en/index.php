@@ -83,4 +83,5 @@ return [
     'read-more' => 'Read more',
 
     'uploaded' => 'Uploaded',
+    'updated' => 'Updated',
 ];
