@@ -266,7 +266,7 @@
                         <div class="form-group{{ ($errors->has('description_en') || $errors->has('description_ru') || $errors->has('description_uk')) ? ' has-error' : '' }}" style="margin-bottom: 0;">
                             <div class="row">
                                 <div class="col-md-4">
-                                    <label class="control-label tab-description" for="description">Описание (текст в каталоге)</label>
+                                    <label class="control-label tab-description" for="description">Описание</label>
                                 </div>
                                 <div class="col-md-8 customize-tab">
                                     <ul class="nav nav-pills pull-right customize-tab" role="tablist">

@@ -12,7 +12,6 @@ use App\Metatags;
 use App\Products;
 use App\Articles;
 
-
 class MetatagsContraller extends Controller
 {
     public function index($type = 'menu', $slug = 'index')

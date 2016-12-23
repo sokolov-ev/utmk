@@ -1,7 +1,7 @@
 @extends('layouts.site')
 
 @section('title')
-    {{ $product['title'] }}
+    {{ $metatags['title'] }}
 @endsection
 
 @section('meta')

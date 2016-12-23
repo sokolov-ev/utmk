@@ -173,7 +173,12 @@ Route::group(['middleware' => ['web', 'redirect-www', 'language-get']], function
         Route::get('/contacts', ['as' => 'contacts', 'uses' => 'Frontend\ServiceController@contacts']);
         Route::get('/price', ['as' => 'prices', 'uses' => 'Frontend\ServiceController@prices']);
         Route::get('/yutmk-energy', ['as' => 'about-us', 'uses' => 'Frontend\IndexController@aboutUs']);
-        Route::get('/company-profile', ['as' => 'profile', 'uses' => 'Frontend\IndexController@companyProfile']);
+        // Route::get('/company-profile', ['as' => 'profile', 'uses' => 'Frontend\IndexController@companyProfile']);
+        
+        Route::get('/company-profile', ['as' => 'profile', 'uses' => function(){
+            return redirect('/yutmk-energy', 301);
+        }]);
+
         Route::get('/network-of-offices', ['as' => 'network-of-offices', 'uses' => 'Frontend\IndexController@salesNetwork']);
         Route::get('/office/{city}/{id}', ['as' => 'office', 'uses' => 'Frontend\IndexController@officeView']);
 
@@ -232,7 +237,12 @@ Route::group(['middleware' => ['web', 'redirect-www', 'language-get']], function
                 Route::get('/contacts', ['as' => 'contacts', 'uses' => 'Frontend\ServiceController@contacts']);
                 Route::get('/price', ['as' => 'prices', 'uses' => 'Frontend\ServiceController@prices']);
                 Route::get('/yutmk-energy', ['as' => 'about-us', 'uses' => 'Frontend\IndexController@aboutUs']);
-                Route::get('/company-profile', ['as' => 'profile', 'uses' => 'Frontend\IndexController@companyProfile']);
+                // Route::get('/company-profile', ['as' => 'profile', 'uses' => 'Frontend\IndexController@companyProfile']);
+         
+                Route::get('/company-profile', ['as' => 'profile', 'uses' => function(){
+                    return redirect('/yutmk-energy', 301);
+                }]);
+                
                 Route::get('/network-of-offices', ['as' => 'network-of-offices', 'uses' => 'Frontend\IndexController@salesNetwork']);
                 Route::get('/office/{city}/{id}', ['as' => 'office', 'uses' => 'Frontend\IndexController@officeView']);
 

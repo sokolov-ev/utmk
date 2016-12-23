@@ -39,9 +39,9 @@
 
 <section class="container sales-list-offices">
     <div class="padding-top"></div>
-    <div class="row">
+    <div class="row ">
         @foreach ($offices as $office)
-            <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="col-md-4 col-sm-6 col-xs-12 office">
                 <div class="wow fadeInUp">
                     <a class="text-green-20 font-up" href="{{ url($locale.'/office/'.$office['city'].'/'.$office['id']) }}" title="">{{ $office['title'] }}</a>
                     <div class="hidden sales-office-address" data-latitude="{{ $office['latitude'] }}" data-longitude="{{ $office['longitude'] }}"></div>
@@ -117,6 +117,34 @@
         }
 
         $(".network-of-offices").addClass('active');
+
+        $(window).on('load resize', function(event){
+            if ($(window).width() >= '768'){
+                var height  = 0;
+                var caption = $(".sales-list-offices").find(".office");
+
+                for (var i = 0; i < caption.length;) {
+
+                    if ($(caption[i]).height() > $(caption[i+1]).height()) {
+                        if ($(caption[i]).height() > $(caption[i+2]).height()) {
+                            height = $(caption[i]).height();
+                        } else {
+                            height = $(caption[i+2]).height();
+                        }
+                    } else if ($(caption[i+1]).height() > $(caption[i+2]).height()) {
+                        height = $(caption[i+1]).height();
+                    } else {
+                        height = $(caption[i+2]).height();
+                    }
+
+                    $(caption[i]).height(height);
+                    $(caption[i+1]).height(height);
+                    $(caption[i+2]).height(height);
+
+                    i += 3;
+                }
+            }
+        });
 
     </script>
 

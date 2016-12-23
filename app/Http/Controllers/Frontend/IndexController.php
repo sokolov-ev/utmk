@@ -8,7 +8,6 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
 use App;
-use Mail;
 use Validator;
 use JsValidator;
 
@@ -448,15 +447,15 @@ class IndexController extends Controller
         ]);
     }
 
-    public function companyProfile()
-    {
-        $metatags = Metatags::where([['type', 'article'], ['slug', 'company-profile']])->first();
-        $metatags = Metatags::getViewData($metatags);
+    // public function companyProfile()
+    // {
+    //     $metatags = Metatags::where([['type', 'article'], ['slug', 'company-profile']])->first();
+    //     $metatags = Metatags::getViewData($metatags);
 
-        return view('frontend.site.company-profile', [
-            'metatags' => $metatags,
-        ]);
-    }
+    //     return view('frontend.site.company-profile', [
+    //         'metatags' => $metatags,
+    //     ]);
+    // }
 
     public function officeView($city, $id)
     {

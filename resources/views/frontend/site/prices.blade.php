@@ -53,7 +53,7 @@
 @section('scripts')
 
     <script>
-        $(".products").addClass('active');
+        $(".price").addClass('active');
     </script>
 
 @endsection
