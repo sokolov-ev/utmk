@@ -14,7 +14,7 @@ use App\Articles;
 
 class MetatagsContraller extends Controller
 {
-    public function index($type = 'menu', $slug = 'index')
+    public function index($type = 'article', $slug = 'home')
     {
         $metatags = Metatags::where([['type', $type], ['slug', $slug]])->first();
         $metatags = Metatags::getEditData($metatags, $type, $slug);

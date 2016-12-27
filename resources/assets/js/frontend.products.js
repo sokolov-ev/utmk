@@ -162,12 +162,15 @@ function viewProducts(response, id) {
             $('.products-cards').append(Mustache.render(template, item));
         });
 
+        $('.h1-tag').html(response.h1);
+
         if (response.count <= pageSize) {
             $('#pagination').twbsPagination('destroy');
         } else {
             initPagination(response.count);
         }
     } else {
+        $('.h1-tag').html('');
         $('#pagination').twbsPagination('destroy');
         $('.products-cards').find('.card').remove();
         $('.products-cards').append('<div class="col-md-12 col-sm-12 col-xs-12 card text-center font-up text-black-h2">' + response.message + '</div>');

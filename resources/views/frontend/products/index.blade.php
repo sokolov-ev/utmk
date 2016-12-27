@@ -91,7 +91,18 @@
 </section>
 
 <section class="container">
-    <div class="padding-top"></div>
+    
+    <div class="padding-block-2-2">
+        <div class="row">
+            <div class="col-md-3 col-sm-12 col-xs-12">
+
+            </div>
+            <div class="col-md-9 col-sm-12 col-xs-12">
+                <h1 class="h1-tag">{{ $metatags['h1'] }}</h1>
+            </div>
+        </div>
+    </div>
+    {{-- <div class="padding-top"></div> --}}
 
     <div class="row">
         <div class="col-md-3 col-sm-12 col-xs-12" style="padding: 0;">

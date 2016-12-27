@@ -100,12 +100,22 @@ class ProductsController extends Controller
 
         $count = 9;
         $page  = empty($page) ? 0 : $count * $page;
+
+        $h1Title = '';
         // top products
         $where = [['show_my', 1]];
 
         // выгребаем по разделу меню
         if (!empty($menu)) {
             $where[] = ['menu_id', $menu];
+
+            $menu = Menu::where('id', $menu)->first();
+
+            if (!empty($menu)) {
+                $metatags = Metatags::where([['type', 'menu'], ['slug', $menu->slug]])->first();
+                $metatags = Metatags::getViewData($metatags);
+                $h1Title = $metatags['h1'];
+            }
         }
         // поиск по названию
         if (!empty($name)) {
@@ -134,7 +144,7 @@ class ProductsController extends Controller
         if (empty($products)) {
             return response()->json(['status' => 'bad', 'message' => trans('products.products-missing')]);
         } else {
-            return response()->json(['status' => 'ok', 'data' => $products, 'count' => $total]);
+            return response()->json(['status' => 'ok', 'data' => $products, 'count' => $total, 'h1' => $h1Title]);
         }
     }
 

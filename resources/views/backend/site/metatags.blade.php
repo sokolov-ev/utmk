@@ -355,11 +355,88 @@
                         </div>
 
 {{-- Статьи --}}
-                @if ($metatags['type'] == 'menu')
-                    <div class="catalog">
-                @else
-                    <div class="catalog hidden">
-                @endif
+                <div class="catalog <?= ($metatags['type'] == 'menu') ? '' : 'hidden' ?>">
+
+                    <div class="form-group{{ ($errors->has('h1_en') || $errors->has('h1_ru') || $errors->has('h1_uk')) ? ' has-error' : '' }}" style="margin-bottom: 0;">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label class="control-label tab-h1" for="h1">Заголовок H1</label>
+                            </div>
+                            <div class="col-md-8 customize-tab">
+                                <ul class="nav nav-pills pull-right customize-tab" role="tablist">
+                                    <li role="presentation">
+                                        <a id="h1_en-tab"
+                                           class="tab-nice{{ $errors->has('h1_en') ? ' has-error-label' : '' }}"
+                                           href="#h1_en-body"
+                                           role="tab"
+                                           data-toggle="tab"
+                                           aria-controls="h1_en"
+                                           aria-expanded="true">
+                                            Английский
+                                        </a>
+                                    </li>
+                                    <li class="active" role="presentation">
+                                        <a id="h1_ru-tab"
+                                           class="tab-nice{{ $errors->has('h1_ru') ? ' has-error-label' : '' }}"
+                                           href="#h1_ru-body"
+                                           role="tab"
+                                           data-toggle="tab"
+                                           aria-controls="h1_ru">
+                                            Русский
+                                        </a>
+                                    </li>
+                                    <li role="presentation">
+                                        <a id="h1_uk-tab"
+                                           class="tab-nice{{ $errors->has('h1_uk') ? ' has-error-label' : '' }}"
+                                           href="#h1_uk-body"
+                                           role="tab"
+                                           data-toggle="tab"
+                                           aria-controls="h1_uk">
+                                            Украинский
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="tabh1" class="tab-content">
+                        <div id="h1_en-body" class="tab-pane fade" role="tabpanel" aria-labelledby="h1_en-tab">
+                            <div class="form-group{{ $errors->has('h1_en') ? ' has-error' : '' }}">
+                                <input id="h1_en" name="h1_en" class="form-control" placeholder="Английский" value="{{ old('h1_en', $metatags['h1_en']) }}" />
+
+                                @if ($errors->has('h1_en'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('h1_en') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                        <div id="h1_ru-body" class="tab-pane fade in active" role="tabpanel" aria-labelledby="h1_ru-tab">
+                            <div class="form-group{{ $errors->has('h1_ru') ? ' has-error' : '' }}">
+                                <input id="h1_ru" name="h1_ru" class="form-control" placeholder="Русский" value="{{ old('h1_ru', $metatags['h1_ru']) }}" />
+
+                                @if ($errors->has('h1_ru'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('h1_ru') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                        <div id="h1_uk-body" class="tab-pane fade" role="tabpanel" aria-labelledby="h1_uk-tab">
+                            <div class="form-group{{ $errors->has('h1_ru') ? ' has-error' : '' }}">
+                                <input id="h1_uk" name="h1_uk" class="form-control" placeholder="Украинский" value="{{ old('h1_uk', $metatags['h1_uk']) }}" />
+
+                                @if ($errors->has('h1_uk'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('h1_uk') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+
+
                     <div class="form-group{{ ($errors->has('articles_en') || $errors->has('articles_ru') || $errors->has('articles_uk')) ? ' has-error' : '' }}" style="margin-bottom: 0;">
                         <div class="row">
                             <div class="col-md-4">
@@ -453,7 +530,7 @@
 
                 </div>
 {{-- /Статьи --}}
-                        <button class="btn btn-primary pull-left action-editer" type="button">
+                        <button class="btn btn-primary pull-left action-editer <?= ($metatags['type'] == 'menu') ? '' : 'hidden' ?>" type="button">
                             Редактор - выкл.
                         </button>
 
