@@ -1,14 +1,11 @@
 @extends('layouts.site')
 
 @section('title')
-    {{-- {{ trans('index.menu.home') }} --}}
     {{ $metatags['title'] }}
 @endsection
 
 @section('meta')
-
     @include('partial.metatags')
-
 @endsection
 
 @section('css')
@@ -38,19 +35,19 @@
             <div class="item active">
                 <img alt="First slide" src="/images/slide/slide-01.jpg" data-holder-rendered="true">
                 <div class="carousel-caption ci_caption">
-                    <span>We are the best in the fields of Import and Export</span>
+                    <span>Ми кращі в області імпорту та експорту</span>
                 </div>
             </div>
             <div class="item">
                 <img alt="Second slide" src="/images/slide/slide-02.jpg" data-holder-rendered="true">
                 <div class="carousel-caption ci_caption">
-                    <span>Different wholesale products available at discount prices</span>
+                    <span>Різні оптові продукти, доступні за зниженими цінами</span>
                 </div>
             </div>
             <div class="item">
                 <img alt="Third slide" src="/images/slide/slide-03.jpg" data-holder-rendered="true">
                 <div class="carousel-caption ci_caption">
-                    <span>Quality is our primary concern for your satisfaction</span>
+                    <span>Якість є нашою головною турботою для вашого задоволення</span>
                 </div>
             </div>
         </div>
@@ -63,7 +60,7 @@
 
         <div class="padding-top"></div>
         <div class="wow slideInRight">
-            <h1 class="welcome-text text-center font-up">Добро пожаловать!</h1>
+            <h1 class="welcome-text text-center font-up">Ласкаво просимо!</h1>
         </div>
         <div class="padding-top"></div>
 
@@ -77,20 +74,20 @@
 
                 <div class="wow fadeInUp">
                     <div class="padding-block-2-2">
-                        <a href="{{ route('nashi-obemy-prodazh') }}" class="text-black-h3" title="Наши объемы продаж">
-                            Наши объемы продаж
+                        <a href="{{ route('nashi-obemy-prodazh') }}" class="text-black-h3" title="Наші обсяги продажів">
+                            Наші обсяги продажів
                         </a>
                     </div>
                 </div>
 
                 <div class="wow fadeInUp">
-                    <p class="text-gray-16">Сортамент металла ЮТМК состоит из обширного ряда изделий, которые оттачиваются в заводских условиях строго по ГОСТу. Все металлоизделия классифицируются по видам, профилям, маркам, размерам. Сортамент компании металлопроката постоянно пополняется, поэтому объемы продаж увеличиваются и неизменно пользуются спросом.</p>
+                    <p class="text-gray-16">Сортамент металу ЮТМК складається з широкого ряду виробів, які вигострюються в заводських умовах строго по ГОСТу. Усі металовироби класифікуються за видами, профілями, марками, розмірами. Сортамент компанії металопрокату постійно поповнюється, тому обсяги продажів збільшуються і незмінно користуються попитом.</p>
                 </div>
 
                 <div class="wow fadeInUp">
                     <div class="padding-block-2-2">
                         <a href="{{ route('nashi-obemy-prodazh') }}" class="text-orange-20">
-                            <span class="font-up">Читать далее</span>
+                            <span class="font-up">Читати далі</span>
                             <span class="fa span-arrow"> >> </span>
                         </a>
                     </div>
@@ -105,20 +102,20 @@
 
                 <div class="wow fadeInUp">
                     <div class="padding-block-2-2">
-                        <a href="{{ route('ustojchivoe-razvitie') }}" class="text-black-h3" title="Устойчивое развитие как цель">
-                            Устойчивое развитие
+                        <a href="{{ route('ustojchivoe-razvitie') }}" class="text-black-h3" title="Сталий розвиток">
+                            Сталий розвиток
                         </a>
                     </div>
                 </div>
 
                 <div class="wow fadeInUp">
-                    <p class="text-gray-16">Учитывая, что металл важен для человека не только как материал, но и как предмет получения прибыли, то постоянно открываются новые пути его обработки и применения. Для нашей компании устойчивое развитие – это основная цель, за которой стоит еще несколько задач, таких как пополнение ассортимента, доступные цены и неизменные критерии качества.</p>
+                    <p class="text-gray-16">З огляду на, що метал важливий для людини не тільки як матеріал, але і як предмет отримання прибутку, то постійно відкриваються нові шляхи його обробки і застосування. Для нашої компанії сталий розвиток - це основна мета, за якою стоїть ще кілька завдань, таких як поповнення асортименту, доступні ціни та незмінні критерії якості.</p>
                 </div>
 
                 <div class="wow fadeInUp">
                     <div class="padding-block-2-2">
                         <a href="{{ route('ustojchivoe-razvitie') }}" class="text-orange-20">
-                            <span class="font-up">Читать далее</span>
+                            <span class="font-up">Читати далі</span>
                             <span class="fa span-arrow"> >> </span>
                         </a>
                     </div>
@@ -133,19 +130,19 @@
 
                 <div class="wow fadeInUp">
                     <div class="padding-block-2-2">
-                        <a href="{{ route('stremimsya-dlya-klientov') }}" class="text-black-h3" title="Мы стремимся для наших клиентов">
-                            Мы стремимся для наших клиентов
+                        <a href="{{ route('stremimsya-dlya-klientov') }}" class="text-black-h3" title="Ми прагнемо для наших клієнтів">
+                            Ми прагнемо для наших клієнтів
                         </a>
                     </div>
                 </div>
 
                 <div class="wow fadeInUp">
-                    <p class="text-gray-16">Вне зависимости от того, какое место наша компания занимает на мировой или отечественной арене, специалисты постоянно демонстрируют лидерство. Постоянно соблюдаются высокие стандарты работы, совершенствуются знания и проявляется ответственность за каждое принятое решение. </p>
+                    <p class="text-gray-16">Незалежно від того, яке місце наша компанія займає на світовій або вітчизняної арені, фахівці постійно демонструють лідерство. Постійно дотримуються високі стандарти роботи, удосконалюються знання і проявляється відповідальність за кожне прийняте рішення.</p>
                 </div>
                 <div class="wow fadeInUp">
                     <div class="padding-block-2-2">
                         <a href="{{ route('stremimsya-dlya-klientov') }}" class="text-orange-20">
-                            <span class="font-up">Читать далее</span>
+                            <span class="font-up">Читати далі</span>
                             <span class="fa span-arrow"> >> </span>
                         </a>
                     </div>
@@ -165,17 +162,17 @@
                 <div class="row green-section-block">
                     <div class="col-sm-5 col-xs-5">
                         <div class="wow slideInRight">
-                            <img class="green-img" src="/images/green-section/icon-1.png" alt="Контроль качества" title="Контроль качества" style="max-width: 119px;" />
+                            <img class="green-img" src="/images/green-section/icon-1.png" alt="Контроль якості" title="Контроль якості" style="max-width: 119px;" />
                         </div>
                     </div>
                     <div class="col-sm-7 col-xs-7">
                         <div class="wow slideInRight">
-                            <a href="{{ route('kontrol-kachestva') }}" class="green-section-title" title="Контроль качества">
-                                Контроль качества
+                            <a href="{{ route('kontrol-kachestva') }}" class="green-section-title" title="Контроль якості">
+                                Контроль якості
                             </a>
                         </div>
                         <div class="wow slideInRight">
-                            <p class="green-section-body">Высокая конкуренция заставила нашу компанию искать новые пути к успеху, для чего была разработана своя система качества продукции.</p>
+                            <p class="green-section-body">Висока конкуренція змусила нашу компанію шукати нові шляхи до успіху, для чого була розроблена своя система якості продукції.</p>
                         </div>
                     </div>
                 </div>
@@ -194,7 +191,7 @@
                             </a>
                         </div>
                         <div class="wow slideInRight">
-                            <p class="green-section-body">Хотите приобрести металл в интернете? Вы делаете правильный выбор как со стороны ценового фактора, так и со стороны широкого выбора.</p>
+                            <p class="green-section-body">Хочете купити метал в Україні? Ви робите правильний вибір як з боку цінового фактору, так і з боку широкого вибору.</p>
                         </div>
                     </div>
                 </div>
@@ -203,76 +200,17 @@
                 <div class="row green-section-block">
                     <div class="col-sm-5 col-xs-5">
                         <div class="wow slideInRight">
-                            <img class="green-img" src="/images/green-section/icon-3.png" alt="Европейская сталь" title="Европейская сталь" style="max-width: 119px;" />
+                            <img class="green-img" src="/images/green-section/icon-3.png" alt="Європейська сталь" title="Європейська сталь" style="max-width: 119px;" />
                         </div>
                     </div>
                     <div class="col-sm-7 col-xs-7">
                         <div class="wow slideInRight">
-                            <a href="{{ url($locale.'/metall-iz-evropy') }}" class="green-section-title" title="Европейская сталь">
-                                Европейская сталь
+                            <a href="{{ url($locale.'/metall-iz-evropy') }}" class="green-section-title" title="Європейська сталь">
+                                Європейська сталь
                             </a>
                         </div>
                         <div class="wow slideInRight">
-                            <p class="green-section-body">Ассортимент продукции «ЮТМК Киев» включает и поставки металлопроката из Европы.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-4 col-sm-4">
-                <div class="row green-section-block">
-                    <div class="col-sm-5 col-xs-5">
-                        <div class="wow slideInRight">
-                            <img class="green-img" src="/images/green-section/icon-4.png" alt="Ваши заказы" title="Ваши заказы" style="max-width: 119px;" />
-                        </div>
-                    </div>
-                    <div class="col-sm-7 col-xs-7">
-                        <div class="wow slideInRight">
-                            <a href="{{ route('vashi-zakazy-kak-mozhno-skoree') }}" class="green-section-title" title="Ваши заказы">
-                                Ваши заказы
-                            </a>
-                        </div>
-                        <div class="wow slideInRight">
-                            <p class="green-section-body">Характеристики исходных материалов играют большое значение, поэтому многие заказчики прибегают к персональному заказу.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 col-sm-4">
-                <div class="row green-section-block">
-                    <div class="col-sm-5 col-xs-5">
-                        <div class="wow slideInRight">
-                            <img class="green-img" src="/images/green-section/icon-5.png" alt="Порезка" title="Порезка" style="max-width: 119px;" />
-                        </div>
-                    </div>
-                    <div class="col-sm-7 col-xs-7">
-                        <div class="wow slideInRight">
-                            <a href="{{ route('porezka') }}" class="green-section-title" title="Порезка">
-                                Порезка
-                            </a>
-                        </div>
-                        <div class="wow slideInRight">
-                            <p class="green-section-body">Резку заказанного металлопроката проводят по указанным размерам. Осуществляется порезка предварительно перед окончательным формированием заказа.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 col-sm-4">
-                <div class="row green-section-block">
-                    <div class="col-sm-5 col-xs-5">
-                        <div class="wow slideInRight">
-                            <img class="green-img" src="/images/green-section/icon-6.png" alt="Структуры" title="Структуры" style="max-width: 119px;" />
-                        </div>
-                    </div>
-                    <div class="col-sm-7 col-xs-7">
-                        <div class="wow slideInRight">
-                            <a href="{{ route('struktury-pod-klyuch') }}" class="green-section-title" title="Структуры">
-                                Структуры
-                            </a>
-                        </div>
-                        <div class="wow slideInRight">
-                            <p class="green-section-body">Свободные по форме изготовления металлоконструкции представляют собой структуры, которые можно покупать под заказ или выбирать из стандартного ряда.</p>
+                            <p class="green-section-body">Асортимент продукції «ЮТМК» включає і поставки металопрокату з Європи.</p>
                         </div>
                     </div>
                 </div>
@@ -283,17 +221,17 @@
                 <div class="row green-section-block">
                     <div class="col-sm-5 col-xs-5">
                         <div class="wow slideInRight">
-                            <img class="green-img" src="/images/green-section/icon-7.png" alt="Металлоконструкции" title="Металлоконструкции" style="max-width: 119px;" />
+                            <img class="green-img" src="/images/green-section/icon-4.png" alt="Ваші замовлення" title="Ваші замовлення" style="max-width: 119px;" />
                         </div>
                     </div>
                     <div class="col-sm-7 col-xs-7">
                         <div class="wow slideInRight">
-                            <a href="{{ url($locale.'/metallokonstruktsii') }}" class="green-section-title" title="Металлоконструкции">
-                                Металлоконструкции
+                            <a href="{{ route('vashi-zakazy-kak-mozhno-skoree') }}" class="green-section-title" title="Ваші замовлення">
+                                Ваші замовлення
                             </a>
                         </div>
                         <div class="wow slideInRight">
-                            <p class="green-section-body">Сегодня такие конструкции можно встретить в сфере создания каркасных домов, гаражей, ангаров, торговых киосков, бытовок, модульных строений.</p>
+                            <p class="green-section-body">Характеристики вихідних матеріалів відіграють велике значення, тому багато замовників вдаються до індивідуальних замовлень.</p>
                         </div>
                     </div>
                 </div>
@@ -302,17 +240,17 @@
                 <div class="row green-section-block">
                     <div class="col-sm-5 col-xs-5">
                         <div class="wow slideInRight">
-                            <img class="green-img" src="/images/green-section/icon-8.png" alt="Модульные сооружения" title="Модульные сооружения" style="max-width: 119px;" />
+                            <img class="green-img" src="/images/green-section/icon-5.png" alt="Порізка" title="Порізка" style="max-width: 119px;" />
                         </div>
                     </div>
                     <div class="col-sm-7 col-xs-7">
                         <div class="wow slideInRight">
-                            <a href="{{ url($locale.'/modulnye-soorujeniya') }}" class="green-section-title" title="Модульные сооружения">
-                                Модульные сооружения
+                            <a href="{{ route('porezka') }}" class="green-section-title" title="Порізка">
+                                Порізка
                             </a>
                         </div>
                         <div class="wow slideInRight">
-                            <p class="green-section-body">Для временного пользования и проживания подходят модульные сооружения, представляющие собой полный комплект из окон, дверей и современных материалов.</p>
+                            <p class="green-section-body">Порізку замовленого металопрокату проводять по зазначеним розмірам. Здійснюється вона попередньо перед остаточним формуванням замовлення.</p>
                         </div>
                     </div>
                 </div>
@@ -321,17 +259,76 @@
                 <div class="row green-section-block">
                     <div class="col-sm-5 col-xs-5">
                         <div class="wow slideInRight">
-                            <img class="green-img" src="/images/green-section/icon-9.png" alt="Оцинкованные рулоны" title="Оцинкованные рулоны" style="max-width: 119px;" />
+                            <img class="green-img" src="/images/green-section/icon-6.png" alt="Структури" title="Структури" style="max-width: 119px;" />
                         </div>
                     </div>
                     <div class="col-sm-7 col-xs-7">
                         <div class="wow slideInRight">
-                            <a href="{{ url($locale.'/otsinkovannye-rulony') }}" class="green-section-title" title="Оцинкованные рулоны">
-                                Оцинкованные рулоны
+                            <a href="{{ route('struktury-pod-klyuch') }}" class="green-section-title" title="Структури">
+                                Структури
                             </a>
                         </div>
                         <div class="wow slideInRight">
-                            <p class="green-section-body">Цинковый слой обеспечивает не только электрохимическую, но и защиту физического типа за счет того, что обладает неизменной адгезией.</p>
+                            <p class="green-section-body">Структури представляють собою вільні за формою виготовлення металоконструкції, які можна купувати на замовлення або вибирати з стандартного ряду.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-sm-4">
+                <div class="row green-section-block">
+                    <div class="col-sm-5 col-xs-5">
+                        <div class="wow slideInRight">
+                            <img class="green-img" src="/images/green-section/icon-7.png" alt="Металоконструкції" title="Металоконструкції" style="max-width: 119px;" />
+                        </div>
+                    </div>
+                    <div class="col-sm-7 col-xs-7">
+                        <div class="wow slideInRight">
+                            <a href="{{ url($locale.'/metallokonstruktsii') }}" class="green-section-title" title="Металоконструкції">
+                                Металоконструкції
+                            </a>
+                        </div>
+                        <div class="wow slideInRight">
+                            <p class="green-section-body">Сьогодні такі конструкції можна зустріти в сфері створення каркасних будинків, гаражів, ангарів, торговельних кіосків, побутівок, модульних будівель.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4">
+                <div class="row green-section-block">
+                    <div class="col-sm-5 col-xs-5">
+                        <div class="wow slideInRight">
+                            <img class="green-img" src="/images/green-section/icon-8.png" alt="Модульні споруди" title="Модульні споруди" style="max-width: 119px;" />
+                        </div>
+                    </div>
+                    <div class="col-sm-7 col-xs-7">
+                        <div class="wow slideInRight">
+                            <a href="{{ url($locale.'/modulnye-soorujeniya') }}" class="green-section-title" title="Модульні споруди">
+                                Модульні споруди
+                            </a>
+                        </div>
+                        <div class="wow slideInRight">
+                            <p class="green-section-body">Для тимчасового користування та проживання підходять модульні споруди, що представляють собою повний комплект з вікон, дверей і сучасних матеріалів.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4">
+                <div class="row green-section-block">
+                    <div class="col-sm-5 col-xs-5">
+                        <div class="wow slideInRight">
+                            <img class="green-img" src="/images/green-section/icon-9.png" alt="Оцинковані рулони" title="Оцинковані рулони" style="max-width: 119px;" />
+                        </div>
+                    </div>
+                    <div class="col-sm-7 col-xs-7">
+                        <div class="wow slideInRight">
+                            <a href="{{ url($locale.'/otsinkovannye-rulony') }}" class="green-section-title" title="Оцинковані рулони">
+                                Оцинковані рулони
+                            </a>
+                        </div>
+                        <div class="wow slideInRight">
+                            <p class="green-section-body">Цинковий шар забезпечує не тільки електрохімічний, а й захист фізичного типу за рахунок того, що володіє незмінною адгезію.</p>
                         </div>
                     </div>
                 </div>
@@ -356,16 +353,16 @@
                             </div>
                         </div>
                         <div class="col-sm-9">
-                            <a href="{{ route('stremitelno-menyayushhemsya-mire') }}" title="В стремительно меняющемся мире" class="text-black-h3">
-                                Мы живем в стремительно меняющемся мире, и мы являемся свидетелями глубоких изменений в обществе, сознание, фондов, бизнеса.
+                            <a href="{{ route('stremitelno-menyayushhemsya-mire') }}" title="В стрімко мінливому світі" class="text-black-h3">
+                                Ми живемо в стрімко мінливому світі, і ми є свідками глибоких змін у суспільстві, свідомості, фондах, бізнесі.
                             </a>
 
                             <div class="padding-block-1-2">
-                                <span class="text-gray-16">Такие характеристики, как надежность, неизменно высокое качество, долговечность, доступные цены в современном мире играют главную роль. Продукцию из металла можно производить на оборудовании с профессиональными функциями, поэтому изготовление изделий любой сложности возможно в рамках разных объемов.</span>
+                                <span class="text-gray-16">Такі характеристики, як надійність, незмінна висока якість, довговічність, доступні ціни в сучасному світі відіграють головну роль. Продукцію з металу можна виробляти на обладнанні з професійними функціями, тому виготовлення виробів будь-якої складності можливо в рамках різних обсягів.</span>
                             </div>
 
                             <a href="{{ route('stremitelno-menyayushhemsya-mire') }}" class="text-orange-20">
-                                <span class="font-up">Читать далее</span>
+                                <span class="font-up">Читати далі</span>
                                 <span class="fa span-arrow"> >> </span>
                             </a>
                         </div>
@@ -415,7 +412,7 @@
 <section class="parallax-window" data-parallax="scroll" data-image-src="/images/template/index-parallax-01.jpg">
     <div class="container" style="position: relative;">
         <div class="parallax-text-wrap">
-            <span class="parallax-text">Well established resources in many countries</span>
+            <span class="parallax-text">Добре встановлені ресурси в багатьох країнах світу</span>
         </div>
     </div>
 </section>
@@ -431,18 +428,18 @@
             </div>
             <div class="col-md-7 col-sm-7 col-xs-12">
                 <div class="wow fadeInRight">
-                    <h3 class="title-orange">Что нового?</h3>
+                    <h3 class="title-orange">Що нового?</h3>
                 </div>
 
                 <div class="wow fadeInRight">
                     <div class="padding-block-2-2">
-                        <span class="text-gray-16">Изменением ассортимента продукции никого не удивишь, а вот высокое отношение к клиенту может предоставить не каждая компания. Высокий уровень удовлетворенности клиентов говорит о том, что продукт этого бренда достоин внимания. Для клиентов важно не только качество продукта, но и качество обслуживания – это своеобразная теорема.</span>
+                        <span class="text-gray-16">Зміною асортименту продукції нікого не здивуєш, а ось високе відношення до клієнта може надати не кожна компанія. Високий рівень задоволеності клієнтів говорить про те, що продукт цього бренду вартий уваги. Для клієнтів важливо не тільки якість продукту, але і якість обслуговування - це своєрідна аксіома.</span>
                     </div>
                 </div>
 
                 <div class="wow fadeInRight">
                     <a href="{{ route('chto-novogo') }}" class="btn btn-warning send-button font-up">
-                        КЛИКНИТЕ СЮДА <span> >> </span>
+                        НАТИСИIТЬ ТУТ <span> >> </span>
                     </a>
                 </div>
             </div>
@@ -458,18 +455,19 @@
                     <div class="row">
                         <div class="col-md-11 show-left">
                             <div class="wow fadeInLeft">
-                                <span class="title-orange">Лучшие продавцы</span>
+                                <span class="title-orange">Кращі продавці</span>
                             </div>
 
                             <div class="wow fadeInLeft">
                                 <div class="padding-block-2-2">
-                                    <span class="text-gray-16">Только время способно в общей массе выделить лидеров, которые постоянно работают слаженно и не отходят от общих принципов. В каждом конкретном случае используется свой рецепт привлечения продаж и это – неизменно высокое качество, высокая ориентация на клиента, достойное обслуживание.</span>
+                                    <span class="text-gray-16">Тільки час здатний в загальній масі виділити лідерів, які постійно працюють злагоджено і не відходять від загальних принципів. У кожному конкретному випадку використовується свій рецепт залучення продаж і це - незмінно висока якість, висока орієнтація на клієнта, гідне обслуговування.
+                                    </span>
                                 </div>
                             </div>
 
                             <div class="wow fadeInLeft">
                                 <a href="{{ route('luchshie-prodavcy') }}" class="btn btn-warning send-button font-up">
-                                    КЛИКНИТЕ СЮДА <span> >> </span>
+                                    НАТИСИIТЬ ТУТ <span> >> </span>
                                 </a>
                             </div>
                         </div>
@@ -489,7 +487,7 @@
 <section class="parallax-window" data-parallax="scroll" data-image-src="/images/template/index-parallax-02.jpg">
     <div class="container" style="position: relative;">
         <div class="parallax-text-wrap">
-            <span class="parallax-text">Inner control standards in the production process</span>
+            <span class="parallax-text">Внутрішні стандарти контролю у виробничому процесі</span>
         </div>
     </div>
 </section>
@@ -498,50 +496,50 @@
 
     <div class="padding-top"></div>
     <div class="wow fadeInLeft">
-        <h2 class="welcome-text text-center">СТАТЬИ</h2>
+        <h2 class="welcome-text text-center">СТАТТІ</h2>
     </div>
     <div class="padding-top"></div>
 
     <div class="row articles-block">
         <div class="col-md-6 col-sm-6">
             <div class="wow fadeInUp">
-                <p class="text-black-h2 font-up">Развитие</p>
+                <p class="text-black-h2 font-up">Розвиток</p>
             </div>
 
             <div class="wow fadeInUp">
-                <a href="{{ route('razvitie') }}" class="text-green-20 font-up" title="Наша политика">
-                    Наша политика – это глубокие изменения в обществе, бизнесе, фондах
+                <a href="{{ route('razvitie') }}" class="text-green-20 font-up" title="Наша політика">
+                    Наша політика - це глибокі зміни в суспільстві, бізнесі, фондах
                 </a>
             </div>
 
             <div class="wow fadeInUp">
-                <span class="text-gray-16">Устойчивое развитие – это то, к чему стоит стремиться всем современным компаниям. Этот фактор говорит не только о высоком социальном уровне, а и о наличие положительных изменений.</span>
+                <span class="text-gray-16">Сталий розвиток - це те, до чого варто прагнути всім сучасним компаніям. Цей фактор говорить не тільки про високий соціальний рівень, а й про наявність позитивних змін.</span>
             </div>
 
             <div class="wow fadeInUp">
                 <a href="{{ route('razvitie') }}" class="btn btn-success send-button font-up">
-                    Читать далее <span> >> </span>
+                    Читати далі <span> >> </span>
                 </a>
             </div>
         </div>
         <div class="col-md-6 col-sm-6">
             <div class="wow fadeInUp">
-                <p class="text-black-h2 font-up">Наша политика</p>
+                <p class="text-black-h2 font-up">Наша політика</p>
             </div>
 
             <div class="wow fadeInUp">
-                <a href="{{ route('nasha-politika') }}" class="text-green-20 font-up" title="Надежный партнер в сфере металла">
-                    Надежный партнер в сфере металла.
+                <a href="{{ route('nasha-politika') }}" class="text-green-20 font-up" title="Надійний партнер у сфері металу">
+                    Надійний партнер у сфері металу
                 </a>
             </div>
 
             <div class="wow fadeInUp">
-                <span class="text-gray-16">Наша компания занимается изготовлением металлоконструкций не один год, открывая широкие возможности доставки, порезки, транспортировки. Выгодно купить металла с доставкой можно на официальном сайте, затратив при этом минимум времени.</span>
+                <span class="text-gray-16">Наша компанія займається виготовленням металоконструкцій не один рік, відкриваючи широкі можливості доставки, порізки, транспортування. Вигідно купити метал з доставкою по Україні можна на офіційному сайті, витративши при цьому мінімум часу.</span>
             </div>
 
             <div class="wow fadeInUp">
                 <a href="{{ route('nasha-politika') }}" class="btn btn-success send-button font-up">
-                    Читать далее <span> >> </span>
+                    Читати далі <span> >> </span>
                 </a>
             </div>
         </div>
@@ -633,4 +631,3 @@
         });
     </script>
 @endsection
-

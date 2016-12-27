@@ -5,9 +5,7 @@
 @endsection
 
 @section('meta')
-
     @include('partial.metatags')
-
 @endsection
 
 @section('css')
