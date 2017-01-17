@@ -46,6 +46,16 @@
         <h1 class="welcome-text text-center">{{ $office['title'] }}</h1>
     </div>
     <div class="padding-top"></div>
+    
+    @if (!empty($office['text_top']))
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="padding-block-0-2">
+                    <span class="text-gray-16 text-justify">{{ $office['text_top'] }}</span>
+                </div>
+            </div>
+        </div>
+    @endif
 
     <div class="row">
         <div class="col-md-6 col-sm-6 col-xs-12">
@@ -74,6 +84,16 @@
             </div>
         </div>
     </div>
+
+    @if (!empty($office['text_bottom']))
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="padding-block-2-0">
+                    <span class="text-gray-16 text-justify">{{ $office['text_bottom'] }}</span>
+                </div>
+            </div>
+        </div>
+    @endif
 
     <div class="padding-top"></div>
 </section>

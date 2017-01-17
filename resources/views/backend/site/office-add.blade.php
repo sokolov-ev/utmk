@@ -202,6 +202,165 @@
                             </div>
                         </div>
 
+                        <div class="form-group{{ ($errors->has('text_top_en') || $errors->has('text_top_ru') || $errors->has('text_top_uk')) ? ' has-error' : '' }}" style="margin-bottom: 0;">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label class="control-label tab-text_top" for="advertising-text_top">Текст в верху</label>
+                                </div>
+                                <div class="col-md-8 customize-tab">
+                                    <ul class="nav nav-pills pull-right customize-tab" role="tablist">
+                                        <li role="presentation">
+                                            <a id="text_top_en-tab"
+                                               class="tab-nice{{ $errors->has('text_top_en') ? ' has-error-label' : '' }}"
+                                               href="#text_top_en"
+                                               role="tab"
+                                               data-toggle="tab"
+                                               aria-controls="text_top_en"
+                                               aria-expanded="true">
+                                                Английский
+                                            </a>
+                                        </li>
+                                        <li class="active" role="presentation">
+                                            <a id="text_top_ru-tab"
+                                               class="tab-nice{{ $errors->has('text_top_ru') ? ' has-error-label' : '' }}"
+                                               href="#text_top_ru"
+                                               role="tab"
+                                               data-toggle="tab"
+                                               aria-controls="text_top_ru">
+                                                Русский
+                                            </a>
+                                        </li>
+                                        <li role="presentation">
+                                            <a id="text_top_uk-tab"
+                                               class="tab-nice{{ $errors->has('text_top_uk') ? ' has-error-label' : '' }}"
+                                               href="#text_top_uk"
+                                               role="tab"
+                                               data-toggle="tab"
+                                               aria-controls="text_top_uk">
+                                                Украинский
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="tabtext_top" class="tab-content">
+                            <div id="text_top_en" class="tab-pane fade" role="tabpanel" aria-labelledby="text_top_en-tab">
+                                <div class="form-group{{ $errors->has('text_top_en') ? ' has-error' : '' }}">
+                                    <textarea id="text_top_en" name="text_top_en" class="form-control" placeholder="Английский" rows="4">{{ old('text_top_en') }}</textarea>
+
+                                    @if ($errors->has('text_top_en'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('text_top_en') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div id="text_top_ru" class="tab-pane fade in active" role="tabpanel" aria-labelledby="text_top_ru-tab">
+                                <div class="form-group{{ $errors->has('text_top_ru') ? ' has-error' : '' }}">
+                                    <textarea id="text_top_ru" name="text_top_ru" class="form-control" placeholder="Русский" rows="4">{{ old('text_top_ru') }}</textarea>
+
+                                    @if ($errors->has('text_top_ru'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('text_top_ru') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div id="text_top_uk" class="tab-pane fade" role="tabpanel" aria-labelledby="text_top_uk-tab">
+                                <div class="form-group{{ $errors->has('text_top_ru') ? ' has-error' : '' }}">
+                                    <textarea id="text_top_uk" name="text_top_uk" class="form-control" placeholder="Украинский" rows="4">{{ old('text_top_uk') }}</textarea>
+
+                                    @if ($errors->has('text_top_uk'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('text_top_uk') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group{{ ($errors->has('text_bottom_en') || $errors->has('text_bottom_ru') || $errors->has('text_bottom_uk')) ? ' has-error' : '' }}" style="margin-bottom: 0;">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label class="control-label tab-text_bottom" for="advertising-text_bottom">Текст в низу</label>
+                                </div>
+                                <div class="col-md-8 customize-tab">
+                                    <ul class="nav nav-pills pull-right customize-tab" role="tablist">
+                                        <li role="presentation">
+                                            <a id="text_bottom_en-tab"
+                                               class="tab-nice{{ $errors->has('text_bottom_en') ? ' has-error-label' : '' }}"
+                                               href="#text_bottom_en"
+                                               role="tab"
+                                               data-toggle="tab"
+                                               aria-controls="text_bottom_en"
+                                               aria-expanded="true">
+                                                Английский
+                                            </a>
+                                        </li>
+                                        <li class="active" role="presentation">
+                                            <a id="text_bottom_ru-tab"
+                                               class="tab-nice{{ $errors->has('text_bottom_ru') ? ' has-error-label' : '' }}"
+                                               href="#text_bottom_ru"
+                                               role="tab"
+                                               data-toggle="tab"
+                                               aria-controls="text_bottom_ru">
+                                                Русский
+                                            </a>
+                                        </li>
+                                        <li role="presentation">
+                                            <a id="text_bottom_uk-tab"
+                                               class="tab-nice{{ $errors->has('text_bottom_uk') ? ' has-error-label' : '' }}"
+                                               href="#text_bottom_uk"
+                                               role="tab"
+                                               data-toggle="tab"
+                                               aria-controls="text_bottom_uk">
+                                                Украинский
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="tabtext_bottom" class="tab-content">
+                            <div id="text_bottom_en" class="tab-pane fade" role="tabpanel" aria-labelledby="text_bottom_en-tab">
+                                <div class="form-group{{ $errors->has('text_bottom_en') ? ' has-error' : '' }}">
+                                    <textarea id="text_bottom_en" name="text_bottom_en" class="form-control" placeholder="Английский" rows="4">{{ old('text_bottom_en') }}</textarea>
+
+                                    @if ($errors->has('text_bottom_en'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('text_bottom_en') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div id="text_bottom_ru" class="tab-pane fade in active" role="tabpanel" aria-labelledby="text_bottom_ru-tab">
+                                <div class="form-group{{ $errors->has('text_bottom_ru') ? ' has-error' : '' }}">
+                                    <textarea id="text_bottom_ru" name="text_bottom_ru" class="form-control" placeholder="Русский" rows="4">{{ old('text_bottom_ru') }}</textarea>
+
+                                    @if ($errors->has('text_bottom_ru'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('text_bottom_ru') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div id="text_bottom_uk" class="tab-pane fade" role="tabpanel" aria-labelledby="text_bottom_uk-tab">
+                                <div class="form-group{{ $errors->has('text_bottom_ru') ? ' has-error' : '' }}">
+                                    <textarea id="text_bottom_uk" name="text_bottom_uk" class="form-control" placeholder="Украинский" rows="4">{{ old('text_bottom_uk') }}</textarea>
+
+                                    @if ($errors->has('text_bottom_uk'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('text_bottom_uk') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="form-group{{ ($errors->has('address_ru') || $errors->has('city_en') || $errors->has('city_ru') || $errors->has('city_uk')) ? ' has-error' : '' }}">
                             <label for="address_ru" class="control-label">
                                 Адрес <i class="fa fa-spinner fa-pulse fa-fw hidden" aria-hidden="true" id="fa-spinner-load"></i>

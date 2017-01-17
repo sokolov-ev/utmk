@@ -20,7 +20,7 @@ class Office extends Model
      * @var array
      */
     protected $fillable = [
-        'type', 'title', 'description', 'address', 'city', 'latitude', 'longitude'
+        'type', 'title', 'description', 'text_top', 'text_bottom', 'address', 'city', 'latitude', 'longitude'
     ];
 
     /**
@@ -85,6 +85,16 @@ class Office extends Model
         $array['description_ru'] = $description['ru'];
         $array['description_uk'] = $description['uk'];
 
+        $text_top = json_decode($office->text_top, true);
+        $array['text_top_en'] = $text_top['en'];
+        $array['text_top_ru'] = $text_top['ru'];
+        $array['text_top_uk'] = $text_top['uk'];
+
+        $text_bottom = json_decode($office->text_bottom, true);
+        $array['text_bottom_en'] = $text_bottom['en'];
+        $array['text_bottom_ru'] = $text_bottom['ru'];
+        $array['text_bottom_uk'] = $text_bottom['uk'];
+
         $address = json_decode($office->address, true);
         $array['address_en'] = $address['en'];
         $array['address_ru'] = $address['ru'];
@@ -148,12 +158,21 @@ class Office extends Model
             $temp['id']          = $office->id;
             $temp['city']        = str_slug(json_decode($office->city, true)['ru']);
 
-            // $temp['title']       = json_decode($office->title, true)[App::getLocale()];
-            // $temp['description'] = json_decode($office->description, true)[App::getLocale()];
-
             $officeTitle   = json_decode($office->title, true);
             $officeTitle   = array_filter($officeTitle);
             $temp['title'] = empty($officeTitle[App::getLocale()]) ? current($officeTitle) : $officeTitle[App::getLocale()];
+
+            $officeDescription   = json_decode($office->description, true);
+            $officeDescription   = array_filter($officeDescription);
+            $temp['description'] = empty($officeDescription[App::getLocale()]) ? current($officeDescription) : $officeDescription[App::getLocale()];
+
+            $officeTextTop    = json_decode($office->text_top, true);
+            $officeTextTop    = array_filter($officeTextTop);
+            $temp['text_top'] = empty($officeTextTop[App::getLocale()]) ? current($officeTextTop) : $officeTextTop[App::getLocale()];
+
+            $officeTextBottom    = json_decode($office->text_bottom, true);
+            $officeTextBottom    = array_filter($officeTextBottom);
+            $temp['text_bottom'] = empty($officeTextBottom[App::getLocale()]) ? current($officeTextBottom) : $officeTextBottom[App::getLocale()];
 
             $officeDescription   = json_decode($office->description, true);
             $officeDescription   = array_filter($officeDescription);
@@ -192,6 +211,16 @@ class Office extends Model
         $array['ru'] = $data['description_ru'];
         $array['uk'] = $data['description_uk'];
         $office->description = json_encode($array, JSON_UNESCAPED_UNICODE);
+
+        $array['en'] = $data['text_top_en'];
+        $array['ru'] = $data['text_top_ru'];
+        $array['uk'] = $data['text_top_uk'];
+        $office->text_top = json_encode($array, JSON_UNESCAPED_UNICODE);
+
+        $array['en'] = $data['text_bottom_en'];
+        $array['ru'] = $data['text_bottom_ru'];
+        $array['uk'] = $data['text_bottom_uk'];
+        $office->text_bottom = json_encode($array, JSON_UNESCAPED_UNICODE);
 
         $array['en'] = $data['address_en'];
         $array['ru'] = $data['address_ru'];
@@ -235,6 +264,14 @@ class Office extends Model
         $description = array_filter($description);
         $array['description'] = empty($description[App::getLocale()]) ? current($description) : $description[App::getLocale()];
 
+        $textTop = json_decode($office->text_top, true);
+        $textTop = array_filter($textTop);
+        $array['text_top'] = empty($textTop[App::getLocale()]) ? current($textTop) : $textTop[App::getLocale()];
+
+        $textBottom = json_decode($office->text_bottom, true);
+        $textBottom = array_filter($textBottom);
+        $array['text_bottom'] = empty($textBottom[App::getLocale()]) ? current($textBottom) : $textBottom[App::getLocale()];
+
         $address = json_decode($office->address, true);
         $address = array_filter($address);
         $array['address'] = empty($address[App::getLocale()]) ? current($address) : $address[App::getLocale()];
@@ -269,8 +306,6 @@ class Office extends Model
         $result['address'] = empty($address[App::getLocale()]) ? current($address) : $address[App::getLocale()];
 
         $contacts = [];
-        // $contactType = Contacts::getType();
-
         foreach ($office->contacts->toArray() as $key => $contact) {
             $temp['type'] = trans('offices.contactType.'.$contact['type']);
             $temp['data'] = $contact['contact'];

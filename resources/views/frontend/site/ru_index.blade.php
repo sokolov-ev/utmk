@@ -162,17 +162,32 @@
                 <div class="row green-section-block">
                     <div class="col-sm-5 col-xs-5">
                         <div class="wow slideInRight">
-                            <img class="green-img" src="/images/green-section/icon-1.png" alt="Контроль качества" title="Контроль качества" style="max-width: 119px;" />
+                            <img class="green-img" src="/images/green-section/icon-1.png" alt="Сортовой прокат" title="Сортовой прокат" style="max-width: 119px;" />
                         </div>
                     </div>
                     <div class="col-sm-7 col-xs-7">
                         <div class="wow slideInRight">
-                            <a href="{{ route('kontrol-kachestva') }}" class="green-section-title" title="Контроль качества">
-                                Контроль качества
-                            </a>
+                            <h4>Сортовой прокат</h4>
                         </div>
                         <div class="wow slideInRight">
-                            <p class="green-section-body">Высокая конкуренция заставила нашу компанию искать новые пути к успеху, для чего была разработана своя система качества продукции.</p>
+                            <a href="{{ url($locale.'/armatura') }}" class="green-section-link-seo" title="Арматура">
+                                Арматура
+                            </a><br/>
+                            <a href="{{ url($locale.'/balka-dvutavr') }}" class="green-section-link-seo" title="Двутавровая балка">
+                                Двутавровая балка
+                            </a><br/>
+                            <a href="{{ url($locale.'/kvadrat') }}" class="green-section-link-seo" title="Квадрат">
+                                Квадрат
+                            </a><br/>
+                            <a href="{{ url($locale.'/ugolok') }}" class="green-section-link-seo" title="Уголок">
+                                Уголок
+                            </a><br/>
+                            <a href="{{ url($locale.'/shveller') }}" class="green-section-link-seo" title="Швеллер">
+                                Швеллер
+                            </a><br/>
+                            <a href="{{ url($locale.'/shestigrannik') }}" class="green-section-link-seo" title="Шестигранник">
+                                Шестигранник
+                            </a><br/>
                         </div>
                     </div>
                 </div>
@@ -181,17 +196,32 @@
                 <div class="row green-section-block">
                     <div class="col-sm-5 col-xs-5">
                         <div class="wow slideInRight">
-                            <img class="green-img" src="/images/green-section/icon-2.png" alt="Доставка" title="Доставка" style="max-width: 119px;" />
+                            <img class="green-img" src="/images/green-section/icon-2.png" alt="Трубный прокат" title="Трубный прокат" style="max-width: 119px;" />
                         </div>
                     </div>
                     <div class="col-sm-7 col-xs-7">
                         <div class="wow slideInRight">
-                            <a href="{{ route('dostavka') }}" class="green-section-title" title="Доставка">
-                                Доставка
-                            </a>
+                            <h4>Трубный прокат</h4>
                         </div>
                         <div class="wow slideInRight">
-                            <p class="green-section-body">Хотите приобрести металл в интернете? Вы делаете правильный выбор как со стороны ценового фактора, так и со стороны широкого выбора.</p>
+                            <a href="{{ url($locale.'/truba-besshovnaya') }}" class="green-section-link-seo" title="Бесшовные трубы">
+                                Бесшовные трубы
+                            </a><br/>
+                            <a href="{{ url($locale.'/staltrub') }}" class="green-section-link-seo" title="Сварные трубы">
+                                Сварные трубы
+                            </a><br/>
+                            <a href="{{ url($locale.'/truby_kotelnye') }}" class="green-section-link-seo" title="Котельные трубы">
+                                Котельные трубы
+                            </a><br/>
+                            <a href="{{ url($locale.'/truba-bu') }}" class="green-section-link-seo" title="БУ трубы">
+                                БУ трубы
+                            </a><br/>
+                            <a href="{{ url($locale.'/profilnue-trubu') }}" class="green-section-link-seo" title="Профильные трубы">
+                                Профильные трубы
+                            </a><br/>
+                            <a href="{{ url($locale.'/truba-otsinkovannaya') }}" class="green-section-link-seo" title="Оцинкованные трубы">
+                                Оцинкованные трубы
+                            </a><br/>
                         </div>
                     </div>
                 </div>
@@ -210,7 +240,14 @@
                             </a>
                         </div>
                         <div class="wow slideInRight">
-                            <p class="green-section-body">Ассортимент продукции «ЮТМК Киев» включает и поставки металлопроката из Европы.</p>
+                            <p class="green-section-body">Ассортимент продукции включает поставки металлопроката из Европы: 
+                                <a href="{{ url($locale.'/list-hardox') }}" class="green-section-link-seo" title="Hardox">
+                                    Hardox
+                                </a>,
+                                <a href="{{ url($locale.'/swebor') }}" class="green-section-link-seo" title="Swebor">
+                                    Swebor
+                                </a>.
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -221,17 +258,17 @@
                 <div class="row green-section-block">
                     <div class="col-sm-5 col-xs-5">
                         <div class="wow slideInRight">
-                            <img class="green-img" src="/images/green-section/icon-4.png" alt="Ваши заказы" title="Ваши заказы" style="max-width: 119px;" />
+                            <img class="green-img" src="/images/green-section/icon-4.png" alt="Модульные сооружения" title="Модульные сооружения" style="max-width: 119px;" />
                         </div>
                     </div>
                     <div class="col-sm-7 col-xs-7">
                         <div class="wow slideInRight">
-                            <a href="{{ route('vashi-zakazy-kak-mozhno-skoree') }}" class="green-section-title" title="Ваши заказы">
-                                Ваши заказы
+                            <a href="{{ url($locale.'/modulnye-soorujeniya') }}" class="green-section-title" title="Модульные сооружения">
+                                Модульные сооружения
                             </a>
                         </div>
                         <div class="wow slideInRight">
-                            <p class="green-section-body">Характеристики исходных материалов играют большое значение, поэтому многие заказчики прибегают к персональному заказу.</p>
+                            <p class="green-section-body">Для временного пользования и проживания подходят модульные сооружения, представляющие собой полный комплект из окон, дверей и современных материалов.</p>
                         </div>
                     </div>
                 </div>
@@ -240,17 +277,17 @@
                 <div class="row green-section-block">
                     <div class="col-sm-5 col-xs-5">
                         <div class="wow slideInRight">
-                            <img class="green-img" src="/images/green-section/icon-5.png" alt="Порезка" title="Порезка" style="max-width: 119px;" />
+                            <img class="green-img" src="/images/green-section/icon-5.png" alt="Листовой прокат" title="Листовой прокат" style="max-width: 119px;" />
                         </div>
                     </div>
                     <div class="col-sm-7 col-xs-7">
                         <div class="wow slideInRight">
-                            <a href="{{ route('porezka') }}" class="green-section-title" title="Порезка">
-                                Порезка
+                            <a href="{{ url($locale.'/list_stalnoy') }}" class="green-section-title" title="Листовой прокат">
+                                Листовой прокат
                             </a>
                         </div>
                         <div class="wow slideInRight">
-                            <p class="green-section-body">Резку заказанного металлопроката проводят по указанным размерам. Осуществляется порезка предварительно перед окончательным формированием заказа.</p>
+                            <p class="green-section-body">Многие отрасли применения охватывает лист стальной, который востребован и в автомобильной промышленности, и в строительстве, и в других направлениях.</p>
                         </div>
                     </div>
                 </div>
@@ -259,28 +296,7 @@
                 <div class="row green-section-block">
                     <div class="col-sm-5 col-xs-5">
                         <div class="wow slideInRight">
-                            <img class="green-img" src="/images/green-section/icon-6.png" alt="Структуры" title="Структуры" style="max-width: 119px;" />
-                        </div>
-                    </div>
-                    <div class="col-sm-7 col-xs-7">
-                        <div class="wow slideInRight">
-                            <a href="{{ route('struktury-pod-klyuch') }}" class="green-section-title" title="Структуры">
-                                Структуры
-                            </a>
-                        </div>
-                        <div class="wow slideInRight">
-                            <p class="green-section-body">Свободные по форме изготовления металлоконструкции представляют собой структуры, которые можно покупать под заказ или выбирать из стандартного ряда.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-4 col-sm-4">
-                <div class="row green-section-block">
-                    <div class="col-sm-5 col-xs-5">
-                        <div class="wow slideInRight">
-                            <img class="green-img" src="/images/green-section/icon-7.png" alt="Металлоконструкции" title="Металлоконструкции" style="max-width: 119px;" />
+                            <img class="green-img" src="/images/green-section/icon-6.png" alt="Металлоконструкции" title="Металлоконструкции" style="max-width: 119px;" />
                         </div>
                     </div>
                     <div class="col-sm-7 col-xs-7">
@@ -295,21 +311,57 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="row">
             <div class="col-md-4 col-sm-4">
                 <div class="row green-section-block">
                     <div class="col-sm-5 col-xs-5">
                         <div class="wow slideInRight">
-                            <img class="green-img" src="/images/green-section/icon-8.png" alt="Модульные сооружения" title="Модульные сооружения" style="max-width: 119px;" />
+                            <img class="green-img" src="/images/green-section/icon-7.png" alt="Сортовой прокат" title="Сортовой прокат" style="max-width: 119px;" />
                         </div>
                     </div>
                     <div class="col-sm-7 col-xs-7">
                         <div class="wow slideInRight">
-                            <a href="{{ url($locale.'/modulnye-soorujeniya') }}" class="green-section-title" title="Модульные сооружения">
-                                Модульные сооружения
-                            </a>
+                            <h4>Сортовой прокат</h4>
                         </div>
                         <div class="wow slideInRight">
-                            <p class="green-section-body">Для временного пользования и проживания подходят модульные сооружения, представляющие собой полный комплект из окон, дверей и современных материалов.</p>
+                            <a href="{{ url($locale.'/katanka') }}" class="green-section-link-seo" title="Катанка">
+                                Катанка
+                            </a><br/>
+                            <a href="{{ url($locale.'/krug') }}" class="green-section-link-seo" title="Круг">
+                                Круг
+                            </a><br/>
+                            <a href="{{ url($locale.'/polosa') }}" class="green-section-link-seo" title="Полоса">
+                                Полоса
+                            </a><br/>
+                            <a href="{{ url($locale.'/rels') }}" class="green-section-link-seo" title="Рельс">
+                                Рельс
+                            </a><br/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4">
+                <div class="row green-section-block">
+                    <div class="col-sm-5 col-xs-5">
+                        <div class="wow slideInRight">
+                            <img class="green-img" src="/images/green-section/icon-8.png" alt="Гнутый профиль" title="Гнутый профиль" style="max-width: 119px;" />
+                        </div>
+                    </div>
+                    <div class="col-sm-7 col-xs-7">
+                        <div class="wow slideInRight">
+                            <h4>Гнутый профиль</h4>
+                        </div>
+                        <div class="wow slideInRight">
+                            <a href="{{ url($locale.'/shveller-gnutyj') }}" class="green-section-link-seo" title="Швеллер гнутый">
+                                Швеллер гнутый
+                            </a><br/>
+                            <a href="{{ url($locale.'/ugolok-gnutyj') }}" class="green-section-link-seo" title="Уголок гнутый">
+                                Уголок гнутый
+                            </a><br/>
+                            <a href="{{ url($locale.'/z-obraznyj-profil') }}" class="green-section-link-seo" title="Z -образный профиль">
+                                Z -образный профиль
+                            </a><br/>
                         </div>
                     </div>
                 </div>
