@@ -25,7 +25,7 @@
   left: 20%;
   position: absolute;
   text-align: left;
-  top: 70%;
+  top: 75%;
   width: 150px;
   bottom: 0;
   margin-left: 0;
@@ -34,13 +34,11 @@
 @media(max-width:1039px) {
   .carousel-indicators {
     left: 10%;
-    top: 65%;
   }
 }
 @media(max-width:767px) {
   .carousel-indicators {
     left: 15%;
-    top: 65%;
   }
 }
 
@@ -77,7 +75,7 @@
 .ci_caption {
   left: 20%;
   text-align: left;
-  top: 60%;
+  top: 40%;
   transform: translateY(-50%);
   width: 60%;
 
@@ -94,41 +92,55 @@
 @media(max-width:1024px) {
   .ci_caption {
     left: 10%;
-    top: 50%;
-    width: 70%;
+    top: 45%;
+    width: 85%;
   }
 }
 @media(max-width:767px) {
   .ci_caption {
-    left: 15%;
+    left: 10%;
     top: 45%;
-    width: 80%;
+    width: 85%;
   }
 }
 @media(max-width:480px) {
   .ci_caption {
-    left: 15%;
-    top: 40%;
-    width: 80%;
+    left: 10%;
+    top: 35%;
+    width: 85%;
   }
 }
 
 .ci_caption span {
+  margin-bottom: 10px;
+  margin-top: 20px;
+  display: inline-block;
+}
+
+.ci_caption span,
+.ci_caption h1,
+.ci_caption h2 {
   font-size: 60px;
   line-height: 1;
 }
 @media(max-width:1039px) {
-  .ci_caption span {
+  .ci_caption span,
+  .ci_caption h1,
+  .ci_caption h2 {
     font-size: 34px;
   }
 }
 @media(max-width:767px) {
-  .ci_caption span {
+  .ci_caption span,
+  .ci_caption h1,
+  .ci_caption h2 {
     font-size: 25px;
   }
 }
 @media(max-width:479px) {
-  .ci_caption span {
+  .ci_caption span,
+  .ci_caption h1,
+  .ci_caption h2 {
     font-size: 15px;
   }
 }

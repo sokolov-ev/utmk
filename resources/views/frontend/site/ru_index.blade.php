@@ -35,19 +35,19 @@
             <div class="item active">
                 <img alt="First slide" src="/images/slide/slide-01.jpg" data-holder-rendered="true">
                 <div class="carousel-caption ci_caption">
-                    <span>Мы лучшие в области импорта и экспорта</span>
+                    <span>Мы лучшие в области импорта и экспорта металла</span>
                 </div>
             </div>
             <div class="item">
                 <img alt="Second slide" src="/images/slide/slide-02.jpg" data-holder-rendered="true">
                 <div class="carousel-caption ci_caption">
-                    <span>Широкий выбор металлопродукции, доступной по скидочным ценам</span>
+                    <h1>Широкий выбор металлопроката по низкой цене в Украине</h1>
                 </div>
             </div>
             <div class="item">
                 <img alt="Third slide" src="/images/slide/slide-03.jpg" data-holder-rendered="true">
                 <div class="carousel-caption ci_caption">
-                    <span>Качество продукции - наша первая задача для вашего удовольствия</span>
+                    <h2>Качество продукции – причина, по которой стоит купить металл именно у нас</h2>
                 </div>
             </div>
         </div>
@@ -60,7 +60,7 @@
 
         <div class="padding-top"></div>
         <div class="wow slideInRight">
-            <h1 class="welcome-text text-center font-up">Добро пожаловать!</h1>
+            <p class="welcome-text text-center font-up">Добро пожаловать!</p>
         </div>
         <div class="padding-top"></div>
 
@@ -167,7 +167,7 @@
                     </div>
                     <div class="col-sm-7 col-xs-7">
                         <div class="wow slideInRight">
-                            <h4>Сортовой прокат</h4>
+                            <div class="green-section-title">Сортовой прокат</div>
                         </div>
                         <div class="wow slideInRight">
                             <a href="{{ url($locale.'/armatura') }}" class="green-section-link-seo" title="Арматура">
@@ -201,7 +201,7 @@
                     </div>
                     <div class="col-sm-7 col-xs-7">
                         <div class="wow slideInRight">
-                            <h4>Трубный прокат</h4>
+                            <div class="green-section-title">Трубный прокат</div>
                         </div>
                         <div class="wow slideInRight">
                             <a href="{{ url($locale.'/truba-besshovnaya') }}" class="green-section-link-seo" title="Бесшовные трубы">
@@ -235,9 +235,7 @@
                     </div>
                     <div class="col-sm-7 col-xs-7">
                         <div class="wow slideInRight">
-                            <a href="{{ url($locale.'/metall-iz-evropy') }}" class="green-section-title" title="Европейская сталь">
-                                Европейская сталь
-                            </a>
+                            <div class="green-section-title">Европейская сталь</div>
                         </div>
                         <div class="wow slideInRight">
                             <p class="green-section-body">Ассортимент продукции включает поставки металлопроката из Европы: 
@@ -322,7 +320,7 @@
                     </div>
                     <div class="col-sm-7 col-xs-7">
                         <div class="wow slideInRight">
-                            <h4>Сортовой прокат</h4>
+                            <div class="green-section-title">Сортовой прокат</div>
                         </div>
                         <div class="wow slideInRight">
                             <a href="{{ url($locale.'/katanka') }}" class="green-section-link-seo" title="Катанка">
@@ -350,7 +348,7 @@
                     </div>
                     <div class="col-sm-7 col-xs-7">
                         <div class="wow slideInRight">
-                            <h4>Гнутый профиль</h4>
+                            <div class="green-section-title">Гнутый профиль</div>
                         </div>
                         <div class="wow slideInRight">
                             <a href="{{ url($locale.'/shveller-gnutyj') }}" class="green-section-link-seo" title="Швеллер гнутый">
@@ -480,7 +478,7 @@
             </div>
             <div class="col-md-7 col-sm-7 col-xs-12">
                 <div class="wow fadeInRight">
-                    <h3 class="title-orange">Что нового?</h3>
+                    <p class="title-orange">Что нового?</p>
                 </div>
 
                 <div class="wow fadeInRight">
@@ -547,7 +545,7 @@
 
     <div class="padding-top"></div>
     <div class="wow fadeInLeft">
-        <h2 class="welcome-text text-center">СТАТЬИ</h2>
+        <p class="welcome-text text-center">СТАТЬИ</p>
     </div>
     <div class="padding-top"></div>
 
@@ -604,7 +602,7 @@
     <div class="container">
         <div class="padding-top"></div>
         <div class="wow fadeInRight">
-            <h2 class="welcome-text text-center">ГАЛЕРЕЯ</h2>
+            <p class="welcome-text text-center">ГАЛЕРЕЯ</p>
         </div>
         <div class="padding-top"></div>
 
