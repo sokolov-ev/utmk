@@ -11,6 +11,7 @@ use App\Menu;
 use App\Metatags;
 use App\Products;
 use App\Articles;
+use App\Office;
 
 class MetatagsContraller extends Controller
 {
@@ -23,6 +24,7 @@ class MetatagsContraller extends Controller
         $menu     = Menu::select('slug', 'name')->orderBy('weight', 'ASC')->get();
         $products = Products::select('slug', 'title AS name')->where('show_my', 1)->orderBy('title', 'ASC')->get();
         $articles = Articles::select('slug', 'name')->orderBy('name', 'ASC')->get();
+        $offices  = Office::select('id', 'title AS name')->orderBy('name', 'ASC')->get();
 
         return view('backend.site.metatags', [
             'metatags' => $metatags,
@@ -30,6 +32,7 @@ class MetatagsContraller extends Controller
             'news'     => $news->toArray(),
             'products' => $products->toArray(),
             'articles' => $articles->toArray(),
+            'offices'  => $offices->toArray(),
         ]);
     }
 

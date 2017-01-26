@@ -236,6 +236,12 @@ desired effect
                             </ul>
                         </li>
                         <li>
+                            <a href="{{ url('/administration/offices/index') }}">
+                                <i class="fa fa-cubes"></i>
+                                <span>Филиалы</span>
+                            </a>
+                        </li>
+                        <li>
                             <a href="{{ url('/administration/metatags') }}">
                                 <i class="fa fa-tags" aria-hidden="true"></i>
                                 <span>Метатеги</span>

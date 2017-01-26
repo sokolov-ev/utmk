@@ -70,15 +70,6 @@ Route::group(['middleware' => ['adminAuth']], function () {
         Route::post('/administration/moderator', 'Adminauth\AuthController@createModerator');
         Route::put('/administration/moderator', 'Adminauth\AuthController@editModerator');
         Route::delete('/administration/moderator', 'Adminauth\AuthController@deleteModerator');
-
-    // CRUD Офисы/Филиалы
-        Route::get('/administration/offices/index/{id?}', 'Backend\OfficesController@getAll');
-        Route::get('/administration/offices/get/{id}', 'Backend\OfficesController@getOffice');
-        Route::get('/administration/offices/add', 'Backend\OfficesController@addFormOffice');
-        Route::post('/administration/offices/add', 'Backend\OfficesController@addOffice');
-        Route::get('/administration/offices/edit/{id}', 'Backend\OfficesController@editFormOffice');
-        Route::post('/administration/offices/edit/{id}', 'Backend\OfficesController@editOffice');
-        Route::delete('/administration/offices','Backend\OfficesController@deleteOffice');
     });
 
     Route::group(['middleware' => 'adminPermision:Admin,SEO'], function() {
@@ -128,6 +119,15 @@ Route::group(['middleware' => ['adminAuth']], function () {
     //Метатеги
         Route::get('/administration/metatags/{type?}/{slug?}', 'Backend\MetatagsContraller@index');
         Route::post('/administration/metatags', 'Backend\MetatagsContraller@add');
+
+    // CRUD Офисы/Филиалы
+        Route::get('/administration/offices/index/{id?}', 'Backend\OfficesController@getAll');
+        Route::get('/administration/offices/get/{id}', 'Backend\OfficesController@getOffice');
+        Route::get('/administration/offices/add', 'Backend\OfficesController@addFormOffice');
+        Route::post('/administration/offices/add', 'Backend\OfficesController@addOffice');
+        Route::get('/administration/offices/edit/{id}', 'Backend\OfficesController@editFormOffice');
+        Route::post('/administration/offices/edit/{id}', 'Backend\OfficesController@editOffice');
+        Route::delete('/administration/offices', 'Backend\OfficesController@deleteOffice');
     });
 });
 

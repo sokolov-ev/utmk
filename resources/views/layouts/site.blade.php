@@ -96,42 +96,12 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-2 col-sm-3 col-xs-12 logo-format">
+            <div class="col-md-6 col-sm-6 col-xs-12 logo-format">
                 <a href="{{ url('/') }}" class="logotype">
                     <img src="/images/logo.jpeg" title="Metall Vsem" alt="Metall Vsem" />
                 </a>
             </div>
-            <div class="col-md-7 col-sm-9 col-xs-12 text-center">
-
-                    <div class="contact-block">
-                        <div class="padding-block-2-0">
-                            <div class="padding-vert-15">
-                                <i class="text-green fa fa-phone fa-3x" aria-hidden="true"> </i>
-                            </div>
-                            <div class="padding-vert-15 text-left" style="width: 195px;">
-                                <span class="text-gray-contact">
-                                    <a href="tel:+380445025045">+38 (044) 502-50-45</a>
-                                </span>
-                                <br/>
-                                <span class="text-gray-contact">
-                                    <a href="tel:+380445035045">+38 (044) 503-50-45</a>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="contact-block">
-                        <div class="padding-block-2-2">
-                            <div class="padding-vert-15">
-                                <i class="text-green fa fa-map-marker fa-3x" aria-hidden="true"> </i>
-                            </div>
-                            <div class="padding-vert-15 text-left" style="max-width: 195px;">
-                                <span class="text-gray-contact">{{ $office_contacts['address'] }}</span>
-                            </div>
-                        </div>
-                    </div>
-            </div>
-            <div class="col-md-3 col-sm-12 col-xs-12">
+            <div class="col-md-6 col-sm-6 col-xs-12">
                 <div class="padding-block-2-2">
                     <div class="user-block">
                         @if (!Auth::guest())
@@ -161,6 +131,74 @@
             </div>
         </div>
 
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12 text-center">
+                <div class="contact-block">
+                    <div class="padding-block-2-0">
+                        <div class="">
+                            <i class="text-green fa fa-phone fa-3x" aria-hidden="true"> </i>
+                        </div>
+                        <div class="padding-vert-left-20 text-left" style="width: 195px;">
+                            <a class="text-black-h3" href="{{ url($locale.'/office/dnepropetrovsk/4') }}" title="Днепропетровский ф-л:">
+                                Днепропетровский ф-л:
+                            </a><br/>
+                            <span class="text-gray-contact">
+                                <a href="tel:+380563755405">+38 (056) 375-54-05</a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-block">
+                    <div class="padding-block-2-0">
+                        <div class="">
+                            <i class="text-green fa fa-phone fa-3x" aria-hidden="true"> </i>
+                        </div>
+                        <div class="padding-vert-left-20 text-left" style="width: 195px;">
+                            <a class="text-black-h3" href="{{ url($locale.'/office/poltava/3') }}" title="Полтавский ф-л:">
+                                Полтавский ф-л:
+                            </a><br/>
+                            <span class="text-gray-contact">
+                                <a href="tel:+380532653167">+38 (053) 265-31-67</a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-block">
+                    <div class="padding-block-2-0">
+                        <div class="">
+                            <i class="text-green fa fa-phone fa-3x" aria-hidden="true"> </i>
+                        </div>
+                        <div class="padding-vert-left-20 text-left" style="width: 195px;">
+                            <a class="text-black-h3" href="{{ url($locale.'/office/kiev/2') }}" title="Главный офис:">
+                                Главный офис:
+                            </a><br/>
+                            <span class="text-gray-contact">
+                                <a href="tel:+380445025045">+38 (044) 502-50-45</a><br/>
+                                <a href="tel:+380445035045">+38 (044) 503-50-45</a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-block">
+                    <div class="padding-block-2-2">
+                        <div class="">
+                            <i class="text-green fa fa-map-marker fa-3x" aria-hidden="true"> </i>
+                        </div>
+                        <div class="padding-vert-left-20 text-left" style="max-width: 195px;">
+                            <a class="text-black-h3" href="{{ url($locale.'/office/kiev/5') }}" title="Склад: Киев">
+                                Склад: Киев
+                            </a><br/>
+                            <span class="text-gray-contact">
+                                ул. Стройиндустрии 7
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 </section>
 
 <header id="w-sticker">

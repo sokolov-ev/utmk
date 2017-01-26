@@ -19,6 +19,19 @@
 
             <div class="row">
                 <div class="col-md-4">
+                    <button type="button" class="btn btn-link" onclick="$('.offices').toggleClass('hidden');" style="padding-left: 0;">
+                        <strong>Филиалы</strong>
+                    </button>
+
+                    <br/>
+
+                    <ul class="catalog-list offices hidden">
+                        @foreach($offices as $office)
+                            <li><a href="/administration/metatags/office/{{ $office['id'] }}">{{ json_decode($office['name'], true)['ru'] }}</a></li>
+                        @endforeach
+                    </ul>
+
+
                     <button type="button" class="btn btn-link" onclick="$('.blog').toggleClass('hidden');" style="padding-left: 0;">
                         <strong>Блог</strong>
                     </button>

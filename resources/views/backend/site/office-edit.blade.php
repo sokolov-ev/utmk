@@ -17,12 +17,13 @@
                 <li><a href="{{ url('administration/offices/index') }}">Филиалы</a></li>
                 <li class="active">{{ $office['title_name'] }}</li>
             </ol>
+            
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2 col-sm-10 col-xs-offset-1 col-xs-12">
 
-            <form class="" role="form" method="POST" action="{{ url('administration/offices/edit/'.$office['office_id']) }}" id="form-edit-office">
-                {{ csrf_field() }}
+                    <form class="" role="form" method="POST" action="{{ url('administration/offices/edit/'.$office['office_id']) }}" id="form-edit-office">
+                        {{ csrf_field() }}
 
-                <div class="row">
-                    <div class="col-md-7 col-sm-7 col-xs-12">
                         <div class="form-group{{ $errors->has('office_type') ? ' has-error' : '' }}">
                             <label for="office_type" class="control-label">Тип офиса</label>
 
@@ -217,7 +218,7 @@
                             </div>
                         </div>
 
-<div class="form-group{{ ($errors->has('text_top_en') || $errors->has('text_top_ru') || $errors->has('text_top_uk')) ? ' has-error' : '' }}" style="margin-bottom: 0;">
+                        <div class="form-group{{ ($errors->has('text_top_en') || $errors->has('text_top_ru') || $errors->has('text_top_uk')) ? ' has-error' : '' }}" style="margin-bottom: 0;">
                             <div class="row">
                                 <div class="col-md-4">
                                     <label class="control-label tab-text_top" for="advertising-text_top">Текст в верху</label>
@@ -225,33 +226,30 @@
                                 <div class="col-md-8 customize-tab">
                                     <ul class="nav nav-pills pull-right customize-tab" role="tablist">
                                         <li role="presentation">
-                                            <a id="text_top_en-tab"
-                                               class="tab-nice{{ $errors->has('text_top_en') ? ' has-error-label' : '' }}"
-                                               href="#text_top_en"
+                                            <a class="tab-nice{{ $errors->has('text_top_en') ? ' has-error-label' : '' }}"
+                                               href="#text_top_en-tab"
                                                role="tab"
                                                data-toggle="tab"
-                                               aria-controls="text_top_en"
+                                               aria-controls="text_top_en-tab"
                                                aria-expanded="true">
                                                 Английский
                                             </a>
                                         </li>
                                         <li class="active" role="presentation">
-                                            <a id="text_top_ru-tab"
-                                               class="tab-nice{{ $errors->has('text_top_ru') ? ' has-error-label' : '' }}"
-                                               href="#text_top_ru"
+                                            <a class="tab-nice{{ $errors->has('text_top_ru') ? ' has-error-label' : '' }}"
+                                               href="#text_top_ru-tab"
                                                role="tab"
                                                data-toggle="tab"
-                                               aria-controls="text_top_ru">
+                                               aria-controls="text_top_ru-tab">
                                                 Русский
                                             </a>
                                         </li>
                                         <li role="presentation">
-                                            <a id="text_top_uk-tab"
-                                               class="tab-nice{{ $errors->has('text_top_uk') ? ' has-error-label' : '' }}"
-                                               href="#text_top_uk"
+                                            <a class="tab-nice{{ $errors->has('text_top_uk') ? ' has-error-label' : '' }}"
+                                               href="#text_top_uk-tab"
                                                role="tab"
                                                data-toggle="tab"
-                                               aria-controls="text_top_uk">
+                                               aria-controls="text_top_uk-tab">
                                                 Украинский
                                             </a>
                                         </li>
@@ -261,7 +259,7 @@
                         </div>
 
                         <div id="tabtext_top" class="tab-content">
-                            <div id="text_top_en" class="tab-pane fade" role="tabpanel" aria-labelledby="text_top_en-tab">
+                            <div id="text_top_en-tab" class="tab-pane fade" role="tabpanel" aria-labelledby="text_top_en-tab">
                                 <div class="form-group{{ $errors->has('text_top_en') ? ' has-error' : '' }}">
                                     <textarea id="text_top_en" class="form-control" value="" name="text_top_en" placeholder="Английский" rows="4">{{ old('text_top_en', $office['text_top_en']) }}</textarea>
 
@@ -272,7 +270,7 @@
                                     @endif
                                 </div>
                             </div>
-                            <div id="text_top_ru" class="tab-pane fade in active" role="tabpanel" aria-labelledby="text_top_ru-tab">
+                            <div id="text_top_ru-tab" class="tab-pane fade in active" role="tabpanel" aria-labelledby="text_top_ru-tab">
                                 <div class="form-group{{ $errors->has('text_top_ru') ? ' has-error' : '' }}">
                                     <textarea id="text_top_ru" class="form-control" value="" name="text_top_ru" placeholder="Русский" rows="4">{{ old('text_top_ru', $office['text_top_ru']) }}</textarea>
 
@@ -283,7 +281,7 @@
                                     @endif
                                 </div>
                             </div>
-                            <div id="text_top_uk" class="tab-pane fade" role="tabpanel" aria-labelledby="text_top_uk-tab">
+                            <div id="text_top_uk-tab" class="tab-pane fade" role="tabpanel" aria-labelledby="text_top_uk-tab">
                                 <div class="form-group{{ $errors->has('text_top_ru') ? ' has-error' : '' }}">
                                     <textarea id="text_top_uk" class="form-control" value="" name="text_top_uk" placeholder="Украинский" rows="4">{{ old('text_top_uk', $office['text_top_uk']) }}</textarea>
 
@@ -296,7 +294,7 @@
                             </div>
                         </div>
 
-<div class="form-group{{ ($errors->has('text_bottom_en') || $errors->has('text_bottom_ru') || $errors->has('text_bottom_uk')) ? ' has-error' : '' }}" style="margin-bottom: 0;">
+                        <div class="form-group{{ ($errors->has('text_bottom_en') || $errors->has('text_bottom_ru') || $errors->has('text_bottom_uk')) ? ' has-error' : '' }}" style="margin-bottom: 0;">
                             <div class="row">
                                 <div class="col-md-4">
                                     <label class="control-label tab-text_bottom" for="advertising-text_bottom">Текст в низу</label>
@@ -304,33 +302,30 @@
                                 <div class="col-md-8 customize-tab">
                                     <ul class="nav nav-pills pull-right customize-tab" role="tablist">
                                         <li role="presentation">
-                                            <a id="text_bottom_en-tab"
-                                               class="tab-nice{{ $errors->has('text_bottom_en') ? ' has-error-label' : '' }}"
-                                               href="#text_bottom_en"
+                                            <a class="tab-nice{{ $errors->has('text_bottom_en') ? ' has-error-label' : '' }}"
+                                               href="#text_bottom_en-tab"
                                                role="tab"
                                                data-toggle="tab"
-                                               aria-controls="text_bottom_en"
+                                               aria-controls="text_bottom_en-tab"
                                                aria-expanded="true">
                                                 Английский
                                             </a>
                                         </li>
                                         <li class="active" role="presentation">
-                                            <a id="text_bottom_ru-tab"
-                                               class="tab-nice{{ $errors->has('text_bottom_ru') ? ' has-error-label' : '' }}"
-                                               href="#text_bottom_ru"
+                                            <a class="tab-nice{{ $errors->has('text_bottom_ru') ? ' has-error-label' : '' }}"
+                                               href="#text_bottom_ru-tab"
                                                role="tab"
                                                data-toggle="tab"
-                                               aria-controls="text_bottom_ru">
+                                               aria-controls="text_bottom_ru-tab">
                                                 Русский
                                             </a>
                                         </li>
                                         <li role="presentation">
-                                            <a id="text_bottom_uk-tab"
-                                               class="tab-nice{{ $errors->has('text_bottom_uk') ? ' has-error-label' : '' }}"
-                                               href="#text_bottom_uk"
+                                            <a class="tab-nice{{ $errors->has('text_bottom_uk') ? ' has-error-label' : '' }}"
+                                               href="#text_bottom_uk-tab"
                                                role="tab"
                                                data-toggle="tab"
-                                               aria-controls="text_bottom_uk">
+                                               aria-controls="text_bottom_uk-tab">
                                                 Украинский
                                             </a>
                                         </li>
@@ -340,7 +335,7 @@
                         </div>
 
                         <div id="tabtext_bottom" class="tab-content">
-                            <div id="text_bottom_en" class="tab-pane fade" role="tabpanel" aria-labelledby="text_bottom_en-tab">
+                            <div id="text_bottom_en-tab" class="tab-pane fade" role="tabpanel" aria-labelledby="text_bottom_en-tab">
                                 <div class="form-group{{ $errors->has('text_bottom_en') ? ' has-error' : '' }}">
                                     <textarea id="text_bottom_en" class="form-control" value="" name="text_bottom_en" placeholder="Английский" rows="4">{{ old('text_bottom_en', $office['text_bottom_en']) }}</textarea>
 
@@ -351,7 +346,7 @@
                                     @endif
                                 </div>
                             </div>
-                            <div id="text_bottom_ru" class="tab-pane fade in active" role="tabpanel" aria-labelledby="text_bottom_ru-tab">
+                            <div id="text_bottom_ru-tab" class="tab-pane fade in active" role="tabpanel" aria-labelledby="text_bottom_ru-tab">
                                 <div class="form-group{{ $errors->has('text_bottom_ru') ? ' has-error' : '' }}">
                                     <textarea id="text_bottom_ru" class="form-control" value="" name="text_bottom_ru" placeholder="Русский" rows="4">{{ old('text_bottom_ru', $office['text_bottom_ru']) }}</textarea>
 
@@ -362,7 +357,7 @@
                                     @endif
                                 </div>
                             </div>
-                            <div id="text_bottom_uk" class="tab-pane fade" role="tabpanel" aria-labelledby="text_bottom_uk-tab">
+                            <div id="text_bottom_uk-tab" class="tab-pane fade" role="tabpanel" aria-labelledby="text_bottom_uk-tab">
                                 <div class="form-group{{ $errors->has('text_bottom_ru') ? ' has-error' : '' }}">
                                     <textarea id="text_bottom_uk" class="form-control" value="" name="text_bottom_uk" placeholder="Украинский" rows="4">{{ old('text_bottom_uk', $office['text_bottom_uk']) }}</textarea>
 
@@ -380,27 +375,9 @@
                                 Адрес <i class="fa fa-spinner fa-pulse fa-fw hidden" aria-hidden="true" id="fa-spinner-load"></i>
                             </label>
 
-                            <input id="address_ru"
-                                   type="text"
-                                   name="address_ru"
-                                   class="form-control"
-                                   value="{{ old('address_ru', $office['address_ru']) }}">
-
-                            <input id="address_en"
-                                   type="text"
-                                   name="address_en"
-                                   class="form-control"
-                                   value="{{ old('address_en', $office['address_en']) }}"
-                                   {{-- readonly="" --}}
-                                   placeholder="Адрес в транслите">
-
-                            <input id="address_uk"
-                                   type="text"
-                                   name="address_uk"
-                                   class="form-control"
-                                   value="{{ old('address_uk', $office['address_uk']) }}"
-                                   {{-- readonly="" --}}
-                                   placeholder="Адрес на украинском">
+                            <input id="address_ru" type="text" name="address_ru" class="form-control" value="{{ old('address_ru', $office['address_ru']) }}">
+                            <input id="address_en" type="text" name="address_en" class="form-control" value="{{ old('address_en', $office['address_en']) }}" placeholder="Адрес в транслите">
+                            <input id="address_uk" type="text" name="address_uk" class="form-control" value="{{ old('address_uk', $office['address_uk']) }}" placeholder="Адрес на украинском">
 
                             <input type="hidden" id="city_en" name="city_en" value="{{ old('city_en', $office['city_en']) }}">
                             <input type="hidden" id="city_ru" name="city_ru" value="{{ old('city_ru', $office['city_ru']) }}">
@@ -415,110 +392,100 @@
                                 </span>
                             @endif
                         </div>
-
-                    </div>
-{{-- Карата --}}
-                    <div class="col-md-5 col-sm-5 col-xs-12">
+                        
                         <div id="map" class="office-map"></div>
-                    </div>
-{{-- /Карата --}}
-                </div>
-{{-- Контаткты офиса --}}
-                <div class="row">
-                    <div id="office-contacts" class="col-md-7 col-sm-7 col-xs-12">
 
-                        <div class="form-group{{ $errors->has('contacts_data.0') ? ' has-error' : '' }}" style="margin-bottom: 0;">
-                            <label for="" class="control-label">Контакты</label>
-                        </div>
-{{-- Первый контакт с кнопкой добавить --}}
-                        <div class="form-group{{ $errors->has('contacts_data.0') ? ' has-error' : '' }}">
-                            <div class="flex">
-                                <input type="hidden" id="" name="contacts_id[]" class="contacts-id" value="{{ old('contacts_id.0', $contacts['id'][0]) }}">
-                                <div>
-                                    <select id="" name="contacts_type[]" class="form-control contacts-type">
-                                        @foreach($contactType as $key => $type)
-                                            @if ($key == old('contacts_type.0', $contacts['type'][0]))
-                                                <option value="{{$key}}" selected="">{{ trans('offices.contactType.'.$type) }}</option>
-                                            @else
-                                                <option value="{{$key}}">{{ trans('offices.contactType.'.$type) }}</option>
-                                            @endif
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div>
-                                    <input type="text"
-                                           id=""
-                                           name="contacts_data[]"
-                                           class="form-control contacts-data"
-                                           value="{{ old('contacts_data.0', $contacts['data'][0]) }}"
-                                           placeholder="Контакт">
-                                </div>
-                                <div class="btn-wrap">
-                                    <button class="btn btn-success btn-add" type="button">
-                                        <i class="fa fa-plus" aria-hidden="true"></i>
-                                    </button>
-                                </div>
+
+                        <div id="office-contacts">
+                            <div class="form-group{{ $errors->has('contacts_data.0') ? ' has-error' : '' }}" style="margin-bottom: 0;">
+                                <label for="" class="control-label">Контакты</label>
                             </div>
-
-                            @if ($errors->has('contacts_data.0'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('contacts_data.0') }}</strong>
-                                </span>
-                            @endif
-                        </div>
-{{-- /Первый контакт с кнопкой добавить --}}
-
-{{-- Остальные контакты с кнопкой удалить --}}
-                        @if (count(old('contacts_data', $contacts['data'])) > 1)
-                            @for($i = 1; $i < count( old('contacts_data', $contacts['data']) ); $i++)
-                                <div class="form-group{{ $errors->has('contacts_data.'.$i) ? ' has-error' : '' }}">
-                                    <div class="flex">
-                                        <?php
-                                            $id = empty($contacts['id'][$i]) ? '' : $contacts['id'][$i];
-                                            $data = empty($contacts['data'][$i]) ? '' : $contacts['data'][$i];
-                                            $type = empty($contacts['type'][$i]) ? 'mobile' : $contacts['type'][$i];
-                                        ?>
-                                        <input type="hidden" id="" name="contacts_id[]" value="{{ old('contacts_id.'.$i, $id) }}">
-                                        <div>
-                                            <select id="" name="contacts_type[]" class="form-control contacts-type">
-                                                @foreach($contactType as $key => $type)
-                                                    @if ($key == old('contacts_type.'.$i, $contacts['type'][$i]))
-                                                        <option value="{{$key}}" selected="">{{ trans('offices.contactType.'.$type) }}</option>
-                                                    @else
-                                                        <option value="{{$key}}">{{ trans('offices.contactType.'.$type) }}</option>
-                                                    @endif
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        <div>
-                                            <input type="text"
-                                                   id=""
-                                                   name="contacts_data[]"
-                                                   class="form-control contacts-data"
-                                                   value="{{ old('contacts_data.'.$i, $data) }}"
-                                                   placeholder="Контакт">
-                                        </div>
-                                        <div class="btn-wrap">
-                                            <button class="btn btn-danger btn-delete" type="button">
-                                                <i class="fa fa-trash-o" aria-hidden="true"></i>
-                                            </button>
-                                        </div>
+        {{-- Первый контакт с кнопкой добавить --}}
+                            <div class="form-group{{ $errors->has('contacts_data.0') ? ' has-error' : '' }}">
+                                <div class="flex">
+                                    <input type="hidden" id="" name="contacts_id[]" class="contacts-id" value="{{ old('contacts_id.0', $contacts['id'][0]) }}">
+                                    <div>
+                                        <select id="" name="contacts_type[]" class="form-control contacts-type">
+                                            @foreach($contactType as $key => $type)
+                                                @if ($key == old('contacts_type.0', $contacts['type'][0]))
+                                                    <option value="{{$key}}" selected="">{{ trans('offices.contactType.'.$type) }}</option>
+                                                @else
+                                                    <option value="{{$key}}">{{ trans('offices.contactType.'.$type) }}</option>
+                                                @endif
+                                            @endforeach
+                                        </select>
                                     </div>
-
-                                    @if ($errors->has('contacts_data.'.$i))
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('contacts_data.'.$i) }}</strong>
-                                        </span>
-                                    @endif
+                                    <div>
+                                        <input type="text"
+                                               id=""
+                                               name="contacts_data[]"
+                                               class="form-control contacts-data"
+                                               value="{{ old('contacts_data.0', $contacts['data'][0]) }}"
+                                               placeholder="Контакт">
+                                    </div>
+                                    <div class="btn-wrap">
+                                        <button class="btn btn-success btn-add" type="button">
+                                            <i class="fa fa-plus" aria-hidden="true"></i>
+                                        </button>
+                                    </div>
                                 </div>
-                            @endfor
-                        @endif
-{{-- Остальные контакты с кнопкой удалить --}}
-                    </div>
-                </div>
-{{-- /Контаткты офиса --}}
-                <div class="row">
-                    <div class="col-md-7 col-sm-7 col-xs-12">
+
+                                @if ($errors->has('contacts_data.0'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('contacts_data.0') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+        {{-- /Первый контакт с кнопкой добавить --}}
+
+        {{-- Остальные контакты с кнопкой удалить --}}
+                            @if (count(old('contacts_data', $contacts['data'])) > 1)
+                                @for($i = 1; $i < count( old('contacts_data', $contacts['data']) ); $i++)
+                                    <div class="form-group{{ $errors->has('contacts_data.'.$i) ? ' has-error' : '' }}">
+                                        <div class="flex">
+                                            <?php
+                                                $id = empty($contacts['id'][$i]) ? '' : $contacts['id'][$i];
+                                                $data = empty($contacts['data'][$i]) ? '' : $contacts['data'][$i];
+                                                $type = empty($contacts['type'][$i]) ? 'mobile' : $contacts['type'][$i];
+                                            ?>
+                                            <input type="hidden" id="" name="contacts_id[]" value="{{ old('contacts_id.'.$i, $id) }}">
+                                            <div>
+                                                <select id="" name="contacts_type[]" class="form-control contacts-type">
+                                                    @foreach($contactType as $key => $type)
+                                                        @if ($key == old('contacts_type.'.$i, $contacts['type'][$i]))
+                                                            <option value="{{$key}}" selected="">{{ trans('offices.contactType.'.$type) }}</option>
+                                                        @else
+                                                            <option value="{{$key}}">{{ trans('offices.contactType.'.$type) }}</option>
+                                                        @endif
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div>
+                                                <input type="text"
+                                                       id=""
+                                                       name="contacts_data[]"
+                                                       class="form-control contacts-data"
+                                                       value="{{ old('contacts_data.'.$i, $data) }}"
+                                                       placeholder="Контакт">
+                                            </div>
+                                            <div class="btn-wrap">
+                                                <button class="btn btn-danger btn-delete" type="button">
+                                                    <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        @if ($errors->has('contacts_data.'.$i))
+                                            <span class="help-block">
+                                                <strong>{{ $errors->first('contacts_data.'.$i) }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                @endfor
+                            @endif
+        {{-- Остальные контакты с кнопкой удалить --}}
+                        </div>
+        {{-- /Контаткты офиса --}}
                         <div class="form-group">
                             <button type="button"
                                     class="btn btn-danger pull-left clearfix"
@@ -532,9 +499,10 @@
                                 <i class="fa fa-pencil" aria-hidden="true"></i> Сохранить изменения
                             </button>
                         </div>
-                    </div>
+                    </form>
+
                 </div>
-            </form>
+            </div>
 
         </div>
     </div>
@@ -546,6 +514,8 @@
 @endsection
 
 @section('scripts')
+
+    <script src="{{ asset('tinymce/tinymce.min.js') }}"></script>
 
     <script>
         var map;
@@ -676,6 +646,76 @@
                     }
                 }
             });
+        }
+
+
+        function saveArticle()
+        {
+            tinyMCE.get('text_top_en').save();
+            tinyMCE.get('text_top_ru').save();
+            tinyMCE.get('text_top_uk').save();
+
+            tinyMCE.get('text_bottom_en').save();
+            tinyMCE.get('text_bottom_ru').save();
+            tinyMCE.get('text_bottom_uk').save();
+        }
+
+        function initArticle()
+        {
+            tinyMCE.init({
+                selector: '#text_top_en',
+                language: 'ru',
+                plugins: 'textcolor colorpicker advlist autolink link image media lists charmap table preview',
+                toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | forecolor backcolor'
+            });
+
+            tinyMCE.init({
+                selector: '#text_top_ru',
+                language: 'ru',
+                plugins: 'textcolor colorpicker advlist autolink link image media lists charmap table preview',
+                toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | forecolor backcolor'
+            });
+
+            tinyMCE.init({
+                selector: '#text_top_uk',
+                language: 'ru',
+                plugins: 'textcolor colorpicker advlist autolink link image media lists charmap table preview',
+                toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | forecolor backcolor'
+            });
+
+            tinyMCE.init({
+                selector: '#text_bottom_en',
+                language: 'ru',
+                plugins: 'textcolor colorpicker advlist autolink link image media lists charmap table preview',
+                toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | forecolor backcolor'
+            });
+
+            tinyMCE.init({
+                selector: '#text_bottom_ru',
+                language: 'ru',
+                plugins: 'textcolor colorpicker advlist autolink link image media lists charmap table preview',
+                toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | forecolor backcolor'
+            });
+
+            tinyMCE.init({
+                selector: '#text_bottom_uk',
+                language: 'ru',
+                plugins: 'textcolor colorpicker advlist autolink link image media lists charmap table preview',
+                toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | forecolor backcolor'
+            });
+        }
+
+        initArticle();
+
+        function destroyArticle()
+        {
+            tinyMCE.get('text_top_en').remove();
+            tinyMCE.get('text_top_ru').remove();
+            tinyMCE.get('text_top_uk').remove();
+
+            tinyMCE.get('text_bottom_en').remove();
+            tinyMCE.get('text_bottom_ru').remove();
+            tinyMCE.get('text_bottom_uk').remove();
         }
     </script>
 

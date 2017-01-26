@@ -92,6 +92,10 @@
   }
 }
 
+.contact-block .text-black-h3 {
+  font-size: 14px !important;
+}
+
 .text-gray-16,
 .text-gray-16 a {
   color: #999999;
