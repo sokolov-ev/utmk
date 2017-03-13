@@ -24,7 +24,19 @@ class Products extends Model
         'description',
         'rating',
         'show_my',
-        'creator_id'
+        'creator_id',
+
+        'steel_grade',
+        'sawing',
+        'standard',
+        'diameter',
+        'height',
+        'width',
+        'thickness',
+        'section',
+        'coating',
+        'view',
+        'brinell_hardness',
     ];
 
     /**
@@ -43,16 +55,28 @@ class Products extends Model
 
         static::deleting(function($product){
             $images = Images::where('product_id', $product->id)->get();
+            $prices = Prices::where('product_id', $product->id)->get();
 
             foreach ($images as $key => $img) {
                 $img->delete();
             }
+
+            foreach ($prices as $key => $price) {
+                $price->delete();
+            }
+
+
         });
     }
 
     public function menu()
     {
         return $this->hasOne('App\Menu', 'id', 'menu_id');
+    }
+
+    public function metatags()
+    {
+        return $this->hasOne('App\Metatags', 'slug', 'slug')->where('type', 'product');
     }
 
     public function office()
@@ -73,6 +97,11 @@ class Products extends Model
     public function prices()
     {
         return $this->hasMany('App\Prices', 'product_id', 'id');
+    }
+
+    public function price()
+    {
+        return $this->hasOne('App\Prices', 'product_id', 'id');
     }
 
     public function order()
@@ -109,6 +138,18 @@ class Products extends Model
         $array['rating'] = $product->rating;
         $array['show_my'] = $product->show_my;
 
+        $array['steel_grade'] = $product->steel_grade;
+        $array['sawing'] = $product->sawing;
+        $array['standard'] = $product->standard;
+        $array['diameter'] = $product->diameter;
+        $array['height'] = $product->height;
+        $array['width'] = $product->width;
+        $array['thickness'] = $product->thickness;
+        $array['section'] = $product->section;
+        $array['coating'] = $product->coating;
+        $array['view'] = $product->view;
+        $array['brinell_hardness'] = $product->brinell_hardness;
+
         return $array;
     }
 
@@ -141,6 +182,18 @@ class Products extends Model
 
         $product->rating  = $data['rating'];
         $product->show_my = ($data['show_my'] == 'on') ? 1 : 0;
+
+        $product->steel_grade = $data['steel_grade'];
+        $product->sawing = $data['sawing'];
+        $product->standard = $data['standard'];
+        $product->diameter = $data['diameter'];
+        $product->height = $data['height'];
+        $product->width = $data['width'];
+        $product->thickness = $data['thickness'];
+        $product->section = $data['section'];
+        $product->coating = $data['coating'];
+        $product->view = $data['view'];
+        $product->brinell_hardness = $data['brinell_hardness'];
 
         if ($product->save()) {
             return $product;
@@ -229,6 +282,18 @@ class Products extends Model
             $temp['price_id'] = $product['price_id'];
             $temp['bonds'] = $product['bonds'];
 
+            $temp['steel_grade'] = $product['steel_grade'];
+            $temp['sawing'] = $product['sawing'];
+            $temp['standard'] = $product['standard'];
+            $temp['diameter'] = $product['diameter'];
+            $temp['height'] = $product['height'];
+            $temp['width'] = $product['width'];
+            $temp['thickness'] = $product['thickness'];
+            $temp['section'] = $product['section'];
+            $temp['coating'] = $product['coating'];
+            $temp['view'] = $product['view'];
+            $temp['brinell_hardness'] = $product['brinell_hardness'];
+
             $result[] = $temp;
         }
 
@@ -268,6 +333,18 @@ class Products extends Model
         $array['quantity'] = empty($product->pivot->quantity) ? null : $product->pivot->quantity;
         $array['price_id'] = empty($product->pivot->price_id) ? null : $product->pivot->price_id;
         $array['bonds'] = empty($product->pivot->id) ? null : $product->pivot->id;
+
+        $array['steel_grade'] = $product->steel_grade;
+        $array['sawing'] = $product->sawing;
+        $array['standard'] = $product->standard;
+        $array['diameter'] = $product->diameter;
+        $array['height'] = $product->height;
+        $array['width'] = $product->width;
+        $array['thickness'] = $product->thickness;
+        $array['section'] = $product->section;
+        $array['coating'] = $product->coating;
+        $array['view'] = $product->view;
+        $array['brinell_hardness'] = $product->brinell_hardness;
 
         return $array;
     }

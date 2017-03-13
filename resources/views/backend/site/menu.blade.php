@@ -87,7 +87,6 @@
                         <div class="form-group" style="margin-top: 23px;">
                             <button class="btn btn-warning pull-right" type="submit">Добавить/Редактировать</button>
                         </div>
-
                     </form>
                 </div>
 

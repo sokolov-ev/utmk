@@ -133,6 +133,24 @@
 
         <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12 text-center">
+
+                <div class="contact-block">
+                    <div class="padding-block-2-0">
+                        <div class="">
+                            <i class="text-green fa fa-phone fa-3x" aria-hidden="true"> </i>
+                        </div>
+                        <div class="padding-vert-left-20 text-left" style="width: 195px;">
+                            <a class="text-black-h3" href="{{ url($locale.'/office/borispol/6') }}" title="Бориспольский ф-л:">
+                                Бориспольский ф-л:
+                            </a><br/>
+                            <span class="text-gray-contact">
+                                <a href="tel:+380930925603">+38 (093) 092-56-03</a><br>
+                                <a href="tel:+380442479320">+38 (044) 247-93-20</a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="contact-block">
                     <div class="padding-block-2-0">
                         <div class="">
@@ -143,7 +161,8 @@
                                 Днепропетровский ф-л:
                             </a><br/>
                             <span class="text-gray-contact">
-                                <a href="tel:+380563755405">+38 (056) 375-54-05</a>
+                                <a href="tel:+380563755405">+38 (056) 375-54-05</a><br>
+                                <a href="tel:+380567699779">+38 (056) 769-97-79</a>
                             </span>
                         </div>
                     </div>
@@ -175,7 +194,7 @@
                                 Главный офис:
                             </a><br/>
                             <span class="text-gray-contact">
-                                <a href="tel:+380445025045">+38 (044) 502-50-45</a><br/>
+                                <a href="tel:+380445025045">+38 (044) 502-50-45</a><br>
                                 <a href="tel:+380445035045">+38 (044) 503-50-45</a>
                             </span>
                         </div>
@@ -190,7 +209,7 @@
                         <div class="padding-vert-left-20 text-left" style="max-width: 195px;">
                             <a class="text-black-h3" href="{{ url($locale.'/office/kiev/5') }}" title="Склад: Киев">
                                 Склад: Киев
-                            </a><br/>
+                            </a><br>
                             <span class="text-gray-contact">
                                 ул. Стройиндустрии 7
                             </span>

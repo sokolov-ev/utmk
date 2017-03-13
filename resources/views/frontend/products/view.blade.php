@@ -42,7 +42,7 @@
 @section('content')
 
 <section class="container">
-
+    
     <div class="padding-top"></div>
     <div class="wow slideInRight">
         <h1 class="welcome-text text-center">{{ $product['title'] }}</h1>
@@ -105,6 +105,16 @@
             <div class="wow slideInRight">
                 <span class="text-16">{!! $product['description'] !!}</span>
             </div>
+
+            @foreach ($data as $element)
+                @if($product[$element])
+                    <div class="wow slideInRight">
+                        <span class="text-16">
+                            <strong>{{ trans('products.'.$element) }} </strong>: {{ $product[$element] }}
+                        </span>
+                    </div>
+                @endif    
+            @endforeach
 
             <div class="padding-block-1-2" style="font-size: 16px;">
                 <strong>{{ trans('offices.office') }}</strong>:

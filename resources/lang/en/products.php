@@ -42,4 +42,16 @@ return [
 
     'info' => 'Info',
     'first-product' => 'Due to the technical peculiarities of the site you can add the products only of a particular branch. To add the products from other company you should finish the current order and add the products you are interested in to a new order.',
+
+    'steel_grade' => 'Steel grade',
+    'sawing' => 'Sawing',
+    'standard' => 'Standard',
+    'diameter' => 'Diameter',
+    'height' => 'Height',
+    'width' => 'Width',
+    'thickness' => 'Thickness',
+    'section' => 'Section',
+    'coating' => 'Coating',
+    'view' => 'View',
+    'brinell_hardness' => 'Brinell Hardness',
 ];

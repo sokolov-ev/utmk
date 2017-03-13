@@ -13,11 +13,18 @@ use App\Metatags;
 use App\Office;
 use App\Orders;
 use App\Products;
+use App\Redirects;
 
 class RouteController extends Controller
 {
     public function index(Request $request, $slug)
     {
+        $redirect = Redirects::where('old', 'like', '%' . $slug . '%')->first();
+        
+        if ($redirect) {
+            return redirect($redirect['new'], 301);
+        }
+
         $part = explode('/', $slug);
 
         if ($part[0] == 'index.php') {
@@ -61,7 +68,22 @@ class RouteController extends Controller
                     $locale = '';
                 }
 
+                $data = [
+                    'steel_grade',
+                    'sawing',
+                    'standard',
+                    'diameter',
+                    'height',
+                    'width',
+                    'thickness',
+                    'section',
+                    'coating',
+                    'view',
+                    'brinell_hardness',
+                ];
+
                 return view('frontend.products.view', [
+                    'data'     => $data,
                     'product'  => $product,
                     'menu'     => $menu,
                     'metatags' => $metatags,

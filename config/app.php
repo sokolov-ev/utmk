@@ -164,6 +164,7 @@ return [
         Proengsoft\JsValidation\JsValidationServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         Evheniys\Turbosms\TurbosmsServiceProvider::class,
+        Maatwebsite\Excel\ExcelServiceProvider::class,
     ],
 
     /*
@@ -214,6 +215,8 @@ return [
         'Image' => Intervention\Image\Facades\Image::class,
 
         'TurboSms' => Evheniys\Turbosms\Facades\Turbosms::class,
+
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
     ],
 
 ];

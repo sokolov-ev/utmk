@@ -42,9 +42,7 @@ class ProductsController extends Controller
 
         // поиск по названию
         if (!empty($name)) {
-            $where[] = ['title', 'LIKE', '%'.$name.'%'];
-
-            $products = Products::where($where)->orderBy('rating', 'DESC')->paginate($count);
+            $products = Products::where('title', 'LIKE', '%'.$name.'%')->orderBy('rating', 'DESC')->paginate($count);
         } else {
             $products = Products::where($where)->orderBy('rating', 'DESC')->take($count)->get();
             $offPaginate = true;

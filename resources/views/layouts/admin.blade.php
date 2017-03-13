@@ -202,6 +202,12 @@ desired effect
                                 <span>Заказы</span>
                             </a>
                         </li>
+                        <li>
+                            <a href="{{ url('/administration/exel') }}">
+                                <i class="fa fa-file-excel-o" aria-hidden="true"></i>
+                                <span>Продукция Exel</span>
+                            </a>
+                        </li>
                     @endif
                     @if (Auth::guard('admin')->user()->role == 'Moderator')
                         <li>
@@ -263,6 +269,12 @@ desired effect
                             <a href="{{ url('/administration/products') }}">
                                 <i class="fa fa-shopping-cart"></i>
                                 <span>Продукция</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ url('/administration/exel') }}">
+                                <i class="fa fa-file-excel-o" aria-hidden="true"></i>
+                                <span>Продукция Exel</span>
                             </a>
                         </li>
                     @endif

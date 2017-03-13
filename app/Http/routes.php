@@ -116,7 +116,7 @@ Route::group(['middleware' => ['adminAuth']], function () {
         // Удалить пункт меню
         Route::delete('/administration/menu', 'Backend\MenuController@deleteMenu');
 
-    //Метатеги
+    // Метатеги
         Route::get('/administration/metatags/{type?}/{slug?}', 'Backend\MetatagsContraller@index');
         Route::post('/administration/metatags', 'Backend\MetatagsContraller@add');
 
@@ -128,7 +128,13 @@ Route::group(['middleware' => ['adminAuth']], function () {
         Route::get('/administration/offices/edit/{id}', 'Backend\OfficesController@editFormOffice');
         Route::post('/administration/offices/edit/{id}', 'Backend\OfficesController@editOffice');
         Route::delete('/administration/offices', 'Backend\OfficesController@deleteOffice');
+    
+    // Продукция Exel
+        Route::get('/administration/exel', 'Backend\ImportController@index');
+        Route::post('/administration/export', 'Backend\ImportController@export');
+        Route::post('/administration/import', 'Backend\ImportController@import');
     });
+    
 });
 
 

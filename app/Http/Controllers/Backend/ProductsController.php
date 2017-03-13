@@ -242,9 +242,9 @@ class ProductsController extends Controller
             'title_ru' => 'string|min:3',
             'title_uk' => 'string|min:3',
 
-            'description_en' => 'string|min:10',
-            'description_ru' => 'string|min:10',
-            'description_uk' => 'string|min:10',
+            // 'description_en' => 'string|min:10',
+            // 'description_ru' => 'string|min:10',
+            // 'description_uk' => 'string|min:10',
 
             'price.*' => 'required|numeric',
             'price_type.*' => 'required_with:'.Prices::listMeasures(),
@@ -261,9 +261,9 @@ class ProductsController extends Controller
                 $validator->errors()->add('title_ru', 'Поле "Заголовок" обязательно для заполнения.');
             }
 
-            if ( empty($request->input('description_en')) && empty($request->input('description_ru')) && empty($request->input('description_uk')) ) {
-                $validator->errors()->add('description_ru', 'Поле "Описание" обязательно для заполнения.');
-            }
+            // if ( empty($request->input('description_en')) && empty($request->input('description_ru')) && empty($request->input('description_uk')) ) {
+            //     $validator->errors()->add('description_ru', 'Поле "Описание" обязательно для заполнения.');
+            // }
         });
 
         if ($validator->fails()) {

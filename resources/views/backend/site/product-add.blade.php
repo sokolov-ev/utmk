@@ -333,11 +333,126 @@
                             @endif
                         </div>
 
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" name="show_my" checked="" style="margin: 0 -20px;">
-                                Показывать
-                            </label>
+                        <div class="form-group{{ $errors->has('steel_grade') ? ' has-error' : '' }}">
+                            <label for="steel_grade" class="control-label">Марка стали</label>
+                            <input id="steel_grade" name="steel_grade" type="text" class="form-control" value="{{ old('steel_grade') }}">
+
+                            @if ($errors->has('steel_grade'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('steel_grade') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+
+                        <div class="form-group{{ $errors->has('sawing') ? ' has-error' : '' }}">
+                            <label for="sawing" class="control-label">Раскрой</label>
+                            <input id="sawing" name="sawing" type="text" class="form-control" value="{{ old('sawing') }}">
+
+                            @if ($errors->has('sawing'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('sawing') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+
+                        <div class="form-group{{ $errors->has('standard') ? ' has-error' : '' }}">
+                            <label for="standard" class="control-label">Стандарт</label>
+                            <input id="standard" name="standard" type="text" class="form-control" value="{{ old('standard') }}">
+
+                            @if ($errors->has('standard'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('standard') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+
+                        <div class="form-group{{ $errors->has('diameter') ? ' has-error' : '' }}">
+                            <label for="diameter" class="control-label">Диаметр</label>
+                            <input id="diameter" name="diameter" type="text" class="form-control" value="{{ old('diameter') }}">
+
+                            @if ($errors->has('diameter'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('diameter') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+
+
+                        <div class="form-group{{ $errors->has('height') ? ' has-error' : '' }}">
+                            <label for="height" class="control-label">Высота</label>
+                            <input id="height" name="height" type="text" class="form-control" value="{{ old('height') }}">
+
+                            @if ($errors->has('height'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('height') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+
+                        <div class="form-group{{ $errors->has('width') ? ' has-error' : '' }}">
+                            <label for="width" class="control-label">Ширина</label>
+                            <input id="width" name="width" type="text" class="form-control" value="{{ old('width') }}">
+
+                            @if ($errors->has('width'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('width') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+
+                        <div class="form-group{{ $errors->has('thickness') ? ' has-error' : '' }}">
+                            <label for="thickness" class="control-label">Толщина</label>
+                            <input id="thickness" name="thickness" type="text" class="form-control" value="{{ old('thickness') }}">
+
+                            @if ($errors->has('thickness'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('thickness') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+
+                        <div class="form-group{{ $errors->has('section') ? ' has-error' : '' }}">
+                            <label for="section" class="control-label">Сечение</label>
+                            <input id="section" name="section" type="text" class="form-control" value="{{ old('section') }}">
+
+                            @if ($errors->has('section'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('section') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+
+                        <div class="form-group{{ $errors->has('coating') ? ' has-error' : '' }}">
+                            <label for="coating" class="control-label">Покрытие</label>
+                            <input id="coating" name="coating" type="text" class="form-control" value="{{ old('coating') }}">
+
+                            @if ($errors->has('coating'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('coating') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+
+                        <div class="form-group{{ $errors->has('view') ? ' has-error' : '' }}">
+                            <label for="view" class="control-label">Вид</label>
+                            <input id="view" name="view" type="text" class="form-control" value="{{ old('view') }}">
+
+                            @if ($errors->has('view'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('view') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+
+                        <div class="form-group{{ $errors->has('brinell_hardness') ? ' has-error' : '' }}">
+                            <label for="brinell_hardness" class="control-label">Твердость Бринелль</label>
+                            <input id="brinell_hardness" name="brinell_hardness" type="text" class="form-control" value="{{ old('brinell_hardness') }}">
+
+                            @if ($errors->has('brinell_hardness'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('brinell_hardness') }}</strong>
+                                </span>
+                            @endif
                         </div>
 
                     </div>
@@ -345,6 +460,12 @@
 
                 <div class="row">
                     <div class="col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-12">
+                        <div class="checkbox pull-left">
+                            <label>
+                                <input type="checkbox" name="show_my" checked="" style="margin: 0 -20px;">
+                                Показывать
+                            </label>
+                        </div>
                         <button class="btn btn-success pull-right" type="submit" onclick="saveDescription();">
                             Добавить
                         </button>
