@@ -170,86 +170,6 @@
                             </div>
                         </div>
 
-                        <div class="form-group{{ ($errors->has('description_en') || $errors->has('description_ru') || $errors->has('description_uk')) ? ' has-error' : '' }}" style="margin-bottom: 0;">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <label class="control-label tab-description" for="advertising-description">Описание</label>
-                                </div>
-                                <div class="col-md-8 customize-tab">
-                                    <ul class="nav nav-pills pull-right customize-tab" role="tablist">
-                                        <li role="presentation">
-                                            <a id="description_en-tab"
-                                               class="tab-nice{{ $errors->has('description_en') ? ' has-error-label' : '' }}"
-                                               href="#description_en-body"
-                                               role="tab"
-                                               data-toggle="tab"
-                                               aria-controls="description_en"
-                                               aria-expanded="true">
-                                                Английский
-                                            </a>
-                                        </li>
-                                        <li class="active" role="presentation">
-                                            <a id="description_ru-tab"
-                                               class="tab-nice{{ $errors->has('description_ru') ? ' has-error-label' : '' }}"
-                                               href="#description_ru-body"
-                                               role="tab"
-                                               data-toggle="tab"
-                                               aria-controls="description_ru">
-                                                Русский
-                                            </a>
-                                        </li>
-                                        <li role="presentation">
-                                            <a id="description_uk-tab"
-                                               class="tab-nice{{ $errors->has('description_uk') ? ' has-error-label' : '' }}"
-                                               href="#description_uk-body"
-                                               role="tab"
-                                               data-toggle="tab"
-                                               aria-controls="description_uk">
-                                                Украинский
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div id="tabdescription" class="tab-content">
-                            <div id="description_en-body" class="tab-pane fade" role="tabpanel" aria-labelledby="description_en-tab">
-                                <div class="form-group{{ $errors->has('description_en') ? ' has-error' : '' }}">
-                                    <textarea id="description_en" name="description_en" class="form-control" placeholder="Английский" rows="6">{{ old('description_en') }}</textarea>
-
-                                    @if ($errors->has('description_en'))
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('description_en') }}</strong>
-                                        </span>
-                                    @endif
-                                </div>
-                            </div>
-                            <div id="description_ru-body" class="tab-pane fade in active" role="tabpanel" aria-labelledby="description_ru-tab">
-                                <div class="form-group{{ $errors->has('description_ru') ? ' has-error' : '' }}">
-                                    <textarea id="description_ru" name="description_ru" class="form-control" placeholder="Русский" rows="6">{{ old('description_ru') }}</textarea>
-
-                                    @if ($errors->has('description_ru'))
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('description_ru') }}</strong>
-                                        </span>
-                                    @endif
-                                </div>
-                            </div>
-                            <div id="description_uk-body" class="tab-pane fade" role="tabpanel" aria-labelledby="description_uk-tab">
-                                <div class="form-group{{ $errors->has('description_ru') ? ' has-error' : '' }}">
-                                    <textarea id="description_uk" name="description_uk" class="form-control" placeholder="Украинский" rows="6">{{ old('description_uk') }}</textarea>
-
-                                    @if ($errors->has('description_uk'))
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('description_uk') }}</strong>
-                                        </span>
-                                    @endif
-                                </div>
-                            </div>
-                        </div>
-
-
                         <div id="product-prices">
                             <div class="form-group{{ $errors->has('price.0') ? ' has-error' : '' }}" style="margin-bottom: 0;">
                                 <label for="" class="control-label">Цены</label>
@@ -344,17 +264,6 @@
                             @endif
                         </div>
 
-                        <div class="form-group{{ $errors->has('sawing') ? ' has-error' : '' }}">
-                            <label for="sawing" class="control-label">Раскрой</label>
-                            <input id="sawing" name="sawing" type="text" class="form-control" value="{{ old('sawing') }}">
-
-                            @if ($errors->has('sawing'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('sawing') }}</strong>
-                                </span>
-                            @endif
-                        </div>
-
                         <div class="form-group{{ $errors->has('standard') ? ' has-error' : '' }}">
                             <label for="standard" class="control-label">Стандарт</label>
                             <input id="standard" name="standard" type="text" class="form-control" value="{{ old('standard') }}">
@@ -362,6 +271,17 @@
                             @if ($errors->has('standard'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('standard') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+
+                        <div class="form-group{{ $errors->has('sawing') ? ' has-error' : '' }}">
+                            <label for="sawing" class="control-label">Длина/раскрой</label>
+                            <input id="sawing" name="sawing" type="text" class="form-control" value="{{ old('sawing') }}">
+
+                            @if ($errors->has('sawing'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('sawing') }}</strong>
                                 </span>
                             @endif
                         </div>
@@ -481,44 +401,14 @@
 
 @section('scripts')
 
-
     <script src="{{ elixir('js/fileinput.js') }}"></script>
     <script src="{{ elixir('js/select2.js') }}"></script>
-    <script src="{{ asset('tinymce/tinymce.min.js') }}"></script>
 
     <script>
         $("#images").fileinput({
             language: $(".language").data('lang'),
             allowedFileExtensions: ["jpg", "jpeg", "png", "bmp", "gif", "svg"],
         });
-
-        var descriptionEn = tinyMCE.init({
-                selector: '#description_en',
-                language: 'ru',
-                plugins: 'textcolor colorpicker advlist autolink link image media lists charmap table preview',
-                toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | forecolor backcolor'
-            });
-
-        var descriptionRu = tinyMCE.init({
-                selector: '#description_ru',
-                language: 'ru',
-                plugins: 'textcolor colorpicker advlist autolink link image media lists charmap table preview',
-                toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | forecolor backcolor'
-            });
-
-        var descriptionUk = tinyMCE.init({
-                selector: '#description_uk',
-                language: 'ru',
-                plugins: 'textcolor colorpicker advlist autolink link image media lists charmap table preview',
-                toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | forecolor backcolor'
-            });
-
-        function saveDescription()
-        {
-            descriptionEn.triggerSave();
-            descriptionRu.triggerSave();
-            descriptionUk.triggerSave();
-        }
 
         $(".btn-add").click(function(event){
             var body = $(this).closest('.form-group').clone();

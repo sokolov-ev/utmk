@@ -24,12 +24,12 @@
                     <ul class="dropdown-menu">
                         <li>
                             <a href="{{ request()->fullUrlWithQuery(['lang' => 'en']) }}">
-                                <img src="/images/flags/en.gif"> {{ trans('index.speech.en') }}
+                                <img src="/images/flags/en.png"> {{ trans('index.speech.en') }}
                             </a>
                         </li>
                         <li>
                             <a href="{{ request()->fullUrlWithQuery(['lang' => 'ru']) }}">
-                                <img src="/images/flags/ru.gif"> {{ trans('index.speech.ru') }}
+                                <img src="/images/flags/ru.png"> {{ trans('index.speech.ru') }}
                             </a>
                         </li>
                         <li>

@@ -102,15 +102,11 @@
 
         <div class="col-md-7 col-sm-7 col-xs-12">
 
-            <div class="wow slideInRight">
-                <span class="text-16">{!! $product['description'] !!}</span>
-            </div>
-
             @foreach ($data as $element)
                 @if($product[$element])
                     <div class="wow slideInRight">
                         <span class="text-16">
-                            <strong>{{ trans('products.'.$element) }} </strong>: {{ $product[$element] }}
+                            <strong>{{ trans('products.'.$element) }}</strong>: {{ $product[$element] }}
                         </span>
                     </div>
                 @endif    

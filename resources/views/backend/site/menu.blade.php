@@ -34,18 +34,18 @@
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             <div class="btn-group pull-right clearfix check-language" data-lang="ru">
                                 <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <div class="current-language"><img src="/images/flags/ru.gif"> Русский</div>
+                                    <div class="current-language"><img src="/images/flags/ru.png"> Русский</div>
                                     <span class="caret"></span>
                                 </button>
                                 <ul class="dropdown-menu">
                                     <li>
                                         <a href="javascript: void(0)" class="lang" data-lang="en">
-                                            <img src="/images/flags/en.gif"> Английский
+                                            <img src="/images/flags/en.png"> Английский
                                         </a>
                                     </li>
                                     <li>
                                         <a href="javascript: void(0)" class="lang" data-lang="ru">
-                                            <img src="/images/flags/ru.gif"> Русский
+                                            <img src="/images/flags/ru.png"> Русский
                                         </a>
                                     </li>
                                     <li>

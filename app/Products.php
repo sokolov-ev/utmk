@@ -21,7 +21,6 @@ class Products extends Model
         'office_id',
         'slug',
         'title',
-        'description',
         'rating',
         'show_my',
         'creator_id',
@@ -130,11 +129,6 @@ class Products extends Model
         $titleName = array_filter($title);
         $array['title_name'] = empty($titleName[App::getLocale()]) ? current($titleName) : $titleName[App::getLocale()];
 
-        $description = json_decode($product->description, true);
-        $array['description_en'] = $description['en'];
-        $array['description_ru'] = $description['ru'];
-        $array['description_uk'] = $description['uk'];
-
         $array['rating'] = $product->rating;
         $array['show_my'] = $product->show_my;
 
@@ -174,11 +168,6 @@ class Products extends Model
         $array['ru'] = $data['title_ru'];
         $array['uk'] = $data['title_uk'];
         $product->title = json_encode($array, JSON_UNESCAPED_UNICODE);
-
-        $array['en'] = $data['description_en'];
-        $array['ru'] = $data['description_ru'];
-        $array['uk'] = $data['description_uk'];
-        $product->description = json_encode($array, JSON_UNESCAPED_UNICODE);
 
         $product->rating  = $data['rating'];
         $product->show_my = ($data['show_my'] == 'on') ? 1 : 0;
@@ -224,9 +213,7 @@ class Products extends Model
 
         foreach ($products as $product) {
             $temp = Products::toArrayProduct($product);
-
-            $temp['images']      = '/images/products/'.$temp['images'][0]['name'];
-            $temp['description'] = $temp['description'];
+            $temp['images'] = '/images/products/'.$temp['images'][0]['name'];
 
             $result[] = $temp;
         }
@@ -248,7 +235,6 @@ class Products extends Model
             $temp['id']     = (string) $product['id'];
             $temp['images'] = '/images/products/'.$product['images'][0]['name'];
             $temp['title']  = $product['title'];
-            $temp['description'] = $product['description'];
 
             if (in_array(App::getLocale(), ['en', 'uk'])) {
                 $temp['work_link'] = '/'.App::getLocale().$product['menu']['full_path_slug'].'/'.$product['slug'];
@@ -318,15 +304,10 @@ class Products extends Model
         $array['office_city'] = str_slug($officeCity, '_');
 
         $array['slug'] = $product->slug;
-        // $array['slug_menu'] = $product->slug_menu;
 
         $title = json_decode($product->title, true);
         $title = array_filter($title);
         $array['title'] = empty($title[App::getLocale()]) ? current($title) : $title[App::getLocale()];
-
-        $description = json_decode($product->description, true);
-        $description = array_filter($description);
-        $array['description'] = empty($description[App::getLocale()]) ? current($description) : $description[App::getLocale()];
 
         $array['prices'] = $product->prices->toArray();
 

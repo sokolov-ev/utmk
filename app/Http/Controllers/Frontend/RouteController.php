@@ -70,8 +70,8 @@ class RouteController extends Controller
 
                 $data = [
                     'steel_grade',
-                    'sawing',
                     'standard',
+                    'sawing',
                     'diameter',
                     'height',
                     'width',

@@ -54,7 +54,22 @@ class ProductsController extends Controller
         $result   = Products::viewDataJson($products);
         $metatags = Metatags::getViewData($metatags);
 
+        $data = [
+            'steel_grade',
+            'standard',
+            'sawing',
+            'diameter',
+            'height',
+            'width',
+            'thickness',
+            'section',
+            'coating',
+            'view',
+            'brinell_hardness',
+        ];
+
         return view('frontend.products.index', [
+            'data'     => $data,
             'products' => $products,
             'result'   => $result,
             'offices'  => $offices,

@@ -102,7 +102,6 @@
             </div>
         </div>
     </div>
-    {{-- <div class="padding-top"></div> --}}
 
     <div class="row">
         <div class="col-md-3 col-sm-12 col-xs-12" style="padding: 0;">
@@ -151,7 +150,13 @@
                                     <a class="text-black-h3" href="{{ $product['work_link'] }}">{{ $product['title'] }}</a>
 
                                     <div class="padding-block-1-2">
-                                        <span class="text-16">{!! $product['description'] !!}</span>
+                                        @foreach ($data as $element)
+                                            @if($product[$element])                                                
+                                                <span class="text-16">
+                                                    <strong>{{ trans('products.'.$element) }}</strong>: {{ $product[$element] }}
+                                                </span>
+                                            @endif    
+                                        @endforeach
                                     </div>
                                 </div>
 
@@ -227,7 +232,6 @@
                                         </div>
 
                                         <button type="button" class="btn btn-success add-cart" data-id="{{ $product['id'] }}">
-                                            {{-- <i class="fa fa-cart-plus" aria-hidden="true"> </i>  --}}
                                             {{ trans('products.add-cart') }}
                                         </button>
                                     </div>
