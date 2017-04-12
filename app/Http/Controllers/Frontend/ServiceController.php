@@ -17,7 +17,7 @@ use App\Sendsms;
 
 use App\Office;
 use App\Metatags;
-use App\FilePrice;
+use App\Documents;
 
 use App\Temp;
 
@@ -122,25 +122,25 @@ class ServiceController extends Controller
 
     public function prices()
     {
-        $files = FilePrice::all();
+        $files    = Documents::where('type', 'price')->get();
         $metatags = Metatags::where([['type', 'article'], ['slug', 'price']])->first();
         $metatags = Metatags::getViewData($metatags);
 
         return view('frontend.site.prices', [
-            'files' => $files,
+            'files'    => $files,
             'metatags' => $metatags,
         ]);
     }
 
     public function priceDownload($id)
     {
-        $file = FilePrice::where('id', $id)->first();
+        $file = Documents::where([['id', $id], ['type', 'price']])->first();
 
         if (empty($file)) {
             return redirect()->back();
         }
 
-        $path = "./files/".$file->slug;
+        $path = "./documents/".$file->slug;
 
         if (file_exists($path)) {
             $headers = ['Content-Type: application/file'];

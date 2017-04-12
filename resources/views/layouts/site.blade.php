@@ -11,8 +11,9 @@
     <link href="https://plus.google.com/+%D0%9E%D0%9E%D0%9E%D0%AE%D0%A2%D0%9C%D0%9A%D0%9A%D0%B8%D1%97%D0%B2" rel="publisher" />
 
     <meta name="google-site-verification" content="5ZkMrakvEh1lCyA4eCxke53NFBBCtyMTBFKBWKXyp7Y" />
-    <meta name="p:domain_verify" content="50a81879bc21c0c0b38188e4a7960e14"/>
+    <meta name="p:domain_verify" content="50a81879bc21c0c0b38188e4a7960e14" />
     <meta name="yandex-verification" content="47760e8501424890" />
+    <meta name="msvalidate.01" content="4BF9163CB9B5B4E32C8E656166BBC30B" />
 
     @yield('meta')
 
@@ -51,7 +52,7 @@
     <!-- Yandex.Metrika counter -->
     <script type="text/javascript"> (function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter40647919 = new Ya.Metrika({ id:40647919, clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true }); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = "https://mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks"); </script>
     <noscript><div><img src="https://mc.yandex.ru/watch/40647919" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-    <!-- /Yandex.Metrika counter -->
+    <!-- Yandex.Metrika counter -->
 </head>
 <body id="app-layout">
 
@@ -73,9 +74,9 @@
                                 $locale = '';
                             }
                         ?>
-                        <a href="{{ url('/en/'.$path) }}" title="{{ trans('index.speech.en') }}">
+{{--                         <a href="{{ url('/en/'.$path) }}" title="{{ trans('index.speech.en') }}">
                             <img src="/images/flags/en.png" title="{{ trans('index.speech.en') }}" alt="{{ trans('index.speech.en') }}" />
-                        </a>
+                        </a> --}}
                         <a href="{{ url('/'.$path) }}" title="{{ trans('index.speech.ru') }}">
                             <img src="/images/flags/ru.png" title="{{ trans('index.speech.ru') }}" alt="{{ trans('index.speech.ru') }}" />
                         </a>
@@ -245,6 +246,7 @@
                     <li class="contact-us"><a href="{{ route('contacts') }}">{{ trans('index.menu.contact_us') }}</a></li>
 
                     <li class="blog"><a href="{{ route('blog') }}">{{ trans('index.menu.blog') }}</a></li>
+                    <li class="reference_book"><a href="{{ route('spravka') }}">{{ trans('index.menu.reference_book') }}</a></li>
                 </ul>
 
             </div>
@@ -304,7 +306,7 @@
     <!-- Styles -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 
-    <link href="{{ elixir('css/styles.css') }}" rel="stylesheet">
+    <link href="{{ elixir('css/styles.min.css') }}" rel="stylesheet">
 
 </body>
 
@@ -330,7 +332,7 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
-    <script src="{{ elixir('js/scripts.js') }}"></script>
+    <script src="{{ elixir('js/scripts.min.js') }}"></script>
 
     @yield('scripts')
 

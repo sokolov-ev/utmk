@@ -63,8 +63,8 @@
 
 @section('scripts')
 
-    <script src="{{ elixir('js/jqueryTable.js') }}"></script>
-    <script src="{{ elixir('js/mustache.js') }}"></script>
+    <script src="{{ elixir('js/jqueryTable.min.js') }}"></script>
+    <script src="{{ elixir('js/mustache.min.js') }}"></script>
 
     <script>
         $.ajaxSetup({

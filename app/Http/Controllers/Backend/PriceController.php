@@ -8,16 +8,18 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App;
-use App\FilePrice;
+use App\Documents;
 
 class PriceController extends Controller
 {
     public function index()
     {
-        $files = FilePrice::all();
+        $prices = Documents::where('type', 'price')->get();
+        $documents = Documents::where('type', 'documents')->get();
 
-        return view('backend.site.price', [
-            'files' => $files,
+        return view('backend.site.documents', [
+            'prices' => $prices,
+            'documents' => $documents,
         ]);
     }
 
@@ -26,9 +28,14 @@ class PriceController extends Controller
         $fileName = $request->file('file')->getClientOriginalName();
         $fileSlug = str_replace(" ", "_", $fileName);
 
-        $request->file('file')->move('./files/', $fileSlug);
+        $request->file('file')->move('./documents/', $fileSlug);
+        $res = Documents::create([
+            'name' => $fileName, 
+            'slug' => $fileSlug, 
+            'type' => 'price'
+        ]);
 
-        if ( FilePrice::create(['name' => $fileName, 'slug' => $fileSlug]) ) {
+        if ($res) {
             session()->flash('success', 'Файл сохранен.');
         } else {
             session()->flash('error', 'Возникла ошибка при сохранении файла.');
@@ -39,14 +46,14 @@ class PriceController extends Controller
 
     public function download($id)
     {
-        $file = FilePrice::where('id', $id)->first();
+        $file = Documents::where([['id', $id], ['type', 'price']])->first();
 
         if (empty($file)) {
             session()->flash('error', 'Файл ненайден.');
             return redirect()->back();
         }
 
-        $path = "./files/".$file->slug;
+        $path = "./documents/".$file->slug;
 
         if (file_exists($path)) {
             $headers = ['Content-Type: application/file'];
@@ -59,7 +66,7 @@ class PriceController extends Controller
 
     public function delete($id)
     {
-        $file = FilePrice::where('id', $id)->first();
+        $file = Documents::where([['id', $id], ['type', 'price']])->first();
 
         if (empty($file)) {
             session()->flash('error', 'Файл ненайден.');

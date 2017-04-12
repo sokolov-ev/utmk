@@ -33,6 +33,10 @@
     <meta property="og:description" content="{{ $metatags['description'] }}" />
     <meta property="og:site_name" content="Metall Vsem" />
 
+    <script type="application/ld+json"> 
+        {!! json_encode($jsonLD) !!}
+    </script>
+
 @endsection
 
 @section('css')
@@ -46,6 +50,7 @@
     <div class="padding-top"></div>
     <div class="wow slideInRight">
         <h1 class="welcome-text text-center">{{ $product['title'] }}</h1>
+        <div id="productid" data-id="{{ $product['id'] }}"></div>
     </div>
     <div class="padding-top"></div>
 
@@ -101,6 +106,15 @@
         </div>
 
         <div class="col-md-7 col-sm-7 col-xs-12">
+            <div class="wow slideInRight">
+                <div class="padding-block-0-1">
+                    <div id="rateYo"></div> 
+                    <span class="text-16" style="display: inline-block; vertical-align: text-bottom;">
+                        <span class="appraisal">0</span>
+                        ({{ trans('products.vote') }}: <span class="appraisal-count">0</span>)
+                    </span>
+                </div>
+            </div>
 
             @foreach ($data as $element)
                 @if($product[$element])
@@ -111,7 +125,7 @@
                     </div>
                 @endif    
             @endforeach
-
+            
             <div class="padding-block-1-2" style="font-size: 16px;">
                 <strong>{{ trans('offices.office') }}</strong>:
                 <a class="orange-list-a" href="{{ url('/office/'.$product['office_city'].'/'.$product['office_id']) }}" title="{{ $product['office_title'] }}">
@@ -119,41 +133,50 @@
                 </a>
             </div>
 
-            <?php $flag = true; ?>
-            @foreach($product['prices'] as $price)
-                <div class="margin-bottom-5">
-                    @if ($price['type'] == 'agreed')
-                        <div class="shopping-cart-block">
-                            <div class="card-price-block">
-                                <div class="card-price" style="border-radius: 4px;">
-                                    {{ trans('products.measures.'.$price['type']) }}
-                                </div>
-                            </div>
-                        </div>
-                        <?php $flag = false; ?>
-                    @else
-                        <div class="shopping-cart">
-                            <div class="card-price-block">
-                                <div class="card-price">
-                                    {{ $price['price'] }}
-                                    <span class="card-price-uah">
-                                        {{ trans('products.uah') }} / {{ trans('products.measures.'.$price['type']) }}
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    @endif
-                </div>
-            @endforeach
-
-            @if ($flag)
-                <div class="padding-block-2-2">
-                    <button type="button" class="btn btn-success add-cart pull-right" data-id="{{ $product['id'] }}">
-                        <i class="fa fa-cart-plus" aria-hidden="true"> </i> {{ trans('products.add-cart') }}
-                    </button>
-                    <div class="clearfix"> </div>
+            @if(!$product['in_stock'])
+                <div class="not-available">
+                    <strong>{{ trans('products.not_available') }}</strong>
                 </div>
             @endif
+
+            @if($product['in_stock'])
+                <?php $flag = true; ?>
+                @foreach($product['prices'] as $price)
+                    <div class="margin-bottom-5">
+                        @if ($price['type'] == 'agreed')
+                            <div class="shopping-cart-block">
+                                <div class="card-price-block">
+                                    <div class="card-price" style="border-radius: 4px;">
+                                        {{ trans('products.measures.'.$price['type']) }}
+                                    </div>
+                                </div>
+                            </div>
+                            <?php $flag = false; ?>
+                        @else
+                            <div class="shopping-cart">
+                                <div class="card-price-block">
+                                    <div class="card-price">
+                                        {{ $price['price'] }}
+                                        <span class="card-price-uah">
+                                            {{ trans('products.uah') }} / {{ trans('products.measures.'.$price['type']) }}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
+                    </div>
+                @endforeach
+
+                @if ($flag)
+                    <div class="padding-block-2-2">
+                        <button type="button" class="btn btn-success add-cart pull-right" data-id="{{ $product['id'] }}">
+                            <i class="fa fa-cart-plus" aria-hidden="true"> </i> {{ trans('products.add-cart') }}
+                        </button>
+                        <div class="clearfix"> </div>
+                    </div>
+                @endif
+            @endif
+
         </div>
 
     </div>
@@ -164,13 +187,15 @@
 @endsection
 
 @section('scripts')
+    <script src="{{ elixir('js/jquery.rateyo.js') }}"></script>
+
     <script type="text/javascript">
         $(".products").addClass('active');
 
         $("body").on('click', '.add-cart', function(event){
-            var tut = this;
+            let tut = this;
             var id  = $(this).data('id');
-            var count = 1;
+            let count = 1;
 
             if ($('#quantity').is(':empty')) {
                 count = $('#quantity').val();
@@ -195,6 +220,37 @@
                 }
             });
         });
+
+        $( "#rateYo" ).tooltip({ show: { effect: "blind", duration: 800 } });
+        
+        $(document).ready(function() {
+            let id = $('#productid').data('id');
+
+            function getRate() {
+                $.get('/products/rating/' + id, function(res) {
+                    let appraisal = res.data.appraisal;
+                    let count = res.data.count;
+
+                    $('#rateYo').rateYo({
+                        precision: 1,
+                        starWidth : '20px',
+                        rating: appraisal,
+                        onSet: function (rating, rateYoInstance) {
+                            $.post('/products/rating/' + id, {data: rating}, function(res) {
+                                if (res.success) {
+                                    $('#rateYo').rateYo('option', 'readOnly', true);
+                                    getRate();
+                                }
+                            });
+                        }
+                    });
+
+                    $('.appraisal').text(appraisal);
+                    $('.appraisal-count').text(count);
+                });
+            }
+
+            getRate();
+        });
     </script>
 @endsection
-

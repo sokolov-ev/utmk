@@ -16,7 +16,7 @@
     <!-- Styles -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 
-    <link href="{{ elixir('css/admin.css') }}" rel="stylesheet">
+    <link href="{{ elixir('css/admin.min.css') }}" rel="stylesheet">
 
     <link rel="apple-touch-icon" sizes="57x57" href="/images/icons/apple-touch-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="/images/icons/apple-touch-icon-60x60.png">
@@ -56,7 +56,7 @@
             </div>
       </div>
     </section>
-    <!-- /.Main content -->
+    <!-- Main content -->
 
 </body>
 </html>

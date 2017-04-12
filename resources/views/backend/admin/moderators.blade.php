@@ -5,7 +5,7 @@
 @endsection
 
 @section('css')
-    <link href="{{ elixir('css/select2.css') }}" rel="stylesheet">
+    <link href="{{ elixir('css/select2.min.css') }}" rel="stylesheet">
 @endsection
 
 @section('content')
@@ -112,8 +112,8 @@
 
 @section('scripts')
 
-    <script src="{{ elixir('js/jqueryTable.js') }}"></script>
-    <script src="{{ elixir('js/select2.js') }}"></script>
+    <script src="{{ elixir('js/jqueryTable.min.js') }}"></script>
+    <script src="{{ elixir('js/select2.min.js') }}"></script>
 
     <script>
         var table = $('table').DataTable({

@@ -48,6 +48,7 @@ return [
         'network_of_offices' => 'Мережа офісів',
         'network_of_offices_h1' => 'Мережа офісів з продажу металопрокату в Україні',
         'contact_us' => "Зв'язатися",
+        'reference_book' => 'Довідник',
     ],
     'footer' => [
         'company' => 'Компанія',

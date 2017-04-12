@@ -45,6 +45,19 @@
                         @endforeach
                     </ul>
 
+                    <button type="button" class="btn btn-link" onclick="$('.reference').toggleClass('hidden');" style="padding-left: 0;">
+                        <strong>Справочник</strong>
+                    </button>
+
+                    <input type="text" id="reference" name="reference" value="" class="form-control" style="margin-bottom: 10px;" />
+
+                    <ul class="catalog-list reference hidden">
+                        <li><a href="/administration/metatags/reference/index">Главная страница справки</a></li>
+                        @foreach($referenceSection as $section)
+                            <li><a href="/administration/metatags/reference/{{ $section['slug'] }}">{{ json_decode($section['name'], true)['ru'] }}</a></li>
+                        @endforeach
+                    </ul>
+
                     <button type="button" class="btn btn-link" onclick="$('.products').toggleClass('hidden');" style="padding-left: 0;">
                         <strong>Продукция</strong>
                     </button>
@@ -564,7 +577,7 @@
 
 @section('scripts')
 
-    <script src="{{ elixir('js/jquery-ui.js') }}"></script>
+    <script src="{{ elixir('js/jquery-ui.min.js') }}"></script>
     <script src="{{ asset('tinymce/tinymce.min.js') }}"></script>
 
     <script>
@@ -650,6 +663,28 @@
                 showAll('articles');
             }
         });
+
+        $('#reference').keyup(function(event){
+            var tut = this;
+            var find = tut.value;
+            var data = '';
+
+            if (tut.value.length > 0) {
+                hideAll('reference');
+                $('.reference').removeClass('hidden');
+
+                $.each($('.reference').find('li'), function(key, val){
+                    data = $(val).text().toLowerCase();
+
+                    if (data.indexOf(find) != -1) {
+                        $(val).removeClass('hidden');
+                    }
+                });
+            } else {
+                showAll('reference');
+            }
+        });
+
 
         function showAll(type)
         {

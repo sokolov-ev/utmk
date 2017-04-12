@@ -38,3 +38,11 @@
   color: #ffffff;
   margin-bottom: 30px;
 }
+
+.footer .col-right {
+  border-right: 1px solid #fff;
+  height: 200px;
+}
+@media(max-width:767px) {
+  .footer .col-right { height: auto; }
+}

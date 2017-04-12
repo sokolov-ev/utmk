@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFilePriceTable extends Migration
+class CreateRatingTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,10 +12,10 @@ class CreateFilePriceTable extends Migration
      */
     public function up()
     {
-        Schema::create('file_price', function (Blueprint $table) {
+        Schema::create('rating', function (Blueprint $table) {
             $table->increments('id');
-            $table->text('name');
-            $table->text('slug');
+            $table->integer('product_id');
+            $table->integer('appraisal');
             $table->integer('created_at');
             $table->integer('updated_at');
         });
@@ -28,6 +28,6 @@ class CreateFilePriceTable extends Migration
      */
     public function down()
     {
-        Schema::drop('file_price');
+        Schema::drop('rating');
     }
 }

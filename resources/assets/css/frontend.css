@@ -541,3 +541,31 @@ button {
 .fb-share-button {
   top: -6px;
 }
+
+.orange-point {
+    margin-left: 15px;
+    position: relative;
+}
+
+.orange-point:before {
+    color: #e1704b;
+    content: "♦";
+    font-size: 30px;
+    left: -17px;
+    line-height: 20px;
+    position: absolute;
+}
+
+.gray-point {
+    margin-left: 15px;
+    position: relative;
+}
+
+.gray-point:before {
+    color: #626262;
+    content: "♦";
+    font-size: 30px;
+    left: -17px;
+    line-height: 20px;
+    position: absolute;
+}

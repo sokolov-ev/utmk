@@ -47,22 +47,24 @@ class ImportController extends Controller
                 foreach ($menu->products as $key => $product) {
                     $result[$key]['id'] = $product->id;
                     $result[$key]['Name'] = json_decode($product->title, true)[$lang];
+                    $result[$key]['Slug'] = $product->slug;
                     $result[$key]['Cost'] = $product->prices[0]['price'];
                     $result[$key]['Unit'] = $product->prices[0]['type'];
-                    $result[$key]['Title'] = json_decode($product->metatags['title'], true)[$lang];
+                    $result[$key]['Title']       = json_decode($product->metatags['title'], true)[$lang];
                     $result[$key]['Description'] = json_decode($product->metatags['description'], true)[$lang];
-                    $result[$key]['Keywords'] = json_decode($product->metatags['keywords'], true)[$lang];
+                    $result[$key]['Keywords']    = json_decode($product->metatags['keywords'], true)[$lang];
 
+                    $result[$key]['In_stock']    = $product->in_stock;
                     $result[$key]['Steel_grade'] = $product->steel_grade ? $product->steel_grade : ' ';
-                    $result[$key]['Sawing'] = $product->sawing;
-                    $result[$key]['Standard'] = $product->standard;
-                    $result[$key]['Diameter'] = $product->diameter;
-                    $result[$key]['Height'] = $product->height;
-                    $result[$key]['Width'] = $product->width;
-                    $result[$key]['Thickness'] = $product->thickness;
-                    $result[$key]['Section'] = $product->section;
-                    $result[$key]['Coating'] = $product->coating;
-                    $result[$key]['View'] = $product->view;
+                    $result[$key]['Sawing']      = $product->sawing;
+                    $result[$key]['Standard']    = $product->standard;
+                    $result[$key]['Diameter']    = $product->diameter;
+                    $result[$key]['Height']      = $product->height;
+                    $result[$key]['Width']       = $product->width;
+                    $result[$key]['Thickness']   = $product->thickness;
+                    $result[$key]['Section']     = $product->section;
+                    $result[$key]['Coating']     = $product->coating;
+                    $result[$key]['View']        = $product->view;
                     $result[$key]['Brinell_hardness'] = $product->brinell_hardness;
                 }
 
@@ -98,11 +100,13 @@ class ImportController extends Controller
                 $data = [
                     'id' => null,
                     'name' => null,
+                    'slug' => null,
                     'cost' => null,
                     'unit' => null,
                     'title' => null,
                     'description' => null,
                     'keywords' => null,
+                    'in_stock' => 0,
                     'steel_grade' => null,
                     'sawing' => null,
                     'standard' => null,
@@ -116,15 +120,17 @@ class ImportController extends Controller
                     'brinell_hardness' => null,
                 ];
 
-                $value = array_map('trim', $value);
-                $data = array_merge($data, $value);
+                $value   = array_map('trim', $value);
+                $data    = array_merge($data, $value);
                 $product = Products::find($data['id']);
 
                 if ($product) {
                     $title = json_decode($product->title, true);
                     $title[$lang] = $data['name'];
                     $dataPro['title']       = json_encode($title, JSON_UNESCAPED_UNICODE);
-                    $dataPro['slug']        = str_slug($data['name'], '_');
+                    $dataPro['slug']        = str_slug($data['slug'], '-');
+
+                    $dataPro['in_stock']    = $data['in_stock'];
                     $dataPro['steel_grade'] = $data['steel_grade'];
                     $dataPro['sawing']      = $data['sawing'];
                     $dataPro['standard']    = $data['standard'];

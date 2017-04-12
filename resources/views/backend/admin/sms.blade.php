@@ -47,7 +47,7 @@
 
 @section('scripts')
 
-    <script src="{{ elixir('js/jqueryTable.js') }}"></script>
+    <script src="{{ elixir('js/jqueryTable.min.js') }}"></script>
 
     <script>
         $.ajaxSetup({

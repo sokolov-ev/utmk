@@ -19,7 +19,7 @@ class RouteController extends Controller
 {
     public function index(Request $request, $slug)
     {
-        $redirect = Redirects::where('old', 'like', '%' . $slug . '%')->first();
+        $redirect = Redirects::where('old', 'LIKE', '%metallvsem.com.ua/' . $slug)->first();
         
         if ($redirect) {
             return redirect($redirect['new'], 301);
@@ -45,6 +45,12 @@ class RouteController extends Controller
             $slug = '/'.$slug;
         }
 
+        if (in_array(App::getLocale(), ['en', 'uk'])) {
+            $locale = '/'.App::getLocale();
+        } else {
+            $locale = '';
+        }
+
         $item = ($item = Menu::where('full_path_slug', $slug)->first()) ? $item->toArray() : null;
 
         if (null === $item) {
@@ -56,16 +62,38 @@ class RouteController extends Controller
                 abort(404);
             } else {
 
-                $menu = Menu::getBreadcrumbs($product['menu_id']);
+                $menu    = Menu::getBreadcrumbs($product['menu_id']);
                 $product = Products::toArrayProduct($product);
 
                 $metatags = Metatags::where([['type', 'product'], ['slug', $slug]])->first();
                 $metatags = Metatags::getViewData($metatags);
 
-                if (in_array(App::getLocale(), ['en', 'uk'])) {
-                    $locale = '/'.App::getLocale();
-                } else {
-                    $locale = '';
+                $jsonLD = [
+                    "@context" => "http://schema.org",
+                    "@type" => "BreadcrumbList",
+                    "itemListElement" => [
+                        [
+                            "@type" => "ListItem",
+                            "position" => 1,
+                            "item" => [
+                                "@id"  => route('products-index'),
+                                "name" => trans('index.menu.products')
+                            ]
+                        ]
+                    ]
+                ];
+
+                foreach ($menu as $key => $item) {
+                    $chit = [
+                            "@type" => "ListItem",
+                            "position" => $key + 2,
+                            "item" => [
+                                "@id"  => url($locale.$item['slug']),
+                                "name" => $item['name']
+                            ]
+                        ];
+
+                    $jsonLD["itemListElement"][] = $chit;
                 }
 
                 $data = [
@@ -88,6 +116,7 @@ class RouteController extends Controller
                     'menu'     => $menu,
                     'metatags' => $metatags,
                     'locale'   => $locale,
+                    'jsonLD'   => $jsonLD,
                 ]);
             }
         }
@@ -101,6 +130,8 @@ class RouteController extends Controller
             $format = 'cards';
         }
 
+        $page  = $request->get('page');
+
         $menu  = Menu::all();
         $array = $this->getCatalogId($item['id'], $menu->toArray());
 
@@ -112,7 +143,52 @@ class RouteController extends Controller
         $metatags = Metatags::where([['type', 'menu'], ['slug', $slug]])->first();
         $metatags = Metatags::getViewData($metatags);
 
+        $breadcrumbs = Menu::getBreadcrumbs($item['id']);
+
+        $jsonLD = [
+            "@context" => "http://schema.org",
+            "@type" => "BreadcrumbList",
+            "itemListElement" => [
+                [
+                    "@type" => "ListItem",
+                    "position" => 1,
+                    "item" => [
+                        "@id"  => route('products-index'),
+                        "name" => trans('index.menu.products')
+                    ]
+                ]
+            ]
+        ];
+
+        foreach ($breadcrumbs as $key => $item) {
+            $chit = [
+                    "@type" => "ListItem",
+                    "position" => $key + 2,
+                    "item" => [
+                        "@id"  => url($locale.$item['slug']),
+                        "name" => $item['name']
+                    ]
+                ];
+
+            $jsonLD["itemListElement"][] = $chit;
+        }
+
+        $data = [
+            'steel_grade',
+            'standard',
+            'sawing',
+            'diameter',
+            'height',
+            'width',
+            'thickness',
+            'section',
+            'coating',
+            'view',
+            'brinell_hardness',
+        ];
+
         return view('frontend.products.index', [
+            'data'     => $data,
             'products' => $products,
             'result'   => $result,
             'offices'  => $offices,
@@ -121,8 +197,12 @@ class RouteController extends Controller
             'metatags' => $metatags,
             'filterCity'   => $filterOffice,
             'ordersLocked' => $ordersLocked,
-            'query' => $request->except('page'),
-            'offPaginate' => false,
+            'query'        => $request->except('page'),
+            'offPaginate'  => false,
+            'breadcrumbs'  => $breadcrumbs,
+            'locale'       => $locale,
+            'jsonLD'       => $jsonLD,
+            'page'         => $page,
         ]);
     }
 

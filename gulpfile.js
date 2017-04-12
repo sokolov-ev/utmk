@@ -1,5 +1,5 @@
 var elixir = require('laravel-elixir');
-
+require('laravel-elixir-minify-html');
 /*
  |--------------------------------------------------------------------------
  | Elixir Asset Management
@@ -12,6 +12,15 @@ var elixir = require('laravel-elixir');
  */
 
 elixir(function(mix) {
+    mix.html(
+        'storage/framework/views/*', 
+        'storage/framework/views/', 
+        {
+            collapseWhitespace: true, 
+            removeAttributeQuotes: true, 
+            removeComments: true, 
+            minifyJS: true
+        });
 
     // СТИЛИ ----------------------------------------
     mix.styles([
@@ -25,8 +34,9 @@ elixir(function(mix) {
         'frontend/products.css',
         'frontend/footer.css',
         'frontend/inform.css',
+        'jquery.rateyo.css',
         // имя скомпилированого файла
-    ], 'public/css/styles.css');
+    ], 'public/css/styles.min.css');
 
     mix.styles([
         'AdminLTE/AdminLTE.css',
@@ -34,44 +44,46 @@ elixir(function(mix) {
         'JQueryTable/dataTables.bootstrap.css',
         'backend.css',
         // имя скомпилированого файла
-    ], 'public/css/admin.css');
+    ], 'public/css/admin.min.css');
 
     mix.styles([
         'select2.css',
         // имя скомпилированого файла
-    ], 'public/css/select2.css');
+    ], 'public/css/select2.min.css');
 
     mix.styles([
         'fileinput.css',
         // имя скомпилированого файла
-    ], 'public/css/fileinput.css');
+    ], 'public/css/fileinput.min.css');
 
 
     // СКРИПТЫ ----------------------------------------
     
-    mix.scripts('clipboard.js', 'public/js/clipboard.js');
-    mix.scripts('adminlte.js', 'public/js/adminlte.js');
-    mix.scripts('mustache.js', 'public/js/mustache.js');
-    mix.scripts('jquery-ui.js', 'public/js/jquery-ui.js');
-    mix.scripts('admin.menu.js', 'public/js/menu.js');
-    mix.scripts('jquery.magnific-popup.js', 'public/js/magnific.js');
+    mix.scripts('clipboard.js', 'public/js/clipboard.min.js');
+    mix.scripts('adminlte.js', 'public/js/adminlte.min.js');
+    mix.scripts('mustache.js', 'public/js/mustache.min.js');
+    mix.scripts('jquery-ui.js', 'public/js/jquery-ui.min.js');
+    mix.scripts('admin.menu.js', 'public/js/menu.min.js');
+    mix.scripts('jquery.magnific-popup.js', 'public/js/magnific.min.js');
+    mix.scripts('jquery.rateyo.js', 'public/js/jquery.rateyo.js');
+
     mix.scripts([
         'mustache.js',
         'wow.js',
         'parallax.js',
         'frontend.index.js',
-    ], 'public/js/scripts.js');
+    ], 'public/js/scripts.min.js');
     mix.scripts([
         'frontend.products.js',
         'jquery.twbsPagination.js',
-    ], 'public/js/products.js');
+    ], 'public/js/products.min.js');
     mix.scripts([
         'select2/select2.full.js',
         'select2/i18n/en.js',
         'select2/i18n/ru.js',
         'select2/i18n/uk.js',
         // имя скомпилированого файла
-    ], 'public/js/select2.js');
+    ], 'public/js/select2.min.js');
 
     mix.scripts([
         'filestyle/plugins/canvas-to-blob.js',
@@ -81,7 +93,7 @@ elixir(function(mix) {
         'filestyle/locales/ru.js',
         'filestyle/locales/uk.js',
         // имя скомпилированого файла
-    ], 'public/js/fileinput.js');
+    ], 'public/js/fileinput.min.js');
 
     mix.scripts([
         'jqueryTable/jquery.dataTables.js',
@@ -89,24 +101,25 @@ elixir(function(mix) {
         'jqueryTable/jquery.slimscroll.js',
         'jqueryTable/fastclick.js',
         // имя скомпилированого файла
-    ], 'public/js/jqueryTable.js');
+    ], 'public/js/jqueryTable.min.js');
 
     mix.version([
-        "css/styles.css",
-        "css/admin.css",
-        "css/select2.css",
-        "js/adminlte.js",
-        "js/jqueryTable.js",
-        "js/mustache.js",
-        "js/jquery-ui.js",
-        "js/menu.js",
-        "js/scripts.js",
-        "js/select2.js",
-        "css/fileinput.css",
-        "js/fileinput.js",
-        "js/products.js",
-        "js/magnific.js",
-        "js/clipboard.js",
+        'css/styles.min.css',
+        'css/admin.min.css',
+        'css/select2.min.css',
+        'js/adminlte.min.js',
+        'js/jqueryTable.min.js',
+        'js/mustache.min.js',
+        'js/jquery-ui.min.js',
+        'js/menu.min.js',
+        'js/scripts.min.js',
+        'js/select2.min.js',
+        'css/fileinput.min.css',
+        'js/fileinput.min.js',
+        'js/products.min.js',
+        'js/magnific.min.js',
+        'js/clipboard.min.js',
+        'js/jquery.rateyo.js',
     ]);
 
     mix.browserSync({

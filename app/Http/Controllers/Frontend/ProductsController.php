@@ -17,6 +17,7 @@ use App\Office;
 use App\Orders;
 use App\OrdersProducts;
 use App\Metatags;
+use App\Rating;
 use Validator;
 
 class ProductsController extends Controller
@@ -25,7 +26,7 @@ class ProductsController extends Controller
     {
         $name = $request->get('name');
 
-        $offices = Office::select('id', 'city')->get();
+        $offices      = Office::select('id', 'city')->get();
         $ordersLocked = Orders::isLocked();
         $filterOffice = $ordersLocked ? $ordersLocked : Office::getOfficeId($request->get('city'));
 
@@ -336,6 +337,39 @@ class ProductsController extends Controller
         } else {
             session()->flash('error', trans('auth.not-auth'));
             return redirect()->back();
+        }
+    }
+
+    public function getRating(Request $request, $id) 
+    {
+        $data = Rating::getRating($id);
+
+        return response()->json([
+            'data' => $data
+        ]);
+    }
+
+    public function setRating(Request $request, $id) 
+    {
+        $rating = $request->input('data');
+
+        if (empty($rating)) {
+            return response()->json([
+                'success' => false,
+                'data' => 1
+            ]);
+        }
+
+        if (Rating::setRating($id, $rating)) {
+            return response()->json([
+                'success' => true,
+                'data' => 2
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'data' => 3
+            ]);
         }
     }
 }

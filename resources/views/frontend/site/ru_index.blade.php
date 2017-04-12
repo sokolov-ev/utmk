@@ -542,61 +542,32 @@
 </section>
 
 <section class="container">
-
     <div class="padding-top"></div>
-    <div class="wow fadeInLeft">
-        <p class="welcome-text text-center">СТАТЬИ</p>
+
+    <div class="wow fadeInUp">
+        <span class="text-gray-16">ЮТМК – предприятие промышленного типа с собственным производством и обширным ассортиментом. Южная трубная металлургическая компания (ЮТМК) занимается изготовлением и продажей металлопроката в розницу и оптом с 2013 года. В ассортименте компании представлен различный прокат металла:</span>
     </div>
-    <div class="padding-top"></div>
 
-    <div class="row articles-block">
-        <div class="col-md-6 col-sm-6">
-            <div class="wow fadeInUp">
-                <p class="text-black-h2 font-up">Развитие</p>
-            </div>
-
-            <div class="wow fadeInUp">
-                <a href="{{ route('razvitie') }}" class="text-green-20 font-up" title="Наша политика">
-                    Наша политика – это глубокие изменения в обществе, бизнесе, фондах
-                </a>
-            </div>
-
-            <div class="wow fadeInUp">
-                <span class="text-gray-16">Устойчивое развитие – это то, к чему стоит стремиться всем современным компаниям. Этот фактор говорит не только о высоком социальном уровне, а и о наличие положительных изменений.</span>
-            </div>
-
-            <div class="wow fadeInUp">
-                <a href="{{ route('razvitie') }}" class="btn btn-success send-button font-up">
-                    Читать далее <span> >> </span>
-                </a>
+    <div class="wow slideInRight">
+        <div class="padding-block-2-2">
+            <div class="metall-list orange-list">
+                <ul class="list-unstyled">
+                    <li><span class="text-gray-16">сортовой металлопрокат – швеллеры, двутавры, уголки, арматура, круги, полосы, катанки и другое;</span></li>
+                    <li><span class="text-gray-16">трубный металлопрокат – бесшовные, котельные, электросварные, профильные трубы различного вида и назначения;</span></li>
+                    <li><span class="text-gray-16">листовой металлопрокат – стальные листы горячекатаного и холоднокатаного типа;</span></li>
+                    <li><span class="text-gray-16">европейская сталь – осуществляются поставки износостойкой стали из Швеции (сталь Hardox, Swebor);</span></li>
+                    <li><span class="text-gray-16">гнутый профиль – швеллеры, уголки, Z-образный профиль.</span></li>
+                </ul>
             </div>
         </div>
-        <div class="col-md-6 col-sm-6">
-            <div class="wow fadeInUp">
-                <p class="text-black-h2 font-up">Наша политика</p>
-            </div>
+    </div>
 
-            <div class="wow fadeInUp">
-                <a href="{{ route('nasha-politika') }}" class="text-green-20 font-up" title="Надежный партнер в сфере металла">
-                    Надежный партнер в сфере металла.
-                </a>
-            </div>
-
-            <div class="wow fadeInUp">
-                <span class="text-gray-16">Наша компания занимается изготовлением металлоконструкций не один год, открывая широкие возможности доставки, порезки, транспортировки. Выгодно купить металла с доставкой можно на официальном сайте, затратив при этом минимум времени.</span>
-            </div>
-
-            <div class="wow fadeInUp">
-                <a href="{{ route('nasha-politika') }}" class="btn btn-success send-button font-up">
-                    Читать далее <span> >> </span>
-                </a>
-            </div>
-        </div>
+    <div class="wow fadeInUp">
+        <span class="text-gray-16">Каталог металлопроката компании также содержит профильный металлопрокат. ЮТМК имеет базы металлопроката в Полтаве, Днепропетровске и Киеве. Компания реализует черный металлопрокат в Украине и за рубежом (Молдавия, Казахстан, Белоруссия, Польша, Турция). Для того чтобы узнать цены на металл, необходимо скачать прайс-лист на металлопрокат, открыв вкладку «Прайс» на сайте. На стоимость черного металла действуют скидки постоянным клиентам и при больших заказах, осуществляется индивидуальный подход к каждому клиенту. В ЮМТК можно не только купить металл в Киеве, но и приобрести модульные сооружения для временного проживания и металлоконструкции для изготовления каркасных зданий. Металлобазы в Днепропетровске, Полтаве и Киеве осуществляют порезку и доставку металла по всем регионам страны. Для того чтобы приобрести металлопрокат в Киеве и по всей Украине, звоните по указанному номеру, и менеджеры компании предоставят всю необходимую помощь. ЮМТК в течение длительного времени следит за репутацией и делает все, чтобы развивать долгосрочные отношения.</span>
     </div>
 
     <div class="padding-top"></div>
 </section>
-
 
 <section class="gray-section">
     <div class="container">
@@ -650,7 +621,7 @@
 
 @section('scripts')
 
-    <script src="{{ elixir('js/magnific.js') }}"></script>
+    <script src="{{ elixir('js/magnific.min.js') }}"></script>
 
     <script type="text/javascript">
         $(".home").addClass('active');

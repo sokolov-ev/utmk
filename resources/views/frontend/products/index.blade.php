@@ -33,6 +33,16 @@
     <meta property="og:description" content="{{ $metatags['description'] }}" />
     <meta property="og:site_name" content="Metall Vsem" />
 
+    @if(!empty($jsonLD))
+    <script type="application/ld+json"> 
+        {!! json_encode($jsonLD) !!}
+    </script>
+    @endif
+
+    @if(!empty($page) && $page > 1)
+        <?php $url = array_pop($breadcrumbs); ?>
+        <link rel="canonical" href="{{ url($locale.$url['slug']) }}"/>
+    @endif
 @endsection
 
 @section('css')
@@ -99,6 +109,23 @@
             </div>
             <div class="col-md-9 col-sm-12 col-xs-12">
                 <h1 class="h1-tag">{{ $metatags['h1'] }}</h1>
+                
+                @if(!empty($breadcrumbs))
+                    <ul class="breadcrumb">
+                        <li>
+                            <a class="orange-list-a" href="{{ route('products-index') }}" title="{{ trans('index.menu.products') }}">
+                                {{ trans('index.menu.products') }}
+                            </a>
+                        </li>
+                        @foreach($breadcrumbs as $item)
+                            <li>
+                                <a class="orange-list-a" href="{{ url($locale.$item['slug']) }}" title="{{ $item['name'] }}">
+                                    {{ $item['name'] }}
+                                </a>
+                            </li>
+                        @endforeach
+                    </ul>
+                @endif
             </div>
         </div>
     </div>
@@ -287,9 +314,9 @@
 
 @section('scripts')
 
-    <script src="{{ elixir('js/jquery-ui.js') }}"></script>
-    <script src="{{ elixir('js/mustache.js') }}"></script>
-    <script src="{{ elixir('js/products.js') }}"></script>
+    <script src="{{ elixir('js/jquery-ui.min.js') }}"></script>
+    <script src="{{ elixir('js/mustache.min.js') }}"></script>
+    <script src="{{ elixir('js/products.min.js') }}"></script>
 
 @endsection
 

@@ -16,7 +16,7 @@
     <!-- Styles -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 
-    <link href="{{ elixir('css/admin.css') }}" rel="stylesheet">
+    <link href="{{ elixir('css/admin.min.css') }}" rel="stylesheet">
 
     @yield('css')
 
@@ -99,7 +99,7 @@ desired effect
                                 </a>
 
                             </li>
-                            <!-- /.messages-menu -->
+                            <!-- messages-menu -->
                         @endif
 
                         <!-- User Account Menu -->
@@ -124,7 +124,7 @@ desired effect
                                 </li>
                             </ul>
                         </li>
-                        <!-- /User Account Menu -->
+                        <!-- User Account Menu -->
                     </ul>
                 </div>
             </nav>
@@ -173,6 +173,12 @@ desired effect
                             </ul>
                         </li>
                         <li>
+                            <a href="{{ url('/administration/spravka') }}">
+                                <i class="fa fa-newspaper-o" aria-hidden="true"></i>
+                                <span>Справочник</span>
+                            </a>
+                        </li>
+                        <li>
                             <a href="{{ url('/administration/metatags') }}">
                                 <i class="fa fa-tags" aria-hidden="true"></i>
                                 <span>Метатеги</span>
@@ -181,7 +187,7 @@ desired effect
                         <li>
                             <a href="{{ url('/administration/price') }}">
                                 <i class="fa fa-table" aria-hidden="true"></i>
-                                <span>Прайсы</span>
+                                <span>Файлы</span>
                             </a>
                         </li>
                         <li>
@@ -256,7 +262,7 @@ desired effect
                         <li>
                             <a href="{{ url('/administration/price') }}">
                                 <i class="fa fa-table" aria-hidden="true"></i>
-                                <span>Прайсы</span>
+                                <span>Файлы</span>
                             </a>
                         </li>
                         <li>
@@ -279,9 +285,9 @@ desired effect
                         </li>
                     @endif
                 </ul>
-                <!-- /.sidebar-menu -->
+                <!-- sidebar-menu -->
             </section>
-            <!-- /.sidebar -->
+            <!-- sidebar -->
         </aside>
 
         <!-- Content Wrapper. Contains page content -->
@@ -292,7 +298,7 @@ desired effect
             @yield('content')
 
         </div>
-        <!-- /.content-wrapper -->
+        <!-- content-wrapper -->
 
         <!-- Main Footer -->
         <footer class="main-footer">
@@ -316,7 +322,7 @@ desired effect
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
     <!-- AdminLTE App -->
-    <script src="{{ elixir('js/adminlte.js') }}"></script>
+    <script src="{{ elixir('js/adminlte.min.js') }}"></script>
 
     @yield('scripts')
 

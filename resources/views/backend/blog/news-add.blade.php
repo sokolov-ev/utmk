@@ -5,7 +5,7 @@
 @endsection
 
 @section('css')
-    <link href="{{ elixir('css/fileinput.css') }}" rel="stylesheet">
+    <link href="{{ elixir('css/fileinput.min.css') }}" rel="stylesheet">
 @endsection
 
 @section('content')
@@ -98,7 +98,7 @@
 
 @section('scripts')
 
-    <script src="{{ elixir('js/fileinput.js') }}"></script>
+    <script src="{{ elixir('js/fileinput.min.js') }}"></script>
     <script src="{{ asset('tinymce/tinymce.min.js') }}"></script>
 
     <script>

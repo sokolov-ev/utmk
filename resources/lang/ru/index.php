@@ -48,6 +48,7 @@ return [
         'network_of_offices' => 'Сеть офисов',
         'network_of_offices_h1' => 'Сеть офисов по продаже металлопроката в Украине',
         'contact_us' => 'Связаться',
+        'reference_book' => 'Справочник',
     ],
     'footer' => [
         'company' => 'Компания',

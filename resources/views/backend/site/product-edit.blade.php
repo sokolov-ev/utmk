@@ -5,7 +5,7 @@
 @endsection
 
 @section('css')
-    <link href="{{ elixir('css/fileinput.css') }}" rel="stylesheet">
+    <link href="{{ elixir('css/fileinput.min.css') }}" rel="stylesheet">
 @endsection
 
 @section('content')
@@ -443,12 +443,21 @@
 
                 <div class="row">
                     <div class="col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-12">
-                        <div class="checkbox pull-left">
-                            <label>
-                                <input type="checkbox" id="show_my" name="show_my" {{ $product['show_my'] ? 'checked=""' : '' }} style="margin: 0 -20px;">
-                                Показывать
-                            </label>
+                        <div class="pull-left">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" id="in_stock" name="in_stock" {{ $product['in_stock'] ? 'checked=""' : '' }} style="margin: 0 -20px;">
+                                    В наличии
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" id="show_my" name="show_my" {{ $product['show_my'] ? 'checked=""' : '' }} style="margin: 0 -20px;">
+                                    Показывать
+                                </label>
+                            </div>    
                         </div>
+
                         <button class="btn btn-warning pull-right" type="submit" from="form-edit-product" onclick="saveDescription();">
                             Сохранить изменения
                         </button>
@@ -464,8 +473,8 @@
 
 @section('scripts')
 
-    <script src="{{ elixir('js/fileinput.js') }}"></script>
-    <script src="{{ elixir('js/jquery-ui.js') }}"></script>
+    <script src="{{ elixir('js/fileinput.min.js') }}"></script>
+    <script src="{{ elixir('js/jquery-ui.min.js') }}"></script>
 
     <script>
         $.ajaxSetup({

@@ -12,6 +12,7 @@ use App\Metatags;
 use App\Products;
 use App\Articles;
 use App\Office;
+use App\ReferenceSection;
 
 class MetatagsContraller extends Controller
 {
@@ -25,6 +26,7 @@ class MetatagsContraller extends Controller
         $products = Products::select('slug', 'title AS name')->where('show_my', 1)->orderBy('title', 'ASC')->get();
         $articles = Articles::select('slug', 'name')->orderBy('name', 'ASC')->get();
         $offices  = Office::select('id', 'title AS name')->orderBy('name', 'ASC')->get();
+        $referenceSection = ReferenceSection::select('slug', 'title AS name')->get();
 
         return view('backend.site.metatags', [
             'metatags' => $metatags,
@@ -33,6 +35,7 @@ class MetatagsContraller extends Controller
             'products' => $products->toArray(),
             'articles' => $articles->toArray(),
             'offices'  => $offices->toArray(),
+            'referenceSection' => $referenceSection->toArray(),
         ]);
     }
 

@@ -7,6 +7,7 @@ use App\Office;
 use App\Menu;
 use App\Products;
 use App\Metatags;
+use App\ReferenceSection;
 use Illuminate\Console\Command;
 use Illuminate\Foundation\Inspiring;
 
@@ -46,6 +47,8 @@ class SiteMap extends Command
         $offices  = Office::getOfficesContacts();
         $metatagsMenu = Metatags::where('type', 'menu')->orderBy('slug', 'ASC')->get();
         $metatagsBlog = Metatags::where('type', 'blog')->orderBy('slug', 'ASC')->get();
+        $metatagsReference = Metatags::where([['type', 'reference'], ['slug', '!=', 'index']])->orderBy('slug', 'ASC')->get();
+        $referenceIndex = Metatags::where([['type', 'reference'], ['slug', 'index']])->first();
         $products = Products::where([['show_my', '1']])->orderBy('rating', 'DESC')->get();
 
         foreach ($articles->toArray() as $article) {
@@ -96,11 +99,41 @@ class SiteMap extends Command
         foreach ($metatagsBlog as $news) {
             $title = json_decode($news->title, true);
 
-            if (!empty($title['ru']) || !empty($title['ru']) || !empty($title['ru'])) {
+            if (!empty($title['ru'])) {
                 $url  = '';
 
                 $url .= '<url><loc>'.url('/').'/'.$news->slug.'</loc>';
                 $url .= '<lastmod>'.date(DATE_W3C, $news->updated_at->getTimestamp()).'</lastmod>';
+                $url .= '<changefreq>weekly</changefreq><priority>0.9</priority></url>';
+
+                $sitemap .= $url;
+            }
+        }
+
+        $title = json_decode($referenceIndex->title, true);
+        if (!empty($title['ru']) || !empty($title['uk']) || !empty($title['en'])) {
+            $url  = '';
+
+            $url .= '<url><loc>'.route('spravka').'</loc>';
+            $url .= empty($title['en']) ? '' : '<xhtml:link rel="alternate" hreflang="en" href="'.url('/').'/en'.$link.'" />';
+            $url .= empty($title['uk']) ? '' : '<xhtml:link rel="alternate" hreflang="uk" href="'.url('/').'/uk'.$link.'" />';
+            $url .= '<lastmod>'.date(DATE_W3C, $referenceIndex->updated_at->getTimestamp()).'</lastmod>';
+            $url .= '<changefreq>weekly</changefreq><priority>0.9</priority></url>';
+
+            $sitemap .= $url;
+        }
+
+        foreach ($metatagsReference as $metatag) {
+            $title = json_decode($metatag->title, true);
+
+            if (!empty($title['ru']) || !empty($title['uk']) || !empty($title['en'])) {
+                $url  = '';
+                $link = $metatag->reference->slug_full_path;
+
+                $url .= '<url><loc>'.url('/').$link.'</loc>';
+                $url .= empty($title['en']) ? '' : '<xhtml:link rel="alternate" hreflang="en" href="'.url('/').'/en'.$link.'" />';
+                $url .= empty($title['uk']) ? '' : '<xhtml:link rel="alternate" hreflang="uk" href="'.url('/').'/uk'.$link.'" />';
+                $url .= '<lastmod>'.date(DATE_W3C, $metatag->updated_at->getTimestamp()).'</lastmod>';
                 $url .= '<changefreq>weekly</changefreq><priority>0.9</priority></url>';
 
                 $sitemap .= $url;

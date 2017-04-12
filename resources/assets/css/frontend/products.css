@@ -360,3 +360,15 @@
   font-weight: 400;
   text-decoration: underline;
 }
+
+.not-available {
+  padding: 10px;
+  background-color: #eee;
+  text-align: center;
+  font-size: 16px;
+}
+
+.jq-ry-container {
+  padding: 0 !important;
+  display: inline-block !important;
+}

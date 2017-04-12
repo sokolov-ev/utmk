@@ -74,6 +74,13 @@ Route::group(['middleware' => ['adminAuth']], function () {
 
     Route::group(['middleware' => 'adminPermision:Admin,SEO'], function() {
 
+        Route::get('/administration/spravka/sections', 'Backend\ReferenceController@allSections');
+        Route::get('/administration/spravka/index/edit', 'Backend\ReferenceController@indexEditForm');
+        Route::put('/administration/spravka/index/edit', 'Backend\ReferenceController@indexEdit');
+        Route::post('/administration/spravka/section/sort', 'Backend\ReferenceController@sortSection');
+        Route::post('/administration/spravka/section', 'Backend\ReferenceController@setSection');
+        Route::get('/administration/spravka/{slug?}', 'Backend\ReferenceController@index');
+
     // CRUD Блог
         Route::get('/administration/blog', 'Backend\BlogController@index');
         Route::get('/administration/blog/preview/{slug}', 'Backend\BlogController@preview');
@@ -84,7 +91,6 @@ Route::group(['middleware' => ['adminAuth']], function () {
         Route::put('/administration/blog/edit/{id}', 'Backend\BlogController@edit');
         Route::delete('/administration/blog', 'Backend\BlogController@delete');
         Route::get('/administration/blog/delete-image/{id}', 'Backend\BlogController@deleteImg');
-
 
         Route::get('/administration/images', 'Backend\ImagesController@index');
         Route::post('/administration/images/add', 'Backend\ImagesController@add');
@@ -98,6 +104,10 @@ Route::group(['middleware' => ['adminAuth']], function () {
         Route::post('/administration/price', 'Backend\PriceController@add');
         Route::get('/administration/price/load/{id}', 'Backend\PriceController@download');
         Route::get('/administration/price/delete/{id}', 'Backend\PriceController@delete');
+
+        Route::post('/administration/documents', 'Backend\DocumentsController@add');
+        Route::get('/administration/documents/load/{id}', 'Backend\DocumentsController@download');
+        Route::get('/administration/documents/delete/{id}', 'Backend\DocumentsController@delete');
 
     // CRUD меню продукции сайта
         Route::get('/administration/menu', function(){
@@ -139,7 +149,6 @@ Route::group(['middleware' => ['adminAuth']], function () {
 
 
 // ФРОНТЕНД
-
 Route::group(['middleware' => ['web', 'redirect-www', 'language-get']], function () {
 
     Route::group(['middleware' => ['language-get']], function () {
@@ -170,6 +179,9 @@ Route::group(['middleware' => ['web', 'redirect-www', 'language-get']], function
     // Authentication Routes...
         Route::post('/login', 'Auth\AuthController@login');
         Route::get('/logout', ['as' => 'logout', 'uses' => 'Auth\AuthController@logout']);
+
+        Route::get('/products/rating/{id}', 'Frontend\ProductsController@getRating');
+        Route::post('/products/rating/{id}', 'Frontend\ProductsController@setRating');
     });
 
 
@@ -222,6 +234,11 @@ Route::group(['middleware' => ['web', 'redirect-www', 'language-get']], function
 
         Route::get('/blog', ['as' => 'blog', 'uses' => 'Frontend\BlogController@index']);
         Route::get('/blog/{slug}', 'Frontend\BlogController@view');
+
+        Route::get('/spravka', ['as' => 'spravka', 'uses' => 'Frontend\ReferenceController@index']);
+        Route::get('/spravka/get-sections', 'Frontend\ReferenceController@referenceSection');
+        Route::get('/spravka/{slug}', 'Frontend\ReferenceController@view')->where('slug', '.+?');
+
         Route::get('/products', ['as' => 'products-index', 'uses' => 'Frontend\ProductsController@index']);
 
         // Registration Routes...
@@ -286,6 +303,10 @@ Route::group(['middleware' => ['web', 'redirect-www', 'language-get']], function
 
                 Route::get('/blog', ['as' => 'blog', 'uses' => 'Frontend\BlogController@index']);
                 Route::get('/blog/{slug}', 'Frontend\BlogController@view');
+                Route::get('/spravka', ['as' => 'spravka', 'uses' => 'Frontend\ReferenceController@index']);
+                Route::get('/spravka/get-sections', 'Frontend\ReferenceController@referenceSection');
+                Route::get('/spravka/{slug}', 'Frontend\ReferenceController@view')->where('slug', '.+?');
+                
                 Route::get('/products', ['as' => 'products-index', 'uses' => 'Frontend\ProductsController@index']);
 
                 // Registration Routes...
@@ -302,27 +323,4 @@ Route::group(['middleware' => ['web', 'redirect-www', 'language-get']], function
         Route::get('{slug}', 'Frontend\RouteController@index')->where('slug', '.+?');
 
     });
-
-    // Route::get('/metallokonstruktsii', ['as' => 'metallokonstruktsii', 'uses' => 'Frontend\IndexController@metallokonstruktsii']);
-    // Route::get('/modulnye-soorujeniya', ['as' => 'modulnye-soorujeniya', 'uses' => 'Frontend\IndexController@modulnyeSoorujeniya']);
-    // Route::get('/otsinkovannye-rulony', ['as' => 'otsinkovannye-rulony', 'uses' => 'Frontend\IndexController@otsinkovannyeRulony']);
-    // Route::get('/metall-iz-evropy', ['as' => 'metall-iz-evropy', 'uses' => 'Frontend\IndexController@metallIzEvropy']);
-    // Route::get('/armatura', ['as' => 'armatura', 'uses' => 'Frontend\IndexController@armatura']);
-    // Route::get('/balka-dvutavr', ['as' => 'balka-dvutavr', 'uses' => 'Frontend\IndexController@balkaDvutavr']);
-    // Route::get('/katanka', ['as' => 'katanka', 'uses' => 'Frontend\IndexController@katanka']);
-    // Route::get('/kvadrat', ['as' => 'kvadrat', 'uses' => 'Frontend\IndexController@kvadrat']);
-    // Route::get('/krug', ['as' => 'krug', 'uses' => 'Frontend\IndexController@krug']);
-    // Route::get('/polosa', ['as' => 'polosa', 'uses' => 'Frontend\IndexController@polosa']);
-    // Route::get('/rels', ['as' => 'rels', 'uses' => 'Frontend\IndexController@rels']);
-    // Route::get('/ugolok', ['as' => 'ugolok', 'uses' => 'Frontend\IndexController@ugolok']);
-    // Route::get('/shveller', ['as' => 'shveller', 'uses' => 'Frontend\IndexController@shveller']);
-    // Route::get('/shestigrannik', ['as' => 'shestigrannik', 'uses' => 'Frontend\IndexController@shestigrannik']);
-    // Route::get('/staltrub', ['as' => 'staltrub', 'uses' => 'Frontend\IndexController@staltrub']);
-    // Route::get('/truby-kotelnye', ['as' => 'truby-kotelnye', 'uses' => 'Frontend\IndexController@trubyKotelnye']);
-    // Route::get('/pokovka', ['as' => 'pokovka', 'uses' => 'Frontend\IndexController@pokovka']);
-    // Route::get('/list-hardox', ['as' => 'list-hardox', 'uses' => 'Frontend\IndexController@listHardox']);
-    // Route::get('/list-stalnoj', ['as' => 'list-stalnoj', 'uses' => 'Frontend\IndexController@listStalnoj']);
-    // Route::get('/shveller-gnutyj', ['as' => 'shveller-gnutyj', 'uses' => 'Frontend\IndexController@shvellerGnutyj']);
-    // Route::get('/ugolok-gnutyj', ['as' => 'ugolok-gnutyj', 'uses' => 'Frontend\IndexController@ugolokGnutyj']);
-    // Route::get('/z-obraznyj-profil', ['as' => 'z-obraznyj-profil', 'uses' => 'Frontend\IndexController@obraznyjProfil']);
 });

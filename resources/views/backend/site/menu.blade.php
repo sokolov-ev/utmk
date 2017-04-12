@@ -168,8 +168,8 @@
 
 @section('scripts')
 
-    <script src="{{ elixir('js/mustache.js') }}"></script>
-    <script src="{{ elixir('js/jquery-ui.js') }}"></script>
-    <script src="{{ elixir('js/menu.js') }}"></script>
+    <script src="{{ elixir('js/mustache.min.js') }}"></script>
+    <script src="{{ elixir('js/jquery-ui.min.js') }}"></script>
+    <script src="{{ elixir('js/menu.min.js') }}"></script>
 
 @endsection

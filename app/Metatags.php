@@ -38,6 +38,11 @@ class Metatags extends Model
         return $this->hasOne('App\Menu', 'slug', 'slug');
     }
 
+    public function reference()
+    {
+        return $this->hasOne('App\ReferenceSection', 'slug', 'slug');
+    }
+
     public static function getEditData($metatags, $type, $slug)
     {
         $result = [];

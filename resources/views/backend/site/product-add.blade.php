@@ -5,8 +5,8 @@
 @endsection
 
 @section('css')
-    <link href="{{ elixir('css/fileinput.css') }}" rel="stylesheet">
-    <link href="{{ elixir('css/select2.css') }}" rel="stylesheet">
+    <link href="{{ elixir('css/fileinput.min.css') }}" rel="stylesheet">
+    <link href="{{ elixir('css/select2.min.css') }}" rel="stylesheet">
 @endsection
 
 @section('content')
@@ -380,12 +380,21 @@
 
                 <div class="row">
                     <div class="col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-12">
-                        <div class="checkbox pull-left">
-                            <label>
-                                <input type="checkbox" name="show_my" checked="" style="margin: 0 -20px;">
-                                Показывать
-                            </label>
+                        <div class="pull-left">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="in_stock" checked="" style="margin: 0 -20px;">
+                                    В наличии
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="show_my" checked="" style="margin: 0 -20px;">
+                                    Показывать
+                                </label>
+                            </div>    
                         </div>
+                        
                         <button class="btn btn-success pull-right" type="submit" onclick="saveDescription();">
                             Добавить
                         </button>
@@ -401,8 +410,8 @@
 
 @section('scripts')
 
-    <script src="{{ elixir('js/fileinput.js') }}"></script>
-    <script src="{{ elixir('js/select2.js') }}"></script>
+    <script src="{{ elixir('js/fileinput.min.js') }}"></script>
+    <script src="{{ elixir('js/select2.min.js') }}"></script>
 
     <script>
         $("#images").fileinput({

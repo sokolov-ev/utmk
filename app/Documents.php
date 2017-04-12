@@ -4,16 +4,16 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class FilePrice extends Model
+class Documents extends Model
 {
-    protected $table = 'file_price';
+    protected $table = 'documents';
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $fillable = ['name', 'slug'];
+    protected $fillable = ['name', 'slug', 'type'];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -29,9 +29,9 @@ class FilePrice extends Model
     {
         parent::boot();
 
-        static::deleting(function($filePrice){
-            if (!empty($filePrice->name) && (file_exists('./price/'.$filePrice->name))) {
-                unlink('./price/'.$filePrice->name);
+        static::deleting(function($document){
+            if (!empty($document->slug) && file_exists('./documents/'.$document->slug)) {
+                @unlink('./documents/'.$document->slug);
             }
         });
     }

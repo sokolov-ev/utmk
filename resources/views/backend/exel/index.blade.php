@@ -78,7 +78,7 @@
 @endsection
 
 @section('scripts')
-    <script src="{{ elixir('js/fileinput.js') }}"></script>
+    <script src="{{ elixir('js/fileinput.min.js') }}"></script>
     <script>
         $("#file").fileinput({
             language: 'ru',

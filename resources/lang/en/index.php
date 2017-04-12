@@ -48,6 +48,7 @@ return [
         'network_of_offices' => 'Network Of Offices',
         'network_of_offices_h1' => 'A network of offices selling rolled metal products in Ukraine',
         'contact_us' => 'Contact Us',
+        'reference_book' => 'Reference book',
     ],
 
     'footer' => [

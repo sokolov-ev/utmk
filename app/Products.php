@@ -36,6 +36,7 @@ class Products extends Model
         'coating',
         'view',
         'brinell_hardness',
+        'in_stock'
     ];
 
     /**
@@ -129,21 +130,22 @@ class Products extends Model
         $titleName = array_filter($title);
         $array['title_name'] = empty($titleName[App::getLocale()]) ? current($titleName) : $titleName[App::getLocale()];
 
-        $array['rating'] = $product->rating;
-        $array['show_my'] = $product->show_my;
+        $array['rating']      = $product->rating;
+        $array['show_my']     = $product->show_my;
 
+        $array['in_stock']    = $product->in_stock;
         $array['steel_grade'] = $product->steel_grade;
-        $array['sawing'] = $product->sawing;
-        $array['standard'] = $product->standard;
-        $array['diameter'] = $product->diameter;
-        $array['height'] = $product->height;
-        $array['width'] = $product->width;
-        $array['thickness'] = $product->thickness;
-        $array['section'] = $product->section;
-        $array['coating'] = $product->coating;
-        $array['view'] = $product->view;
+        $array['sawing']      = $product->sawing;
+        $array['standard']    = $product->standard;
+        $array['diameter']    = $product->diameter;
+        $array['height']      = $product->height;
+        $array['width']       = $product->width;
+        $array['thickness']   = $product->thickness;
+        $array['section']     = $product->section;
+        $array['coating']     = $product->coating;
+        $array['view']        = $product->view;
         $array['brinell_hardness'] = $product->brinell_hardness;
-
+        
         return $array;
     }
 
@@ -172,16 +174,17 @@ class Products extends Model
         $product->rating  = $data['rating'];
         $product->show_my = ($data['show_my'] == 'on') ? 1 : 0;
 
+        $product->in_stock    = $data['in_stock'];
         $product->steel_grade = $data['steel_grade'];
-        $product->sawing = $data['sawing'];
-        $product->standard = $data['standard'];
-        $product->diameter = $data['diameter'];
-        $product->height = $data['height'];
-        $product->width = $data['width'];
-        $product->thickness = $data['thickness'];
-        $product->section = $data['section'];
-        $product->coating = $data['coating'];
-        $product->view = $data['view'];
+        $product->sawing      = $data['sawing'];
+        $product->standard    = $data['standard'];
+        $product->diameter    = $data['diameter'];
+        $product->height      = $data['height'];
+        $product->width       = $data['width'];
+        $product->thickness   = $data['thickness'];
+        $product->section     = $data['section'];
+        $product->coating     = $data['coating'];
+        $product->view        = $data['view'];
         $product->brinell_hardness = $data['brinell_hardness'];
 
         if ($product->save()) {
@@ -266,18 +269,19 @@ class Products extends Model
 
             $temp['quantity'] = $product['quantity'];
             $temp['price_id'] = $product['price_id'];
-            $temp['bonds'] = $product['bonds'];
+            $temp['bonds']    = $product['bonds'];
 
+            $temp['in_stock']    = $product['in_stock'];
             $temp['steel_grade'] = $product['steel_grade'];
-            $temp['sawing'] = $product['sawing'];
-            $temp['standard'] = $product['standard'];
-            $temp['diameter'] = $product['diameter'];
-            $temp['height'] = $product['height'];
-            $temp['width'] = $product['width'];
-            $temp['thickness'] = $product['thickness'];
-            $temp['section'] = $product['section'];
-            $temp['coating'] = $product['coating'];
-            $temp['view'] = $product['view'];
+            $temp['sawing']      = $product['sawing'];
+            $temp['standard']    = $product['standard'];
+            $temp['diameter']    = $product['diameter'];
+            $temp['height']      = $product['height'];
+            $temp['width']       = $product['width'];
+            $temp['thickness']   = $product['thickness'];
+            $temp['section']     = $product['section'];
+            $temp['coating']     = $product['coating'];
+            $temp['view']        = $product['view'];
             $temp['brinell_hardness'] = $product['brinell_hardness'];
 
             $result[] = $temp;
@@ -307,24 +311,25 @@ class Products extends Model
 
         $title = json_decode($product->title, true);
         $title = array_filter($title);
-        $array['title'] = empty($title[App::getLocale()]) ? current($title) : $title[App::getLocale()];
+        $array['title']  = empty($title[App::getLocale()]) ? current($title) : $title[App::getLocale()];
 
         $array['prices'] = $product->prices->toArray();
 
         $array['quantity'] = empty($product->pivot->quantity) ? null : $product->pivot->quantity;
         $array['price_id'] = empty($product->pivot->price_id) ? null : $product->pivot->price_id;
-        $array['bonds'] = empty($product->pivot->id) ? null : $product->pivot->id;
+        $array['bonds']    = empty($product->pivot->id) ? null : $product->pivot->id;
 
+        $array['in_stock']    = $product->in_stock;
         $array['steel_grade'] = $product->steel_grade;
-        $array['sawing'] = $product->sawing;
-        $array['standard'] = $product->standard;
-        $array['diameter'] = $product->diameter;
-        $array['height'] = $product->height;
-        $array['width'] = $product->width;
-        $array['thickness'] = $product->thickness;
-        $array['section'] = $product->section;
-        $array['coating'] = $product->coating;
-        $array['view'] = $product->view;
+        $array['sawing']      = $product->sawing;
+        $array['standard']    = $product->standard;
+        $array['diameter']    = $product->diameter;
+        $array['height']      = $product->height;
+        $array['width']       = $product->width;
+        $array['thickness']   = $product->thickness;
+        $array['section']     = $product->section;
+        $array['coating']     = $product->coating;
+        $array['view']        = $product->view;
         $array['brinell_hardness'] = $product->brinell_hardness;
 
         return $array;
