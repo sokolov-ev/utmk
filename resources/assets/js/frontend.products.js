@@ -145,6 +145,7 @@ function viewProducts(response, id) {
 
     if (response.status == 'ok') {
         $('.products-cards').find('.card').remove();
+        $('.container .breadcrumb').hide();
 
         if (format == 'cards') {
             var template = $('#product-card-template').html();

@@ -186,7 +186,7 @@
                                             @if($product[$element])                                                
                                                 <span class="text-16">
                                                     <strong>{{ trans('products.'.$element) }}</strong>: {{ $product[$element] }}
-                                                </span>
+                                                </span><br>
                                             @endif    
                                         @endforeach
                                     </div>

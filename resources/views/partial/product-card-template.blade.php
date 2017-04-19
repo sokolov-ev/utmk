@@ -10,82 +10,82 @@
                 <a class="text-black-h3" href="@{{ work_link }}">@{{ title }}</a>
 
                 <div class="padding-block-1-2">
-                    @{{#product.steel_grade}}
+                    @{{#steel_grade}}
                         <span class="text-16">
-                            <strong>{{ trans('products.steel_grade') }}</strong>: @{{ product.steel_grade }}
+                            <strong>{{ trans('products.steel_grade') }}</strong>: @{{ steel_grade }}
                         </span>
                         <br/>
-                    @{{/product.steel_grade}}
+                    @{{/steel_grade}}
 
-                    @{{#product.standard}}
+                    @{{#standard}}
                         <span class="text-16">
-                            <strong>{{ trans('products.standard') }}</strong>: @{{ product.standard }}
+                            <strong>{{ trans('products.standard') }}</strong>: @{{ standard }}
                         </span>
                         <br/>
-                    @{{/product.standard}}
+                    @{{/standard}}
 
-                    @{{#product.sawing}}
+                    @{{#sawing}}
                         <span class="text-16">
-                            <strong>{{ trans('products.sawing') }}</strong>: @{{ product.sawing }}
+                            <strong>{{ trans('products.sawing') }}</strong>: @{{ sawing }}
                         </span>
                         <br/>
-                    @{{/product.sawing}}
+                    @{{/sawing}}
 
-                    @{{#product.diameter}}
+                    @{{#diameter}}
                         <span class="text-16">
-                            <strong>{{ trans('products.diameter') }}</strong>: @{{ product.diameter }}
+                            <strong>{{ trans('products.diameter') }}</strong>: @{{ diameter }}
                         </span>
                         <br/>
-                    @{{/product.diameter}}
+                    @{{/diameter}}
 
-                    @{{#product.height}}
+                    @{{#height}}
                         <span class="text-16">
-                            <strong>{{ trans('products.height') }}</strong>: @{{ product.height }}
+                            <strong>{{ trans('products.height') }}</strong>: @{{ height }}
                         </span>
                         <br/>
-                    @{{/product.height}}
+                    @{{/height}}
 
-                    @{{#product.width}}
+                    @{{#width}}
                         <span class="text-16">
-                            <strong>{{ trans('products.width') }}</strong>: @{{ product.width }}
+                            <strong>{{ trans('products.width') }}</strong>: @{{ width }}
                         </span>
                         <br/>
-                    @{{/product.width}}
+                    @{{/width}}
 
-                    @{{#product.thickness}}
+                    @{{#thickness}}
                         <span class="text-16">
-                            <strong>{{ trans('products.thickness') }}</strong>: @{{ product.thickness }}
+                            <strong>{{ trans('products.thickness') }}</strong>: @{{ thickness }}
                         </span>
                         <br/>
-                    @{{/product.thickness}}
+                    @{{/thickness}}
 
-                    @{{#product.section}}
+                    @{{#section}}
                         <span class="text-16">
-                            <strong>{{ trans('products.section') }}</strong>: @{{ product.section }}
+                            <strong>{{ trans('products.section') }}</strong>: @{{ section }}
                         </span>
                         <br/>
-                    @{{/product.section}}
+                    @{{/section}}
 
-                    @{{#product.coating}}
+                    @{{#coating}}
                         <span class="text-16">
-                            <strong>{{ trans('products.coating') }}</strong>: @{{ product.coating }}
+                            <strong>{{ trans('products.coating') }}</strong>: @{{ coating }}
                         </span>
                         <br/>
-                    @{{/product.coating}}
+                    @{{/coating}}
 
-                    @{{#product.view}}
+                    @{{#view}}
                         <span class="text-16">
-                            <strong>{{ trans('products.view') }}</strong>: @{{ product.view }}
+                            <strong>{{ trans('products.view') }}</strong>: @{{ view }}
                         </span>
                         <br/>
-                    @{{/product.view}}
+                    @{{/view}}
 
-                    @{{#product.brinell_hardness}}
+                    @{{#brinell_hardness}}
                         <span class="text-16">
-                            <strong>{{ trans('products.brinell_hardness') }}</strong>: @{{ product.brinell_hardness }}
+                            <strong>{{ trans('products.brinell_hardness') }}</strong>: @{{ brinell_hardness }}
                         </span>
                         <br/>
-                    @{{/product.brinell_hardness}}
+                    @{{/brinell_hardness}}
                 </div>
             </div>
 
