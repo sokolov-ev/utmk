@@ -110,8 +110,8 @@
                 <div class="padding-block-0-1">
                     <div id="rateYo"></div> 
                     <span class="text-16" style="display: inline-block; vertical-align: text-bottom;">
-                        <span class="appraisal">0</span>
-                        ({{ trans('products.vote') }}: <span class="appraisal-count">0</span>)
+                        <span class="appraisal">{{ $rating['appraisal'] }}</span>
+                        ({{ trans('products.vote') }}: <span class="appraisal-count">{{ $rating['count'] }}</span>)
                     </span>
                 </div>
             </div>
@@ -125,56 +125,54 @@
                     </div>
                 @endif    
             @endforeach
-            
+
+            <div class="wow slideInRight">
+                <span class="text-16">
+                    <strong>{{ trans('products.in_stock') }}</strong>: {{ $product['in_stock'] ? trans('index.yes') : trans('index.no') }}
+                </span>
+            </div>
+
             <div class="padding-block-1-2" style="font-size: 16px;">
                 <strong>{{ trans('offices.office') }}</strong>:
                 <a class="orange-list-a" href="{{ url('/office/'.$product['office_city'].'/'.$product['office_id']) }}" title="{{ $product['office_title'] }}">
                     {{ $product['office_title'] }}
                 </a>
             </div>
-
-            @if(!$product['in_stock'])
-                <div class="not-available">
-                    <strong>{{ trans('products.not_available') }}</strong>
+           
+            <?php $flag = true; ?>
+            @foreach($product['prices'] as $price)
+                <div class="margin-bottom-5">
+                    @if ($price['type'] == 'agreed')
+                        <div class="shopping-cart-block">
+                            <div class="card-price-block">
+                                <div class="card-price" style="border-radius: 4px;">
+                                    {{ trans('products.measures.'.$price['type']) }}
+                                </div>
+                            </div>
+                        </div>
+                        <?php $flag = false; ?>
+                    @else
+                        <div class="shopping-cart">
+                            <div class="card-price-block">
+                                <div class="card-price">
+                                    {{ $price['price'] }}
+                                    <span class="card-price-uah">
+                                        {{ trans('products.uah') }} / {{ trans('products.measures.'.$price['type']) }}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
                 </div>
-            @endif
+            @endforeach
 
-            @if($product['in_stock'])
-                <?php $flag = true; ?>
-                @foreach($product['prices'] as $price)
-                    <div class="margin-bottom-5">
-                        @if ($price['type'] == 'agreed')
-                            <div class="shopping-cart-block">
-                                <div class="card-price-block">
-                                    <div class="card-price" style="border-radius: 4px;">
-                                        {{ trans('products.measures.'.$price['type']) }}
-                                    </div>
-                                </div>
-                            </div>
-                            <?php $flag = false; ?>
-                        @else
-                            <div class="shopping-cart">
-                                <div class="card-price-block">
-                                    <div class="card-price">
-                                        {{ $price['price'] }}
-                                        <span class="card-price-uah">
-                                            {{ trans('products.uah') }} / {{ trans('products.measures.'.$price['type']) }}
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        @endif
-                    </div>
-                @endforeach
-
-                @if ($flag)
-                    <div class="padding-block-2-2">
-                        <button type="button" class="btn btn-success add-cart pull-right" data-id="{{ $product['id'] }}">
-                            <i class="fa fa-cart-plus" aria-hidden="true"> </i> {{ trans('products.add-cart') }}
-                        </button>
-                        <div class="clearfix"> </div>
-                    </div>
-                @endif
+            @if ($flag)
+                <div class="padding-block-2-2">
+                    <button type="button" class="btn btn-success add-cart pull-right" data-id="{{ $product['id'] }}">
+                        <i class="fa fa-cart-plus" aria-hidden="true"> </i> {{ trans('products.add-cart') }}
+                    </button>
+                    <div class="clearfix"> </div>
+                </div>
             @endif
 
         </div>

@@ -1,3 +1,4 @@
-js/
-css/
-build/
+/js
+/css
+/build
+/documents

@@ -248,6 +248,12 @@ desired effect
                             </ul>
                         </li>
                         <li>
+                            <a href="{{ url('/administration/spravka') }}">
+                                <i class="fa fa-newspaper-o" aria-hidden="true"></i>
+                                <span>Справочник</span>
+                            </a>
+                        </li>
+                        <li>
                             <a href="{{ url('/administration/offices/index') }}">
                                 <i class="fa fa-cubes"></i>
                                 <span>Филиалы</span>

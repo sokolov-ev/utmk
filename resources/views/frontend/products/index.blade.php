@@ -117,11 +117,16 @@
                                 {{ trans('index.menu.products') }}
                             </a>
                         </li>
-                        @foreach($breadcrumbs as $item)
+                        <?php $last = count($breadcrumbs); ?>
+                        @foreach($breadcrumbs as $key => $item)
                             <li>
-                                <a class="orange-list-a" href="{{ url($locale.$item['slug']) }}" title="{{ $item['name'] }}">
+                                @if($last == ($key + 1))
                                     {{ $item['name'] }}
-                                </a>
+                                @else
+                                    <a class="orange-list-a" href="{{ url($locale.$item['slug']) }}" title="{{ $item['name'] }}">
+                                        {{ $item['name'] }}
+                                    </a>
+                                @endif
                             </li>
                         @endforeach
                     </ul>

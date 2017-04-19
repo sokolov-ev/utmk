@@ -14,6 +14,7 @@ use App\Office;
 use App\Orders;
 use App\Products;
 use App\Redirects;
+use App\Rating;
 
 class RouteController extends Controller
 {
@@ -64,6 +65,7 @@ class RouteController extends Controller
 
                 $menu    = Menu::getBreadcrumbs($product['menu_id']);
                 $product = Products::toArrayProduct($product);
+                $rating  = Rating::getRating($product['id']);
 
                 $metatags = Metatags::where([['type', 'product'], ['slug', $slug]])->first();
                 $metatags = Metatags::getViewData($metatags);
@@ -117,6 +119,7 @@ class RouteController extends Controller
                     'metatags' => $metatags,
                     'locale'   => $locale,
                     'jsonLD'   => $jsonLD,
+                    'rating'   => $rating,
                 ]);
             }
         }

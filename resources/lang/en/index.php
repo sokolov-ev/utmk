@@ -85,4 +85,7 @@ return [
 
     'uploaded' => 'Uploaded',
     'updated' => 'Updated',
+
+    'yes' => 'Yes',
+    'no' => 'No',
 ];
