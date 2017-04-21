@@ -16,7 +16,7 @@ class ReferenceController extends Controller
 {
     public function index()
     {
-        $index = Reference::viewReference();
+        $index    = Reference::viewReference();
         $metatags = Metatags::where([['type', 'reference'], ['slug', 'index']])->first();
         $metatags = Metatags::getViewData($metatags);
         $sections = ReferenceSection::allView();
@@ -35,7 +35,7 @@ class ReferenceController extends Controller
         $slug = explode('/', $slug);
         $slug = array_pop($slug);
 
-        $section = ReferenceSection::getView($slug);
+        $section  = ReferenceSection::getView($slug);
         $metatags = Metatags::where([['type', 'reference'], ['slug', $slug]])->first();
         $metatags = Metatags::getViewData($metatags);
 

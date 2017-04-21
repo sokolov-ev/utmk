@@ -250,7 +250,7 @@ $('body').on('click', '.add-cart', function(event){
                 $('.shopping-cart-badge').text('');
             }
 
-            if (response.message != '') {
+            if (response.message !== '') {
                 var message = '<span class="text-gray-16">' + response.message + '</span>';
                 $('#info-modal .modal-body').html(message);
                 $('#info-modal').modal('show');

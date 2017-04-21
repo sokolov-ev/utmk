@@ -121,10 +121,10 @@ class ProductsController extends Controller
 
     public function addForm()
     {
-        $menu    = Menu::select('id', 'name AS text')->where('parent_exist', 0)->orderBy('weight', 'ASC')->get();
-        $isAdmin = Auth::guard('admin')->user()->role == Admin::ROLE_ADMIN;
+        $menu      = Menu::select('id', 'name AS text')->where('parent_exist', 0)->orderBy('weight', 'ASC')->get();
+        $isAdmin   = Auth::guard('admin')->user()->role == Admin::ROLE_ADMIN;
         $priceType = Prices::getMeasures();
-        $offices = null;
+        $offices   = null;
 
         if ($isAdmin) {
             $offices = Office::select('id', 'title AS text')->get();
@@ -133,9 +133,9 @@ class ProductsController extends Controller
         }
 
         return view('backend.site.product-add', [
-            'menu' => $menu,
-            'offices' => $offices,
-            'isAdmin' => $isAdmin,
+            'menu'      => $menu,
+            'offices'   => $offices,
+            'isAdmin'   => $isAdmin,
             'priceType' => $priceType,
         ]);
     }
@@ -157,9 +157,9 @@ class ProductsController extends Controller
 
     public function editForm($id)
     {
-        $product = Products::parseData($id);
-        $menu    = Menu::select('id', 'name AS text')->where('parent_exist', 0)->orderBy('weight', 'ASC')->get();
-        $isAdmin = Auth::guard('admin')->user()->role == Admin::ROLE_ADMIN;
+        $product   = Products::parseData($id);
+        $menu      = Menu::select('id', 'name AS text')->where('parent_exist', 0)->orderBy('weight', 'ASC')->get();
+        $isAdmin   = Auth::guard('admin')->user()->role == Admin::ROLE_ADMIN;
         $priceType = Prices::getMeasures();
         $prices    = Prices::parseData($product["id"]);
         $offices   = null;
@@ -175,12 +175,12 @@ class ProductsController extends Controller
         }
 
         return view('backend.site.product-edit', [
-            'menu' => $menu,
-            'offices' => $offices,
-            'product' => $product,
-            'isAdmin' => $isAdmin,
+            'menu'      => $menu,
+            'offices'   => $offices,
+            'product'   => $product,
+            'isAdmin'   => $isAdmin,
             'priceType' => $priceType,
-            'prices'  => $prices,
+            'prices'    => $prices,
         ]);
     }
 

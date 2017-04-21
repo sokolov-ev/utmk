@@ -13,6 +13,11 @@
             {{ csrf_field() }}
         </div>
         <div class="box-body">
+            <ol class="breadcrumb">
+                <li><a href="{{ url('administration/orders') }}">Заказы</a></li>
+                <li class="active">Заказ № {{ $order->id }}</li>
+            </ol>
+
             <dl class="dl-horizontal">
                 <dt>Заказ оформлен:</dt>
                 <dd>{{ date("Y-m-d H:i", $order->created_at->getTimestamp()) }}</dd>
@@ -49,6 +54,7 @@
                 <thead>
                     <tr role="row">
                         <th>Наименование</th>
+                        <th>Город</th>
                         <th>Мера</th>
                         <th>Цена</th>
                         <th>Количество</th>
@@ -60,6 +66,7 @@
                     @foreach ($products as $key => $product)
                         <tr id="bonds-{{ $product['bonds'] }}">
                             <td>{{ $product['title'] }}</td>
+                            <td>{{ $product['office_city_ru'] }}</td>
                             <td>
                                 @if ( ( ($order->status == 2) && ($order->manager_id == Auth::guard('admin')->user()->id) ) || $isAdmin )
                                     <div class="shopping-type-product">

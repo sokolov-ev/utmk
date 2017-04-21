@@ -13,7 +13,7 @@ use App;
 use Session;
 use App\Menu;
 use App\Products;
-use App\Office;
+// use App\Office;
 use App\Orders;
 use App\OrdersProducts;
 use App\Metatags;
@@ -26,9 +26,9 @@ class ProductsController extends Controller
     {
         $name = $request->get('name');
 
-        $offices      = Office::select('id', 'city')->get();
-        $ordersLocked = Orders::isLocked();
-        $filterOffice = $ordersLocked ? $ordersLocked : Office::getOfficeId($request->get('city'));
+        // $offices      = Office::select('id', 'city')->get();
+        // $ordersLocked = Orders::isLocked();
+        // $filterOffice = $ordersLocked ? $ordersLocked : Office::getOfficeId($request->get('city'));
 
         $format = 'list';
         if (empty($request->get('format')) || ($request->get('format') == 'cards')) {
@@ -39,13 +39,13 @@ class ProductsController extends Controller
         $offPaginate = false;
 
         // top products
-        $where = [['show_my', 1], ['office_id', $filterOffice]];
+        // $where = [['show_my', 1], ['office_id', $filterOffice]];
 
         // поиск по названию
         if (!empty($name)) {
             $products = Products::where('title', 'LIKE', '%'.$name.'%')->orderBy('rating', 'DESC')->paginate($count);
         } else {
-            $products = Products::where($where)->orderBy('rating', 'DESC')->take($count)->get();
+            $products = Products::where('show_my', 1)->orderBy('rating', 'DESC')->take($count)->get();
             $offPaginate = true;
         }
 
@@ -73,12 +73,12 @@ class ProductsController extends Controller
             'data'     => $data,
             'products' => $products,
             'result'   => $result,
-            'offices'  => $offices,
+            // 'offices'  => $offices,
             'menu_id'  => null,
             'format'   => $format,
             'metatags' => $metatags,
-            'filterCity'   => $filterOffice,
-            'ordersLocked' => $ordersLocked,
+            // 'filterCity'   => $filterOffice,
+            // 'ordersLocked' => $ordersLocked,
             'query' => $request->except('page'),
             'offPaginate' => $offPaginate,
         ]);
@@ -109,8 +109,8 @@ class ProductsController extends Controller
         $name = $request->get('name');
         $page = $request->get('page')-1;
 
-        $ordersLocked = Orders::isLocked();
-        $city = $ordersLocked ? $ordersLocked : Office::getOfficeId($request->get('city'));
+        // $ordersLocked = Orders::isLocked();
+        // $city = $ordersLocked ? $ordersLocked : Office::getOfficeId($request->get('city'));
 
         $count = 9;
         $page  = empty($page) ? 0 : $count * $page;
@@ -136,9 +136,9 @@ class ProductsController extends Controller
             $where[] = ['title', 'LIKE', '%'.$name.'%'];
         }
         // поиск по городу
-        if (!empty($city)) {
-            $where[] = ['office_id', $city];
-        }
+        // if (!empty($city)) {
+        //     $where[] = ['office_id', $city];
+        // }
 
         if (empty($menu) && empty($name)) {
             $total = $count;
@@ -176,23 +176,19 @@ class ProductsController extends Controller
         }
 
         $order = Orders::where([['user_id', Auth::guard(null)->user()->id], ['formed', 0]])->first();
-        $message = '';
 
         if (empty($order)) {
             $order = new Orders();
-            $order->user_id = Auth::guard(null)->user()->id;
-            $order->status  = Orders::STATUS_NOT_ACCEPTED;
+            $order->user_id   = Auth::guard(null)->user()->id;
+            $order->status    = Orders::STATUS_NOT_ACCEPTED;
+            $order->office_id = $product->office_id;
         }
 
-        if (!empty($order->office_id) && ($order->office_id != $product->office_id)) {
-            return response()->json(['status' => 'bad', 'error' => 'empty', 'message' => trans('products.products-missing')]);
-        }
+        // if (!empty($order->office_id) && ($order->office_id != $product->office_id)) {
+        //     return response()->json(['status' => 'bad', 'error' => 'empty', 'message' => trans('products.products-missing')]);
+        // }
 
-        $order->office_id = $product->office_id;
-
-        if ($order->save()) {
-            $message = trans('products.first-product');
-        } else {
+        if (!$order->save()) {
             return response()->json(['status' => 'bad', 'error' => 'empty', 'message' => trans('products.order-not-found')]);
         }
 
@@ -206,7 +202,7 @@ class ProductsController extends Controller
 
         if ($ordersProducts->save()) {
             $countProducts = OrdersProducts::where('order_id', $order->id)->count();
-            return response()->json(['status' => 'ok', 'data' => $countProducts, 'message' => $message, 'button' => trans('products.in-shopping-cart')]);
+            return response()->json(['status' => 'ok', 'data' => $countProducts, 'message' => '', 'button' => trans('products.in-shopping-cart')]);
         } else {
             return response()->json(['status' => 'bad', 'error' => 'empty', 'message' => trans('products.order-not-found')]);
         }
@@ -321,7 +317,7 @@ class ProductsController extends Controller
             }
 
             $order->formed   = 1;
-            $order->status   = 1;
+            $order->status   = Orders::STATUS_NOT_ACCEPTED;
             $order->wish     = $request->input('wish');
             $order->contacts = $request->input('contacts');
             $order->total_cost = $sum;

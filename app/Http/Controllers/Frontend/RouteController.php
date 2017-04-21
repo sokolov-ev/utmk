@@ -10,8 +10,8 @@ use Illuminate\Routing\Controller;
 use App;
 use App\Menu;
 use App\Metatags;
-use App\Office;
-use App\Orders;
+// use App\Office;
+// use App\Orders;
 use App\Products;
 use App\Redirects;
 use App\Rating;
@@ -124,9 +124,9 @@ class RouteController extends Controller
             }
         }
 
-        $offices = Office::select('id', 'city')->get();
-        $ordersLocked = Orders::isLocked();
-        $filterOffice = $ordersLocked ? $ordersLocked : Office::getOfficeId($request->get('city'));
+        // $offices = Office::select('id', 'city')->get();
+        // $ordersLocked = Orders::isLocked();
+        // $filterOffice = $ordersLocked ? $ordersLocked : Office::getOfficeId($request->get('city'));
 
         $format = 'list';
         if (empty($request->get('format')) || ($request->get('format') == 'cards')) {
@@ -138,7 +138,12 @@ class RouteController extends Controller
         $menu  = Menu::all();
         $array = $this->getCatalogId($item['id'], $menu->toArray());
 
-        $products = Products::whereIn('menu_id', $array)->where([['office_id', $filterOffice], ['show_my', 1]])->orderBy('rating', 'DESC')->paginate(9);
+        $products = Products::whereIn('menu_id', $array)
+                            // ->where([['office_id', $filterOffice], ['show_my', 1]])
+                            ->where('show_my', 1)
+                            ->orderBy('rating', 'DESC')
+                            ->paginate(9);
+
         $result   = Products::viewDataJson($products);
 
         $slug = array_pop($part);
@@ -194,12 +199,12 @@ class RouteController extends Controller
             'data'     => $data,
             'products' => $products,
             'result'   => $result,
-            'offices'  => $offices,
+            // 'offices'  => $offices,
             'menu_id'  => $item['id'],
             'format'   => $format,
             'metatags' => $metatags,
-            'filterCity'   => $filterOffice,
-            'ordersLocked' => $ordersLocked,
+            // 'filterCity'   => $filterOffice,
+            // 'ordersLocked' => $ordersLocked,
             'query'        => $request->except('page'),
             'offPaginate'  => false,
             'breadcrumbs'  => $breadcrumbs,

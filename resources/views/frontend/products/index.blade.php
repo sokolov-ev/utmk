@@ -51,49 +51,38 @@
 
 @section('content')
 
+{{ csrf_field() }}
 <div class="padding-top"></div>
 <section class="products-search-block">
     <div class="container">
 
         <div class="row">
-            <div class="col-md-5 col-sm-7 col-xs-12 padding-block-1-1">
-                <input id="product-name" class="form-control" type="text" placeholder="{{ trans('products.product-search') }}...">
+            <div class="col-md-6 col-sm-6 col-xs-12 search">
+                <div class="padding-block-1-1">
+                    <input id="product-name" class="form-control" type="text" placeholder="{{ trans('products.product-search') }}...">
+                </div>
             </div>
 
-            <div class="col-md-3 col-sm-5 col-xs-12 padding-block-1-1">
-                @if($ordersLocked)
-                    <select id="product-city" name="product-city" class="form-control" disabled="">
-                @else
-                    <select id="product-city" name="product-city" class="form-control">
-                @endif
-                    <option value="">{{ trans('products.select-city') }}...</option>
-                    @foreach($offices as $office)
-                        <option value="{{ $office['id'] }}" data-city="{{ $office['slug'] }}">
-                            {{ json_decode($office['city'], true)[App::getLocale()] }}
-                        </option>
-                    @endforeach
-                </select>
-            </div>
+            <div class="col-md-6 col-sm-6 col-xs-12 text-right">
+                <div class="padding-block-1-1">
+                    <button class="btn btn-success" type="button" onclick="searchProducts()">
+                        {{ trans('products.search') }}
+                    </button>
 
-            <div class="col-md-4 col-sm-12 col-xs-12 text-right padding-block-1-1">
-                {{ csrf_field() }}
-                <button class="btn btn-success" type="button" onclick="searchProducts()">
-                    {{ trans('products.search') }}
-                </button>
+                    <a href="{{ route('products-index') }}" class="btn btn-default">
+                        {{ trans('products.reset') }}
+                    </a>
 
-                <a href="{{ route('products-index') }}" class="btn btn-default">
-                    {{ trans('products.reset') }}
-                </a>
-
-                <a href="javascript: void(0);" class="btn btn-warning change-format">
-                    @if($format == 'cards')
-                        <span id="format-list" class="">{{ trans('products.list') }}</span>
-                        <span id="format-cards" class="hidden">{{ trans('products.cards') }}</span>
-                    @else
-                        <span id="format-list" class="hidden">{{ trans('products.list') }}</span>
-                        <span id="format-cards" class="">{{ trans('products.cards') }}</span>
-                    @endif
-                </a>
+                    <a href="javascript: void(0);" class="btn btn-warning change-format">
+                        @if($format == 'cards')
+                            <span id="format-list" class="">{{ trans('products.list') }}</span>
+                            <span id="format-cards" class="hidden">{{ trans('products.cards') }}</span>
+                        @else
+                            <span id="format-list" class="hidden">{{ trans('products.list') }}</span>
+                            <span id="format-cards" class="">{{ trans('products.cards') }}</span>
+                        @endif
+                    </a>
+                </div>
             </div>
         </div>
 
@@ -137,26 +126,6 @@
 
     <div class="row">
         <div class="col-md-3 col-sm-12 col-xs-12" style="padding: 0;">
-            <div class="padding-block-0-1">
-                @if($ordersLocked)
-                    <select id="filter-city" name="filter-city" class="form-control" disabled="">
-                @else
-                    <select id="filter-city" name="filter-city" class="form-control">
-                @endif
-                    @foreach($offices as $office)
-                        @if($office['id'] == $filterCity)
-                            <option value="{{ $office['id'] }}" data-city="{{ json_decode($office['city'], true)['en'] }}" selected="">
-                                {{ json_decode($office['city'], true)[App::getLocale()] }}
-                            </option>
-                        @else
-                            <option value="{{ $office['id'] }}" data-city="{{ json_decode($office['city'], true)['en'] }}">
-                                {{ json_decode($office['city'], true)[App::getLocale()] }}
-                            </option>
-                        @endif
-                    @endforeach
-                </select>
-            </div>
-
             <div class="products-menu-block">
                 <div class="menu-selected hidden" data-id="{{ $menu_id }}"> </div>
                 <ul class="list-unstyled catalog" id="catalog-content"> </ul>
@@ -324,4 +293,3 @@
     <script src="{{ elixir('js/products.min.js') }}"></script>
 
 @endsection
-

@@ -264,8 +264,9 @@ class Products extends Model
 
             $temp['prices_type'] = $flag;
 
-            $temp['office_title'] = $product['office_title'];
-            $temp['office_linck'] = '/office/'.$product['office_city'].'/'.$product['office_id'];
+            $temp['office_title']   = $product['office_title'];
+            $temp['office_city_ru'] = $product['office_city_ru'];
+            $temp['office_linck']   = '/office/'.$product['office_city'].'/'.$product['office_id'];
 
             $temp['quantity'] = $product['quantity'];
             $temp['price_id'] = $product['price_id'];
@@ -306,6 +307,8 @@ class Products extends Model
 
         $officeCity = json_decode($office['city'], true)['en'];
         $array['office_city'] = str_slug($officeCity, '_');
+        // привет СЕО
+        $array['office_city_ru'] = json_decode($office['city'], true)['ru'];
 
         $array['slug'] = $product->slug;
 

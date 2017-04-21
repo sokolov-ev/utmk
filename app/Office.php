@@ -125,27 +125,27 @@ class Office extends Model
     }
 
     // В топку оптимизацию!
-    public static function getOfficeId($city)
-    {
-        if (empty($city)) {
-            return static::getDefOfficeId();
-        }
+    // public static function getOfficeId($city)
+    // {
+    //     if (empty($city)) {
+    //         return static::getDefOfficeId();
+    //     }
 
-        $office = Office::select('id')->where('city', 'LIKE', '%'.$city.'%')->first();
+    //     $office = Office::select('id')->where('city', 'LIKE', '%'.$city.'%')->first();
 
-        if (empty($office)) {
-            return static::getDefOfficeId();
-        } else {
-            return $office->id;
-        }
-    }
+    //     if (empty($office)) {
+    //         return static::getDefOfficeId();
+    //     } else {
+    //         return $office->id;
+    //     }
+    // }
 
-    protected static function getDefOfficeId()
-    {
-        $office = Office::select('id')->where('city', 'LIKE', '%kiev%')->first();
+    // protected static function getDefOfficeId()
+    // {
+    //     $office = Office::select('id')->where('city', 'LIKE', '%kiev%')->first();
 
-        return $office->id;
-    }
+    //     return $office->id;
+    // }
 
     // выборка всех оффисов с контактами (для фроентенда)
     public static function getOfficesContacts()

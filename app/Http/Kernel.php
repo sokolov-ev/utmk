@@ -50,14 +50,12 @@ class Kernel extends HttpKernel
         'adminAuth'  => \App\Http\Middleware\RedirectIfNotAdminAuth::class,
         'adminPermision' => \App\Http\Middleware\RedirectIfNotPermision::class,
 
-        'can'        => \Illuminate\Foundation\Http\Middleware\Authorize::class,
-        'guest'      => \App\Http\Middleware\RedirectIfAuthenticated::class,
-        'throttle'   => \Illuminate\Routing\Middleware\ThrottleRequests::class,
-        'language'   => \App\Http\Middleware\LanguageMiddleware::class,
-        'language-get'   => \App\Http\Middleware\LanguageGetMiddleware::class,
-
+        'can'          => \Illuminate\Foundation\Http\Middleware\Authorize::class,
+        'guest'        => \App\Http\Middleware\RedirectIfAuthenticated::class,
+        'throttle'     => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+        'language'     => \App\Http\Middleware\LanguageMiddleware::class,
+        'language-get' => \App\Http\Middleware\LanguageGetMiddleware::class,
         'authorized'   => \App\Http\Middleware\RedirectIfNotAuth::class,
-
         'redirect-www' => \App\Http\Middleware\RedirectWww::class,
     ];
 }

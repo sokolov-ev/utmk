@@ -56,16 +56,6 @@ class Orders extends Model
         return $this->belongsTo('App\Admin', 'manager_id', 'id');
     }
 
-    // this is a recommended way to declare event handlers
-    protected static function boot()
-    {
-        parent::boot();
-
-        // static::deleting(function($product){
-        //     Images::where('product_id', $product->id)->delete();
-        // });
-    }
-
     public static function getStatus()
     {
         return [
@@ -74,7 +64,6 @@ class Orders extends Model
             self::STATUS_CLOSED => 'closed',
         ];
     }
-
 
     public static function parseData($orders)
     {
@@ -97,16 +86,16 @@ class Orders extends Model
         return $result;
     }
 
-    public static function isLocked()
-    {
-        if (Auth::guard(null)->check()) {
-            $order = Orders::where([['user_id', Auth::guard(null)->user()->id], ['formed', 0]])->first();
+    // public static function isLocked()
+    // {
+    //     if (Auth::guard(null)->check()) {
+    //         $order = Orders::where([['user_id', Auth::guard(null)->user()->id], ['formed', 0]])->first();
 
-            if (!empty($order) && !empty($order->office_id)) {
-                return $order->office_id;
-            }
-        }
+    //         if (!empty($order) && !empty($order->office_id)) {
+    //             return $order->office_id;
+    //         }
+    //     }
 
-        return false;
-    }
+    //     return false;
+    // }
 }

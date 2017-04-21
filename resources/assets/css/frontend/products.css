@@ -1,6 +1,13 @@
 .products-search-block {
   background-color: #eeeeee;
 }
+
+@media(min-width: 992px) {
+  .products-search-block .search {
+    padding-left: 0 !important; 
+  }
+}
+
 @media(max-width: 767px) {
   .products-search-block { margin: 0 15px; }
 }

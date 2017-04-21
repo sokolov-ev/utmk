@@ -103,7 +103,7 @@ class OrdersController extends Controller
 
     public function view($id)
     {
-        $order = Orders::findOrFail($id);
+        $order   = Orders::findOrFail($id);
         $manager = Auth::guard('admin')->user();
         $isAdmin = $manager->role == Admin::ROLE_ADMIN;
 
@@ -121,11 +121,11 @@ class OrdersController extends Controller
         }
 
         return view('backend.site.order-view', [
-            'order' => $order,
+            'order'    => $order,
             'products' => $products,
-            'isAdmin' => $isAdmin,
-            'office'  => $office,
-            'manager' => $manager,
+            'isAdmin'  => $isAdmin,
+            'office'   => $office,
+            'manager'  => $manager,
         ]);
     }
 
