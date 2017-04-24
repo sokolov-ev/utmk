@@ -28,14 +28,14 @@ $('.change-format').click(function(event){
     location.reload();
 });
 
-$('#filter-city').change(function(event){
-    var id = $(this).val();
-    var city = $('#filter-city > option[value="' + id + '"]').data('city');
+// $('#filter-city').change(function(event){
+//     var id = $(this).val();
+//     var city = $('#filter-city > option[value="' + id + '"]').data('city');
 
-    changeLocation('city', city);
+//     changeLocation('city', city);
 
-    location.reload();
-});
+//     location.reload();
+// });
 
 $.get('/catalog/get-catalog', function(response){
     if (response.status == 'ok') {
@@ -69,13 +69,13 @@ $.get('/catalog/get-catalog', function(response){
 
 $('#catalog-content').on('click', 'span',function(event){
     var slug = $(this).closest('li').data('slug');
-    var cityId = $('#filter-city').val();
-    var cityName = $('#filter-city > option[value="' + cityId + '"]').data('city');
+    // var cityId = $('#filter-city').val();
+    // var cityName = $('#filter-city > option[value="' + cityId + '"]').data('city');
 
     if (locale) {
-        url = '/' + locale + slug + '?city=' + cityName;
+        url = '/' + locale + slug;
     } else {
-        url = slug + '?city=' + cityName;
+        url = slug;
     }
 
     window.history.replaceState('', '', url);
@@ -94,12 +94,12 @@ $('#catalog-content').on('click', 'span',function(event){
         $('.text-black-h3').removeClass('active');
         $(this).addClass('active');
 
-        query = 'menu=' + id + '&city=' + cityId;
+        query = 'menu=' + id;
 
         $.get('/catalog/get-products?' + query, function(response){
             $('#pagination').twbsPagination('destroy');
 
-            viewProducts(response, id);
+            viewProducts(response);
         });
     }
 });
@@ -112,17 +112,17 @@ $("#product-name").on('change keyup', function(event){
 
 function searchProducts()
 {
-    var cityId = $('#product-city').val();
-    var cityName = $('#product-city > option[value="' + cityId + '"]').data('city');
+    // var cityId = $('#product-city').val();
+    // var cityName = $('#product-city > option[value="' + cityId + '"]').data('city');
 
     var name = $("#product-name").val();
 
     if ((name != undefined) && (name != '')) {
         changeLocation('name', name);
 
-        if ((cityId != undefined) && (cityId != '')) {
-            changeLocation('city', cityName);
-        }
+        // if ((cityId != undefined) && (cityId != '')) {
+        //     changeLocation('city', cityName);
+        // }
 
         $.get('/catalog/get-products' + location.search, function(response){
             if (locale) {
@@ -134,14 +134,14 @@ function searchProducts()
             window.history.replaceState('', '', url);
 
             $('#pagination').twbsPagination('destroy');
-            viewProducts(response, cityId);
+            viewProducts(response);
         });
     }
 
     return true;
 }
 
-function viewProducts(response, id) {
+function viewProducts(response) {
 
     if (response.status == 'ok') {
         $('.products-cards').find('.card').remove();
