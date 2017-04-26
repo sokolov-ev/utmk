@@ -381,7 +381,7 @@
                         </div>
 
 {{-- Статьи --}}
-                <div class="catalog <?= ($metatags['type'] == 'menu') ? '' : 'hidden' ?>">
+                <div class="catalog <?= (($metatags['type'] == 'menu') || ($metatags['slug'] == 'price')) ? '' : 'hidden' ?>">
 
                     <div class="form-group{{ ($errors->has('h1_en') || $errors->has('h1_ru') || $errors->has('h1_uk')) ? ' has-error' : '' }}" style="margin-bottom: 0;">
                         <div class="row">

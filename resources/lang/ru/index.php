@@ -55,10 +55,12 @@ return [
         'our-services' => 'Наши услуги',
         'contact' => 'Контакты',
 
-        'tell-us' => 'Рассказать о нас',
+        'tell-us' => 'Ссылки в соцсетях',
         'headquarter' => 'Главный офис',
 
         'reference' => 'Справка',
+        'schedule_work' => 'График работы',
+        'work_time' => 'Пн-Пт 9:00-17:30',
     ],
 
     'speech' => [

@@ -61,64 +61,80 @@
                             {{ trans('index.speech.uk') }}
                         </a>
                     </li>
+                    <li>
+                        <a href="{{ url('/en/'.$path) }}" title="{{ trans('index.speech.en') }}">
+                            {{ trans('index.speech.en') }}
+                        </a>
+                    </li>
                 </ul>
-            </div>
 
-            <div class="col-md-3 col-sm-3">
                 <p class="footer-title">{{ trans('index.footer.tell-us') }}</p>
                 <ul class="list-unstyled footer-link-block tell-us">
-                    <?php $link = empty($locale) ? '/' : $locale; ?>
-                    <li>
-                        <div class="row">
-                            <div class="col-sm-2 col-xs-1">
-                                <i class="fa fa-google-plus" aria-hidden="true"></i>
-                            </div>
-                            <div class="col-sm-10 col-xs-10">
-                                <a href="https://plus.google.com/share?url={{ url($link) }}"
-                                   title="Google +"
-                                   class="footer-link"
-                                   onclick="window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=610,width=600'); return false;">Google +</a>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="row">
-                            <div class="col-sm-2 col-xs-1">
-                                <i class="fa fa-twitter" aria-hidden="true"></i>
-                            </div>
-                            <div class="col-sm-10 col-xs-10">
-                                <a href="https://twitter.com/intent/tweet?text=Metall+Vsem+{{ url($link) }}+via+@metallvsem+%23MetallVsem"
-                                   title="Twitter"
-                                   class="footer-link"
-                                   onclick="window.open(this.href, '', 'width=640,height=436'); return false;">Twitter</a>
-                            </div>
-                        </div>
-                    </li>
                     <li>
                         <div class="row">
                             <div class="col-sm-2 col-xs-1">
                                 <i class="fa fa-facebook" aria-hidden="true"></i>
                             </div>
                             <div class="col-sm-10 col-xs-10">
-                                <a href="https://www.facebook.com/sharer/sharer.php?u={{ url($link) }}"
-                                   title="Facebook"
-                                   class="footer-link"
-                                   onclick="window.open(this.href, '', 'width=640, height=436'); return false;">Facebook</a>
+                                <a class="footer-link" target="_blank" href="https://www.facebook.com/ЮТМК-1128346060536736" title="Facebook">Facebook</a>
                             </div>
                         </div>
                     </li>
                     <li>
                         <div class="row">
                             <div class="col-sm-2 col-xs-1">
-                                <i class="fa fa-linkedin" aria-hidden="true"></i>
+                                <i class="fa fa-vk" aria-hidden="true"></i>
                             </div>
                             <div class="col-sm-10 col-xs-10">
-                                <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ url($link) }}"
-                                   title="LinkedIn"
-                                   class="footer-link"
-                                   onclick="window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=610,width=600'); return false;">LinkedIn</a>
+                                <a class="footer-link" target="_blank" href="https://vk.com/utmkkiev" title="ВКонтакте">ВКонтакте</a>
                             </div>
                         </div>
+                    </li>
+                    <li>
+                        <div class="row">
+                            <div class="col-sm-2 col-xs-1">
+                                <i class="fa fa-instagram" aria-hidden="true"></i>
+                            </div>
+                            <div class="col-sm-10 col-xs-10">
+                                <a class="footer-link" target="_blank" href="https://www.instagram.com/utmk.kiev" title="Instagram">Instagram</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="row">
+                            <div class="col-sm-2 col-xs-1">
+                                <i class="fa fa-google-plus" aria-hidden="true"></i>
+                            </div>
+                            <div class="col-sm-10 col-xs-10">
+                                <a class="footer-link" target="_blank" href="https://plus.google.com/+%D0%9E%D0%9E%D0%9E%D0%AE%D0%A2%D0%9C%D0%9A%D0%9A%D0%B8%D1%97%D0%B2" title="Google plus">Google plus</a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col-md-3 col-sm-3">
+                <p class="footer-title">{{ trans('index.footer.contact') }}</p>
+                <ul class="footer-contacts footer-link-block">
+                    @foreach ($office_contacts['contacts'] as $contact)
+                        <li><strong>{{ $contact['type'] }}</strong>: 
+
+                        @if (in_array($contact['work_type'], ['mobile', 'phone', 'accounting-tel']))
+                            <a href="tel:{{ preg_replace('~\D+~','',$contact['data']) }}">{{ $contact['data'] }}</a>
+                        @elseif ($contact['work_type'] == 'email')
+                            <a href="mailto:{{ $contact['data'] }}">{{ $contact['data'] }}</a>
+                        @else
+                            {{ $contact['data'] }}
+                        @endif
+
+                        </li>
+                    @endforeach
+                </ul>
+
+                <p class="footer-title">{{ trans('index.footer.schedule_work') }}</p>
+                <ul class="footer-contacts">
+                    <li>
+                        {{ trans('index.footer.work_time') }}
                     </li>
                 </ul>
             </div>

@@ -14,7 +14,6 @@
 // Route::get('/testing','Frontend\TestController@index');
 
 // БЕКЕНД
-
 Route::get('/administration/login','Adminauth\AuthController@showLoginForm');
 Route::post('/administration/login','Adminauth\AuthController@postLogin');
 

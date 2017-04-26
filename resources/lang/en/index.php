@@ -56,10 +56,12 @@ return [
         'our-services' => 'Our services',
         'contact' => 'Contact',
 
-        'tell-us' => 'Tell Us',
+        'tell-us' => 'Links in social networks',
         'headquarter' => 'Headquarter',
 
         'reference' => 'Reference',
+        'schedule_work' => 'Schedule of work',
+        'work_time' => 'Mon-Fri 9:00-17:30',
     ],
 
     'speech' => [

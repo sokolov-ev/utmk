@@ -44,6 +44,12 @@
             </div>
         @endforeach
     </div>
+    
+    @if(!empty($metatags['articles']))
+        <div class="padding-block-2-0">
+            {!! $metatags['articles'] !!}
+        </div>
+    @endif
 
     <div class="padding-top"></div>
 </section>
