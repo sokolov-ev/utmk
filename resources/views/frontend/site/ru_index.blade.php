@@ -403,7 +403,7 @@
                             </div>
                         </div>
                         <div class="col-sm-9">
-                            <a href="{{ route('stremitelno-menyayushhemsya-mire') }}" title="В стремительно меняющемся мире" class="text-black-h3">
+                            <a href="{{ route('stremitelno-menyayushchemsya-mire') }}" title="В стремительно меняющемся мире" class="text-black-h3">
                                 Мы живем в стремительно меняющемся мире, и мы являемся свидетелями глубоких изменений в обществе, сознание, фондов, бизнеса.
                             </a>
 
@@ -411,7 +411,7 @@
                                 <span class="text-gray-16">Такие характеристики, как надежность, неизменно высокое качество, долговечность, доступные цены в современном мире играют главную роль. Продукцию из металла можно производить на оборудовании с профессиональными функциями, поэтому изготовление изделий любой сложности возможно в рамках разных объемов.</span>
                             </div>
 
-                            <a href="{{ route('stremitelno-menyayushhemsya-mire') }}" class="text-orange-20">
+                            <a href="{{ route('stremitelno-menyayushchemsya-mire') }}" class="text-orange-20">
                                 <span class="font-up">Читать далее</span>
                                 <span class="fa span-arrow"> >> </span>
                             </a>

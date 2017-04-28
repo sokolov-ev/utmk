@@ -52,7 +52,17 @@
 @section('content')
 
 {{ csrf_field() }}
-<div class="padding-top"></div>
+
+<section class="container">
+    <div class="padding-block-2-2 hidden-xs"></div>
+    <div class="padding-block-2-2">
+        <span class="text-gray-16">
+            {!! trans('products.advert.message') !!}
+        </span>
+    </div>
+    <div class="padding-block-2-2 hidden-xs"></div>
+</section>
+
 <section class="products-search-block">
     <div class="container">
 

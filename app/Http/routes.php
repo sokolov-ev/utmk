@@ -185,25 +185,10 @@ Route::group(['middleware' => ['web', 'redirect-www', 'language-get']], function
 
 
     Route::group(['middleware' => ['language']], function () {
-
-        Route::get('/', ['as' => 'index-page', 'uses' => 'Frontend\IndexController@index']);
-        Route::get('/contacts', ['as' => 'contacts', 'uses' => 'Frontend\ServiceController@contacts']);
-        Route::get('/price', ['as' => 'prices', 'uses' => 'Frontend\ServiceController@prices']);
-        Route::get('/yutmk-energy', ['as' => 'about-us', 'uses' => 'Frontend\IndexController@aboutUs']);
-        // Route::get('/company-profile', ['as' => 'profile', 'uses' => 'Frontend\IndexController@companyProfile']);
         
         Route::get('/company-profile', ['as' => 'profile', 'uses' => function(){
             return redirect('/yutmk-energy', 301);
         }]);
-
-        Route::get('/network-of-offices', ['as' => 'network-of-offices', 'uses' => 'Frontend\IndexController@salesNetwork']);
-        Route::get('/office/{city}/{id}', ['as' => 'office', 'uses' => 'Frontend\IndexController@officeView']);
-
-    // СПРАВОЧНАЯ ИНФОРМАЦИЯ (статика)
-
-        Route::get('/porezka', ['as' => 'porezka', 'uses' => 'Frontend\IndexController@porezka']);
-        Route::get('/upakovka', ['as' => 'upakovka', 'uses' => 'Frontend\IndexController@upakovka']);
-        Route::get('/dostavka', ['as' => 'dostavka', 'uses' => 'Frontend\IndexController@dostavka']);
 
         Route::get('/home/porezka', function(){
             return redirect('/porezka', 301);
@@ -215,15 +200,27 @@ Route::group(['middleware' => ['web', 'redirect-www', 'language-get']], function
             return redirect('/dostavka', 301);
         });
 
+        Route::get('/network-of-offices', ['as' => 'network-of-offices', 'uses' => 'Frontend\IndexController@salesNetwork']);
+        Route::get('/office/{city}/{id}', ['as' => 'office', 'uses' => 'Frontend\IndexController@officeView']);
+
+    // СПРАВОЧНАЯ ИНФОРМАЦИЯ (статика)
+
+        Route::get('/', ['as' => 'index-page', 'uses' => 'Frontend\IndexController@index']);
+        Route::get('/contacts', ['as' => 'contacts', 'uses' => 'Frontend\ServiceController@contacts']);
+        Route::get('/price', ['as' => 'prices', 'uses' => 'Frontend\ServiceController@prices']);
+        Route::get('/yutmk-energy', ['as' => 'about-us', 'uses' => 'Frontend\IndexController@aboutUs']);
+
+        Route::get('/porezka', ['as' => 'porezka', 'uses' => 'Frontend\IndexController@porezka']);
+        Route::get('/upakovka', ['as' => 'upakovka', 'uses' => 'Frontend\IndexController@upakovka']);
+        Route::get('/dostavka', ['as' => 'dostavka', 'uses' => 'Frontend\IndexController@dostavka']);
+
         Route::get('/eksport-import-metallicheskih-izdelij', ['as' => 'eksport-import', 'uses' => 'Frontend\IndexController@eksportImport']);
         Route::get('/shirokij-eksport-import-mira', ['as' => 'shirokij-eksport-import', 'uses' => 'Frontend\IndexController@shirokijEksportImport']);
         Route::get('/nashi-obemy-prodazh', ['as' => 'nashi-obemy-prodazh', 'uses' => 'Frontend\IndexController@nashiProdazh']);
         Route::get('/ustojchivoe-razvitie-kak-cel', ['as' => 'ustojchivoe-razvitie', 'uses' => 'Frontend\IndexController@ustojchivoeRazvitie']);
         Route::get('/my-stremimsya-dlya-nashix-klientov', ['as' => 'stremimsya-dlya-klientov', 'uses' => 'Frontend\IndexController@stremimsyaDlyaKlientov']);
         Route::get('/kontrol-kachestva-produkcii', ['as' => 'kontrol-kachestva', 'uses' => 'Frontend\IndexController@kontrolKachestva']);
-        Route::get('/vashi-zakazy-kak-mozhno-skoree', ['as' => 'vashi-zakazy-kak-mozhno-skoree', 'uses' => 'Frontend\IndexController@vashiZakazy']);
-        Route::get('/struktury-vozmozhen-zakaz-pod-klyuch', ['as' => 'struktury-pod-klyuch', 'uses' => 'Frontend\IndexController@strukturyPodKlyuch']);
-        Route::get('/stremitelno-menyayushhemsya-mire', ['as' => 'stremitelno-menyayushhemsya-mire', 'uses' => 'Frontend\IndexController@stremitelnoMenyayushhemsyaMire']);
+        Route::get('/stremitelno-menyayushchemsya-mire', ['as' => 'stremitelno-menyayushchemsya-mire', 'uses' => 'Frontend\IndexController@stremitelnoMenyayushchemsyaMire']);
         Route::get('/chto-novogo', ['as' => 'chto-novogo', 'uses' => 'Frontend\IndexController@chtoNovogo']);
         Route::get('/luchshie-prodavcy', ['as' => 'luchshie-prodavcy', 'uses' => 'Frontend\IndexController@luchshieProdavcy']);
         Route::get('/razvitie', ['as' => 'razvitie', 'uses' => 'Frontend\IndexController@razvitie']);
@@ -255,25 +252,10 @@ Route::group(['middleware' => ['web', 'redirect-www', 'language-get']], function
 
             Route::group(['prefix' => $locale], function() {
 
-                Route::get('/', ['as' => 'index-page', 'uses' => 'Frontend\IndexController@index']);
-                Route::get('/contacts', ['as' => 'contacts', 'uses' => 'Frontend\ServiceController@contacts']);
-                Route::get('/price', ['as' => 'prices', 'uses' => 'Frontend\ServiceController@prices']);
-                Route::get('/yutmk-energy', ['as' => 'about-us', 'uses' => 'Frontend\IndexController@aboutUs']);
-                // Route::get('/company-profile', ['as' => 'profile', 'uses' => 'Frontend\IndexController@companyProfile']);
-         
                 Route::get('/company-profile', ['as' => 'profile', 'uses' => function(){
                     return redirect('/yutmk-energy', 301);
                 }]);
                 
-                Route::get('/network-of-offices', ['as' => 'network-of-offices', 'uses' => 'Frontend\IndexController@salesNetwork']);
-                Route::get('/office/{city}/{id}', ['as' => 'office', 'uses' => 'Frontend\IndexController@officeView']);
-
-            // СПРАВОЧНАЯ ИНФОРМАЦИЯ (статика)
-
-                Route::get('/porezka', ['as' => 'porezka', 'uses' => 'Frontend\IndexController@porezka']);
-                Route::get('/upakovka', ['as' => 'upakovka', 'uses' => 'Frontend\IndexController@upakovka']);
-                Route::get('/dostavka', ['as' => 'dostavka', 'uses' => 'Frontend\IndexController@dostavka']);
-
                 Route::get('/home/porezka', function(){
                     return redirect('/porezka', 301);
                 });
@@ -284,14 +266,26 @@ Route::group(['middleware' => ['web', 'redirect-www', 'language-get']], function
                     return redirect('/dostavka', 301);
                 });
 
+                Route::get('/network-of-offices', ['as' => 'network-of-offices', 'uses' => 'Frontend\IndexController@salesNetwork']);
+                Route::get('/office/{city}/{id}', ['as' => 'office', 'uses' => 'Frontend\IndexController@officeView']);
+
+            // СПРАВОЧНАЯ ИНФОРМАЦИЯ (статика)
+
+                Route::get('/', ['as' => 'index-page', 'uses' => 'Frontend\IndexController@index']);
+                Route::get('/contacts', ['as' => 'contacts', 'uses' => 'Frontend\ServiceController@contacts']);
+                Route::get('/price', ['as' => 'prices', 'uses' => 'Frontend\ServiceController@prices']);
+                Route::get('/yutmk-energy', ['as' => 'about-us', 'uses' => 'Frontend\IndexController@aboutUs']);
+
+                Route::get('/porezka', ['as' => 'porezka', 'uses' => 'Frontend\IndexController@porezka']);
+                Route::get('/upakovka', ['as' => 'upakovka', 'uses' => 'Frontend\IndexController@upakovka']);
+                Route::get('/dostavka', ['as' => 'dostavka', 'uses' => 'Frontend\IndexController@dostavka']);
+
                 Route::get('/eksport-import-metallicheskih-izdelij', ['as' => 'eksport-import', 'uses' => 'Frontend\IndexController@eksportImport']);
                 Route::get('/shirokij-eksport-import-mira', ['as' => 'shirokij-eksport-import', 'uses' => 'Frontend\IndexController@shirokijEksportImport']);
                 Route::get('/nashi-obemy-prodazh', ['as' => 'nashi-obemy-prodazh', 'uses' => 'Frontend\IndexController@nashiProdazh']);
                 Route::get('/ustojchivoe-razvitie-kak-cel', ['as' => 'ustojchivoe-razvitie', 'uses' => 'Frontend\IndexController@ustojchivoeRazvitie']);
                 Route::get('/my-stremimsya-dlya-nashix-klientov', ['as' => 'stremimsya-dlya-klientov', 'uses' => 'Frontend\IndexController@stremimsyaDlyaKlientov']);
                 Route::get('/kontrol-kachestva-produkcii', ['as' => 'kontrol-kachestva', 'uses' => 'Frontend\IndexController@kontrolKachestva']);
-                Route::get('/vashi-zakazy-kak-mozhno-skoree', ['as' => 'vashi-zakazy-kak-mozhno-skoree', 'uses' => 'Frontend\IndexController@vashiZakazy']);
-                Route::get('/struktury-vozmozhen-zakaz-pod-klyuch', ['as' => 'struktury-pod-klyuch', 'uses' => 'Frontend\IndexController@strukturyPodKlyuch']);
                 Route::get('/stremitelno-menyayushhemsya-mire', ['as' => 'stremitelno-menyayushhemsya-mire', 'uses' => 'Frontend\IndexController@stremitelnoMenyayushhemsyaMire']);
                 Route::get('/chto-novogo', ['as' => 'chto-novogo', 'uses' => 'Frontend\IndexController@chtoNovogo']);
                 Route::get('/luchshie-prodavcy', ['as' => 'luchshie-prodavcy', 'uses' => 'Frontend\IndexController@luchshieProdavcy']);

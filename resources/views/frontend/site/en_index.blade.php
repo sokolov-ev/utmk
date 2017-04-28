@@ -35,19 +35,19 @@
             <div class="item active">
                 <img alt="First slide" src="/images/slide/slide-01.jpg" data-holder-rendered="true">
                 <div class="carousel-caption ci_caption">
-                    <span>Ми кращі в області імпорту та експорту металу</span>
+                    <span>We are the best in the steel import and export area.</span>
                 </div>
             </div>
             <div class="item">
                 <img alt="Second slide" src="/images/slide/slide-02.jpg" data-holder-rendered="true">
                 <div class="carousel-caption ci_caption">
-                    <h1>Широкий вибір металопрокату по низькій ціні у Львові та Україні</h1>
+                    <h1>UTMK Ukraine LLC Company offers wide variety of rolled steel according to low price in Ukraine</h1>
                 </div>
             </div>
             <div class="item">
                 <img alt="Third slide" src="/images/slide/slide-03.jpg" data-holder-rendered="true">
                 <div class="carousel-caption ci_caption">
-                    <h2>Якість продукції - головна причина, чому варто купити метал саме в нас</h2>
+                    <h2>The quality of products is the reason why you should buy steel from us</h2>
                 </div>
             </div>
         </div>
@@ -60,7 +60,7 @@
 
         <div class="padding-top"></div>
         <div class="wow slideInRight">
-            <p class="welcome-text text-center font-up">Ласкаво просимо!</p>
+            <p class="welcome-text text-center font-up">WELCOME!</p>
         </div>
         <div class="padding-top"></div>
 
@@ -74,20 +74,20 @@
 
                 <div class="wow fadeInUp">
                     <div class="padding-block-2-2">
-                        <a href="{{ route('nashi-obemy-prodazh') }}" class="text-black-h3" title="Наші обсяги продажів">
-                            Наші обсяги продажів
+                        <a href="{{ route('nashi-obemy-prodazh') }}" class="text-black-h3" title="Our turnover">
+                            Our turnover
                         </a>
                     </div>
                 </div>
 
                 <div class="wow fadeInUp">
-                    <p class="text-gray-16">Сортамент металу ЮТМК складається з широкого ряду виробів, які вигострюються в заводських умовах строго по ГОСТу. Усі металовироби класифікуються за видами, профілями, марками, розмірами. Сортамент компанії металопрокату постійно поповнюється, тому обсяги продажів збільшуються і незмінно користуються попитом.</p>
+                    <p class="text-gray-16">The steel dimension of UTMK Ukraine LLC Company consists of a wide range of products, which are honed according to the factory GOST conditions. All steel products are classified regarding types, profiles, steel grades, and sizes. The steel rolling assortment of the company is constantly replenished, so the turnover is increased and is invariably in demand.</p>
                 </div>
 
                 <div class="wow fadeInUp">
                     <div class="padding-block-2-2">
                         <a href="{{ route('nashi-obemy-prodazh') }}" class="text-orange-20">
-                            <span class="font-up">Читати далі</span>
+                            <span class="font-up">Read more</span>
                             <span class="fa span-arrow"> >> </span>
                         </a>
                     </div>
@@ -102,20 +102,20 @@
 
                 <div class="wow fadeInUp">
                     <div class="padding-block-2-2">
-                        <a href="{{ route('ustojchivoe-razvitie') }}" class="text-black-h3" title="Сталий розвиток">
-                            Сталий розвиток
+                        <a href="{{ route('ustojchivoe-razvitie') }}" class="text-black-h3" title="Sustainable development">
+                            Sustainable development
                         </a>
                     </div>
                 </div>
 
                 <div class="wow fadeInUp">
-                    <p class="text-gray-16">З огляду на, що метал важливий для людини не тільки як матеріал, але і як предмет отримання прибутку, то постійно відкриваються нові шляхи його обробки і застосування. Для нашої компанії сталий розвиток - це основна мета, за якою стоїть ще кілька завдань, таких як поповнення асортименту, доступні ціни та незмінні критерії якості.</p>
+                    <p class="text-gray-16">Considering that steel is important for the human not only as a material, but also as a profit, so new ways of its processing and application are constantly being opened. For our company the main goal is sustainable development, after which there are several more tasks, such as replenishment of the assortment, reasonable prices and constant quality criteria.</p>
                 </div>
 
                 <div class="wow fadeInUp">
                     <div class="padding-block-2-2">
                         <a href="{{ route('ustojchivoe-razvitie') }}" class="text-orange-20">
-                            <span class="font-up">Читати далі</span>
+                            <span class="font-up">Read more</span>
                             <span class="fa span-arrow"> >> </span>
                         </a>
                     </div>
@@ -130,19 +130,19 @@
 
                 <div class="wow fadeInUp">
                     <div class="padding-block-2-2">
-                        <a href="{{ route('stremimsya-dlya-klientov') }}" class="text-black-h3" title="Ми прагнемо для наших клієнтів">
-                            Ми прагнемо для наших клієнтів
+                        <a href="{{ route('stremimsya-dlya-klientov') }}" class="text-black-h3" title="We aspire for our customers">
+                            We aspire for our customers
                         </a>
                     </div>
                 </div>
 
                 <div class="wow fadeInUp">
-                    <p class="text-gray-16">Незалежно від того, яке місце наша компанія займає на світовій або вітчизняної арені, фахівці постійно демонструють лідерство. Постійно дотримуються високі стандарти роботи, удосконалюються знання і проявляється відповідальність за кожне прийняте рішення.</p>
+                    <p class="text-gray-16">No matter which place our company occupies at the world or domestic arena, our specialists constantly demonstrate leadership skills. High standards of work are constantly observed, knowledge is improved and responsibility for every decision is manifested taken.</p>
                 </div>
                 <div class="wow fadeInUp">
                     <div class="padding-block-2-2">
                         <a href="{{ route('stremimsya-dlya-klientov') }}" class="text-orange-20">
-                            <span class="font-up">Читати далі</span>
+                            <span class="font-up">Read more</span>
                             <span class="fa span-arrow"> >> </span>
                         </a>
                     </div>
@@ -162,31 +162,31 @@
                 <div class="row green-section-block">
                     <div class="col-sm-5 col-xs-5">
                         <div class="wow slideInRight">
-                            <img class="green-img" src="/images/green-section/icon-1.png" alt="Сортовий прокат" title="Сортовий прокат" style="max-width: 119px;" />
+                            <img class="green-img" src="/images/green-section/icon-1.png" alt="Rolled section" title="Rolled section" style="max-width: 119px;" />
                         </div>
                     </div>
                     <div class="col-sm-7 col-xs-7">
                         <div class="wow slideInRight">
-                            <div class="green-section-title">Сортовий прокат</div>
+                            <div class="green-section-title">Rolled section</div>
                         </div>
                         <div class="wow slideInRight">
-                            <a href="{{ url($locale.'/armatura') }}" class="green-section-link-seo" title="Арматура">
-                                Арматура
+                            <a href="{{ url($locale.'/armatura') }}" class="green-section-link-seo" title="Rebar">
+                                Rebar
                             </a><br/>
-                            <a href="{{ url($locale.'/balka-dvutavr') }}" class="green-section-link-seo" title="Двотаврова балка">
-                                Двотаврова балка
+                            <a href="{{ url($locale.'/balka-dvutavr') }}" class="green-section-link-seo" title="I-beam">
+                                I-beam
                             </a><br/>
-                            <a href="{{ url($locale.'/kvadrat') }}" class="green-section-link-seo" title="Квадрат">
-                                Квадрат
+                            <a href="{{ url($locale.'/kvadrat') }}" class="green-section-link-seo" title="Square">
+                                Square
                             </a><br/>
-                            <a href="{{ url($locale.'/ugolok') }}" class="green-section-link-seo" title="Кутник">
-                                Кутник
+                            <a href="{{ url($locale.'/ugolok') }}" class="green-section-link-seo" title="Angle">
+                                Angle
                             </a><br/>
-                            <a href="{{ url($locale.'/shveller') }}" class="green-section-link-seo" title="Швелер">
-                                Швелер
+                            <a href="{{ url($locale.'/shveller') }}" class="green-section-link-seo" title="Channel">
+                                Channel
                             </a><br/>
-                            <a href="{{ url($locale.'/shestigrannik') }}" class="green-section-link-seo" title="Шестикутник">
-                                Шестикутник
+                            <a href="{{ url($locale.'/shestigrannik') }}" class="green-section-link-seo" title="Hexagon">
+                                Hexagon
                             </a><br/>
                         </div>
                     </div>
@@ -196,31 +196,35 @@
                 <div class="row green-section-block">
                     <div class="col-sm-5 col-xs-5">
                         <div class="wow slideInRight">
-                            <img class="green-img" src="/images/green-section/icon-2.png" alt="Трубний прокат" title="Трубний прокат" style="max-width: 119px;" />
+                            <img class="green-img" 
+                                 src="/images/green-section/icon-2.png" 
+                                 alt="Rolled tubular products" 
+                                 title="Rolled tubular products" 
+                                 style="max-width: 119px;" />
                         </div>
                     </div>
                     <div class="col-sm-7 col-xs-7">
                         <div class="wow slideInRight">
-                            <div class="green-section-title">Трубний прокат</div>
+                            <div class="green-section-title">Rolled tubular products</div>
                         </div>
                         <div class="wow slideInRight">
-                            <a href="{{ url($locale.'/truba-besshovnaya') }}" class="green-section-link-seo" title="Безшовні труби">
-                                Безшовні труби
+                            <a href="{{ url($locale.'/truba-besshovnaya') }}" class="green-section-link-seo" title="Seamless tubes">
+                                Seamless tubes
                             </a><br/>
-                            <a href="{{ url($locale.'/staltrub') }}" class="green-section-link-seo" title="Зварні труби">
-                                Зварні труби
+                            <a href="{{ url($locale.'/staltrub') }}" class="green-section-link-seo" title="Welded tubes">
+                                Welded tubes
                             </a><br/>
-                            <a href="{{ url($locale.'/truby_kotelnye') }}" class="green-section-link-seo" title="Котельні труби">
-                                Котельні труби
+                            <a href="{{ url($locale.'/truby_kotelnye') }}" class="green-section-link-seo" title="Boiler tubes">
+                                Boiler tubes
                             </a><br/>
-                            <a href="{{ url($locale.'/truba-bu') }}" class="green-section-link-seo" title="БУ труби">
-                                БУ труби
+                            <a href="{{ url($locale.'/truba-bu') }}" class="green-section-link-seo" title="Used tubes">
+                                Used tubes
                             </a><br/>
-                            <a href="{{ url($locale.'/profilnue-trubu') }}" class="green-section-link-seo" title="Профільні труби">
-                                Профільні труби
+                            <a href="{{ url($locale.'/profilnue-trubu') }}" class="green-section-link-seo" title="Shaped tube">
+                                Shaped tube
                             </a><br/>
-                            <a href="{{ url($locale.'/truba-otsinkovannaya') }}" class="green-section-link-seo" title="Оцинковані труби">
-                                Оцинковані труби
+                            <a href="{{ url($locale.'/truba-otsinkovannaya') }}" class="green-section-link-seo" title="Galvanized tube">
+                                Galvanized tube
                             </a><br/>
                         </div>
                     </div>
@@ -230,15 +234,15 @@
                 <div class="row green-section-block">
                     <div class="col-sm-5 col-xs-5">
                         <div class="wow slideInRight">
-                            <img class="green-img" src="/images/green-section/icon-3.png" alt="Європейська сталь" title="Європейська сталь" style="max-width: 119px;" />
+                            <img class="green-img" src="/images/green-section/icon-3.png" alt="European Steel" title="European Steel" style="max-width: 119px;" />
                         </div>
                     </div>
                     <div class="col-sm-7 col-xs-7">
                         <div class="wow slideInRight">
-                            <div class="green-section-title">Європейська сталь</div>
+                            <div class="green-section-title">European Steel</div>
                         </div>
                         <div class="wow slideInRight">
-                            <p class="green-section-body">Асортимент продукції включає поставки металопрокату з Європи: 
+                            <p class="green-section-body">The assortment of products includes rolled steel delivery from Europe: 
                                 <a href="{{ url($locale.'/list-hardox') }}" class="green-section-link-seo" title="Hardox">
                                     Hardox
                                 </a>,
@@ -256,17 +260,17 @@
                 <div class="row green-section-block">
                     <div class="col-sm-5 col-xs-5">
                         <div class="wow slideInRight">
-                            <img class="green-img" src="/images/green-section/icon-4.png" alt="Модульні споруди" title="Модульні споруди" style="max-width: 119px;" />
+                            <img class="green-img" src="/images/green-section/icon-4.png" alt="Modular structures" title="Modular structures" style="max-width: 119px;" />
                         </div>
                     </div>
                     <div class="col-sm-7 col-xs-7">
                         <div class="wow slideInRight">
-                            <a href="{{ url($locale.'/modulnye-soorujeniya') }}" class="green-section-title" title="Модульні споруди">
-                                Модульні споруди
+                            <a href="{{ url($locale.'/modulnye-soorujeniya') }}" class="green-section-title" title="Modular structures">
+                                Modular structures
                             </a>
                         </div>
                         <div class="wow slideInRight">
-                            <p class="green-section-body">Для тимчасового користування та проживання підходять модульні споруди, що представляють собою повний комплект з вікон, дверей і сучасних матеріалів.</p>
+                            <p class="green-section-body">It is acceptable modular facilities for temporary using and living, which include complete set of windows, doors and modern materials.</p>
                         </div>
                     </div>
                 </div>
@@ -275,17 +279,17 @@
                 <div class="row green-section-block">
                     <div class="col-sm-5 col-xs-5">
                         <div class="wow slideInRight">
-                            <img class="green-img" src="/images/green-section/icon-5.png" alt="Листовий прокат" title="Листовий прокат" style="max-width: 119px;" />
+                            <img class="green-img" src="/images/green-section/icon-5.png" alt="Flat products" title="Flat products" style="max-width: 119px;" />
                         </div>
                     </div>
                     <div class="col-sm-7 col-xs-7">
                         <div class="wow slideInRight">
-                            <a href="{{ url($locale.'/list_stalnoy') }}" class="green-section-title" title="Листовий прокат">
-                                Листовий прокат
+                            <a href="{{ url($locale.'/list_stalnoy') }}" class="green-section-title" title="Flat products">
+                                Flat products
                             </a>
                         </div>
                         <div class="wow slideInRight">
-                            <p class="green-section-body">Багато галузей застосування охоплює лист сталевий, який користується попитом і в автомобільній промисловості, і в будівництві, і в інших напрямках.</p>
+                            <p class="green-section-body">Steel sheet obtains many industries, which is in demand in the automotive industry, in building and construction and other areas.</p>
                         </div>
                     </div>
                 </div>
@@ -294,17 +298,17 @@
                 <div class="row green-section-block">
                     <div class="col-sm-5 col-xs-5">
                         <div class="wow slideInRight">
-                            <img class="green-img" src="/images/green-section/icon-6.png" alt="Металоконструкції" title="Металоконструкції" style="max-width: 119px;" />
+                            <img class="green-img" src="/images/green-section/icon-6.png" alt="Metallic structures" title="Metallic structures" style="max-width: 119px;" />
                         </div>
                     </div>
                     <div class="col-sm-7 col-xs-7">
                         <div class="wow slideInRight">
-                            <a href="{{ url($locale.'/metallokonstruktsii') }}" class="green-section-title" title="Металоконструкції">
-                                Металоконструкції
+                            <a href="{{ url($locale.'/metallokonstruktsii') }}" class="green-section-title" title="Metallic structures">
+                                Metallic structures
                             </a>
                         </div>
                         <div class="wow slideInRight">
-                            <p class="green-section-body">Сьогодні такі конструкції можна зустріти в сфері створення каркасних будинків, гаражів, ангарів, торговельних кіосків, побутівок, модульних будівель.</p>
+                            <p class="green-section-body">Today, such structures can be founded in the frame houses building field, garages, hangars, trade kiosks, corrugated steel cabins, and modular buildings.</p>
                         </div>
                     </div>
                 </div>
@@ -315,25 +319,25 @@
                 <div class="row green-section-block">
                     <div class="col-sm-5 col-xs-5">
                         <div class="wow slideInRight">
-                            <img class="green-img" src="/images/green-section/icon-7.png" alt="Сортовий прокат" title="Сортовий прокат" style="max-width: 119px;" />
+                            <img class="green-img" src="/images/green-section/icon-7.png" alt="Rolled steel" title="Rolled steel" style="max-width: 119px;" />
                         </div>
                     </div>
                     <div class="col-sm-7 col-xs-7">
                         <div class="wow slideInRight">
-                            <div class="green-section-title">Сортовий прокат</div>
+                            <div class="green-section-title">Rolled steel</div>
                         </div>
                         <div class="wow slideInRight">
-                            <a href="{{ url($locale.'/katanka') }}" class="green-section-link-seo" title="Катанка">
-                                Катанка
+                            <a href="{{ url($locale.'/katanka') }}" class="green-section-link-seo" title="Rolled wire">
+                                Rolled wire
                             </a><br/>
-                            <a href="{{ url($locale.'/krug') }}" class="green-section-link-seo" title="Круг">
-                                Круг
+                            <a href="{{ url($locale.'/krug') }}" class="green-section-link-seo" title="Round">
+                                Round
                             </a><br/>
-                            <a href="{{ url($locale.'/polosa') }}" class="green-section-link-seo" title="Штаба">
-                                Штаба
+                            <a href="{{ url($locale.'/polosa') }}" class="green-section-link-seo" title="Strip">
+                                Strip
                             </a><br/>
-                            <a href="{{ url($locale.'/rels') }}" class="green-section-link-seo" title="Рельс">
-                                Рельс
+                            <a href="{{ url($locale.'/rels') }}" class="green-section-link-seo" title="Rail">
+                                Rail
                             </a><br/>
                         </div>
                     </div>
@@ -343,22 +347,22 @@
                 <div class="row green-section-block">
                     <div class="col-sm-5 col-xs-5">
                         <div class="wow slideInRight">
-                            <img class="green-img" src="/images/green-section/icon-8.png" alt="Гнутий профіль" title="Гнутий профіль" style="max-width: 119px;" />
+                            <img class="green-img" src="/images/green-section/icon-8.png" alt="Roll-formed shape" title="Roll-formed shape" style="max-width: 119px;" />
                         </div>
                     </div>
                     <div class="col-sm-7 col-xs-7">
                         <div class="wow slideInRight">
-                            <div class="green-section-title">Гнутий профіль</div>
+                            <div class="green-section-title">Roll-formed shape</div>
                         </div>
                         <div class="wow slideInRight">
-                            <a href="{{ url($locale.'/shveller-gnutyj') }}" class="green-section-link-seo" title="Швелер гнутий">
-                                Швелер гнутий
+                            <a href="{{ url($locale.'/shveller-gnutyj') }}" class="green-section-link-seo" title="U-channel">
+                                U-channel
                             </a><br/>
-                            <a href="{{ url($locale.'/ugolok-gnutyj') }}" class="green-section-link-seo" title="Кутник гнутий">
-                                Кутник гнутий
+                            <a href="{{ url($locale.'/ugolok-gnutyj') }}" class="green-section-link-seo" title="L-shaped member">
+                                L-shaped member
                             </a><br/>
-                            <a href="{{ url($locale.'/z-obraznyj-profil') }}" class="green-section-link-seo" title="Z -подібний профіль">
-                                Z -подібний профіль
+                            <a href="{{ url($locale.'/z-obraznyj-profil') }}" class="green-section-link-seo" title="Z-section">
+                                Z-section
                             </a><br/>
                         </div>
                     </div>
@@ -368,17 +372,17 @@
                 <div class="row green-section-block">
                     <div class="col-sm-5 col-xs-5">
                         <div class="wow slideInRight">
-                            <img class="green-img" src="/images/green-section/icon-9.png" alt="Оцинковані рулони" title="Оцинковані рулони" style="max-width: 119px;" />
+                            <img class="green-img" src="/images/green-section/icon-9.png" alt="Galvanized coils" title="Galvanized coils" style="max-width: 119px;" />
                         </div>
                     </div>
                     <div class="col-sm-7 col-xs-7">
                         <div class="wow slideInRight">
-                            <a href="{{ url($locale.'/otsinkovannye-rulony') }}" class="green-section-title" title="Оцинковані рулони">
-                                Оцинковані рулони
+                            <a href="{{ url($locale.'/otsinkovannye-rulony') }}" class="green-section-title" title="Galvanized coils">
+                                Galvanized coils
                             </a>
                         </div>
                         <div class="wow slideInRight">
-                            <p class="green-section-body">Цинковий шар забезпечує не тільки електрохімічний, а й захист фізичного типу за рахунок того, що володіє незмінною адгезію.</p>
+                            <p class="green-section-body">The zinc coating provides not only electrochemical protection but also physical features due to the fact that there is permanent adhesion.</p>
                         </div>
                     </div>
                 </div>
@@ -403,16 +407,16 @@
                             </div>
                         </div>
                         <div class="col-sm-9">
-                            <a href="{{ route('stremitelno-menyayushchemsya-mire') }}" title="В стрімко мінливому світі" class="text-black-h3">
-                                Ми живемо в стрімко мінливому світі, і ми є свідками глибоких змін у суспільстві, свідомості, фондах, бізнесі.
+                            <a href="{{ route('stremitelno-menyayushchemsya-mire') }}" title="We live in a rapidly changing environment" class="text-black-h3">
+                                We live in a rapidly changing environment and we are bystanders of the profound changes in society, consciousness, funds and business.
                             </a>
 
                             <div class="padding-block-1-2">
-                                <span class="text-gray-16">Такі характеристики, як надійність, незмінна висока якість, довговічність, доступні ціни в сучасному світі відіграють головну роль. Продукцію з металу можна виробляти на обладнанні з професійними функціями, тому виготовлення виробів будь-якої складності можливо в рамках різних обсягів.</span>
+                                <span class="text-gray-16">Such characteristics as reliability, consistently high qualities, durability, affordable prices at the present-day world are signified a major role. Steel products can be produced on the equipment with professional functions, therefore products manufacturing of any complexity is possible within the limits of different volumes.</span>
                             </div>
 
                             <a href="{{ route('stremitelno-menyayushchemsya-mire') }}" class="text-orange-20">
-                                <span class="font-up">Читати далі</span>
+                                <span class="font-up">Read more</span>
                                 <span class="fa span-arrow"> >> </span>
                             </a>
                         </div>
@@ -462,7 +466,7 @@
 <section class="parallax-window" data-parallax="scroll" data-image-src="/images/template/index-parallax-01.jpg">
     <div class="container" style="position: relative;">
         <div class="parallax-text-wrap">
-            <span class="parallax-text">Добре встановлені ресурси в багатьох країнах світу</span>
+            <span class="parallax-text">Firmly established resources in many countries of the world</span>
         </div>
     </div>
 </section>
@@ -473,23 +477,23 @@
         <div class="row">
             <div class="col-md-5 col-sm-5 col-xs-12 text-center show-left">
                 <div class="wow fadeInLeft">
-                    <img class="green-img" src="/images/template/index-img-005.jpg" alt="" title="" style="max-width: 493px;" />
+                    <img class="green-img" src="/images/template/index-img-005.jpg" alt="What's new?" title="What's new?" style="max-width: 493px;" />
                 </div>
             </div>
             <div class="col-md-7 col-sm-7 col-xs-12">
                 <div class="wow fadeInRight">
-                    <p class="title-orange">Що нового?</p>
+                    <p class="title-orange">What's new?</p>
                 </div>
 
                 <div class="wow fadeInRight">
                     <div class="padding-block-2-2">
-                        <span class="text-gray-16">Зміною асортименту продукції нікого не здивуєш, а ось високе відношення до клієнта може надати не кожна компанія. Високий рівень задоволеності клієнтів говорить про те, що продукт цього бренду вартий уваги. Для клієнтів важливо не тільки якість продукту, але і якість обслуговування - це своєрідна аксіома.</span>
+                        <span class="text-gray-16">As for product range so it will not be a surprise to anyone, but regarding the good customer service, so it may not be provided by all companies. A high level of customer satisfaction indicates the product of this brand is worthy of attention. For customers is important not only quality, but also quality of service. This is a kind of theorem.</span>
                     </div>
                 </div>
 
                 <div class="wow fadeInRight">
                     <a href="{{ route('chto-novogo') }}" class="btn btn-warning send-button font-up">
-                        НАТИСИIТЬ ТУТ <span> >> </span>
+                        CLICK HERE <span> >> </span>
                     </a>
                 </div>
             </div>
@@ -505,23 +509,22 @@
                     <div class="row">
                         <div class="col-md-11 show-left">
                             <div class="wow fadeInLeft">
-                                <span class="title-orange">Кращі продавці</span>
+                                <span class="title-orange">The best sellers</span>
                             </div>
 
                             <div class="wow fadeInLeft">
                                 <div class="padding-block-2-2">
-                                    <span class="text-gray-16">Тільки час здатний в загальній масі виділити лідерів, які постійно працюють злагоджено і не відходять від загальних принципів. У кожному конкретному випадку використовується свій рецепт залучення продаж і це - незмінно висока якість, висока орієнтація на клієнта, гідне обслуговування.
-                                    </span>
+                                    <span class="text-gray-16">Only time is able to mark leaders in the crowd who constantly work together and do not depart from general principles. In every particularly case it is meant to be used its own sales formula like constantly high quality, high customer-centered orientation, decent service.</span>
                                 </div>
                             </div>
 
                             <div class="wow fadeInLeft">
                                 <a href="{{ route('luchshie-prodavcy') }}" class="btn btn-warning send-button font-up">
-                                    НАТИСИIТЬ ТУТ <span> >> </span>
+                                    CLICK HERE <span> >> </span>
                                 </a>
                             </div>
                         </div>
-                        <div class="col-md-1"> </div> {{-- ДА! это не ошибка, это часть верстки... --}}
+                        <div class="col-md-1"> </div>
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-4 col-xs-12 text-center">
@@ -537,7 +540,7 @@
 <section class="parallax-window" data-parallax="scroll" data-image-src="/images/template/index-parallax-02.jpg">
     <div class="container" style="position: relative;">
         <div class="parallax-text-wrap">
-            <span class="parallax-text">Внутрішні стандарти контролю у виробничому процесі</span>
+            <span class="parallax-text">Internal control standards in the production process</span>
         </div>
     </div>
 </section>
@@ -546,25 +549,25 @@
     <div class="padding-top"></div>
 
     <div class="wow fadeInUp">
-        <span class="text-gray-16">ЮТМК - підприємство промислового типу з власним виробництвом і великим асортиментом. Південна трубна металургійна компанія (ЮТМК) виготовляє і продає металопрокат в роздріб і оптом з 2013 року. В асортименті компанії представлений різний прокат металу:</span>
+        <span class="text-gray-16">UTMK is an industrial enterprise with its own production and comprehensive range. UTMK is engaged the manufacture and sale of rolled metal products in retail and wholesale from 2013. There is demonstrated a various rolled metal among the range of the company:</span>
     </div>
 
     <div class="wow slideInRight">
         <div class="padding-block-2-2">
             <div class="metall-list orange-list">
                 <ul class="list-unstyled">
-                    <li><span class="text-gray-16">сортовий металопрокат - швелери, двотаври, кутники, арматура, круги, штаби, катанки та інше;</span></li>
-                    <li><span class="text-gray-16">трубний металопрокат – безшовні, електрозварні, профільні труби різного виду і призначення;</span></li>
-                    <li><span class="text-gray-16">листовий металопрокат - сталеві листи гарячекатаного і холоднокатаного типу;</span></li>
-                    <li><span class="text-gray-16">європейська сталь - здійснюється продаж металу зі Швеції (сталь Hardox, Swebor);</span></li>
-                    <li><span class="text-gray-16">гнутий профіль - швелери, куточки, Z-подібний профіль.</span></li>
+                    <li><span class="text-gray-16">Bar sections- channels, I-beams, angles, rebars, round bars, strips, wire rod and others;</span></li>
+                    <li><span class="text-gray-16">Metal rolled tubes - seamless, boiler, welded, different kinds and purposes of the profile pipe;</span></li>
+                    <li><span class="text-gray-16">Steel sheets- hot-rolled and cold-rolled steel sheets;</span></li>
+                    <li><span class="text-gray-16">European steel production - Sweden wear-resistant steel delivery (Hardox, Swebor);</span></li>
+                    <li><span class="text-gray-16">Bent profile - channels, angles, Z-shaped profile.</span></li>
                 </ul>
             </div>
         </div>
     </div>
 
     <div class="wow fadeInUp">
-        <span class="text-gray-16">Каталог металопрокату компанії також містить гнутий профільний металопрокат. ЮТМК має бази металопрокату в Полтаві, Дніпропетровську та Києві. Компанія реалізує чорний металопрокат в Україні та за кордоном (Молдавія, Казахстан, Білорусія, Польща, Туреччина і т.д.). Для того щоб довідатися про ціни на метал, необхідно завантажити прайс-лист на металопрокат, відкривши вкладку «Прайс» на сайті. На вартість чорного металу діють знижки постійним клієнтам і при великих замовленнях, здійснюється індивідуальний підхід до кожного клієнта. В ЮМТК можна не тільки купити метал в Києві, а й придбати модульні споруди для тимчасового проживання та металоконструкції для виготовлення каркасних будинків. Металобази в Дніпропетровську, Полтаві та Києві здійснюють порізку та доставку металу у Львів, Тернопіль, Івано-Франківськ, Луцьк, Рівне, Хмельницький та інші куточки країни. Для того щоб придбати металопрокат в Києві і по всій Україні, телефонуйте за вказаними номерами, і наші менеджери нададуть всю необхідну допомогу. ЮМТК протягом тривалого часу стежить за репутацією і робить все, щоб розвивати довгострокові відносини.</span>
+        <span class="text-gray-16">The company's rolled metal catalog includes profile metal as well. UTMK has metal stock in Poltava, Dnepr and Kiev. The company sells roll black products in Ukraine and abroad (Moldova, Kazakhstan, Belarus, Poland, Turkey). In order to find out the metal goods prices, it is necessary to download the price-list or by opening the "Price" tab on our website. Regarding to the roll black metal cost so we provide discounts to regular customers and for the bulk orders our company carries out an individual approach for each consumer. At UMTK Company you can not only buy metal in Kiev, but also get modular structures for temporary residence and steelworks for the frame construction manufacturing. Our metal warehouses in Dnepr, Poltava and Kiev carry out cutting and delivering of metal in all over the whole country. In order you need to purchase metal rolled goods in Kiev and throughout Ukraine, call on the noted phone number, and the company's specialists will provide you all the necessary assistance. UMTK follow sits own reputation and makes an efforts to develop long-term relationships.</span>
     </div>
 
     <div class="padding-top"></div>
@@ -574,7 +577,7 @@
     <div class="container">
         <div class="padding-top"></div>
         <div class="wow fadeInRight">
-            <p class="welcome-text text-center">ГАЛЕРЕЯ</p>
+            <p class="welcome-text text-center">GALLERY</p>
         </div>
         <div class="padding-top"></div>
 
@@ -652,3 +655,4 @@
         });
     </script>
 @endsection
+

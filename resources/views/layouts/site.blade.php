@@ -74,9 +74,9 @@
                                 $locale = '';
                             }
                         ?>
-{{--                         <a href="{{ url('/en/'.$path) }}" title="{{ trans('index.speech.en') }}">
+                        <a href="{{ url('/en/'.$path) }}" title="{{ trans('index.speech.en') }}">
                             <img src="/images/flags/en.png" title="{{ trans('index.speech.en') }}" alt="{{ trans('index.speech.en') }}" />
-                        </a> --}}
+                        </a>
                         <a href="{{ url('/'.$path) }}" title="{{ trans('index.speech.ru') }}">
                             <img src="/images/flags/ru.png" title="{{ trans('index.speech.ru') }}" alt="{{ trans('index.speech.ru') }}" />
                         </a>
