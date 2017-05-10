@@ -16,14 +16,7 @@
 
 @section('content')
 
-<?php
-    //Да! это костыли! привет СЕО
-    if (in_array(App::getLocale(), ['en', 'uk'])) {
-        $locale = '/'.App::getLocale();
-    } else {
-        $locale = '';
-    }
-?>
+<?php $locale = (in_array(App::getLocale(), ['en', 'uk'])) ? '/' . App::getLocale() : ''; ?>
 
 <section class="container sales-title text-center">
     <div class="padding-top"></div>
@@ -43,7 +36,7 @@
         @foreach ($offices as $office)
             <div class="col-md-4 col-sm-6 col-xs-12 office">
                 <div class="wow fadeInUp">
-                    <a class="text-green-20 font-up" href="{{ url($locale.'/office/'.$office['city'].'/'.$office['id']) }}" title="">{{ $office['title'] }}</a>
+                    <a class="text-green-20 font-up" href="{{ url($locale . '/office/' . $office['slug']) }}" title="">{{ $office['title'] }}</a>
                     <div class="hidden sales-office-address" data-latitude="{{ $office['latitude'] }}" data-longitude="{{ $office['longitude'] }}"></div>
                 </div>
 
@@ -83,23 +76,16 @@
 @section('scripts')
 
     <script type="text/javascript">
-        var map;
-        var optionsMap = {
+        let map;
+        let optionsMap = {
                 zoom: 6,
                 center: {lat: 49.027500, lng: 31.482778},
-                // disableDefaultUI: true,
                 scrollwheel: false,
-                // styles: [{
-                //     featureType: "poi",
-                //     stylers: [
-                //         { visibility: "off" }
-                //     ]
-                // }]
             };
 
         function initMap() {
             map = new google.maps.Map(document.getElementById('map'), optionsMap);
-            var text = '';
+            let text = '';
 
             $.each($(".sales-office-address"), function(key, val){
                 text = $(val).prev("a").text();
@@ -120,26 +106,26 @@
 
         $(window).on('load resize', function(event){
             if ($(window).width() >= '768'){
-                var height  = 0;
-                var caption = $(".sales-list-offices").find(".office");
+                let height  = 0;
+                let caption = $(".sales-list-offices").find(".office");
 
-                for (var i = 0; i < caption.length;) {
+                for (let i = 0; i < caption.length;) {
 
-                    if ($(caption[i]).height() > $(caption[i+1]).height()) {
-                        if ($(caption[i]).height() > $(caption[i+2]).height()) {
+                    if ($(caption[i]).height() > $(caption[i + 1]).height()) {
+                        if ($(caption[i]).height() > $(caption[i + 2]).height()) {
                             height = $(caption[i]).height();
                         } else {
-                            height = $(caption[i+2]).height();
+                            height = $(caption[i + 2]).height();
                         }
-                    } else if ($(caption[i+1]).height() > $(caption[i+2]).height()) {
-                        height = $(caption[i+1]).height();
+                    } else if ($(caption[i + 1]).height() > $(caption[i + 2]).height()) {
+                        height = $(caption[i + 1]).height();
                     } else {
-                        height = $(caption[i+2]).height();
+                        height = $(caption[i + 2]).height();
                     }
 
                     $(caption[i]).height(height);
-                    $(caption[i+1]).height(height);
-                    $(caption[i+2]).height(height);
+                    $(caption[i + 1]).height(height);
+                    $(caption[i + 2]).height(height);
 
                     i += 3;
                 }

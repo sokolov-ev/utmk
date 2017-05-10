@@ -175,7 +175,7 @@
         $.get("/products/get-order-data", function(response){
             if (response.status == "ok") {
                 var count = response.data.length;
-                prices = [];
+                prices = {};
 
                 if (count > 0) {
                     $.each(response.data, function(key, product){
@@ -184,7 +184,7 @@
                         var id = 0;
                         var temp;
 
-                        $.each(product.prices, function(priceId, price){
+                        $.each(product.order_prices, function(priceId, price){
                             temp = {};
 
                             temp.price = price.price;

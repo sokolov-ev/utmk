@@ -36,7 +36,7 @@ class ReferenceController extends Controller
 
     public function indexEdit(Request $request)
     {
-        $data = $request->only(['title_en', 'title_ru', 'title_uk', 'body_en', 'body_ru', 'body_uk']);
+        $data = $request->only(['title', 'body']);
 
         if (Reference::setReference($data)) {
             session()->flash('success', 'Данные главной страницы справки обновлены');
@@ -58,21 +58,13 @@ class ReferenceController extends Controller
     {
         $this->validatorSection($request);
 
-        $data = $request->only([
-            'slug',
-            'title_en',
-            'title_ru',
-            'title_uk',
-            'body_small_en',
-            'body_small_ru',
-            'body_small_uk',
-            'body_en',
-            'body_ru',
-            'body_uk',
-        ]);
+        $data = $request->only(['id', 'slug', 'title', 'body_small', 'body']);
 
         if (ReferenceSection::setSection($data)) {
-            session()->flash('success', 'Секция создана');
+            // generation of additional data
+            ReferenceSection::formingAdditionalData();
+
+            session()->flash('success', 'Секция сохранена');
         } else {
             session()->flash('error', 'Возникла ошибка при создании секции');
         }
@@ -109,9 +101,28 @@ class ReferenceController extends Controller
         return response()->json(['status' => 'ok']);
     }
 
+    public function delete($id)
+    {
+        $section = ReferenceSection::find($id);
+        
+        if (empty($section)) {
+            session()->flash('error', 'Секция не найдена');
+            return redirect('/administration/spravka');
+        }
+
+        if ($section->delete()) {
+            session()->flash('success', 'Секция удалена');
+        } else {
+            session()->flash('error', 'Возникла ошибка при удалении секции');
+        }
+
+        return redirect('/administration/spravka');
+    }
+
     protected function validatorSection($request)
     {
         $data = $request->all();
+        $data['slug'] = str_slug($data['slug'], '-');
 
         $validator = Validator::make($data, [
             'slug' => 'required|unique:reference_section,slug,'.$data['id'],

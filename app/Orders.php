@@ -13,23 +13,15 @@ class Orders extends Model
 
     protected $table = 'orders';
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
         'user_id', 'manager_id', 'office_id', 'total_cost', 'formed', 'status', 'contacts', 'wish'
     ];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
     protected $hidden = [];
 
     protected $dateFormat = 'U';
+
+    //////////
 
     public function attitude()
     {
@@ -54,6 +46,11 @@ class Orders extends Model
     public function manager()
     {
         return $this->belongsTo('App\Admin', 'manager_id', 'id');
+    }
+
+    public function office()
+    {
+        return $this->belongsTo('App\Office', 'office_id', 'id');
     }
 
     public static function getStatus()
@@ -85,17 +82,4 @@ class Orders extends Model
 
         return $result;
     }
-
-    // public static function isLocked()
-    // {
-    //     if (Auth::guard(null)->check()) {
-    //         $order = Orders::where([['user_id', Auth::guard(null)->user()->id], ['formed', 0]])->first();
-
-    //         if (!empty($order) && !empty($order->office_id)) {
-    //             return $order->office_id;
-    //         }
-    //     }
-
-    //     return false;
-    // }
 }

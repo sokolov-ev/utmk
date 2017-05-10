@@ -126,9 +126,9 @@
             }
         });
 
-        var columns = JSON.parse($(".is-admin").text());
+        let columns = JSON.parse($(".is-admin").text());
 
-        var table = $('table').DataTable({
+        let table = $('table').DataTable({
             "paging": true,
             "lengthChange": true,
             "ordering": true,
@@ -171,11 +171,11 @@
                     "sortable": false,
                     "render": function(date, type, full) {
                         return '<button class="btn btn-default btn-xs view-product" \
-                                        data-id="'+full.id+'"> \
+                                        data-id="' + full.id + '"> \
                                             <i class="fa fa-eye" aria-hidden="true"></i> \
                                 </button> \
                                 <a class="btn btn-warning btn-xs" \
-                                   href="/administration/product/edit/'+full.id+'" \
+                                   href="/administration/product/edit/' + full.id + '" \
                                    alt="Редактировать" \
                                    title="Редактировать"> \
                                        <i class="fa fa-pencil" aria-hidden="true"></i> \
@@ -183,8 +183,8 @@
                                 <button class="btn btn-danger btn-xs" \
                                         data-target="#delete-modal" \
                                         data-toggle="modal" \
-                                        data-id="'+full.id+'" \
-                                        data-name="'+full.title+'"> \
+                                        data-id="' + full.id + '" \
+                                        data-name="' + full.title + '"> \
                                             <i class="fa fa-trash-o" aria-hidden="true"></i> \
                                 </button>';
                     }
@@ -211,17 +211,22 @@
         });
 
         $('table').on('click', '.view-product', function () {
-            var tut = this;
-            var id  = $(tut).data('id');
+            let tut = this;
+            let id  = $(tut).data('id');
 
             if ($(tut).closest('tr').next(".data-product")[0] == undefined) {
                 $(tut).find('i').removeClass('fa-eye').addClass('fa-eye-slash');
 
                 $.get('/administration/products/get/' + id, function(response) {
                     if (response.status == 'ok') {
-                        var template = $('#product-template').html();
+                        let template = $('#product-template').html();
                         Mustache.parse(template);
-                        var product = Mustache.render(template, response);
+
+                        $.each(response.product.prices, function(key, item) {
+                            response.product.prices[key].type_view = item.type_view == 'agreed';
+                        });
+
+                        let product = Mustache.render(template, response);
 
                         $(tut).closest('tr').after('<tr class="data-product" style="display: none;"><td colspan="10">' + product + '</td></tr>');
                         $('.data-product').fadeIn(800);

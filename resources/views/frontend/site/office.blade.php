@@ -74,8 +74,19 @@
             <div class="wow fadeInUp">
                 <div class="padding-block-0-2 row">
                     @foreach ($office['contacts'] as $contact)
-                        <div class="col-md-6 col-sm-6 col-xs-6 text-gray-16">{{ $contact['type'] }}:</div>
-                        <div class="col-md-6 col-sm-6 col-xs-6 text-gray-16">{{ $contact['data'] }}</div>
+                        <div class="col-md-6 col-sm-6 col-xs-6 text-gray-16">{{ trans('offices.contactType.'.$contact['type']) }}:</div>
+
+                        @if (in_array($contact['type'], ['mobile', 'phone', 'accounting-tel']))
+                            <div class="col-md-6 col-sm-6 col-xs-6 text-gray-16">
+                                <a href="tel:{{ preg_replace('~\D+~','',$contact['contact']) }}">{{ $contact['contact'] }}</a>
+                            </div>
+                        @elseif ($contact['type'] == 'email')
+                            <div class="col-md-6 col-sm-6 col-xs-6 text-gray-16">
+                                <a href="mailto:{{ $contact['contact'] }}">{{ $contact['contact'] }}</a>
+                            </div>
+                        @else
+                            <div class="col-md-6 col-sm-6 col-xs-6 text-gray-16">{{ $contact['contact'] }}</div>
+                        @endif
                     @endforeach
                 </div>
             </div>

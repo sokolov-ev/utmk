@@ -10,21 +10,13 @@ class Rating extends Model
 {
     protected $table = 'rating';
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = ['product_id', 'appraisal'];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
     protected $hidden = [];
 
     protected $dateFormat = 'U';
+
+    ////////////
 
     public static function getRating($id)
     {

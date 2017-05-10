@@ -63,8 +63,8 @@ class RouteController extends Controller
                 abort(404);
             } else {
 
-                $menu    = Menu::getBreadcrumbs($product['menu_id']);
-                $product = Products::toArrayProduct($product);
+                $menu    = Menu::getBreadcrumbs($product->menu_id);
+                $product = Products::converData($product);
                 $rating  = Rating::getRating($product['id']);
 
                 $metatags = Metatags::where([['type', 'product'], ['slug', $slug]])->first();
@@ -124,10 +124,6 @@ class RouteController extends Controller
             }
         }
 
-        // $offices = Office::select('id', 'city')->get();
-        // $ordersLocked = Orders::isLocked();
-        // $filterOffice = $ordersLocked ? $ordersLocked : Office::getOfficeId($request->get('city'));
-
         $format = 'list';
         if (empty($request->get('format')) || ($request->get('format') == 'cards')) {
             $format = 'cards';
@@ -139,12 +135,11 @@ class RouteController extends Controller
         $array = $this->getCatalogId($item['id'], $menu->toArray());
 
         $products = Products::whereIn('menu_id', $array)
-                            // ->where([['office_id', $filterOffice], ['show_my', 1]])
                             ->where('show_my', 1)
                             ->orderBy('rating', 'DESC')
                             ->paginate(9);
 
-        $result   = Products::viewDataJson($products);
+        $result   = Products::getViewProducts($products);
 
         $slug = array_pop($part);
 

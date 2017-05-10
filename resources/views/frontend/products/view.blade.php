@@ -13,7 +13,7 @@
     <!-- Schema.org markup (Google) -->
     <meta itemprop="name" content="{{ $metatags['title'] }}">
     <meta itemprop="description" content="{{ $metatags['description'] }}">
-    <meta itemprop="image" content="{{ url('/') }}/images/products/{{ $product['images'][0]['name'] }}">
+    <meta itemprop="image" content="{{ url('/') }}/images/products/{{ $product['images'][0] }}">
 
     <!-- Twitter Card markup-->
     <meta name="twitter:card" content="summary_large_image">
@@ -22,14 +22,14 @@
     <meta name="twitter:description" content="{{ $metatags['description'] }}">
     <meta name="twitter:creator" content="">
     <!-- Twitter summary card with large image must be at least 280x150px -->
-    <meta name="twitter:image" content="{{ url('/') }}/images/products/{{ $product['images'][0]['name'] }}">
+    <meta name="twitter:image" content="{{ url('/') }}/images/products/{{ $product['images'][0] }}">
     <meta name="twitter:image:alt" content="">
 
     <!-- Open Graph markup (Facebook, Pinterest) -->
     <meta property="og:title" content="{{ $metatags['title'] }}" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="{{ url()->current() }}" />
-    <meta property="og:image" content="{{ url('/') }}/images/products/{{ $product['images'][0]['name'] }}" />
+    <meta property="og:image" content="{{ url('/') }}/images/products/{{ $product['images'][0] }}" />
     <meta property="og:description" content="{{ $metatags['description'] }}" />
     <meta property="og:site_name" content="Metall Vsem" />
 
@@ -84,7 +84,7 @@
                             <div class="carousel-inner" role="listbox">
                                 @foreach ($product['images'] as $key => $img)
                                     <div class="item {{ ($key == 0) ? 'active' : '' }}">
-                                        <img alt="{{ $img['name'] }}" src="/images/products/{{ $img['name'] }}" style="width: 100%; height: auto;">
+                                        <img alt="{{ $product['title'] }}" src="{{ $img }}" style="width: 100%; height: auto;">
                                     </div>
                                 @endforeach
                             </div>
@@ -98,7 +98,7 @@
                             </a>
                         </div>
                     @else
-                        <img alt="{{ $product['images'][0]['name'] }}" src="/images/products/{{ $product['images'][0]['name'] }}" style="width: 100%; height: auto;">
+                        <img alt="{{ $product['title'] }}" src="{{ $product['images'][0] }}" style="width: 100%; height: auto;">
                     @endif
 
                 </div>
@@ -134,30 +134,28 @@
 
             <div class="padding-block-1-2" style="font-size: 16px;">
                 <strong>{{ trans('offices.office') }}</strong>:
-                <a class="orange-list-a" href="{{ url('/office/'.$product['office_city'].'/'.$product['office_id']) }}" title="{{ $product['office_title'] }}">
+                <a class="orange-list-a" href="{{ url($product['office_linck']) }}" title="{{ $product['office_title'] }}">
                     {{ $product['office_title'] }}
                 </a>
             </div>
            
-            <?php $flag = true; ?>
             @foreach($product['prices'] as $price)
                 <div class="margin-bottom-5">
-                    @if ($price['type'] == 'agreed')
+                    @if ($price['type_view'] == 'agreed')
                         <div class="shopping-cart-block">
                             <div class="card-price-block">
                                 <div class="card-price" style="border-radius: 4px;">
-                                    {{ trans('products.measures.'.$price['type']) }}
+                                    {{ $price['type'] }}
                                 </div>
                             </div>
                         </div>
-                        <?php $flag = false; ?>
                     @else
                         <div class="shopping-cart">
                             <div class="card-price-block">
                                 <div class="card-price">
                                     {{ $price['price'] }}
                                     <span class="card-price-uah">
-                                        {{ trans('products.uah') }} / {{ trans('products.measures.'.$price['type']) }}
+                                        {{ trans('products.uah') }} / {{ $price['type'] }}
                                     </span>
                                 </div>
                             </div>
@@ -165,8 +163,8 @@
                     @endif
                 </div>
             @endforeach
-
-            @if ($flag)
+    
+            @if (!$product['prices_type'])
                 <div class="padding-block-2-2">
                     <button type="button" class="btn btn-success add-cart pull-right" data-id="{{ $product['id'] }}">
                         <i class="fa fa-cart-plus" aria-hidden="true"> </i> {{ trans('products.add-cart') }}
@@ -191,6 +189,9 @@
         $(".products").addClass('active');
 
         $("body").on('click', '.add-cart', function(event){
+
+            console.info($(this).data('id'));
+
             let tut = this;
             var id  = $(this).data('id');
             let count = 1;
@@ -211,7 +212,7 @@
                         $(".shopping-cart-badge").addClass("hidden");
                         $(".shopping-cart-badge").text('');
                     }
-                } else if ((response.status == 'bad') && (response.auth)) {
+                } else if ((response.status == 'bad') && (response.error == 'auth')) {
                     $(".not-auth-user").removeClass('hidden');
                     $(".not-auth-user").html('<p><b>' + response.message + '</p></b>');
                     $("#login-form").modal('show');

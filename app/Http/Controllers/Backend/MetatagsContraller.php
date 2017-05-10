@@ -25,16 +25,19 @@ class MetatagsContraller extends Controller
         $menu     = Menu::select('slug', 'name')->orderBy('weight', 'ASC')->get();
         $products = Products::select('slug', 'title AS name')->where('show_my', 1)->orderBy('title', 'ASC')->get();
         $articles = Articles::select('slug', 'name')->orderBy('name', 'ASC')->get();
-        $offices  = Office::select('id', 'title AS name')->orderBy('name', 'ASC')->get();
+        $offices  = Office::select('slug', 'title AS name')->orderBy('name', 'ASC')->get();
         $referenceSection = ReferenceSection::select('slug', 'title AS name')->get();
 
+        $isArticle = (($metatags['type'] == 'menu') || ($metatags['slug'] == 'price'));
+
         return view('backend.site.metatags', [
-            'metatags' => $metatags,
-            'menu'     => $menu->toArray(),
-            'news'     => $news->toArray(),
-            'products' => $products->toArray(),
-            'articles' => $articles->toArray(),
-            'offices'  => $offices->toArray(),
+            'metatags'  => $metatags,
+            'isArticle' => $isArticle,
+            'menu'      => $menu->toArray(),
+            'news'      => $news->toArray(),
+            'products'  => $products->toArray(),
+            'articles'  => $articles->toArray(),
+            'offices'   => $offices->toArray(),
             'referenceSection' => $referenceSection->toArray(),
         ]);
     }
@@ -43,10 +46,10 @@ class MetatagsContraller extends Controller
     {
         if ($metatags = Metatags::setMetatags($request->all())) {
             session()->flash('success', 'Мета данные сохранены.');
-            return redirect('/administration/metatags/'.$metatags->type.'/'.$metatags->slug);
+            return redirect('/administration/metatags/' . $metatags->type . '/' . $metatags->slug);
         } else {
             session()->flash('error', 'Возникла ошибка при сохранении мета данных.');
-            return redirect('/administration/metatags/'.$request->input('type').'/'.$request->input('slug'))->withInput();
+            return redirect('/administration/metatags/' . $request->input('type') . '/' . $request->input('slug'))->withInput();
         }
     }
 }

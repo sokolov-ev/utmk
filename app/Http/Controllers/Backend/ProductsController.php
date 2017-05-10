@@ -61,8 +61,8 @@ class ProductsController extends Controller
 
     public function filtering(Request $request)
     {
-        $count = empty($request->get("length")) ? 10 : $request->get("length");
-        $page  = $request->get("start");
+        $count   = empty($request->get("length")) ? 10 : $request->get("length");
+        $page    = $request->get("start");
         $isAdmin = Auth::guard('admin')->user()->role == Admin::ROLE_ADMIN;
 
         list($orderName, $orderDir) = DataTable::getOrderProducts($request->all());
@@ -72,50 +72,48 @@ class ProductsController extends Controller
             $where[] = ["products.office_id", Auth::guard('admin')->user()->office_id];
         }
 
-        $products = DB::table('products')
-                      ->select('products.*', 'admins.username AS mod_name', 'menu.name AS menu_name', 'offices.city AS off_city')
-                      ->join('menu', 'menu.id', '=', 'products.menu_id')
-                      ->join('offices', 'offices.id', '=', 'products.office_id')
-                      ->join('admins', 'admins.id', '=', 'products.creator_id')
-                      ->where($where)
-                      ->orderBy($orderName, $orderDir)
-                      ->take($count)
-                      ->skip($page)
-                      ->get();
+        $products = Products::with('menu', 'office', 'moderator')
+                            ->where($where)
+                            ->orderBy($orderName, $orderDir)
+                            ->take($count)
+                            ->skip($page)
+                            ->get();
+
+        $count = Products::with('menu', 'office', 'moderator')
+                         ->where($where)
+                         ->count();
 
         $result = [];
-        $totalData = Products::count();
-        $totalFiltered = $totalData;
+        $totalData = $count;
+        $totalFiltered = count($products);
 
         foreach ($products as $product) {
-            $temp["id"]   = (string) $product->id;
-            $temp["menu"] = json_decode($product->menu_name, true)[App::getLocale()];
+            $temp['id']   = (string) $product->id;
+            $temp['menu'] = json_decode($product->menu->name, true)[App::getLocale()];
 
             if ($isAdmin) {
-                $cityName = json_decode($product->off_city, true)[App::getLocale()];
-                $temp["office"]  = '<a href="/administration/offices/index/'.$product->office_id.'" title="'.$cityName.'">'.$cityName.'</a>';
+                $cityName = json_decode($product->office->city, true)[App::getLocale()];
+                $temp['office']  = '<a href="/administration/offices/index/'.$product->office_id.'" title="'.$cityName.'">'.$cityName.'</a>';
 
-                $temp["creator"] = '<a href="/administration/moderators/'.$product->creator_id.'" title="'.$product->mod_name.'">'.$product->mod_name.'</a>';
+                $temp['creator'] = '<a href="/administration/moderators/'.$product->creator_id.'" title="'.$product->moderator->username.'">'.$product->moderator->username.'</a>';
             } else {
-                $temp["creator"] = $product->mod_name;
+                $temp['creator'] = $product->moderator->username;
             }
 
-            $temp["title"]      = str_limit(json_decode($product->title, true)[App::getLocale()], 27, '...');
-            $temp["rating"]     = $product->rating;
-            $temp["show_my"]    = $product->show_my ? 'Да' : 'Нет';
-            $temp["created_at"] = empty($product->created_at) ? "<i class='text-danger'>(нет данных)</i>" : date("Y-m-d H:i", $product->created_at);
+            $temp['title']      = str_limit(json_decode($product->title, true)[App::getLocale()], 27, '...');
+            $temp['rating']     = $product->rating;
+            $temp['show_my']    = $product->show_my ? 'Да' : 'Нет';
+            $temp['created_at'] = empty($product->created_at) ? '<i class="text-danger">(нет данных)</i>' : date('Y-m-d H:i', $product->created_at->timestamp);
 
             $result[] = $temp;
         }
 
-        $totalFiltered = count($result);
-
         return response()->json([
-            "status" => "ok",
-            "draw" => $request->get("draw"),
-            "recordsTotal" => (string) $totalFiltered,
-            "recordsFiltered" => (string) $totalData,
-            "data" => $result,
+            'status'          => 'ok',
+            'draw'            => $request->get('draw'),
+            'recordsTotal'    => (string) $totalFiltered,
+            'recordsFiltered' => (string) $totalData,
+            'data'            => $result
         ]);
     }
 
@@ -144,7 +142,7 @@ class ProductsController extends Controller
     {
         $this->validator($request, 'add');
 
-        if ($product = Products::actionProduct(null, $request->all())) {
+        if ($product = Products::actionProductNew(null, $request->all())) {
             Images::addImages($product->id, $request->file('images'));
             Prices::createPrice($product->id, $request->input('price'), $request->input('price_type'));
             session()->flash('success', "Продукция добавлена.");
@@ -157,7 +155,7 @@ class ProductsController extends Controller
 
     public function editForm($id)
     {
-        $product   = Products::parseData($id);
+        $product   = Products::getEditData($id);
         $menu      = Menu::select('id', 'name AS text')->where('parent_exist', 0)->orderBy('weight', 'ASC')->get();
         $isAdmin   = Auth::guard('admin')->user()->role == Admin::ROLE_ADMIN;
         $priceType = Prices::getMeasures();
@@ -194,14 +192,14 @@ class ProductsController extends Controller
             }
         }
 
-        if ($product = Products::actionProduct($id, $request->all())) {
+        if ($product = Products::actionProductNew($id, $request->all())) {
             Images::addImages($product->id, $request->file('images'));
             Prices::editPrices($product->id, $request->all());
             session()->flash('success', "Данные продукции изменены.");
-            return redirect('/administration/products');
+        } else {
+            session()->flash('error', 'Возникла ошибка при изменении данных продукции.');    
         }
 
-        session()->flash('error', 'Возникла ошибка при изменении данных продукции.');
         return redirect()->back();
     }
 
@@ -238,9 +236,9 @@ class ProductsController extends Controller
 
             'slug' => 'required|unique:products,slug,'.$id,
 
-            'title_en' => 'string|min:3',
-            'title_ru' => 'string|min:3',
-            'title_uk' => 'string|min:3',
+            'title.en' => 'string|min:3',
+            'title.ru' => 'string|min:3',
+            'title.uk' => 'string|min:3',
 
             'price.*' => 'required|numeric',
             'price_type.*' => 'required_with:'.Prices::listMeasures(),
@@ -253,8 +251,8 @@ class ProductsController extends Controller
                 $validator->errors()->add('images.0', 'Загрузите хотя бы одно изображение.');
             }
 
-            if ( empty($request->input('title_en')) && empty($request->input('title_ru')) && empty($request->input('title_uk')) )  {
-                $validator->errors()->add('title_ru', 'Поле "Заголовок" обязательно для заполнения.');
+            if ( empty($request->input('title.en')) && empty($request->input('title.ru')) && empty($request->input('title.uk')) )  {
+                $validator->errors()->add('title.ru', 'Поле "Заголовок" обязательно для заполнения.');
             }
         });
 
@@ -320,54 +318,8 @@ class ProductsController extends Controller
 
     public function getProduct($id)
     {
-        $product = Products::viewData($id);
-        $images  = [];
-        $office  = [];
-        $prices  = [];
-
-        if (empty($product)) {
-            return response()->json(['status' => 'bad', 'message' => 'Товар не найден.']);
-        }
-
-        if ( Auth::guard('admin')->user()->role != Admin::ROLE_ADMIN ) {
-            if ( $product['office']['id'] != Auth::guard('admin')->user()->office_id ) {
-                return response()->json(['status' => 'bad', 'message' => 'Нет доступа.']);
-            }
-        }
-
-        $temp = [];
-        foreach ($product['images'] as $key => $img) {
-            $temp['key']  = ($key == 0) ? true : false;
-            $temp['name'] = $img['name'];
-
-            $images[] = $temp;
-        }
-
-        $product['images'] = $images;
-        $product['image_count'] = (count($images) > 1) ? true : false;
-
-        if (Auth::guard('admin')->user()->role == Admin::ROLE_ADMIN) {
-            $office['id'] = $product['office_id'];
-            $office['office_work_title'] = trans('offices.office');
-            $office['title'] = $product['office_title'];
-        } else {
-            $office['id'] = false;
-            $office['office_work_title'] = false;
-            $office['title'] = false;
-        }
-
-        $product['office'] = $office;
-
-        $temp = [];
-        foreach ($product['prices'] as $price) {
-            $temp['price'] = $price['price'];
-            $temp['type']  = trans('products.measures.'.$price['type']);
-            $temp['work_type'] = ($price['type'] == 'agreed') ? true : false;
-
-            $prices[] = $temp;
-        }
-
-        $product['prices'] = $prices;
+        $product = Products::findOrFail($id);
+        $product = Products::converData($product);
 
         return response()->json([
             'status' => 'ok', 

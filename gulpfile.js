@@ -12,15 +12,15 @@ require('laravel-elixir-minify-html');
  */
 
 elixir(function(mix) {
-    mix.html(
-        'storage/framework/views/*', 
-        'storage/framework/views/', 
-        {
-            collapseWhitespace: true, 
-            removeAttributeQuotes: true, 
-            removeComments: true, 
-            minifyJS: true
-        });
+    // mix.html(
+    //     'storage/framework/views/*', 
+    //     'storage/framework/views/', 
+    //     {
+    //         collapseWhitespace: true, 
+    //         removeAttributeQuotes: true, 
+    //         removeComments: true, 
+    //         minifyJS: true
+    //     });
 
     // СТИЛИ ----------------------------------------
     mix.styles([
@@ -35,7 +35,6 @@ elixir(function(mix) {
         'frontend/footer.css',
         'frontend/inform.css',
         'jquery.rateyo.css',
-        // имя скомпилированого файла
     ], 'public/css/styles.min.css');
 
     mix.styles([
@@ -43,17 +42,14 @@ elixir(function(mix) {
         'AdminLTE/skins/skin-blue.min.css',
         'JQueryTable/dataTables.bootstrap.css',
         'backend.css',
-        // имя скомпилированого файла
     ], 'public/css/admin.min.css');
 
     mix.styles([
         'select2.css',
-        // имя скомпилированого файла
     ], 'public/css/select2.min.css');
 
     mix.styles([
         'fileinput.css',
-        // имя скомпилированого файла
     ], 'public/css/fileinput.min.css');
 
 
@@ -82,7 +78,6 @@ elixir(function(mix) {
         'select2/i18n/en.js',
         'select2/i18n/ru.js',
         'select2/i18n/uk.js',
-        // имя скомпилированого файла
     ], 'public/js/select2.min.js');
 
     mix.scripts([
@@ -92,7 +87,6 @@ elixir(function(mix) {
         'filestyle/fileinput.js',
         'filestyle/locales/ru.js',
         'filestyle/locales/uk.js',
-        // имя скомпилированого файла
     ], 'public/js/fileinput.min.js');
 
     mix.scripts([
@@ -100,7 +94,6 @@ elixir(function(mix) {
         'jqueryTable/dataTables.bootstrap.js',
         'jqueryTable/jquery.slimscroll.js',
         'jqueryTable/fastclick.js',
-        // имя скомпилированого файла
     ], 'public/js/jqueryTable.min.js');
 
     mix.version([
@@ -122,7 +115,7 @@ elixir(function(mix) {
         'js/jquery.rateyo.js',
     ]);
 
-    mix.browserSync({
-        proxy: 'metallvsem.dev'
-    });
+    // mix.browserSync({
+    //     proxy: 'metallvsem.dev'
+    // });
 });

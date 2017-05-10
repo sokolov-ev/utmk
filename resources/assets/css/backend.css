@@ -329,3 +329,11 @@ div.dataTables_length select {
 .margin-bottom-5 {
   margin-bottom: 7px;
 }
+
+.metatags .edit-btn {
+  padding-left: 0;
+}
+
+.metatags .edit-input {
+  margin-bottom: 10px;
+}

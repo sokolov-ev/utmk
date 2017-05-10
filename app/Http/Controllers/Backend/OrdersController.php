@@ -43,61 +43,68 @@ class OrdersController extends Controller
             $where[] = ['orders.office_id', Auth::guard('admin')->user()->office_id];
         }
 
-        $orders = DB::table('orders')
-                      ->select('orders.*', 'users.username AS user', 'admins.username AS moderator', 'offices.city AS office')
-                      ->join('users', 'users.id', '=', 'orders.user_id')
-                      ->leftJoin('offices', 'offices.id', '=', 'orders.office_id')
-                      ->leftJoin('admins', 'admins.id', '=', 'orders.manager_id')
-                      ->where($where)
-                      ->where('formed', 1)
-                      ->orderBy($orderName, $orderDir)
-                      ->take($count)
-                      ->skip($page)
-                      ->get();
+        $orders = Orders::with('user', 'manager', 'office')
+                         ->where($where)
+                         ->where('formed', 1)
+                         ->orderBy($orderName, $orderDir)
+                         ->take($count)
+                         ->skip($page)
+                         ->get();
+
+        $total = Orders::with('user', 'manager', 'office')
+                       ->where($where)
+                       ->where('formed', 1)
+                       ->count();
 
         $result = [];
-        $totalData = Orders::count();
-        $totalFiltered = $totalData;
-
+        $totalData = $total;
+        $totalFiltered = count($orders);
+        // ;..(
         foreach ($orders as $order) {
             $temp["id"]   = (string) $order->id;
+
             if ($isAdmin) {
-                $temp["user"] = '<a href="/administration/clients?id='.$order->user_id.'" title="'.$order->user.'">'.$order->user.'</a>';
+                $temp["user"] = '<a href="/administration/clients?id=' . $order->user_id . '" title="' . $order->user->username . '">' . $order->user->username . '</a>';
             } else {
-                $temp["user"] = $order->user;
+                $temp["user"] = $order->user->username;
             }
+
             $temp["total_cost"] = $order->total_cost;
             $temp["status"] = trans('orders.status.'.$orderStatus[$order->status]);
 
-            $cityName = json_decode($order->office, true)[App::getLocale()];
+            $cityName = json_decode($order->office->city, true)[App::getLocale()];
 
             if ($isAdmin) {
-                $temp["office"]    = '<a href="/administration/offices/index/'.$order->office_id.'" title="'.$cityName.'">'.$cityName.'</a>';
-                $temp["moderator"] = '<a href="/administration/moderators/'.$order->manager_id.'" title="'.$order->moderator.'">'.$order->moderator.'</a>';
+                $temp["office"] = '<a href="/administration/offices/index/' . $order->office_id . '" title="' . $cityName . '">' . $cityName . '</a>';
+                
+                if (empty($order->manager->username)) {
+                    $temp["moderator"] = '<i class="text-danger">(нет данных)</i>';
+                } else {
+                    $temp["moderator"] = '<a href="/administration/moderators/' . $order->manager_id . '" title="' . $order->manager->username . '">' . $order->manager->username . '</a>';
+                }
             } else {
-                $temp["office"]    = $cityName;
-                $temp["moderator"] = $order->moderator;
+                $temp["office"] = $cityName;
+
+                if (empty($order->manager->username)) {
+                    $temp["moderator"] = '<i class="text-danger">(нет данных)</i>';
+                } else {
+                    $temp["moderator"] = $order->manager->username;
+                }
             }
 
             if (empty($cityName)) {
                 $temp["office"] = '<i class="text-danger">(нет данных)</i>';
             }
 
-            if (empty($order->moderator)) {
-                $temp["moderator"] = '<i class="text-danger">(нет данных)</i>';
-            }
-
             $result[] = $temp;
         }
 
-        $totalFiltered = count($result);
-
         return response()->json([
-            "status" => "ok",
-            "draw" => $request->get("draw"),
-            "recordsTotal" => (string) $totalFiltered,
+            "status"          => "ok",
+            "draw"            => $request->get("draw"),
+            "recordsTotal"    => (string) $totalFiltered,
             "recordsFiltered" => (string) $totalData,
-            "data" => $result,
+            "data"            => $result,
         ]);
     }
 
@@ -112,12 +119,18 @@ class OrdersController extends Controller
         }
 
         $products = $order->products()->get();
-        $products = Products::viewDataJson($products);
+        $products = Products::getViewProducts($products);
 
         if ($order->manager_id) {
             $office = Office::find($order->manager->office_id);
         } else {
             $office = '<i class="text-danger">(нет данных)</i>';
+        }
+
+        $isEditable = false;
+
+        if ( ( (1 == $order->status) || (2 == $order->status) )  && ( ($order->manager_id == Auth::guard('admin')->user()->id) || $isAdmin ) ) {
+            $isEditable = true;
         }
 
         return view('backend.site.order-view', [
@@ -126,27 +139,8 @@ class OrdersController extends Controller
             'isAdmin'  => $isAdmin,
             'office'   => $office,
             'manager'  => $manager,
+            'isEditable' => $isEditable,
         ]);
-    }
-
-    public function getShoppingCart($id)
-    {
-        if (Auth::guard('admin')->user()->role == Admin::ROLE_ADMIN) {
-            $where = [['id', $id], ['formed', 1]];
-        } else {
-            $where = [['id', $id], ['formed', 1], ['manager_id', Auth::guard('admin')->user()->id]];
-        }
-
-        $order = Orders::where($where)->first();
-
-        if (empty($order)) {
-            return response()->json(['status' => 'bad', 'message' => 'Заказ не найден.']);
-        }
-
-        $products = $order->products()->get();
-        $products = Products::viewDataJson($products);
-
-        return response()->json(['status' => 'ok', 'data' => $products]);
     }
 
     public function changeProduct(Request $request)

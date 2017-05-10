@@ -8,31 +8,13 @@ class Prices extends Model
 {
     protected $table = 'prices';
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = ['product_id', 'price', 'type'];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
     protected $hidden = [];
 
     protected $dateFormat = 'U';
 
-    // this is a recommended way to declare event handlers
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::deleting(function($product){
-
-        });
-    }
+    //////////
 
     public static function listMeasures()
     {
@@ -85,7 +67,6 @@ class Prices extends Model
         $price = $data['price'];
         $type  = $data['price_type'];
 
-        // находим все старые контакты, находим расхождением между новыми и старыми контактам, и удаляем их
         $oldId  = [];
         $prices = Prices::select('id')->where("product_id", $productId)->get();
 
@@ -97,7 +78,6 @@ class Prices extends Model
 
         Prices::destroy($difference);
 
-        // обновляем контакты
         $update = array_filter($id);
         $updatePrice = [];
         $updateType  = [];
@@ -108,7 +88,6 @@ class Prices extends Model
             }
         }
 
-        // сохраняем новые контакты
         $save = array_keys($id, '');
         $savePrice = [];
         $saveType  = [];

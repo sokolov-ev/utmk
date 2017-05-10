@@ -116,17 +116,17 @@
             <div class="col-md-3 col-sm-3">
                 <p class="footer-title">{{ trans('index.footer.contact') }}</p>
                 <ul class="footer-contacts footer-link-block">
-                    @foreach ($office_contacts['contacts'] as $contact)
-                        <li><strong>{{ $contact['type'] }}</strong>: 
-
-                        @if (in_array($contact['work_type'], ['mobile', 'phone', 'accounting-tel']))
-                            <a href="tel:{{ preg_replace('~\D+~','',$contact['data']) }}">{{ $contact['data'] }}</a>
-                        @elseif ($contact['work_type'] == 'email')
-                            <a href="mailto:{{ $contact['data'] }}">{{ $contact['data'] }}</a>
-                        @else
-                            {{ $contact['data'] }}
-                        @endif
-
+                    @foreach ($mainOffice as $contact)
+                        <li>
+                            <strong>{{ trans('offices.contactType.'.$contact['type']) }}</strong>: 
+     
+                            @if (in_array($contact['type'], ['mobile', 'phone', 'accounting-tel']))
+                                <a href="tel:{{ preg_replace('~\D+~','',$contact['contact']) }}">{{ $contact['contact'] }}</a>
+                            @elseif ($contact['type'] == 'email')
+                                <a href="mailto:{{ $contact['contact'] }}">{{ $contact['contact'] }}</a>
+                            @else
+                                {{ $contact['contact'] }}
+                            @endif
                         </li>
                     @endforeach
                 </ul>

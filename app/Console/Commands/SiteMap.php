@@ -11,144 +11,136 @@ use App\ReferenceSection;
 use Illuminate\Console\Command;
 use Illuminate\Foundation\Inspiring;
 
+use DB;
 use Log;
 
 class SiteMap extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
     protected $signature = 'sitemap';
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
     protected $description = 'Create sitema.xml';
 
-    /**
-     * Execute the console command.
-     *
-     * @return mixed
-     */
     public function handle()
     {
 
         Log::info('Start');
 
-        // начало карты сайта
         $sitemap  = '<?xml version="1.0" encoding="UTF-8"?>'.PHP_EOL;
         $sitemap .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">';
 
-        $articles = Articles::all();
-        $offices  = Office::getOfficesContacts();
-        $metatagsMenu = Metatags::where('type', 'menu')->orderBy('slug', 'ASC')->get();
-        $metatagsBlog = Metatags::where('type', 'blog')->orderBy('slug', 'ASC')->get();
-        $metatagsReference = Metatags::where([['type', 'reference'], ['slug', '!=', 'index']])->orderBy('slug', 'ASC')->get();
-        $referenceIndex = Metatags::where([['type', 'reference'], ['slug', 'index']])->first();
-        $products = Products::where([['show_my', '1']])->orderBy('rating', 'DESC')->get();
+        $articles = DB::select("SELECT * FROM `metatags` LEFT JOIN `articles` ON `articles`.`slug` = `metatags`.`slug` WHERE `metatags`.`type` = 'article' AND `articles`.`id` IS NOT NULL");
+        $offices = DB::select("SELECT `metatags`.*, `offices`.`slug` AS `office_slug`  FROM `metatags` LEFT JOIN `offices` ON `offices`.`slug` = `metatags`.`slug` WHERE `metatags`.`type` = 'office' AND `offices`.`id` IS NOT NULL");
+        $catalog = DB::select("SELECT `metatags`.*, `menu`.`full_path_slug` AS `menu_slug` FROM `metatags` LEFT JOIN `menu` ON `menu`.`slug` = `metatags`.`slug` WHERE `type` = 'menu' AND `menu`.`id` IS NOT NULL");
+        $blogIndex = DB::table('metatags')->where([['type', 'blog'], ['slug', 'blog']])->first();
+        $blogNews = DB::select("SELECT `metatags`.*, `blog`.`slug` AS `blog_slug` FROM `metatags` LEFT JOIN `blog` ON `blog`.`slug` = `metatags`.`slug` WHERE `type` = 'blog' AND `blog`.`slug` IS NOT NULL");
+        $referenceIndex = DB::table('metatags')->where([['type', 'reference'], ['slug', 'index']])->first();
+        $referenceSection = DB::select("SELECT `metatags`.*, `reference_section`.`slug_full_path` AS `refence_slug` FROM `metatags` LEFT JOIN `reference_section` ON `reference_section`.`slug` = `metatags`.`slug` WHERE `metatags`.`type` = 'reference' AND `reference_section`.`id` IS NOT NULL");
 
-        foreach ($articles->toArray() as $article) {
+        foreach ($articles as $article) {
             $url = '';
 
-            if ($article['slug'] == 'home') {
-                $url .= '<url><loc>'.url('/').'</loc>';
-                $url .= '<lastmod>'.date(DATE_W3C, $article['updated_at']).'</lastmod>';
-                $url .= '<changefreq>weekly</changefreq><priority>0.9</priority></url>';
+            if ($article->slug == 'home') {
+                $url .= '<url><loc>' . url('/') . '</loc>';
             } else {
-                $url .= '<url><loc>'.url('/').'/'.$article['slug'].'</loc>';
-                $url .= '<lastmod>'.date(DATE_W3C, $article['updated_at']).'</lastmod>';
-                $url .= '<changefreq>weekly</changefreq><priority>0.9</priority></url>';
+                $url .= '<url><loc>' . url('/') . '/' . $article->slug . '</loc>';
             }
+
+            $url .= '<lastmod>' . date(DATE_W3C, $article->updated_at) . '</lastmod>';
+            $url .= '<changefreq>weekly</changefreq><priority>0.9</priority></url>';
 
             $sitemap .= $url;
         }
 
         foreach ($offices as $office) {
+            $title = json_decode($office->title, true);
+
             $url = '';
 
-            $url .= '<url><loc>'.url('/').'/office/'.$office['city'].'/'.$office['id'].'</loc>';
-            $url .= '<xhtml:link rel="alternate" hreflang="en" href="'.url('/').'/en/office/'.$office['city'].'/'.$office['id'].'" />';
-            $url .= '<xhtml:link rel="alternate" hreflang="uk" href="'.url('/').'/uk/office/'.$office['city'].'/'.$office['id'].'" />';
-            $url .= '<lastmod>'.date(DATE_W3C, $office['updated_at']).'</lastmod>';
+            $url .= '<url><loc>' . url('/') . '/office/' . $office->slug . '</loc>';
+            $url .= empty($title['en']) ? '' : '<xhtml:link rel="alternate" hreflang="en" href="' . url('/') . '/en/office/' . $office->slug . '" />';
+            $url .= empty($title['uk']) ? '' : '<xhtml:link rel="alternate" hreflang="uk" href="' . url('/') . '/uk/office/' . $office->slug . '" />';
+            $url .= '<lastmod>' . date(DATE_W3C, $office->updated_at) . '</lastmod>';
             $url .= '<changefreq>weekly</changefreq><priority>0.9</priority></url>';
 
             $sitemap .= $url;
         }
 
-        foreach ($metatagsMenu as $item) {
+        foreach ($catalog as $item) {
             $title = json_decode($item->title, true);
 
-            if (!empty($title['ru']) || !empty($title['uk']) || !empty($title['en'])) {
-                $url  = '';
-                $link = $item->menu->full_path_slug;
-
-                $url .= '<url><loc>'.url('/').$link.'</loc>';
-                $url .= empty($title['en']) ? '' : '<xhtml:link rel="alternate" hreflang="en" href="'.url('/').'/en'.$link.'" />';
-                $url .= empty($title['uk']) ? '' : '<xhtml:link rel="alternate" hreflang="uk" href="'.url('/').'/uk'.$link.'" />';
-                $url .= '<lastmod>'.date(DATE_W3C, $item->updated_at->getTimestamp()).'</lastmod>';
-                $url .= '<changefreq>weekly</changefreq><priority>0.9</priority></url>';
-
-                $sitemap .= $url;
-            }
-        }
-
-        foreach ($metatagsBlog as $news) {
-            $title = json_decode($news->title, true);
-
-            if (!empty($title['ru'])) {
-                $url  = '';
-
-                $url .= '<url><loc>'.url('/').'/'.$news->slug.'</loc>';
-                $url .= '<lastmod>'.date(DATE_W3C, $news->updated_at->getTimestamp()).'</lastmod>';
-                $url .= '<changefreq>weekly</changefreq><priority>0.9</priority></url>';
-
-                $sitemap .= $url;
-            }
-        }
-
-        $title = json_decode($referenceIndex->title, true);
-        if (!empty($title['ru']) || !empty($title['uk']) || !empty($title['en'])) {
             $url  = '';
+            $link = $item->menu_slug;
 
-            $url .= '<url><loc>'.route('spravka').'</loc>';
-            $url .= empty($title['en']) ? '' : '<xhtml:link rel="alternate" hreflang="en" href="'.url('/').'/en'.$link.'" />';
-            $url .= empty($title['uk']) ? '' : '<xhtml:link rel="alternate" hreflang="uk" href="'.url('/').'/uk'.$link.'" />';
-            $url .= '<lastmod>'.date(DATE_W3C, $referenceIndex->updated_at->getTimestamp()).'</lastmod>';
+            $url .= '<url><loc>' . url('/') . $link . '</loc>';
+            $url .= empty($title['en']) ? '' : '<xhtml:link rel="alternate" hreflang="en" href="' . url('/') . '/en' . $link . '" />';
+            $url .= empty($title['uk']) ? '' : '<xhtml:link rel="alternate" hreflang="uk" href="' . url('/') . '/uk' . $link . '" />';
+            $url .= '<lastmod>' . date(DATE_W3C, $item->updated_at) . '</lastmod>';
             $url .= '<changefreq>weekly</changefreq><priority>0.9</priority></url>';
 
             $sitemap .= $url;
         }
 
-        foreach ($metatagsReference as $metatag) {
-            $title = json_decode($metatag->title, true);
+        if (!empty($blogIndex)) {
+            $url  = '';
 
-            if (!empty($title['ru']) || !empty($title['uk']) || !empty($title['en'])) {
-                $url  = '';
-                $link = $metatag->reference->slug_full_path;
+            $url .= '<url><loc>' . url('/') . '/blog' . '</loc>';
+            $url .= '<lastmod>' . date(DATE_W3C, $blogIndex->updated_at) . '</lastmod>';
+            $url .= '<changefreq>weekly</changefreq><priority>0.9</priority></url>';
 
-                $url .= '<url><loc>'.url('/').$link.'</loc>';
-                $url .= empty($title['en']) ? '' : '<xhtml:link rel="alternate" hreflang="en" href="'.url('/').'/en'.$link.'" />';
-                $url .= empty($title['uk']) ? '' : '<xhtml:link rel="alternate" hreflang="uk" href="'.url('/').'/uk'.$link.'" />';
-                $url .= '<lastmod>'.date(DATE_W3C, $metatag->updated_at->getTimestamp()).'</lastmod>';
-                $url .= '<changefreq>weekly</changefreq><priority>0.9</priority></url>';
-
-                $sitemap .= $url;
-            }
+            $sitemap .= $url;
         }
 
-        foreach ($products as $product) {
-            $url   = '';
-            $title = json_decode($product->title, true);
-            $link  = $product->menu->full_path_slug.'/'.$product->slug;
+        foreach ($blogNews as $news) {
+            $url  = '';
 
-            $url .= '<url><loc>'.url('/').$link.'</loc>';
-            $url .= empty($title['en']) ? '' : '<xhtml:link rel="alternate" hreflang="en" href="'.url('/').'/en'.$link.'" />';
-            $url .= empty($title['uk']) ? '' : '<xhtml:link rel="alternate" hreflang="uk" href="'.url('/').'/uk'.$link.'" />';
-            $url .= '<lastmod>'.date(DATE_W3C, $product->updated_at->getTimestamp()).'</lastmod>';
+            $url .= '<url><loc>' . url('/') . '/blog/' . $news->blog_slug . '</loc>';
+            $url .= '<lastmod>' . date(DATE_W3C, $news->updated_at) . '</lastmod>';
+            $url .= '<changefreq>weekly</changefreq><priority>0.9</priority></url>';
+
+            $sitemap .= $url;
+        }
+
+        if (!empty($referenceIndex)) {
+            $title = json_decode($referenceIndex->title, true);
+
+            $url  = '';
+
+            $url .= '<url><loc>' . url('/') . '/spravka' . '</loc>';
+            $url .= empty($title['en']) ? '' : '<xhtml:link rel="alternate" hreflang="en" href="' . url('/') . '/en/spravka' . '" />';
+            $url .= empty($title['uk']) ? '' : '<xhtml:link rel="alternate" hreflang="uk" href="' . url('/') . '/uk/spravka' . '" />';
+            $url .= '<lastmod>' . date(DATE_W3C, $referenceIndex->updated_at) . '</lastmod>';
+            $url .= '<changefreq>weekly</changefreq><priority>0.9</priority></url>';
+
+            $sitemap .= $url;
+        }
+
+        foreach ($referenceSection as $section) {
+            $title = json_decode($section->title, true);
+            
+            $url  = '';
+            $link = $section->refence_slug;
+
+            $url .= '<url><loc>' . url('/') . '/spravka' . $link . '</loc>';
+            $url .= empty($title['en']) ? '' : '<xhtml:link rel="alternate" hreflang="en" href="' . url('/') . '/en/spravka' . $link . '" />';
+            $url .= empty($title['uk']) ? '' : '<xhtml:link rel="alternate" hreflang="uk" href="' . url('/') . '/uk/spravka' . $link . '" />';
+            $url .= '<lastmod>' . date(DATE_W3C, $section->updated_at) . '</lastmod>';
+            $url .= '<changefreq>weekly</changefreq><priority>0.9</priority></url>';
+
+            $sitemap .= $url;
+        }
+
+        $products = DB::select("SELECT `metatags`.*, `products`.`slug` AS `product_slug`, `menu`.`full_path_slug` AS `menu_slug` FROM `metatags` LEFT JOIN `products` ON `products`.`slug` = `metatags`.`slug` LEFT JOIN `menu` ON `menu`.`id` = `products`.`menu_id` WHERE `type` = 'product' AND `products`.`id` IS NOT NULL AND `products`.`show_my` = true");
+
+        foreach ($products as $product) {
+            $title = json_decode($product->title, true);
+
+            $url   = '';
+            $link  = $product->menu_slug . '/' . $product->product_slug;
+
+            $url .= '<url><loc>' . url('/') . $link . '</loc>';
+            $url .= empty($title['en']) ? '' : '<xhtml:link rel="alternate" hreflang="en" href="' . url('/') . '/en' . $link . '" />';
+            $url .= empty($title['uk']) ? '' : '<xhtml:link rel="alternate" hreflang="uk" href="' . url('/') . '/uk' . $link . '" />';
+            $url .= '<lastmod>' . date(DATE_W3C, $product->updated_at) . '</lastmod>';
             $url .= '<changefreq>weekly</changefreq><priority>0.9</priority></url>';
 
             $sitemap .= $url;

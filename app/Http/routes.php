@@ -28,17 +28,23 @@ Route::group(['middleware' => ['adminAuth']], function () {
 
 // CRUD продукции и изображений продукции
     Route::get('/administration/products', 'Backend\ProductsController@index');
+    Route::post('/administration/products/filtering', 'Backend\ProductsController@filtering');
+
     Route::get('/administration/products/get/{id}', 'Backend\ProductsController@getProduct');
-    Route::get('/administration/products/view', 'Backend\ProductsController@view');
+
     Route::get('/administration/product/add', 'Backend\ProductsController@addForm');
     Route::post('administration/product/add', 'Backend\ProductsController@add');
+
     Route::get('/administration/product/edit/{id}', 'Backend\ProductsController@editForm');
     Route::put('/administration/product/edit/{id}', 'Backend\ProductsController@edit');
+
     Route::delete('/administration/products', 'Backend\ProductsController@delete');
+
     Route::get('/administration/product/img/download/{id}', 'Backend\ProductsController@downloadImg');
     Route::post('/administration/product/img/sort', 'Backend\ProductsController@sortImg');
     Route::post('/administration/product/img/delete', 'Backend\ProductsController@deleteImg');
-    Route::post('/administration/products/filtering', 'Backend\ProductsController@filtering');
+
+    
 
     Route::group(['middleware' => 'adminPermision:Admin,Moderator'], function() {
 
@@ -46,7 +52,6 @@ Route::group(['middleware' => ['adminAuth']], function () {
         Route::get('/administration/orders', 'Backend\OrdersController@index');
         Route::post('/administration/orders/filtering', 'Backend\OrdersController@filtering');
         Route::get('/administration/orders/view/{id}', 'Backend\OrdersController@view');
-        Route::get('/administration/orders/get/{id}', 'Backend\OrdersController@getShoppingCart');
         Route::post('/administration/orders/change-product', 'Backend\OrdersController@changeProduct');
         Route::post('/administration/orders/delete', 'Backend\OrdersController@deleteProduct');
         Route::get('/administration/orders/accept/{id}', 'Backend\OrdersController@accept');
@@ -72,12 +77,16 @@ Route::group(['middleware' => ['adminAuth']], function () {
     });
 
     Route::group(['middleware' => 'adminPermision:Admin,SEO'], function() {
-
+        
         Route::get('/administration/spravka/sections', 'Backend\ReferenceController@allSections');
+
         Route::get('/administration/spravka/index/edit', 'Backend\ReferenceController@indexEditForm');
         Route::put('/administration/spravka/index/edit', 'Backend\ReferenceController@indexEdit');
+
         Route::post('/administration/spravka/section/sort', 'Backend\ReferenceController@sortSection');
         Route::post('/administration/spravka/section', 'Backend\ReferenceController@setSection');
+        Route::get('/administration/spravka/delete/{id}', 'Backend\ReferenceController@delete');
+        // slug overlap all spravka routs
         Route::get('/administration/spravka/{slug?}', 'Backend\ReferenceController@index');
 
     // CRUD Блог
@@ -147,6 +156,8 @@ Route::group(['middleware' => ['adminAuth']], function () {
 });
 
 
+
+
 // ФРОНТЕНД
 Route::group(['middleware' => ['web', 'redirect-www', 'language-get']], function () {
 
@@ -201,7 +212,7 @@ Route::group(['middleware' => ['web', 'redirect-www', 'language-get']], function
         });
 
         Route::get('/network-of-offices', ['as' => 'network-of-offices', 'uses' => 'Frontend\IndexController@salesNetwork']);
-        Route::get('/office/{city}/{id}', ['as' => 'office', 'uses' => 'Frontend\IndexController@officeView']);
+        Route::get('/office/{slug}', ['as' => 'office', 'uses' => 'Frontend\IndexController@officeView']);
 
     // СПРАВОЧНАЯ ИНФОРМАЦИЯ (статика)
 
@@ -267,7 +278,7 @@ Route::group(['middleware' => ['web', 'redirect-www', 'language-get']], function
                 });
 
                 Route::get('/network-of-offices', ['as' => 'network-of-offices', 'uses' => 'Frontend\IndexController@salesNetwork']);
-                Route::get('/office/{city}/{id}', ['as' => 'office', 'uses' => 'Frontend\IndexController@officeView']);
+                Route::get('/office/{slug}', ['as' => 'office', 'uses' => 'Frontend\IndexController@officeView']);
 
             // СПРАВОЧНАЯ ИНФОРМАЦИЯ (статика)
 

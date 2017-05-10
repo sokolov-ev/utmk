@@ -66,31 +66,29 @@
                     @foreach ($products as $key => $product)
                         <tr id="bonds-{{ $product['bonds'] }}">
                             <td>{{ $product['title'] }}</td>
-                            <td>{{ $product['office_city_ru'] }}</td>
+                            <td>{{ $product['office_title'] }}</td>
                             <td>
-                                @if ( ( ($order->status == 2) && ($order->manager_id == Auth::guard('admin')->user()->id) ) || $isAdmin )
+                                @if ($isEditable)
                                     <div class="shopping-type-product">
                                         <select name="price_type" class="form-control price-type price-type-{{ $key }}" data-workid="{{ $key }}">
-                                            @foreach($product['prices'] as $prod)
-                                                @if($prod['id'] == $product['price_id'])
-                                                    <option value="{{ $prod['id'] }}" selected="">{{ $prod['type'] }}</option>
-                                                @else
-                                                    <option value="{{ $prod['id'] }}">{{ $prod['type'] }}</option>
-                                                @endif
+                                            @foreach($product['order_prices'] as $id => $price)
+                                                <option value="{{ $id }}" {{ ($id == $product['price_id']) ? 'selected=""' : '' }}>
+                                                    {{ $price['type'] }}
+                                                </option>
                                             @endforeach
                                         </select>
                                     </div>
                                 @else
-                                    {{ $product['prices'][$product['price_id']]['type'] }}
+                                    {{ $product['order_prices'][$product['price_id']]['type'] }}
                                 @endif
                             </td>
                             <td>
                                 <div class="price price-{{ $key }}">
-                                    {{ $product['prices'][$product['price_id']]['price'] }}
+                                    {{ $product['order_prices'][$product['price_id']]['price'] }}
                                 </div>
                             </td>
                             <td>
-                                @if ( ( ($order->status == 2) && ($order->manager_id == Auth::guard('admin')->user()->id) ) || $isAdmin )
+                                @if ($isEditable)
                                     <div class="shopping-cart">
                                         <button type="button" class="btn btn-link cart-quantity-minus" data-workid="{{ $key }}">
                                             <i class="fa fa-minus" aria-hidden="true"> </i>
@@ -109,11 +107,11 @@
                             </td>
                             <td>
                                 <div class="sum-price sum-price-{{ $key }}">
-                                    {{ $product['prices'][$product['price_id']]['price'] * $product['quantity'] }}
+                                    {{ $product['order_prices'][$product['price_id']]['price'] * $product['quantity'] }}
                                 </div>
                             </td>
                             <td>
-                                @if ( ( ($order->status == 2) && ($order->manager_id == Auth::guard('admin')->user()->id) ) || $isAdmin )
+                                @if ($isEditable)
                                     <div class="text-center">
                                         <button class="btn btn-danger btn-xs" onclick="deleteProduct({{ $product['bonds'] }})">
                                             Удалить
@@ -129,11 +127,11 @@
             <br/>
 
             @if ($order->status == 1)
-                <a class="btn btn-primary pull-right" href="{{ url('/administration/orders/accept/'.$order->id) }}">Принять заказ</a>
+                <a class="btn btn-primary pull-right" href="{{ url('/administration/orders/accept/' . $order->id) }}">Принять заказ</a>
             @endif
 
             @if ( ($order->status == 2) && ( ($order->manager_id == Auth::guard('admin')->user()->id) || $isAdmin ) )
-                <a class="btn btn-warning pull-right" href="{{ url('/administration/orders/closed/'.$order->id) }}">Закрыть заказ</a>
+                <a class="btn btn-warning pull-right" href="{{ url('/administration/orders/closed/' . $order->id) }}">Закрыть заказ</a>
             @endif
         </div>
     </div>
@@ -145,8 +143,8 @@
 
     <script type="text/javascript">
 
-        var prices  = [];
-        var orderID = $(".order-id").data('id');
+        let prices  = {};
+        let orderID = $(".order-id").data('id');
 
         $.ajaxSetup({
             headers: {
@@ -156,13 +154,10 @@
 
         $.get("/administration/orders/get/" + orderID, function(response){
             if ( (response.status == "ok") && (response.data.length > 0) ) {
+                let temp;
+
                 $.each(response.data, function(key, product){
-                    product.work_key = key;
-
-                    var id = 0;
-                    var temp;
-
-                    $.each(product.prices, function(priceId, price){
+                    $.each(product.order_prices, function(priceId, price){
                         temp = {};
 
                         temp.price = price.price;
@@ -175,10 +170,10 @@
         });
 
         $("body").on('change', '.price-type', function(event) {
-            var tut = this;
-            var key = $(tut).data('workid');
-            var id  = $(tut).val();
-            var quantity = $(".quantity-" + key).val();
+            let vm = this;
+            let key = $(vm).data('workid');
+            let id  = $(vm).val();
+            let quantity = $(".quantity-" + key).val();
 
             $(".price-" + key).text(prices[id].price);
             $(".sum-price-" + key).text(quantity * prices[id].price);
@@ -187,10 +182,10 @@
         });
 
         $("body").on('click', ".cart-quantity-minus", function(event){
-            var tut = this;
-            var key = $(tut).data('workid');
-            var id  = $(".price-type-" + key).val();
-            var quantity = $(".quantity-" + key).val();
+            let vm = this;
+            let key = $(vm).data('workid');
+            let id  = $(".price-type-" + key).val();
+            let quantity = $(".quantity-" + key).val();
 
             if (quantity > 1) {
                 $(".quantity-" + key).val(--quantity);
@@ -201,10 +196,10 @@
         });
 
         $("body").on('click', ".cart-quantity-plus", function(event){
-            var tut = this;
-            var key = $(tut).data('workid');
-            var id  = $(".price-type-" + key).val();
-            var quantity = $(".quantity-" + key).val();
+            let vm = this;
+            let key = $(vm).data('workid');
+            let id  = $(".price-type-" + key).val();
+            let quantity = $(".quantity-" + key).val();
 
             $(".quantity-" + key).val(++quantity);
             $(".sum-price-" + key).text(prices[id].price * quantity);
@@ -213,24 +208,24 @@
         });
 
         $("body").on('change keyup', ".quantity", function(event){
-            var tut = this;
-            var key = $(tut).data('workid');
-            var id  = $(".price-type-" + key).val();
+            let vm = this;
+            let key = $(vm).data('workid');
+            let id  = $(".price-type-" + key).val();
 
-            tut.value = tut.value.replace("/^\D+/g", '');
+            vm.value = vm.value.replace("/^\D+/g", '');
 
-            if ( (tut.value == '') || (tut.value < 1) ) {
-                tut.value = 1;
+            if ( (vm.value == '') || (vm.value < 1) ) {
+                vm.value = 1;
             }
 
-            $(".sum-price-" + key).text(prices[id].price * tut.value);
+            $(".sum-price-" + key).text(prices[id].price * vm.value);
 
-            changeCountProduct(prices[id].bonds, tut.value, id);
+            changeCountProduct(prices[id].bonds, vm.value, id);
         });
 
         function changeCountProduct(bonds, count, price)
         {
-            var data = {};
+            let data = {};
             data.order = orderID;
             data.bonds = bonds;
             data.count = count;

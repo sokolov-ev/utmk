@@ -10,7 +10,7 @@
 
 @section('content')
 
-<section class="content container">
+<section class="content container metatags">
     <div class="box box-warning">
         <div class="box-header">
             <h3 class="box-title pull-left clearfix">Метатеги - {{ $metatags['slug'] }}</h3>
@@ -19,25 +19,35 @@
 
             <div class="row">
                 <div class="col-md-4">
-                    <button type="button" class="btn btn-link" onclick="$('.offices').toggleClass('hidden');" style="padding-left: 0;">
+                    <button type="button" class="btn btn-link edit-btn" onclick="$('.offices').toggleClass('hidden');">
                         <strong>Филиалы</strong>
                     </button>
 
                     <br/>
-
                     <ul class="catalog-list offices hidden">
                         @foreach($offices as $office)
-                            <li><a href="/administration/metatags/office/{{ $office['id'] }}">{{ json_decode($office['name'], true)['ru'] }}</a></li>
+                            <li><a href="/administration/metatags/office/{{ $office['slug'] }}">{{ json_decode($office['name'], true)['ru'] }}</a></li>
                         @endforeach
                     </ul>
 
+                    <button type="button" class="btn btn-link edit-btn" onclick="$('.articles').toggleClass('hidden');">
+                        <strong>Статьи</strong>
+                    </button>
 
-                    <button type="button" class="btn btn-link" onclick="$('.blog').toggleClass('hidden');" style="padding-left: 0;">
+                    <input type="text" name="articles" class="form-control edit-input find-input" data-section="articles">
+                    <br>
+                    <ul class="catalog-list articles hidden">
+                        @foreach($articles as $item)
+                            <li><a href="/administration/metatags/article/{{ $item['slug'] }}">{{ json_decode($item['name'], true)['ru'] }}</a></li>
+                        @endforeach
+                    </ul>
+
+                    <button type="button" class="btn btn-link edit-btn" onclick="$('.blog').toggleClass('hidden');">
                         <strong>Блог</strong>
                     </button>
 
-                    <input type="text" id="blog" name="blog" value="" class="form-control" style="margin-bottom: 10px;" />
-
+                    <input type="text" id="blog" name="blog" class="form-control edit-input">
+                    <br>
                     <ul class="catalog-list blog hidden">
                         <li><a href="/administration/metatags/blog/blog">Главная страница блога</a></li>
                         @foreach($news as $post)
@@ -45,12 +55,12 @@
                         @endforeach
                     </ul>
 
-                    <button type="button" class="btn btn-link" onclick="$('.reference').toggleClass('hidden');" style="padding-left: 0;">
+                    <button type="button" class="btn btn-link edit-btn" onclick="$('.reference').toggleClass('hidden');">
                         <strong>Справочник</strong>
                     </button>
 
-                    <input type="text" id="reference" name="reference" value="" class="form-control" style="margin-bottom: 10px;" />
-
+                    <input type="text" name="reference" class="form-control edit-input find-input" data-section="reference">
+                    <br>
                     <ul class="catalog-list reference hidden">
                         <li><a href="/administration/metatags/reference/index">Главная страница справки</a></li>
                         @foreach($referenceSection as $section)
@@ -58,24 +68,12 @@
                         @endforeach
                     </ul>
 
-                    <button type="button" class="btn btn-link" onclick="$('.products').toggleClass('hidden');" style="padding-left: 0;">
-                        <strong>Продукция</strong>
-                    </button>
-
-                    <input type="text" id="products" name="products" value="" class="form-control" style="margin-bottom: 10px;" />
-    
-                    <ul class="catalog-list products hidden">
-                        @foreach($products as $product)
-                            <li><a href="/administration/metatags/product/{{ $product['slug'] }}">{{ json_decode($product['name'], true)['ru'] }}</a></li>
-                        @endforeach
-                    </ul>
-
-                    <button type="button" class="btn btn-link" onclick="$('.menu').toggleClass('hidden');" style="padding-left: 0;">
+                    <button type="button" class="btn btn-link edit-btn" onclick="$('.menu').toggleClass('hidden');">
                         <strong>Каталог</strong>
                     </button>
 
-                    <input type="text" id="menu" name="menu" value="" class="form-control" style="margin-bottom: 10px;" />
-
+                    <input type="text" name="menu" class="form-control edit-input find-input" data-section="menu">
+                    <br>
                     <ul class="catalog-list menu hidden">
                         <li>
                             <a href="/administration/metatags/menu/products">Главная страница каталога</a>
@@ -85,18 +83,17 @@
                         @endforeach
                     </ul>
 
-                    <button type="button" class="btn btn-link" onclick="$('.articles').toggleClass('hidden');" style="padding-left: 0;">
-                        <strong>Статьи</strong>
+                    <button type="button" class="btn btn-link edit-btn" onclick="$('.products').toggleClass('hidden');">
+                        <strong>Продукция</strong>
                     </button>
 
-                    <input type="text" id="articles" name="articles" value="" class="form-control" style="margin-bottom: 10px;" />
-
-                    <ul class="catalog-list articles hidden">
-                        @foreach($articles as $item)
-                            <li><a href="/administration/metatags/article/{{ $item['slug'] }}">{{ json_decode($item['name'], true)['ru'] }}</a></li>
+                    <input type="text" name="products" class="form-control edit-input find-input" data-section="products">
+                    <br>
+                    <ul class="catalog-list products hidden">
+                        @foreach($products as $product)
+                            <li><a href="/administration/metatags/product/{{ $product['slug'] }}">{{ json_decode($product['name'], true)['ru'] }}</a></li>
                         @endforeach
                     </ul>
-
 
                 </div>
                 <div class="col-md-8">
@@ -107,463 +104,24 @@
                         <input type="hidden" name="type" value="{{ $metatags['type'] }}">
                         <input type="hidden" name="slug" value="{{ $metatags['slug'] }}">
 
-                        <div class="form-group{{ ($errors->has('keywords_en') || $errors->has('keywords_ru') || $errors->has('keywords_uk')) ? ' has-error' : '' }}" style="margin-bottom: 0;">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <label class="control-label tab-keywords" for="keywords">Ключевые слова</label>
-                                </div>
-                                <div class="col-md-8 customize-tab">
-                                    <ul class="nav nav-pills pull-right customize-tab" role="tablist">
-                                        <li role="presentation">
-                                            <a id="keywords_en-tab"
-                                               class="tab-nice{{ $errors->has('keywords_en') ? ' has-error-label' : '' }}"
-                                               href="#keywords_en-body"
-                                               role="tab"
-                                               data-toggle="tab"
-                                               aria-controls="keywords_en"
-                                               aria-expanded="true">
-                                                Английский
-                                            </a>
-                                        </li>
-                                        <li class="active" role="presentation">
-                                            <a id="keywords_ru-tab"
-                                               class="tab-nice{{ $errors->has('keywords_ru') ? ' has-error-label' : '' }}"
-                                               href="#keywords_ru-body"
-                                               role="tab"
-                                               data-toggle="tab"
-                                               aria-controls="keywords_ru">
-                                                Русский
-                                            </a>
-                                        </li>
-                                        <li role="presentation">
-                                            <a id="keywords_uk-tab"
-                                               class="tab-nice{{ $errors->has('keywords_uk') ? ' has-error-label' : '' }}"
-                                               href="#keywords_uk-body"
-                                               role="tab"
-                                               data-toggle="tab"
-                                               aria-controls="keywords_uk">
-                                                Украинский
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
+                        @include('backend.site.partial.textarea-edit', ['name' => 'keywords', 'title' => 'Ключевые слова', 'data' => $metatags['keywords']])
+
+                        @include('backend.site.partial.textarea-edit', ['name' => 'title', 'title' => 'Заголовок', 'data' => $metatags['title']])
+
+                        @include('backend.site.partial.textarea-edit', ['name' => 'description', 'title' => 'Описание', 'data' => $metatags['description']])
+
+                        <div class="catalog {{ $isArticle ? '' : 'hidden' }}">
+                            @include('backend.site.partial.input-edit', ['name' => 'h1', 'title' => 'Заголовок H1', 'data' => $metatags['h1']])
+                            @include('backend.site.partial.textarea-edit', ['name' => 'articles', 'title' => 'Статья', 'data' => $metatags['articles']])
                         </div>
 
-                        <div id="tabkeywords" class="tab-content">
-                            <div id="keywords_en-body" class="tab-pane fade" role="tabpanel" aria-labelledby="keywords_en-tab">
-                                <div class="form-group{{ $errors->has('keywords_en') ? ' has-error' : '' }}">
-                                    <textarea id="keywords_en"
-                                              name="keywords_en"
-                                              class="form-control"
-                                              placeholder="Английский"
-                                              rows="2">{{ old('keywords_en', $metatags['keywords_en']) }}</textarea>
-
-                                    @if ($errors->has('keywords_en'))
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('keywords_en') }}</strong>
-                                        </span>
-                                    @endif
-                                </div>
-                            </div>
-                            <div id="keywords_ru-body" class="tab-pane fade in active" role="tabpanel" aria-labelledby="keywords_ru-tab">
-                                <div class="form-group{{ $errors->has('keywords_ru') ? ' has-error' : '' }}">
-                                    <textarea id="keywords_ru"
-                                              name="keywords_ru"
-                                              class="form-control"
-                                              placeholder="Русский"
-                                              rows="2">{{ old('keywords_ru', $metatags['keywords_ru']) }}</textarea>
-
-                                    @if ($errors->has('keywords_ru'))
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('keywords_ru') }}</strong>
-                                        </span>
-                                    @endif
-                                </div>
-                            </div>
-                            <div id="keywords_uk-body" class="tab-pane fade" role="tabpanel" aria-labelledby="keywords_uk-tab">
-                                <div class="form-group{{ $errors->has('keywords_ru') ? ' has-error' : '' }}">
-                                    <textarea id="keywords_uk"
-                                              name="keywords_uk"
-                                              class="form-control"
-                                              placeholder="Украинский"
-                                              rows="2">{{ old('keywords_uk', $metatags['keywords_uk']) }}</textarea>
-
-                                    @if ($errors->has('keywords_uk'))
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('keywords_uk') }}</strong>
-                                        </span>
-                                    @endif
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group{{ ($errors->has('title_en') || $errors->has('title_ru') || $errors->has('title_uk')) ? ' has-error' : '' }}" style="margin-bottom: 0;">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <label class="control-label tab-title" for="title">Заголовок</label>
-                                </div>
-                                <div class="col-md-8 customize-tab">
-                                    <ul class="nav nav-pills pull-right customize-tab" role="tablist">
-                                        <li role="presentation">
-                                            <a id="title_en-tab"
-                                               class="tab-nice{{ $errors->has('title_en') ? ' has-error-label' : '' }}"
-                                               href="#title_en-body"
-                                               role="tab"
-                                               data-toggle="tab"
-                                               aria-controls="title_en"
-                                               aria-expanded="true">
-                                                Английский
-                                            </a>
-                                        </li>
-                                        <li class="active" role="presentation">
-                                            <a id="title_ru-tab"
-                                               class="tab-nice{{ $errors->has('title_ru') ? ' has-error-label' : '' }}"
-                                               href="#title_ru-body"
-                                               role="tab"
-                                               data-toggle="tab"
-                                               aria-controls="title_ru">
-                                                Русский
-                                            </a>
-                                        </li>
-                                        <li role="presentation">
-                                            <a id="title_uk-tab"
-                                               class="tab-nice{{ $errors->has('title_uk') ? ' has-error-label' : '' }}"
-                                               href="#title_uk-body"
-                                               role="tab"
-                                               data-toggle="tab"
-                                               aria-controls="title_uk">
-                                                Украинский
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div id="tabtitle" class="tab-content">
-                            <div id="title_en-body" class="tab-pane fade" role="tabpanel" aria-labelledby="title_en-tab">
-                                <div class="form-group{{ $errors->has('title_en') ? ' has-error' : '' }}">
-                                    <textarea id="title_en"
-                                              name="title_en"
-                                              class="form-control"
-                                              placeholder="Английский"
-                                              rows="2">{{ old('title_en', $metatags['title_en']) }}</textarea>
-
-                                    @if ($errors->has('title_en'))
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('title_en') }}</strong>
-                                        </span>
-                                    @endif
-                                </div>
-                            </div>
-                            <div id="title_ru-body" class="tab-pane fade in active" role="tabpanel" aria-labelledby="title_ru-tab">
-                                <div class="form-group{{ $errors->has('title_ru') ? ' has-error' : '' }}">
-                                    <textarea id="title_ru"
-                                              name="title_ru"
-                                              class="form-control"
-                                              placeholder="Русский"
-                                              rows="2">{{ old('title_ru', $metatags['title_ru']) }}</textarea>
-
-                                    @if ($errors->has('title_ru'))
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('title_ru') }}</strong>
-                                        </span>
-                                    @endif
-                                </div>
-                            </div>
-                            <div id="title_uk-body" class="tab-pane fade" role="tabpanel" aria-labelledby="title_uk-tab">
-                                <div class="form-group{{ $errors->has('title_ru') ? ' has-error' : '' }}">
-                                    <textarea id="title_uk"
-                                              name="title_uk"
-                                              class="form-control"
-                                              placeholder="Украинский"
-                                              rows="2">{{ old('title_uk', $metatags['title_uk']) }}</textarea>
-
-                                    @if ($errors->has('title_uk'))
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('title_uk') }}</strong>
-                                        </span>
-                                    @endif
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group{{ ($errors->has('description_en') || $errors->has('description_ru') || $errors->has('description_uk')) ? ' has-error' : '' }}" style="margin-bottom: 0;">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <label class="control-label tab-description" for="description">Описание</label>
-                                </div>
-                                <div class="col-md-8 customize-tab">
-                                    <ul class="nav nav-pills pull-right customize-tab" role="tablist">
-                                        <li role="presentation">
-                                            <a id="description_en-tab"
-                                               class="tab-nice{{ $errors->has('description_en') ? ' has-error-label' : '' }}"
-                                               href="#description_en-body"
-                                               role="tab"
-                                               data-toggle="tab"
-                                               aria-controls="description_en"
-                                               aria-expanded="true">
-                                                Английский
-                                            </a>
-                                        </li>
-                                        <li class="active" role="presentation">
-                                            <a id="description_ru-tab"
-                                               class="tab-nice{{ $errors->has('description_ru') ? ' has-error-label' : '' }}"
-                                               href="#description_ru-body"
-                                               role="tab"
-                                               data-toggle="tab"
-                                               aria-controls="description_ru">
-                                                Русский
-                                            </a>
-                                        </li>
-                                        <li role="presentation">
-                                            <a id="description_uk-tab"
-                                               class="tab-nice{{ $errors->has('description_uk') ? ' has-error-label' : '' }}"
-                                               href="#description_uk-body"
-                                               role="tab"
-                                               data-toggle="tab"
-                                               aria-controls="description_uk">
-                                                Украинский
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div id="tabdescription" class="tab-content">
-                            <div id="description_en-body" class="tab-pane fade" role="tabpanel" aria-labelledby="description_en-tab">
-                                <div class="form-group{{ $errors->has('description_en') ? ' has-error' : '' }}">
-                                    <textarea id="description_en"
-                                              name="description_en"
-                                              class="form-control"
-                                              placeholder="Английский"
-                                              rows="4">{{ old('description_en', $metatags['description_en']) }}</textarea>
-
-                                    @if ($errors->has('description_en'))
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('description_en') }}</strong>
-                                        </span>
-                                    @endif
-                                </div>
-                            </div>
-                            <div id="description_ru-body" class="tab-pane fade in active" role="tabpanel" aria-labelledby="description_ru-tab">
-                                <div class="form-group{{ $errors->has('description_ru') ? ' has-error' : '' }}">
-                                    <textarea id="description_ru"
-                                              name="description_ru"
-                                              class="form-control"
-                                              placeholder="Русский"
-                                              rows="4">{{ old('description_ru', $metatags['description_ru']) }}</textarea>
-
-                                    @if ($errors->has('description_ru'))
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('description_ru') }}</strong>
-                                        </span>
-                                    @endif
-                                </div>
-                            </div>
-                            <div id="description_uk-body" class="tab-pane fade" role="tabpanel" aria-labelledby="description_uk-tab">
-                                <div class="form-group{{ $errors->has('description_ru') ? ' has-error' : '' }}">
-                                    <textarea id="description_uk"
-                                              name="description_uk"
-                                              class="form-control"
-                                              placeholder="Украинский"
-                                              rows="4">{{ old('description_uk', $metatags['description_uk']) }}</textarea>
-
-                                    @if ($errors->has('description_uk'))
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('description_uk') }}</strong>
-                                        </span>
-                                    @endif
-                                </div>
-                            </div>
-                        </div>
-
-{{-- Статьи --}}
-                <div class="catalog <?= (($metatags['type'] == 'menu') || ($metatags['slug'] == 'price')) ? '' : 'hidden' ?>">
-
-                    <div class="form-group{{ ($errors->has('h1_en') || $errors->has('h1_ru') || $errors->has('h1_uk')) ? ' has-error' : '' }}" style="margin-bottom: 0;">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <label class="control-label tab-h1" for="h1">Заголовок H1</label>
-                            </div>
-                            <div class="col-md-8 customize-tab">
-                                <ul class="nav nav-pills pull-right customize-tab" role="tablist">
-                                    <li role="presentation">
-                                        <a id="h1_en-tab"
-                                           class="tab-nice{{ $errors->has('h1_en') ? ' has-error-label' : '' }}"
-                                           href="#h1_en-body"
-                                           role="tab"
-                                           data-toggle="tab"
-                                           aria-controls="h1_en"
-                                           aria-expanded="true">
-                                            Английский
-                                        </a>
-                                    </li>
-                                    <li class="active" role="presentation">
-                                        <a id="h1_ru-tab"
-                                           class="tab-nice{{ $errors->has('h1_ru') ? ' has-error-label' : '' }}"
-                                           href="#h1_ru-body"
-                                           role="tab"
-                                           data-toggle="tab"
-                                           aria-controls="h1_ru">
-                                            Русский
-                                        </a>
-                                    </li>
-                                    <li role="presentation">
-                                        <a id="h1_uk-tab"
-                                           class="tab-nice{{ $errors->has('h1_uk') ? ' has-error-label' : '' }}"
-                                           href="#h1_uk-body"
-                                           role="tab"
-                                           data-toggle="tab"
-                                           aria-controls="h1_uk">
-                                            Украинский
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div id="tabh1" class="tab-content">
-                        <div id="h1_en-body" class="tab-pane fade" role="tabpanel" aria-labelledby="h1_en-tab">
-                            <div class="form-group{{ $errors->has('h1_en') ? ' has-error' : '' }}">
-                                <input id="h1_en" name="h1_en" class="form-control" placeholder="Английский" value="{{ old('h1_en', $metatags['h1_en']) }}" />
-
-                                @if ($errors->has('h1_en'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('h1_en') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-                        <div id="h1_ru-body" class="tab-pane fade in active" role="tabpanel" aria-labelledby="h1_ru-tab">
-                            <div class="form-group{{ $errors->has('h1_ru') ? ' has-error' : '' }}">
-                                <input id="h1_ru" name="h1_ru" class="form-control" placeholder="Русский" value="{{ old('h1_ru', $metatags['h1_ru']) }}" />
-
-                                @if ($errors->has('h1_ru'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('h1_ru') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-                        <div id="h1_uk-body" class="tab-pane fade" role="tabpanel" aria-labelledby="h1_uk-tab">
-                            <div class="form-group{{ $errors->has('h1_ru') ? ' has-error' : '' }}">
-                                <input id="h1_uk" name="h1_uk" class="form-control" placeholder="Украинский" value="{{ old('h1_uk', $metatags['h1_uk']) }}" />
-
-                                @if ($errors->has('h1_uk'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('h1_uk') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="form-group{{ ($errors->has('articles_en') || $errors->has('articles_ru') || $errors->has('articles_uk')) ? ' has-error' : '' }}" style="margin-bottom: 0;">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <label class="control-label tab-articles" for="articles">Статья</label>
-                            </div>
-                            <div class="col-md-8 customize-tab">
-                                <ul class="nav nav-pills pull-right customize-tab" role="tablist">
-                                    <li role="presentation">
-                                        <a id="articles_en-tab"
-                                           class="tab-nice{{ $errors->has('articles_en') ? ' has-error-label' : '' }}"
-                                           href="#articles_en-body"
-                                           role="tab"
-                                           data-toggle="tab"
-                                           aria-controls="articles_en"
-                                           aria-expanded="true">
-                                            Английский
-                                        </a>
-                                    </li>
-                                    <li class="active" role="presentation">
-                                        <a id="articles_ru-tab"
-                                           class="tab-nice{{ $errors->has('articles_ru') ? ' has-error-label' : '' }}"
-                                           href="#articles_ru-body"
-                                           role="tab"
-                                           data-toggle="tab"
-                                           aria-controls="articles_ru">
-                                            Русский
-                                        </a>
-                                    </li>
-                                    <li role="presentation">
-                                        <a id="articles_uk-tab"
-                                           class="tab-nice{{ $errors->has('articles_uk') ? ' has-error-label' : '' }}"
-                                           href="#articles_uk-body"
-                                           role="tab"
-                                           data-toggle="tab"
-                                           aria-controls="articles_uk">
-                                            Украинский
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div id="tabarticles" class="tab-content">
-                        <div id="articles_en-body" class="tab-pane fade" role="tabpanel" aria-labelledby="articles_en-tab">
-                            <div class="form-group{{ $errors->has('articles_en') ? ' has-error' : '' }}">
-                                <textarea id="articles_en"
-                                          name="articles_en"
-                                          class="form-control"
-                                          placeholder="Английский"
-                                          rows="6">{{ old('articles_en', $metatags['articles_en']) }}</textarea>
-
-                                @if ($errors->has('articles_en'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('articles_en') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-                        <div id="articles_ru-body" class="tab-pane fade in active" role="tabpanel" aria-labelledby="articles_ru-tab">
-                            <div class="form-group{{ $errors->has('articles_ru') ? ' has-error' : '' }}">
-                                <textarea id="articles_ru"
-                                          name="articles_ru"
-                                          class="form-control"
-                                          placeholder="Русский"
-                                          rows="6">{{ old('articles_ru', $metatags['articles_ru']) }}</textarea>
-
-                                @if ($errors->has('articles_ru'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('articles_ru') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-                        <div id="articles_uk-body" class="tab-pane fade" role="tabpanel" aria-labelledby="articles_uk-tab">
-                            <div class="form-group{{ $errors->has('articles_ru') ? ' has-error' : '' }}">
-                                <textarea id="articles_uk"
-                                          name="articles_uk"
-                                          class="form-control"
-                                          placeholder="Украинский"
-                                          rows="6">{{ old('articles_uk', $metatags['articles_uk']) }}</textarea>
-
-                                @if ($errors->has('articles_uk'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('articles_uk') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-{{-- /Статьи --}}
-                        <button class="btn btn-primary pull-left action-editer <?= ($metatags['type'] == 'menu') ? '' : 'hidden' ?>" type="button">
+                        <button class="btn btn-primary pull-left action-editer {{ $isArticle ? '' : 'hidden' }}" type="button">
                             Редактор - выкл.
                         </button>
 
                         <button class="btn btn-success pull-right" type="submit" onclick="saveArticle();">
-                            Добавить
+                            Сохранить
                         </button>
-
                     </form>
 
                 </div>
@@ -577,114 +135,29 @@
 
 @section('scripts')
 
-    <script src="{{ elixir('js/jquery-ui.min.js') }}"></script>
     <script src="{{ asset('tinymce/tinymce.min.js') }}"></script>
 
     <script>
+        let action = true;
 
-        var action = true;
+        $('.find-input').keyup(function(event){
+            let vm   = this;
+            let find = $(vm).data('section');
+            let text = vm.value;
+            let data = '';
 
-        $('.action-editer').click(function(event){
-            if (action) {
-                action = false;
+            hideAll(find);
+                
+            $('.' + find).removeClass('hidden');
 
-                saveArticle();
-                destroyArticle();
+            $.each($('.' + find).find('li'), function(key, val){
+                data = $(val).text().toLowerCase();
 
-                $(this).text('Редактор - вкл.');
-            } else {
-                action = true;
-
-                initArticle();
-
-                $(this).text('Редактор - выкл.');
-            }
+                if (data.indexOf(text) != -1) {
+                    $(val).removeClass('hidden');
+                }
+            });
         });
-
-        $('#products').keyup(function(event){
-            var tut = this;
-            var find = tut.value;
-            var data = '';
-
-            if (tut.value.length > 0) {
-                hideAll('products');
-                $('.products').removeClass('hidden');
-
-                $.each($('.products').find('li'), function(key, val){
-                    data = $(val).text().toLowerCase();
-
-                    if (data.indexOf(find) != -1) {
-                        $(val).removeClass('hidden');
-                    }
-                });
-            } else {
-                showAll('products');
-            }
-        });
-
-        $('#menu').keyup(function(event){
-            var tut = this;
-            var find = tut.value;
-            var data = '';
-
-            if (tut.value.length > 0) {
-                hideAll('menu');
-                $('.menu').removeClass('hidden');
-
-                $.each($('.menu').find('li'), function(key, val){
-                    data = $(val).text().toLowerCase();
-
-                    if (data.indexOf(find) != -1) {
-                        $(val).removeClass('hidden');
-                    }
-                });
-            } else {
-                showAll('menu');
-            }
-        });
-
-        $('#articles').keyup(function(event){
-            var tut = this;
-            var find = tut.value;
-            var data = '';
-
-            if (tut.value.length > 0) {
-                hideAll('articles');
-                $('.articles').removeClass('hidden');
-
-                $.each($('.articles').find('li'), function(key, val){
-                    data = $(val).text().toLowerCase();
-
-                    if (data.indexOf(find) != -1) {
-                        $(val).removeClass('hidden');
-                    }
-                });
-            } else {
-                showAll('articles');
-            }
-        });
-
-        $('#reference').keyup(function(event){
-            var tut = this;
-            var find = tut.value;
-            var data = '';
-
-            if (tut.value.length > 0) {
-                hideAll('reference');
-                $('.reference').removeClass('hidden');
-
-                $.each($('.reference').find('li'), function(key, val){
-                    data = $(val).text().toLowerCase();
-
-                    if (data.indexOf(find) != -1) {
-                        $(val).removeClass('hidden');
-                    }
-                });
-            } else {
-                showAll('reference');
-            }
-        });
-
 
         function showAll(type)
         {
@@ -710,21 +183,7 @@
         function initArticle()
         {
             tinyMCE.init({
-                selector: '#articles_en',
-                language: 'ru',
-                plugins: 'textcolor colorpicker advlist autolink link image media lists charmap table preview',
-                toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | forecolor backcolor'
-            });
-
-            tinyMCE.init({
-                selector: '#articles_ru',
-                language: 'ru',
-                plugins: 'textcolor colorpicker advlist autolink link image media lists charmap table preview',
-                toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | forecolor backcolor'
-            });
-
-            tinyMCE.init({
-                selector: '#articles_uk',
+                selector: '#articles_en, #articles_ru, #articles_uk',
                 language: 'ru',
                 plugins: 'textcolor colorpicker advlist autolink link image media lists charmap table preview',
                 toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | forecolor backcolor'
@@ -740,17 +199,26 @@
             tinyMCE.get('articles_uk').remove();
         }
 
-        $(document).ready(function() {
-            $("iframe").removeAttr('title');
-        });
+        $('.action-editer').click(function(event){
+            if (action) {
+                action = false;
 
+                saveArticle();
+                destroyArticle();
 
-        $(document).tooltip({
-            content: function () {
-                return $(this).prop('title');
+                $(this).text('Редактор - вкл.');
+            } else {
+                action = true;
+
+                initArticle();
+
+                $(this).text('Редактор - выкл.');
             }
         });
 
+        $(document).ready(function() {
+            $("iframe").removeAttr('title');
+        });
     </script>
 
 @endsection

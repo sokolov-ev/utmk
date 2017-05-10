@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('title')
-    Редактирование: {{ $product['title_name'] }}
+    Редактирование: {{ $product['title']['ru'] }}
 @endsection
 
 @section('css')
@@ -13,13 +13,13 @@
 <section class="content container">
     <div class="box box-warning">
         <div class="box-header">
-            <h3 class="box-title pull-left clearfix">Редактирование: {{ $product['title_name'] }}</h3>
+            <h3 class="box-title pull-left clearfix">Редактирование: {{ $product['title']['ru'] }}</h3>
         </div>
         <div class="box-body">
 
             <ol class="breadcrumb">
                 <li><a href="{{ url('administration/products') }}">Продукция</a></li>
-                <li class="active">Редактирование: {{ $product['title_name'] }}</li>
+                <li class="active">Редактирование: {{ $product['title']['ru'] }}</li>
             </ol>
 
             <div class="hidden language" data-lang="{{ App::getLocale() }}"></div>
@@ -74,6 +74,23 @@
                             <p class="clearfix"> </p>
                         @endif
 
+                        <hr>
+
+                        <!-- TITLE -->
+                        @include('backend.site.partial.input-edit', ['name' => 'title', 'title' => 'Заголовок', 'data' => $product['title']])
+                        <!-- /TITLE -->
+
+                        <div class="form-group{{ $errors->has('slug') ? ' has-error' : '' }}">
+                            <label for="slug" class="control-label">Slug (отображение в адресной строке)</label>
+                            <input id="slug" name="slug" type="text" class="form-control" value="{{ old('slug', $product['slug']) }}">
+
+                            @if ($errors->has('slug'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('slug') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+                        
                         <div class="form-group{{ $errors->has('menu_id') ? ' has-error' : '' }}">
                             <label for="menu_id" class="control-label">Раздел меню</label>
 
@@ -113,111 +130,7 @@
                         @else
                             <input type="hidden" name="office_id" id="office_id" value="{{ old('office_id', $offices) }}">
                         @endif
-
-                        <div class="form-group{{ $errors->has('slug') ? ' has-error' : '' }}">
-                            <label for="slug" class="control-label">Slug (отображение в адресной строке)</label>
-                            <input id="slug" name="slug" type="text" class="form-control" value="{{ old('slug', $product['slug']) }}">
-
-                            @if ($errors->has('slug'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('slug') }}</strong>
-                                </span>
-                            @endif
-                        </div>
-
-                        <div class="form-group{{ ($errors->has('title_en') || $errors->has('title_ru') || $errors->has('title_uk')) ? ' has-error' : '' }}" style="margin-bottom: 0;">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <label class="control-label tab-title" for="advertising-title">Заголовок</label>
-                                </div>
-                                <div class="col-md-8 customize-tab">
-                                    <ul class="nav nav-pills pull-right customize-tab" role="tablist">
-                                        <li role="presentation">
-                                            <a id="title_en-tab"
-                                               class="tab-nice{{ $errors->has('title_en') ? ' has-error-label' : '' }}"
-                                               href="#title_en"
-                                               role="tab"
-                                               data-toggle="tab"
-                                               aria-controls="title_en"
-                                               aria-expanded="true">
-                                                Английский
-                                            </a>
-                                        </li>
-                                        <li class="active" role="presentation">
-                                            <a id="title_ru-tab"
-                                               class="tab-nice{{ $errors->has('title_ru') ? ' has-error-label' : '' }}"
-                                               href="#title_ru"
-                                               role="tab"
-                                               data-toggle="tab"
-                                               aria-controls="title_ru">
-                                                Русский
-                                            </a>
-                                        </li>
-                                        <li role="presentation">
-                                            <a id="title_uk-tab"
-                                               class="tab-nice{{ $errors->has('title_uk') ? ' has-error-label' : '' }}"
-                                               href="#title_uk"
-                                               role="tab"
-                                               data-toggle="tab"
-                                               aria-controls="title_uk">
-                                                Украинский
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div id="tabTitle" class="tab-content">
-                            <div id="title_en" class="tab-pane fade" role="tabpanel" aria-labelledby="title_en-tab">
-                                <div class="form-group{{ $errors->has('title_en') ? ' has-error' : '' }}">
-                                    <input id="title_en"
-                                           name="title_en"
-                                           type="text"
-                                           class="form-control"
-                                           value="{{ old('title_en', $product['title_en']) }}"
-                                           placeholder="Английский">
-
-                                    @if ($errors->has('title_en'))
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('title_en') }}</strong>
-                                        </span>
-                                    @endif
-                                </div>
-                            </div>
-                            <div id="title_ru" class="tab-pane fade in active" role="tabpanel" aria-labelledby="title_ru-tab">
-                                <div class="form-group{{ $errors->has('title_ru') ? ' has-error' : '' }}">
-                                    <input id="title_ru"
-                                           name="title_ru"
-                                           type="text"
-                                           class="form-control"
-                                           value="{{ old('title_ru', $product['title_ru']) }}" placeholder="Русский">
-
-                                    @if ($errors->has('title_ru'))
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('title_ru') }}</strong>
-                                        </span>
-                                    @endif
-                                </div>
-                            </div>
-                            <div id="title_uk" class="tab-pane fade" role="tabpanel" aria-labelledby="title_uk-tab">
-                                <div class="form-group{{ $errors->has('title_ru') ? ' has-error' : '' }}">
-                                    <input id="title_uk"
-                                           name="title_uk"
-                                           type="text"
-                                           class="form-control"
-                                           value="{{ old('title_uk', $product['title_uk']) }}"
-                                           placeholder="Украинский">
-
-                                    @if ($errors->has('title_uk'))
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('title_uk') }}</strong>
-                                        </span>
-                                    @endif
-                                </div>
-                            </div>
-                        </div>
-
+                        
                         <div id="product-prices">
                             <div class="form-group{{ $errors->has('price.0') ? ' has-error' : '' }}" style="margin-bottom: 0;">
                                 <label for="" class="control-label">Цены</label>
@@ -316,127 +229,17 @@
                             @endif
                         </div>
 
-                        <div class="form-group{{ $errors->has('steel_grade') ? ' has-error' : '' }}">
-                            <label for="steel_grade" class="control-label">Марка стали</label>
-                            <input id="steel_grade" name="steel_grade" type="text" class="form-control" value="{{ old('steel_grade', $product['steel_grade']) }}">
-
-                            @if ($errors->has('steel_grade'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('steel_grade') }}</strong>
-                                </span>
-                            @endif
-                        </div>
-
-                        <div class="form-group{{ $errors->has('standard') ? ' has-error' : '' }}">
-                            <label for="standard" class="control-label">Стандарт</label>
-                            <input id="standard" name="standard" type="text" class="form-control" value="{{ old('standard', $product['standard']) }}">
-
-                            @if ($errors->has('standard'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('standard') }}</strong>
-                                </span>
-                            @endif
-                        </div>
-
-                        <div class="form-group{{ $errors->has('sawing') ? ' has-error' : '' }}">
-                            <label for="sawing" class="control-label">Длина/раскрой</label>
-                            <input id="sawing" name="sawing" type="text" class="form-control" value="{{ old('sawing', $product['sawing']) }}">
-
-                            @if ($errors->has('sawing'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('sawing') }}</strong>
-                                </span>
-                            @endif
-                        </div>
-
-                        <div class="form-group{{ $errors->has('diameter') ? ' has-error' : '' }}">
-                            <label for="diameter" class="control-label">Диаметр</label>
-                            <input id="diameter" name="diameter" type="text" class="form-control" value="{{ old('diameter', $product['diameter']) }}">
-
-                            @if ($errors->has('diameter'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('diameter') }}</strong>
-                                </span>
-                            @endif
-                        </div>
-
-
-                        <div class="form-group{{ $errors->has('height') ? ' has-error' : '' }}">
-                            <label for="height" class="control-label">Высота</label>
-                            <input id="height" name="height" type="text" class="form-control" value="{{ old('height', $product['height']) }}">
-
-                            @if ($errors->has('height'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('height') }}</strong>
-                                </span>
-                            @endif
-                        </div>
-
-                        <div class="form-group{{ $errors->has('width') ? ' has-error' : '' }}">
-                            <label for="width" class="control-label">Ширина</label>
-                            <input id="width" name="width" type="text" class="form-control" value="{{ old('width', $product['width']) }}">
-
-                            @if ($errors->has('width'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('width') }}</strong>
-                                </span>
-                            @endif
-                        </div>
-
-                        <div class="form-group{{ $errors->has('thickness') ? ' has-error' : '' }}">
-                            <label for="thickness" class="control-label">Толщина</label>
-                            <input id="thickness" name="thickness" type="text" class="form-control" value="{{ old('thickness', $product['thickness']) }}">
-
-                            @if ($errors->has('thickness'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('thickness') }}</strong>
-                                </span>
-                            @endif
-                        </div>
-
-                        <div class="form-group{{ $errors->has('section') ? ' has-error' : '' }}">
-                            <label for="section" class="control-label">Сечение</label>
-                            <input id="section" name="section" type="text" class="form-control" value="{{ old('section', $product['section']) }}">
-
-                            @if ($errors->has('section'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('section') }}</strong>
-                                </span>
-                            @endif
-                        </div>
-
-                        <div class="form-group{{ $errors->has('coating') ? ' has-error' : '' }}">
-                            <label for="coating" class="control-label">Покрытие</label>
-                            <input id="coating" name="coating" type="text" class="form-control" value="{{ old('coating', $product['coating']) }}">
-
-                            @if ($errors->has('coating'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('coating') }}</strong>
-                                </span>
-                            @endif
-                        </div>
-
-                        <div class="form-group{{ $errors->has('view') ? ' has-error' : '' }}">
-                            <label for="view" class="control-label">Вид</label>
-                            <input id="view" name="view" type="text" class="form-control" value="{{ old('view', $product['view']) }}">
-
-                            @if ($errors->has('view'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('view') }}</strong>
-                                </span>
-                            @endif
-                        </div>
-
-                        <div class="form-group{{ $errors->has('brinell_hardness') ? ' has-error' : '' }}">
-                            <label for="brinell_hardness" class="control-label">Твердость Бринелль</label>
-                            <input id="brinell_hardness" name="brinell_hardness" type="text" class="form-control" value="{{ old('brinell_hardness', $product['brinell_hardness']) }}">
-
-                            @if ($errors->has('brinell_hardness'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('brinell_hardness') }}</strong>
-                                </span>
-                            @endif
-                        </div>
+                        @include('backend.site.partial.input-edit', ['name' => 'steel_grade', 'title' => 'Марка стали', 'data' => $product['steel_grade']])
+                        @include('backend.site.partial.input-edit', ['name' => 'standard', 'title' => 'Стандарт', 'data' => $product['standard']])
+                        @include('backend.site.partial.input-edit', ['name' => 'sawing', 'title' => 'Длина/раскрой', 'data' => $product['sawing']])
+                        @include('backend.site.partial.input-edit', ['name' => 'diameter', 'title' => 'Диаметр', 'data' => $product['diameter']])
+                        @include('backend.site.partial.input-edit', ['name' => 'height', 'title' => 'Высота', 'data' => $product['height']])
+                        @include('backend.site.partial.input-edit', ['name' => 'width', 'title' => 'Ширина', 'data' => $product['width']])
+                        @include('backend.site.partial.input-edit', ['name' => 'thickness', 'title' => 'Толщина', 'data' => $product['thickness']])
+                        @include('backend.site.partial.input-edit', ['name' => 'section', 'title' => 'Сечение', 'data' => $product['section']])
+                        @include('backend.site.partial.input-edit', ['name' => 'coating', 'title' => 'Покрытие', 'data' => $product['coating']])
+                        @include('backend.site.partial.input-edit', ['name' => 'view', 'title' => 'Вид', 'data' => $product['view']])
+                        @include('backend.site.partial.input-edit', ['name' => 'brinell_hardness', 'title' => 'Твердость Бринелль', 'data' => $product['brinell_hardness']])
 
                     </div>
                 </div>
@@ -513,16 +316,6 @@
                 }, 'json');
             }
         });
-
-        $(document).ready(function() {
-            $("iframe").removeAttr('title');
-        });
-
-        // $(document).tooltip({
-        //     content: function () {
-        //         return $(this).prop('title');
-        //     }
-        // });
 
         $(".btn-add").click(function(event){
             var body = $(this).closest('.form-group').clone();

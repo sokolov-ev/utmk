@@ -150,12 +150,11 @@
                 @endif
 
                 @foreach ($result as $product)
-                    <?php $price = current($product['prices']); ?>
                     @if($format == 'cards')
                         <div class="col-md-4 col-sm-4 col-xs-12 card">
                             <div class="thumbnail">
                                 <a class="text-black-h3 text-center width-100" href="{{ $product['work_link'] }}">
-                                    <img class="green-img" alt="{{ $product['title'] }}" src="{{ $product['images'] }}" style="max-width: 360px; max-height: 240px">
+                                    <img class="green-img" alt="{{ $product['title'] }}" src="{{ $product['images'][0] }}" style="max-width: 360px; max-height: 240px">
                                 </a>
                                 <div class="caption">
                                     <a class="text-black-h3" href="{{ $product['work_link'] }}">{{ $product['title'] }}</a>
@@ -164,7 +163,7 @@
                                         @foreach ($data as $element)
                                             @if($product[$element])                                                
                                                 <span class="text-16">
-                                                    <strong>{{ trans('products.'.$element) }}</strong>: {{ $product[$element] }}
+                                                    <strong>{{ trans('products.' . $element) }}</strong>: {{ $product[$element] }}
                                                 </span><br>
                                             @endif    
                                         @endforeach
@@ -173,7 +172,7 @@
 
                                 <div class="caption-footer">
                                     <div class="row">
-                                        @if ($product['prices_type'])
+                                        @if ($product['prices_type'] !== false)
                                             <div class="col-md-12 col-sm-12 col-xs-6">
                                                 <div class="shopping-cart-block">
                                                     <div class="card-price-block">
@@ -193,9 +192,9 @@
                                                 <div class="shopping-cart-block">
                                                     <div class="card-price-block">
                                                         <div class="card-price">
-                                                            {{ $price['price'] }}
+                                                            {{ $product['prices'][0]['price'] }}
                                                             <span class="card-price-uah">
-                                                                {{ trans('products.uah') }} / {{ $price['type'] }}
+                                                                {{ trans('products.uah') }} / {{ $product['prices'][0]['type'] }}
                                                             </span>
                                                         </div>
                                                     </div>
@@ -216,7 +215,9 @@
 
                             </div>
                         </div>
+
                     @else
+
                         <div class="panel panel-default card">
                             <div class="panel-body">
                                 <div class="product-title pull-left">
@@ -235,9 +236,9 @@
                                     <div class="shopping-cart pull-right">
                                         <div class="card-price-block">
                                             <div class="card-price">
-                                                {{ $price['price'] }}
+                                                {{ $product['prices'][0]['price'] }}
                                                 <span class="card-price-uah">
-                                                    {{ trans('products.uah') }} / {{ $price['type'] }}
+                                                    {{ trans('products.uah') }} / {{ $product['prices'][0]['type'] }}
                                                 </span>
                                             </div>
                                         </div>
@@ -292,7 +293,7 @@
 @include('partial.product-menu-template')
 {{-- Подгружаем шаблон для карточки продукции --}}
 @include('partial.product-card-template')
-@include('partial.product-list-template')
+{{-- @include('partial.product-list-template') --}}
 
 @endsection
 

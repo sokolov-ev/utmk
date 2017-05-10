@@ -125,88 +125,39 @@
             <div class="row">
                 <div class="col-md-12 col-sm-12 col-xs-12 text-center">
 
-                    <div class="contact-block">
-                        <div class="padding-block-2-0">
-                            <div class="">
-                                <i class="text-green fa fa-phone fa-3x" aria-hidden="true"> </i>
-                            </div>
-                            <div class="padding-vert-left-20 text-left" style="width: 195px;">
-                                <a class="text-black-h3" href="{{ url($locale.'/office/borispol/6') }}" title="Бориспольский ф-л:">
-                                    Бориспольский ф-л:
-                                </a><br/>
-                                <span class="text-gray-contact">
-                                    <a href="tel:+380930925603">+38 (093) 092-56-03</a><br>
-                                    <a href="tel:+380442479320">+38 (044) 247-93-20</a>
-                                </span>
+                    @foreach ($allOffices as $office)
+                        <div class="contact-block">
+                            <div class="padding-block-2-0">
+                                <div class="">
+                                    <i class="text-green fa fa-phone fa-3x" aria-hidden="true"> </i>
+                                </div>
+                                <div class="padding-vert-left-20 text-left" style="width: 195px;">
+                                    <a class="text-black-h3" href="{{ url($locale . '/office/' . $office['slug']) }}" title="{{ $office['title_short'] }}:">
+                                        {{ $office['title_short'] }}:
+                                    </a>
+                                    <br/>
+                                    <span class="text-gray-contact">
+                                        @foreach ($office['contacts'] as $contact)
+                                            @if (in_array($contact['type'], ['mobile', 'phone', 'accounting-tel']))
+                                                <a href="tel:{{ preg_replace('~\D+~','',$contact['contact']) }}">
+                                                    {{ $contact['contact'] }}
+                                                </a>
+                                            @elseif ($contact['type'] == 'email')
+                                                <a href="mailto:{{ $contact['contact'] }}">
+                                                    {{ $contact['contact'] }}
+                                                </a>
+                                            @else
+                                                {{ $contact['contact'] }}
+                                            @endif
+                                            <br>
+                                        @endforeach
+                                    </span>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    @endforeach
 
-                    <div class="contact-block">
-                        <div class="padding-block-2-0">
-                            <div class="">
-                                <i class="text-green fa fa-phone fa-3x" aria-hidden="true"> </i>
-                            </div>
-                            <div class="padding-vert-left-20 text-left" style="width: 195px;">
-                                <a class="text-black-h3" href="{{ url($locale.'/office/dnepropetrovsk/4') }}" title="Днепропетровский ф-л:">
-                                    Днепропетровский ф-л:
-                                </a><br/>
-                                <span class="text-gray-contact">
-                                    <a href="tel:+380563755405">+38 (056) 375-54-05</a><br>
-                                    <a href="tel:+380567699779">+38 (056) 769-97-79</a>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="contact-block">
-                        <div class="padding-block-2-0">
-                            <div class="">
-                                <i class="text-green fa fa-phone fa-3x" aria-hidden="true"> </i>
-                            </div>
-                            <div class="padding-vert-left-20 text-left" style="width: 195px;">
-                                <a class="text-black-h3" href="{{ url($locale.'/office/poltava/3') }}" title="Полтавский ф-л:">
-                                    Полтавский ф-л:
-                                </a><br/>
-                                <span class="text-gray-contact">
-                                    <a href="tel:+380532653167">+38 (053) 265-31-67</a>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="contact-block">
-                        <div class="padding-block-2-0">
-                            <div class="">
-                                <i class="text-green fa fa-phone fa-3x" aria-hidden="true"> </i>
-                            </div>
-                            <div class="padding-vert-left-20 text-left" style="width: 195px;">
-                                <a class="text-black-h3" href="{{ url($locale.'/office/kiev/2') }}" title="Главный офис:">
-                                    Главный офис:
-                                </a><br/>
-                                <span class="text-gray-contact">
-                                    <a href="tel:+380445025045">+38 (044) 502-50-45</a><br>
-                                    <a href="tel:+380445035045">+38 (044) 503-50-45</a>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="contact-block">
-                        <div class="padding-block-2-2">
-                            <div class="">
-                                <i class="text-green fa fa-map-marker fa-3x" aria-hidden="true"> </i>
-                            </div>
-                            <div class="padding-vert-left-20 text-left" style="max-width: 195px;">
-                                <a class="text-black-h3" href="{{ url($locale.'/office/kiev/5') }}" title="Склад: Киев">
-                                    Склад: Киев
-                                </a><br>
-                                <span class="text-gray-contact">
-                                    ул. Стройиндустрии 7
-                                </span>
-                            </div>
-                        </div>
-                    </div>
+                    <div class="padding-block-0-2"></div>
                 </div>
             </div>
     </section>

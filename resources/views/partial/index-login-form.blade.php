@@ -58,7 +58,7 @@
                         <button class="btn btn-default pull-left clearfix" data-dismiss="modal" type="button">
                             {{ trans('auth.cancel') }}
                         </button>
-                        <button type="submit" class="btn btn-warning" for="login-form-send">
+                        <button type="submit" class="btn btn-warning" form="login-form-send">
                             <i class="fa fa-btn fa-sign-in"></i> {{ trans('auth.login') }}
                         </button>
                     </form>

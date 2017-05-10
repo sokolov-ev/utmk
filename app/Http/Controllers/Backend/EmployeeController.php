@@ -9,13 +9,14 @@ use Illuminate\Routing\Controller;
 use Auth;
 use App\Admin;
 use App\Office;
+use App\Contacts;
 
 class EmployeeController extends Controller
 {
     public function view(Request $request)
     {
         $id = $request->query('id');
-        $isAdmin = Auth::guard('admin')->user()->role == Admin::ROLE_ADMIN;
+        $isAdmin  = Auth::guard('admin')->user()->role == Admin::ROLE_ADMIN;
 
         if (empty($id)) {
             $user = Auth::guard('admin')->user();
@@ -23,12 +24,12 @@ class EmployeeController extends Controller
             $user = Admin::findOrFail($id);
         }
 
-        $office = Office::viewData($user->office_id);
+        $office   = Office::parseData($user->office_id);
 
         return view('backend.admin.home', [
-            'office' => $office,
-            'user' => $user,
-            'isAdmin' => $isAdmin,
+            'office'   => $office,
+            'user'     => $user,
+            'isAdmin'  => $isAdmin,
         ]);
     }
 }

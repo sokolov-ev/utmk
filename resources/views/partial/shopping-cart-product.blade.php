@@ -24,9 +24,9 @@
                 <div class="padding-horizon">
                     <div class="shopping-type-product">
                         <select name="price_type" class="form-control price-type price-type-@{{ work_key }}" data-workid="@{{ work_key }}">
-                            @{{#prices_json}}
+                            @{{#prices}}
                                 <option value="@{{ id }}">@{{ type }}</option>
-                            @{{/prices_json}}
+                            @{{/prices}}
                         </select>
                     </div>
 

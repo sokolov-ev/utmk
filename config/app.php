@@ -217,6 +217,8 @@ return [
         'TurboSms' => Evheniys\Turbosms\Facades\Turbosms::class,
 
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+
+        'Language' => App\Helpers\Language::class,
     ],
 
 ];

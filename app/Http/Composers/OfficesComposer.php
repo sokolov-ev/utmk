@@ -16,6 +16,7 @@ class OfficesComposer {
      */
     public function compose(View $view)
     {
-        $view->with('office_contacts', Office::getContactsData());
+        $view->with('mainOffice', Office::getMainContacts());
+        $view->with('allOffices', Office::getOfficesContacts(false));
     }
 }

@@ -8,48 +8,18 @@
             <div class="row">
 
                 <div class="col-md-5 col-sm-5 col-xs-12">
-                    @{{#product.image_count}}
-                        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-                            <div class="carousel-inner" role="listbox">
-                                @{{#product.images}}
-                                    @{{#key}}<div class="item active">@{{/key}}
-                                    @{{^key}}<div class="item">@{{/key}}
-                                        <img alt="@{{ name }}" src="/images/products/@{{ name }}" style="width: 100%; height: auto;">
-                                    </div>
-                                @{{/product.images}}
-                            </div>
-                            <a class="left carousel-control" data-slide="prev" role="button" href="#carousel-example-generic">
-                                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                                <span class="sr-only">Previous</span>
-                            </a>
-                            <a class="right carousel-control" data-slide="next" role="button" href="#carousel-example-generic">
-                                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                                <span class="sr-only">Next</span>
-                            </a>
-                        </div>
-                    @{{/product.image_count}}
-                    @{{^product.image_count}}
-                        @{{#product.images}}
-                            <img alt="@{{ name }}" src="/images/products/@{{ name }}" style="width: 100%; height: auto;">
-                        @{{/product.images}}
-                    @{{/product.image_count}}
+                    <img alt="@{{ product.images.0 }}" src="@{{ product.images.0 }}" style="width: 100%; height: auto;">
                 </div>
 
                 <div class="col-md-7 col-sm-5 col-xs-12">
                     <div class="visible-sm visible-xs padding-top-30"></div>
 
                     <strong>
-                        @{{ product.office.office_work_title }}:
-                        @{{#product.office.id}}
-                            <a href="/administration/offices/index/@{{ product.office.id }}" title="@{{ product.office.title }}">
-                                @{{ product.office.title }}
-                            </a>
-                        @{{/product.office.id}}
-                        @{{^product.office.id}}
-                            @{{ product.office.title }}
-                        @{{/product.office.id}}
+                        <a href="/administration/offices/index/@{{ product.office_id }}" title="@{{ product.office_title }}">
+                            @{{ product.office_title }}
+                        </a>
                     </strong>
-                    <p></p>
+                    <br>
                     
                     @{{#product.steel_grade}}
                         <span class="text-16">
@@ -131,7 +101,7 @@
                     <p></p>
 
                     @{{#product.prices}}
-                        @{{#work_type}}
+                        @{{#type_view}}
                             <div class="shopping-cart-block">
                                 <div class="card-price-block">
                                     <div class="card-price" style="border-radius: 4px;">
@@ -139,8 +109,8 @@
                                     </div>
                                 </div>
                             </div>
-                        @{{/work_type}}
-                        @{{^work_type}}
+                        @{{/type_view}}
+                        @{{^type_view}}
                             <div class="shopping-cart">
                                 <div class="card-price-block">
                                     <div class="card-price">
@@ -151,7 +121,7 @@
                                     </div>
                                 </div>
                             </div>
-                        @{{/work_type}}
+                        @{{/type_view}}
                     @{{/product.prices}}
 
                     <div class="padding-top-30"></div>

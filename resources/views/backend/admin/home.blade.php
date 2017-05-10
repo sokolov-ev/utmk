@@ -34,7 +34,7 @@
                         <ul class="list-group list-group-unbordered">
                             <li class="list-group-item">
                                 <b>Город</b>
-                                <a class="pull-right">{{ json_decode($user->office->city, true)[App::getLocale()] }}</a>
+                                <a class="pull-right">{{ $office['city'][App::getLocale()] }}</a>
                             </li>
                             <li class="list-group-item">
                                 <b>E-mail</b>
@@ -53,13 +53,13 @@
 
                 <div class="box box-primary">
                     <div class="box-header with-border">
-                        <h3 class="box-title">{{ $office['type'] }}: "{{ $office['title'] }}"</h3>
+                        <h3 class="box-title">{{ trans('offices.officeType.' . $office['type']) }}: "{{ $office['title'][App::getLocale()] }}"</h3>
                     </div>
                     <div class="box-body">
                         <strong>
                             <i class="fa fa-book margin-r-5"></i> Описание
                         </strong>
-                            <p class="text-muted"> {{ json_decode($user->office->description, true)[App::getLocale()] }} </p>
+                            <p class="text-muted">{{ $office['description'][App::getLocale()] }}</p>
                         <hr>
 
                         <strong>
@@ -67,8 +67,8 @@
                         </strong>
                         <div class="row">
                             @foreach ($office['contacts'] as $contact)
-                                <div class="col-md-3 col-sm-3 col-xs-3 text-muted">{{ $contact['type'] }}:</div>
-                                <div class="col-md-9 col-sm-9 col-xs-9 text-muted">{{ $contact['data'] }}</div>
+                                <div class="col-md-3 col-sm-3 col-xs-3 text-muted">{{ trans('offices.contactType.' . $contact['type']) }}:</div>
+                                <div class="col-md-9 col-sm-9 col-xs-9 text-muted">{{ $contact['contact'] }}</div>
                             @endforeach
                         </div>
                         <hr>
@@ -76,7 +76,7 @@
                         <strong>
                             <i class="fa fa-map-marker margin-r-5"></i> Адрес
                         </strong>
-                            <p class="text-muted"> {{ $office['address'] }} </p>
+                            <p class="text-muted"> {{ $office['address'][App::getLocale()] }} </p>
                         <hr>
 
                         <div id="map" class="my-room-map" data-lat="{{ $office['latitude'] }}" data-lng="{{ $office['longitude'] }}">

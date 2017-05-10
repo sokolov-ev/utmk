@@ -164,27 +164,27 @@ class IndexController extends Controller
         return view('frontend.information.'.App::getLocale().'_eksport-import-metallicheskih-izdelij', ['metatags' => $metatags]);
     }
 
-    public function officeView($city, $id)
-    {
-        $office = Office::findOrFail($id);
-        $office = Office::viewData($office->id);
-        $metatags = Metatags::where([['type', 'office'], ['slug', $office['id']]])->first();
-        $metatags = Metatags::getViewData($metatags);
-
-        return view('frontend.site.office', [
-            'office' => $office,
-            'metatags' => $metatags,
-        ]);
-    }
 
     public function salesNetwork()
     {
-        $offices = Office::getOfficesContacts();
+        $offices  = Office::getOfficesContacts();
         $metatags = Metatags::where([['type', 'article'], ['slug', 'network-of-offices']])->first();
         $metatags = Metatags::getViewData($metatags);
 
         return view('frontend.site.sales-network', [
             'offices' => $offices,
+            'metatags' => $metatags,
+        ]);
+    }
+
+    public function officeView($slug)
+    {
+        $office   = Office::viewData($slug);
+        $metatags = Metatags::where([['type', 'office'], ['slug', $office['slug']]])->first();
+        $metatags = Metatags::getViewData($metatags);
+
+        return view('frontend.site.office', [
+            'office'   => $office,
             'metatags' => $metatags,
         ]);
     }

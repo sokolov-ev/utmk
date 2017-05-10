@@ -11,7 +11,7 @@ $(document).ready(function() {
     }();
 });
 
-    var prices = [];
+    var prices = {};
 
     $.ajaxSetup({
         headers: {
@@ -40,7 +40,7 @@ $(document).ready(function() {
                     var template = $('#shopping-cart-product').html();
                     Mustache.parse(template);
 
-                    prices = [];
+                    prices = {};
 
                     $.each(response.data, function(key, product) {
                         product.work_key = key;
@@ -48,7 +48,7 @@ $(document).ready(function() {
                         var id = 0;
                         var temp;
 
-                        $.each(product.prices, function(priceId, price){
+                        $.each(product.order_prices, function(priceId, price){
                             temp = {};
 
                             temp.price = price.price;
@@ -63,7 +63,7 @@ $(document).ready(function() {
                         if (product.price_id > 0) {
                             id = product.price_id;
                         } else {
-                            id = product.prices[0].id;
+                            id = product.order_prices[0].id;
                         }
 
                         $('option[value="' + id + '"]').attr('selected', '');
@@ -181,14 +181,6 @@ function deleteProduct(id)
                 $('.shopping-cart-badge').text(response.data);
             } else {
                 location.reload();
-                // $('.shopping-cart-badge').addClass('hidden');
-                // $('.shopping-cart-badge').text('');
-
-                // $('.cart-empty').removeClass('hidden');
-                // $('.empty-block').removeClass('hidden');
-                // $('.content-block').addClass('hidden');
-                // $('.block-total-price').addClass('hidden');
-                // $('#shopping-cart button[type='submit']').addClass('hidden');
             }
 
             $('#bonds-' + id).next('hr').remove();

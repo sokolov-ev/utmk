@@ -1,417 +1,125 @@
 @extends('layouts.admin')
 
 @section('title')
-    Редактирование: "{{ $office['title_name'] }}"
+    Редактирование: "{{ $office['title']['ru'] }}"
 @endsection
 
 @section('content')
 
-<section class="container">
+<section class="content container">
     <div class="box box-warning">
         <div class="box-header">
-            <h3 class="box-title pull-left clearfix">Редактирование: "{{ $office['title_name'] }}"</h3>
+            <h3 class="box-title pull-left clearfix">Редактирование: "{{ $office['title']['ru'] }}"</h3>
         </div>
         <div class="box-body">
 
             <ol class="breadcrumb">
                 <li><a href="{{ url('administration/offices/index') }}">Филиалы</a></li>
-                <li class="active">{{ $office['title_name'] }}</li>
+                <li class="active">{{ $office['title']['ru'] }}</li>
             </ol>
             
             <div class="row">
                 <div class="col-md-8 col-md-offset-2 col-sm-10 col-xs-offset-1 col-xs-12">
 
-                    <form class="" role="form" method="POST" action="{{ url('administration/offices/edit/'.$office['office_id']) }}" id="form-edit-office">
+                    <form id="form-edit-office" role="form" method="POST" action="{{ url('administration/offices/edit/'.$office['id']) }}">
                         {{ csrf_field() }}
 
-                        <div class="form-group{{ $errors->has('office_type') ? ' has-error' : '' }}">
-                            <label for="office_type" class="control-label">Тип офиса</label>
+                        <div class="form-group{{ $errors->has('type') ? ' has-error' : '' }}">
+                            <label for="type" class="control-label">Тип офиса</label>
 
-                            <select id="office_type" name="office_type" class="form-control">
-                                @foreach($officeType as $key => $type)
-                                    @if ($key == old('office_type', $office['office_type']))
-                                        <option value="{{$key}}" selected="">{{ trans('offices.officeType.'.$type) }}</option>
-                                    @else
-                                        <option value="{{$key}}">{{ trans('offices.officeType.'.$type) }}</option>
-                                    @endif
+                            <select id="type" name="type" class="form-control">
+                                @foreach($officeType as $key => $type)                                    
+                                    <option value="{{ $key }}" {{ ($key == old('type', $office['type'])) ? 'selected=""' : "" }}>
+                                        {{ trans('offices.officeType.'.$type) }}
+                                    </option>
                                 @endforeach
                             </select>
 
-                            @if ($errors->has('office_type'))
+                            @if ($errors->has('type'))
                                 <span class="help-block">
-                                    <strong>{{ $errors->first('office_type') }}</strong>
+                                    <strong>{{ $errors->first('type') }}</strong>
                                 </span>
                             @endif
                         </div>
+        
+                        @include('backend.site.partial.input-edit', ['name' => 'title', 'title' => 'Заголовок', 'data' => $office['title']])
+                        @include('backend.site.partial.input-edit', ['name' => 'title_short', 'title' => 'Короткий заголовок (на главной)', 'data' => $office['title_short']])
 
+                        <div class="form-group{{ $errors->has('slug') ? ' has-error' : '' }}">
+                            <label for="slug" class="control-label">Slug (отображение в адресной строке)</label>
+                            <input id="slug" name="slug" type="text" class="form-control" value="{{ old('slug', $office['slug']) }}">
 
-                        <div class="form-group{{ ($errors->has('title_en') || $errors->has('title_ru') || $errors->has('title_uk')) ? ' has-error' : '' }}" style="margin-bottom: 0;">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <label class="control-label tab-title" for="advertising-title">Заголовок</label>
-                                </div>
-                                <div class="col-md-8 customize-tab">
-                                    <ul class="nav nav-pills pull-right customize-tab" role="tablist">
-                                        <li role="presentation">
-                                            <a id="title_en-tab"
-                                               class="tab-nice{{ $errors->has('title_en') ? ' has-error-label' : '' }}"
-                                               href="#title_en"
-                                               role="tab"
-                                               data-toggle="tab"
-                                               aria-controls="title_en"
-                                               aria-expanded="true">
-                                                Английский
-                                            </a>
-                                        </li>
-                                        <li class="active" role="presentation">
-                                            <a id="title_ru-tab"
-                                               class="tab-nice{{ $errors->has('title_ru') ? ' has-error-label' : '' }}"
-                                               href="#title_ru"
-                                               role="tab"
-                                               data-toggle="tab"
-                                               aria-controls="title_ru">
-                                                Русский
-                                            </a>
-                                        </li>
-                                        <li role="presentation">
-                                            <a id="title_uk-tab"
-                                               class="tab-nice{{ $errors->has('title_uk') ? ' has-error-label' : '' }}"
-                                               href="#title_uk"
-                                               role="tab"
-                                               data-toggle="tab"
-                                               aria-controls="title_uk">
-                                                Украинский
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
+                            @if ($errors->has('slug'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('slug') }}</strong>
+                                </span>
+                            @endif
                         </div>
+                        
+                        @include('backend.site.partial.textarea-edit', ['name' => 'text_top', 'title' => 'Текст в верху', 'data' => $office['text_top']])
 
-                        <div id="tabTitle" class="tab-content">
-                            <div id="title_en" class="tab-pane fade" role="tabpanel" aria-labelledby="title_en-tab">
-                                <div class="form-group{{ $errors->has('title_en') ? ' has-error' : '' }}">
-                                    <input type="text"
-                                           id="title_en"
-                                           name="title_en"
-                                           class="form-control"
-                                           value="{{ old('title_en', $office['title_en']) }}"
-                                           placeholder="Английский">
+                        @include('backend.site.partial.textarea-edit', ['name' => 'description', 'title' => 'Описание', 'data' => $office['description']])
 
-                                    @if ($errors->has('title_en'))
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('title_en') }}</strong>
-                                        </span>
-                                    @endif
-                                </div>
-                            </div>
-                            <div id="title_ru" class="tab-pane fade in active" role="tabpanel" aria-labelledby="title_ru-tab">
-                                <div class="form-group{{ $errors->has('title_ru') ? ' has-error' : '' }}">
-                                    <input type="text"
-                                           id="title_ru"
-                                           name="title_ru"
-                                           class="form-control"
-                                           value="{{ old('title_ru', $office['title_ru']) }}"
-                                           placeholder="Русский">
+                        @include('backend.site.partial.textarea-edit', ['name' => 'text_bottom', 'title' => 'Текст в низу', 'data' => $office['text_bottom']])
 
-                                    @if ($errors->has('title_ru'))
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('title_ru') }}</strong>
-                                        </span>
-                                    @endif
-                                </div>
-                            </div>
-                            <div id="title_uk" class="tab-pane fade" role="tabpanel" aria-labelledby="title_uk-tab">
-                                <div class="form-group{{ $errors->has('title_ru') ? ' has-error' : '' }}">
-                                    <input type="text"
-                                           id="title_uk"
-                                           name="title_uk"
-                                           class="form-control"
-                                           value="{{ old('title_uk', $office['title_uk']) }}"
-                                           placeholder="Украинский">
-
-                                    @if ($errors->has('title_uk'))
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('title_uk') }}</strong>
-                                        </span>
-                                    @endif
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group{{ ($errors->has('description_en') || $errors->has('description_ru') || $errors->has('description_uk')) ? ' has-error' : '' }}" style="margin-bottom: 0;">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <label class="control-label tab-description" for="advertising-description">Описание</label>
-                                </div>
-                                <div class="col-md-8 customize-tab">
-                                    <ul class="nav nav-pills pull-right customize-tab" role="tablist">
-                                        <li role="presentation">
-                                            <a id="description_en-tab"
-                                               class="tab-nice{{ $errors->has('description_en') ? ' has-error-label' : '' }}"
-                                               href="#description_en"
-                                               role="tab"
-                                               data-toggle="tab"
-                                               aria-controls="description_en"
-                                               aria-expanded="true">
-                                                Английский
-                                            </a>
-                                        </li>
-                                        <li class="active" role="presentation">
-                                            <a id="description_ru-tab"
-                                               class="tab-nice{{ $errors->has('description_ru') ? ' has-error-label' : '' }}"
-                                               href="#description_ru"
-                                               role="tab"
-                                               data-toggle="tab"
-                                               aria-controls="description_ru">
-                                                Русский
-                                            </a>
-                                        </li>
-                                        <li role="presentation">
-                                            <a id="description_uk-tab"
-                                               class="tab-nice{{ $errors->has('description_uk') ? ' has-error-label' : '' }}"
-                                               href="#description_uk"
-                                               role="tab"
-                                               data-toggle="tab"
-                                               aria-controls="description_uk">
-                                                Украинский
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div id="tabdescription" class="tab-content">
-                            <div id="description_en" class="tab-pane fade" role="tabpanel" aria-labelledby="description_en-tab">
-                                <div class="form-group{{ $errors->has('description_en') ? ' has-error' : '' }}">
-                                    <textarea id="description_en" class="form-control" value="" name="description_en" placeholder="Английский" rows="6">{{ old('description_en', $office['description_en']) }}</textarea>
-
-                                    @if ($errors->has('description_en'))
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('description_en') }}</strong>
-                                        </span>
-                                    @endif
-                                </div>
-                            </div>
-                            <div id="description_ru" class="tab-pane fade in active" role="tabpanel" aria-labelledby="description_ru-tab">
-                                <div class="form-group{{ $errors->has('description_ru') ? ' has-error' : '' }}">
-                                    <textarea id="description_ru" class="form-control" value="" name="description_ru" placeholder="Русский" rows="6">{{ old('description_ru', $office['description_ru']) }}</textarea>
-
-                                    @if ($errors->has('description_ru'))
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('description_ru') }}</strong>
-                                        </span>
-                                    @endif
-                                </div>
-                            </div>
-                            <div id="description_uk" class="tab-pane fade" role="tabpanel" aria-labelledby="description_uk-tab">
-                                <div class="form-group{{ $errors->has('description_ru') ? ' has-error' : '' }}">
-                                    <textarea id="description_uk" class="form-control" value="" name="description_uk" placeholder="Украинский" rows="6">{{ old('description_uk', $office['description_uk']) }}</textarea>
-
-                                    @if ($errors->has('description_uk'))
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('description_uk') }}</strong>
-                                        </span>
-                                    @endif
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group{{ ($errors->has('text_top_en') || $errors->has('text_top_ru') || $errors->has('text_top_uk')) ? ' has-error' : '' }}" style="margin-bottom: 0;">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <label class="control-label tab-text_top" for="advertising-text_top">Текст в верху</label>
-                                </div>
-                                <div class="col-md-8 customize-tab">
-                                    <ul class="nav nav-pills pull-right customize-tab" role="tablist">
-                                        <li role="presentation">
-                                            <a class="tab-nice{{ $errors->has('text_top_en') ? ' has-error-label' : '' }}"
-                                               href="#text_top_en-tab"
-                                               role="tab"
-                                               data-toggle="tab"
-                                               aria-controls="text_top_en-tab"
-                                               aria-expanded="true">
-                                                Английский
-                                            </a>
-                                        </li>
-                                        <li class="active" role="presentation">
-                                            <a class="tab-nice{{ $errors->has('text_top_ru') ? ' has-error-label' : '' }}"
-                                               href="#text_top_ru-tab"
-                                               role="tab"
-                                               data-toggle="tab"
-                                               aria-controls="text_top_ru-tab">
-                                                Русский
-                                            </a>
-                                        </li>
-                                        <li role="presentation">
-                                            <a class="tab-nice{{ $errors->has('text_top_uk') ? ' has-error-label' : '' }}"
-                                               href="#text_top_uk-tab"
-                                               role="tab"
-                                               data-toggle="tab"
-                                               aria-controls="text_top_uk-tab">
-                                                Украинский
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div id="tabtext_top" class="tab-content">
-                            <div id="text_top_en-tab" class="tab-pane fade" role="tabpanel" aria-labelledby="text_top_en-tab">
-                                <div class="form-group{{ $errors->has('text_top_en') ? ' has-error' : '' }}">
-                                    <textarea id="text_top_en" class="form-control" value="" name="text_top_en" placeholder="Английский" rows="4">{{ old('text_top_en', $office['text_top_en']) }}</textarea>
-
-                                    @if ($errors->has('text_top_en'))
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('text_top_en') }}</strong>
-                                        </span>
-                                    @endif
-                                </div>
-                            </div>
-                            <div id="text_top_ru-tab" class="tab-pane fade in active" role="tabpanel" aria-labelledby="text_top_ru-tab">
-                                <div class="form-group{{ $errors->has('text_top_ru') ? ' has-error' : '' }}">
-                                    <textarea id="text_top_ru" class="form-control" value="" name="text_top_ru" placeholder="Русский" rows="4">{{ old('text_top_ru', $office['text_top_ru']) }}</textarea>
-
-                                    @if ($errors->has('text_top_ru'))
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('text_top_ru') }}</strong>
-                                        </span>
-                                    @endif
-                                </div>
-                            </div>
-                            <div id="text_top_uk-tab" class="tab-pane fade" role="tabpanel" aria-labelledby="text_top_uk-tab">
-                                <div class="form-group{{ $errors->has('text_top_ru') ? ' has-error' : '' }}">
-                                    <textarea id="text_top_uk" class="form-control" value="" name="text_top_uk" placeholder="Украинский" rows="4">{{ old('text_top_uk', $office['text_top_uk']) }}</textarea>
-
-                                    @if ($errors->has('text_top_uk'))
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('text_top_uk') }}</strong>
-                                        </span>
-                                    @endif
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group{{ ($errors->has('text_bottom_en') || $errors->has('text_bottom_ru') || $errors->has('text_bottom_uk')) ? ' has-error' : '' }}" style="margin-bottom: 0;">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <label class="control-label tab-text_bottom" for="advertising-text_bottom">Текст в низу</label>
-                                </div>
-                                <div class="col-md-8 customize-tab">
-                                    <ul class="nav nav-pills pull-right customize-tab" role="tablist">
-                                        <li role="presentation">
-                                            <a class="tab-nice{{ $errors->has('text_bottom_en') ? ' has-error-label' : '' }}"
-                                               href="#text_bottom_en-tab"
-                                               role="tab"
-                                               data-toggle="tab"
-                                               aria-controls="text_bottom_en-tab"
-                                               aria-expanded="true">
-                                                Английский
-                                            </a>
-                                        </li>
-                                        <li class="active" role="presentation">
-                                            <a class="tab-nice{{ $errors->has('text_bottom_ru') ? ' has-error-label' : '' }}"
-                                               href="#text_bottom_ru-tab"
-                                               role="tab"
-                                               data-toggle="tab"
-                                               aria-controls="text_bottom_ru-tab">
-                                                Русский
-                                            </a>
-                                        </li>
-                                        <li role="presentation">
-                                            <a class="tab-nice{{ $errors->has('text_bottom_uk') ? ' has-error-label' : '' }}"
-                                               href="#text_bottom_uk-tab"
-                                               role="tab"
-                                               data-toggle="tab"
-                                               aria-controls="text_bottom_uk-tab">
-                                                Украинский
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div id="tabtext_bottom" class="tab-content">
-                            <div id="text_bottom_en-tab" class="tab-pane fade" role="tabpanel" aria-labelledby="text_bottom_en-tab">
-                                <div class="form-group{{ $errors->has('text_bottom_en') ? ' has-error' : '' }}">
-                                    <textarea id="text_bottom_en" class="form-control" value="" name="text_bottom_en" placeholder="Английский" rows="4">{{ old('text_bottom_en', $office['text_bottom_en']) }}</textarea>
-
-                                    @if ($errors->has('text_bottom_en'))
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('text_bottom_en') }}</strong>
-                                        </span>
-                                    @endif
-                                </div>
-                            </div>
-                            <div id="text_bottom_ru-tab" class="tab-pane fade in active" role="tabpanel" aria-labelledby="text_bottom_ru-tab">
-                                <div class="form-group{{ $errors->has('text_bottom_ru') ? ' has-error' : '' }}">
-                                    <textarea id="text_bottom_ru" class="form-control" value="" name="text_bottom_ru" placeholder="Русский" rows="4">{{ old('text_bottom_ru', $office['text_bottom_ru']) }}</textarea>
-
-                                    @if ($errors->has('text_bottom_ru'))
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('text_bottom_ru') }}</strong>
-                                        </span>
-                                    @endif
-                                </div>
-                            </div>
-                            <div id="text_bottom_uk-tab" class="tab-pane fade" role="tabpanel" aria-labelledby="text_bottom_uk-tab">
-                                <div class="form-group{{ $errors->has('text_bottom_ru') ? ' has-error' : '' }}">
-                                    <textarea id="text_bottom_uk" class="form-control" value="" name="text_bottom_uk" placeholder="Украинский" rows="4">{{ old('text_bottom_uk', $office['text_bottom_uk']) }}</textarea>
-
-                                    @if ($errors->has('text_bottom_uk'))
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('text_bottom_uk') }}</strong>
-                                        </span>
-                                    @endif
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group{{ ($errors->has('address_ru') || $errors->has('city_en') || $errors->has('city_ru') || $errors->has('city_uk')) ? ' has-error' : '' }}">
+                        <div class="form-group{{ ($errors->has('address.ru') || $errors->has('city.en') || $errors->has('city.ru') || $errors->has('city.uk')) ? ' has-error' : '' }}">
                             <label for="address_ru" class="control-label">
                                 Адрес <i class="fa fa-spinner fa-pulse fa-fw hidden" aria-hidden="true" id="fa-spinner-load"></i>
                             </label>
 
-                            <input id="address_ru" type="text" name="address_ru" class="form-control" value="{{ old('address_ru', $office['address_ru']) }}">
-                            <input id="address_en" type="text" name="address_en" class="form-control" value="{{ old('address_en', $office['address_en']) }}" placeholder="Адрес в транслите">
-                            <input id="address_uk" type="text" name="address_uk" class="form-control" value="{{ old('address_uk', $office['address_uk']) }}" placeholder="Адрес на украинском">
+                            <input id="address_ru" 
+                                   type="text" 
+                                   name="address[ru]" 
+                                   class="form-control" 
+                                   value="{{ old('address.ru', $office['address']['ru']) }}">
 
-                            <input type="hidden" id="city_en" name="city_en" value="{{ old('city_en', $office['city_en']) }}">
-                            <input type="hidden" id="city_ru" name="city_ru" value="{{ old('city_ru', $office['city_ru']) }}">
-                            <input type="hidden" id="city_uk" name="city_uk" value="{{ old('city_uk', $office['city_uk']) }}">
+                            <input id="address_en" 
+                                   type="text" 
+                                   name="address[en]" 
+                                   class="form-control" 
+                                   value="{{ old('address.en', $office['address']['en']) }}" 
+                                   placeholder="Адрес в транслите">
+
+                            <input id="address_uk" 
+                                   type="text" 
+                                   name="address[uk]" 
+                                   class="form-control" 
+                                   value="{{ old('address.uk', $office['address']['uk']) }}" 
+                                   placeholder="Адрес на украинском">
+
+                            <input type="hidden" id="city_en" name="city[en]" value="{{ old('city.en', $office['city']['en']) }}">
+                            <input type="hidden" id="city_ru" name="city[ru]" value="{{ old('city.ru', $office['city']['ru']) }}">
+                            <input type="hidden" id="city_uk" name="city[uk]" value="{{ old('city.uk', $office['city']['uk']) }}">
 
                             <input type="hidden" id="latitude" name="latitude" value="{{ old('latitude', $office['latitude']) }}">
                             <input type="hidden" id="longitude" name="longitude" value="{{ old('longitude', $office['longitude']) }}">
 
-                            @if ($errors->has('address_ru'))
+                            @if ($errors->has('address.ru'))
                                 <span class="help-block">
-                                    <strong>{{ $errors->first('address_ru') }}</strong>
+                                    <strong>{{ $errors->first('address.ru') }}</strong>
                                 </span>
                             @endif
                         </div>
                         
                         <div id="map" class="office-map"></div>
 
-
+                        <hr>
+                        
+                        {{-- Контаткты офиса --}}
                         <div id="office-contacts">
                             <div class="form-group{{ $errors->has('contacts_data.0') ? ' has-error' : '' }}" style="margin-bottom: 0;">
-                                <label for="" class="control-label">Контакты</label>
+                                <label class="control-label">Контакты</label>
                             </div>
-        {{-- Первый контакт с кнопкой добавить --}}
+                            {{-- Первый контакт с кнопкой добавить --}}
                             <div class="form-group{{ $errors->has('contacts_data.0') ? ' has-error' : '' }}">
                                 <div class="flex">
                                     <input type="hidden" id="" name="contacts_id[]" class="contacts-id" value="{{ old('contacts_id.0', $contacts['id'][0]) }}">
                                     <div>
                                         <select id="" name="contacts_type[]" class="form-control contacts-type">
-                                            @foreach($contactType as $key => $type)
-                                                @if ($key == old('contacts_type.0', $contacts['type'][0]))
-                                                    <option value="{{$key}}" selected="">{{ trans('offices.contactType.'.$type) }}</option>
-                                                @else
-                                                    <option value="{{$key}}">{{ trans('offices.contactType.'.$type) }}</option>
-                                                @endif
+                                            @foreach($contactType as $key => $type)                                                
+                                                <option value="{{ $key }}" {{ ($key == old('contacts_type.0', $contacts['type'][0])) ? 'selected=""' : '' }} >
+                                                    {{ trans('offices.contactType.'.$type) }}
+                                                </option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -436,9 +144,9 @@
                                     </span>
                                 @endif
                             </div>
-        {{-- /Первый контакт с кнопкой добавить --}}
+                            {{-- /Первый контакт с кнопкой добавить --}}
 
-        {{-- Остальные контакты с кнопкой удалить --}}
+                            {{-- Остальные контакты с кнопкой удалить --}}
                             @if (count(old('contacts_data', $contacts['data'])) > 1)
                                 @for($i = 1; $i < count( old('contacts_data', $contacts['data']) ); $i++)
                                     <div class="form-group{{ $errors->has('contacts_data.'.$i) ? ' has-error' : '' }}">
@@ -483,19 +191,20 @@
                                     </div>
                                 @endfor
                             @endif
-        {{-- Остальные контакты с кнопкой удалить --}}
+                            {{-- Остальные контакты с кнопкой удалить --}}
                         </div>
-        {{-- /Контаткты офиса --}}
+                        {{-- /Контаткты офиса --}}
+
                         <div class="form-group">
                             <button type="button"
                                     class="btn btn-danger pull-left clearfix"
                                     data-target="#delete-modal"
                                     data-toggle="modal"
-                                    data-id="{{ $office['office_id'] }}"
-                                    data-name="{{ $office['title_name'] }}">
+                                    data-id="{{ $office['id'] }}"
+                                    data-name="{{ $office['title']['ru'] }}">
                                         <i class="fa fa-trash-o" aria-hidden="true"></i> Удалить филиал
                             </button>
-                            <button class="btn btn-warning pull-right clearfix" type="submit" from="form-edit-office">
+                            <button class="btn btn-warning pull-right clearfix" type="submit" name="submitbtn" form="form-edit-office">
                                 <i class="fa fa-pencil" aria-hidden="true"></i> Сохранить изменения
                             </button>
                         </div>
@@ -518,11 +227,11 @@
     <script src="{{ asset('tinymce/tinymce.min.js') }}"></script>
 
     <script>
-        var map;
-        var marker;
+        let map;
+        let marker;
         // Добавить новый контакт
         $(".btn-add").click(function(event){
-            var body = $(this).closest('.form-group').clone();
+            let body = $(this).closest('.form-group').clone();
             $(body).find('.contacts-id').val('');
             $(body).find('.contacts-type').val('mobile');
             $(body).find('.contacts-data').val('');
@@ -550,15 +259,15 @@
         });
 
         function initMap() {
-
-            var noPoi = [{
+            let noPoi = [{
                 featureType: "poi",
                 stylers: [
                     { visibility: "off" }
                 ]
             }];
-            var latitude  = +$("#latitude").val();
-            var longitude = +$("#longitude").val();
+
+            let latitude  = +$("#latitude").val();
+            let longitude = +$("#longitude").val();
 
             map = new google.maps.Map(document.getElementById('map'), {
                 center: {lat: latitude, lng: longitude},
@@ -581,8 +290,8 @@
         function fillInAddress() {
             $("#fa-spinner-load").removeClass('hidden');
 
-            var place = autocomplete.getPlace();
-            var geometry = place.geometry.location;
+            let place = autocomplete.getPlace();
+            let geometry = place.geometry.location;
 
             $("#latitude").prop('value', geometry.lat());
             $("#longitude").prop('value', geometry.lng());
@@ -648,57 +357,23 @@
             });
         }
 
-
         function saveArticle()
         {
-            tinyMCE.get('text_top_en').save();
-            tinyMCE.get('text_top_ru').save();
-            tinyMCE.get('text_top_uk').save();
-
-            tinyMCE.get('text_bottom_en').save();
-            tinyMCE.get('text_bottom_ru').save();
-            tinyMCE.get('text_bottom_uk').save();
+            tinyMCE.get('text_top_en, text_top_ru, text_top_uk').save();
+            tinyMCE.get('text_bottom_en, text_bottom_ru, text_bottom_uk').save();
         }
 
         function initArticle()
         {
             tinyMCE.init({
-                selector: '#text_top_en',
+                selector: '#text_top_en, #text_top_ru, #text_top_uk',
                 language: 'ru',
                 plugins: 'textcolor colorpicker advlist autolink link image media lists charmap table preview',
                 toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | forecolor backcolor'
             });
 
             tinyMCE.init({
-                selector: '#text_top_ru',
-                language: 'ru',
-                plugins: 'textcolor colorpicker advlist autolink link image media lists charmap table preview',
-                toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | forecolor backcolor'
-            });
-
-            tinyMCE.init({
-                selector: '#text_top_uk',
-                language: 'ru',
-                plugins: 'textcolor colorpicker advlist autolink link image media lists charmap table preview',
-                toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | forecolor backcolor'
-            });
-
-            tinyMCE.init({
-                selector: '#text_bottom_en',
-                language: 'ru',
-                plugins: 'textcolor colorpicker advlist autolink link image media lists charmap table preview',
-                toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | forecolor backcolor'
-            });
-
-            tinyMCE.init({
-                selector: '#text_bottom_ru',
-                language: 'ru',
-                plugins: 'textcolor colorpicker advlist autolink link image media lists charmap table preview',
-                toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | forecolor backcolor'
-            });
-
-            tinyMCE.init({
-                selector: '#text_bottom_uk',
+                selector: '#text_bottom_en, #text_bottom_ru, #text_bottom_uk',
                 language: 'ru',
                 plugins: 'textcolor colorpicker advlist autolink link image media lists charmap table preview',
                 toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | forecolor backcolor'
@@ -709,13 +384,8 @@
 
         function destroyArticle()
         {
-            tinyMCE.get('text_top_en').remove();
-            tinyMCE.get('text_top_ru').remove();
-            tinyMCE.get('text_top_uk').remove();
-
-            tinyMCE.get('text_bottom_en').remove();
-            tinyMCE.get('text_bottom_ru').remove();
-            tinyMCE.get('text_bottom_uk').remove();
+            tinyMCE.get('text_top_en, text_top_ru, text_top_uk').remove();
+            tinyMCE.get('text_bottom_en, text_bottom_ru, text_bottom_uk').remove();
         }
     </script>
 

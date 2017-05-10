@@ -3,7 +3,7 @@
     <div class="col-md-4 col-sm-4 col-xs-12 card">
         <div class="thumbnail">
             <a class="text-black-h3 text-center width-100" href="@{{ work_link }}">
-                <img class="green-img" alt="@{{ title }}" src="@{{ images }}" style="max-width: 360px; max-height: 240px">
+                <img class="green-img" alt="@{{ title }}" src="@{{ images.0 }}" style="max-width: 360px; max-height: 240px">
             </a>
 
             <div class="caption">
@@ -96,9 +96,9 @@
                         <div class="shopping-cart-block">
                             <div class="card-price-block">
                                 <div class="card-price">
-                                    @{{ prices_json.0.price }}
+                                    @{{ prices.0.price }}
                                     <span class="card-price-uah">
-                                        {{ trans('products.uah') }} / @{{ prices_json.0.type }}
+                                        {{ trans('products.uah') }} / @{{ prices.0.type }}
                                     </span>
                                 </div>
                             </div>

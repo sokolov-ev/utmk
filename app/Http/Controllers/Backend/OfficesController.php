@@ -46,59 +46,56 @@ class OfficesController extends Controller
 
     public function addFormOffice()
     {
-        $officeType = Office::getType();
+        $officeType  = Office::getType();
         $contactType = Contacts::getType();
 
         return view('backend.site.office-add', [
-            'officeType' => $officeType,
+            'officeType'  => $officeType,
             'contactType' => $contactType,
         ]);
     }
 
     public function addOffice(Request $request)
     {
-        $this->validator($request);
+        $this->validator($request, '');
 
         if ($office = Office::actionOffice(null, $request->all())) {
-            // добавляем новые контакты
             Contacts::createContacts($office->id, $request->input('contacts_type'), $request->input('contacts_data'));
             session()->flash('success', 'Филиал успешно добавлен.');
             return redirect('/administration/offices/index');
-        } else {
-            session()->flash('error', 'Возникла ошибка при добавлении Филиала.');
-            return redirect()->back();
         }
+
+        session()->flash('error', 'Возникла ошибка при добавлении Филиала.');
+        return redirect()->back();
     }
 
     public function editFormOffice($id)
     {
-        $office   = Office::parseData($id);
-        $contacts = Contacts::parseData($office['office_id']);
+        $office      = Office::parseData($id);
+        $contacts    = Contacts::parseData($office['id']);
         $officeType  = Office::getType();
         $contactType = Contacts::getType();
 
         return view('backend.site.office-edit', [
-            'office'   => $office,
-            'contacts' => $contacts,
-            'officeType'   => $officeType,
-            'contactType'  => $contactType,
+            'office'      => $office,
+            'contacts'    => $contacts,
+            'officeType'  => $officeType,
+            'contactType' => $contactType,
         ]);
     }
 
     public function editOffice(Request $request, $id)
     {
-        $this->validator($request);
+        $this->validator($request, $id);
 
         if ($office = Office::actionOffice($id, $request->all())) {
-            // одновременно добавляем, редактируем и удаляем контакты
             Contacts::editContacts($office->id, $request->all());
             session()->flash('success', 'Данные филиала успешно сохранены.');
-            return redirect('/administration/offices/index');
         } else {
-            session()->flash('error', 'Возникла ошибка при сохранении данных филиала.');
-            return redirect()->back();
+            session()->flash('error', 'Возникла ошибка при сохранении данных филиала.');    
         }
-
+        
+        return redirect()->back();
     }
 
     public function deleteOffice(Request $request)
@@ -109,39 +106,46 @@ class OfficesController extends Controller
             session()->flash('error', 'Возникла ошибка при удалении филиала.');
         }
 
-        return redirect('/administration/offices');
+        return redirect('/administration/offices/index');
     }
 
-    protected function validator($request)
+    protected function validator($request, $id)
     {
         $validator = Validator::make($request->all(), [
             'office_type' => 'required_with:'.Office::listType(),
 
-            'title_en' => 'string|min:3',
-            'title_ru' => 'string|min:3',
-            'title_uk' => 'string|min:3',
-            'description_en' => 'string|min:10',
-            'description_ru' => 'string|min:10',
-            'description_uk' => 'string|min:10',
+            'slug' => 'required|string|min:3|unique:offices,slug,'.$id,
 
-            'address_ru' => 'required|string',
+            'title.en' => 'string|min:3',
+            'title.ru' => 'string|min:3',
+            'title.uk' => 'string|min:3',
+
+            'description.en' => 'string|min:10',
+            'description.ru' => 'string|min:10',
+            'description.uk' => 'string|min:10',
+
+            'address.ru' => 'required|string',
 
             'contacts_type.*' => 'required_with:'.Contacts::listType(),
             'contacts_data.*' => 'required|string|min:3',
         ]);
 
         $validator->after(function($validator) use ($request) {
-            if ( empty($request->input('title_en')) && empty($request->input('title_ru')) && empty($request->input('title_uk')) ) {
-                $validator->errors()->add('title_ru', 'Поле "Заголовок" обязательно для заполнения.');
+            if ( empty($request->input('title.en')) && empty($request->input('title.ru')) && empty($request->input('title.uk')) ) {
+                $validator->errors()->add('title.ru', 'Поле "Заголовок" обязательно для заполнения.');
             }
 
-            if ( empty($request->input('description_en')) && empty($request->input('description_ru')) && empty($request->input('description_uk')) ) {
-                $validator->errors()->add('description_ru', 'Поле "Описание" обязательно для заполнения.');
+            if ( empty($request->input('title_short.en')) && empty($request->input('title_short.ru')) && empty($request->input('title_short.uk')) ) {
+                $validator->errors()->add('title_short.ru', 'Поле "Короткий заголовок" обязательно для заполнения.');
+            }
+
+            if ( empty($request->input('description.en')) && empty($request->input('description.ru')) && empty($request->input('description.uk')) ) {
+                $validator->errors()->add('description.ru', 'Поле "Описание" обязательно для заполнения.');
             }
 
             if ( empty($request->input('latitude')) || empty($request->input('latitude')) ||
-                    ( empty($request->input('city_en')) && empty($request->input('city_ru')) && empty($request->input('city_uk')) ) ) {
-                $validator->errors()->add('address_ru', 'Поле "Адрес" обязательно для заполнения.');
+                    ( empty($request->input('city.en')) && empty($request->input('city.ru')) && empty($request->input('city.uk')) ) ) {
+                $validator->errors()->add('address.ru', 'Поле "Адрес" обязательно для заполнения.');
             }
         });
 
@@ -152,15 +156,6 @@ class OfficesController extends Controller
                 $request, $validator
             );
         }
-    }
-
-    public function view()
-    {
-        $office = Office::viewData(2);
-
-        return view('backend.site.office-view', [
-            'office' => $office,
-        ]);
     }
 
     public function getOffice($id)

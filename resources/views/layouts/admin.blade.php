@@ -174,7 +174,7 @@ desired effect
                         </li>
                         <li>
                             <a href="{{ url('/administration/spravka') }}">
-                                <i class="fa fa-newspaper-o" aria-hidden="true"></i>
+                                <i class="fa fa-book" aria-hidden="true"></i>
                                 <span>Справочник</span>
                             </a>
                         </li>
@@ -249,7 +249,7 @@ desired effect
                         </li>
                         <li>
                             <a href="{{ url('/administration/spravka') }}">
-                                <i class="fa fa-newspaper-o" aria-hidden="true"></i>
+                                <i class="fa fa-book" aria-hidden="true"></i>
                                 <span>Справочник</span>
                             </a>
                         </li>

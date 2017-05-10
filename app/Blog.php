@@ -10,20 +10,10 @@ class Blog extends Model
 {
     protected $table = 'blog';
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
         'image', 'slug', 'title', 'body', 'show_this', 'published'
     ];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
     protected $hidden = [];
 
     protected $dateFormat = 'U';
@@ -37,6 +27,8 @@ class Blog extends Model
             static::deleteImage($blog->image);
         });
     }
+
+    /////////
 
     public static function actionNews($id, $data)
     {
@@ -68,15 +60,15 @@ class Blog extends Model
         $news->title = $data['title'];
         $news->slug  = $data['slug'];
         $news->body  = $data['description'];
-        $news->show_this = ($data['show_this'] == 'on') ? true : false;
+        $news->show_this = !empty($data['show_this']);
 
         return $news->save();
     }
 
     public static function deleteImage($name)
     {
-        if (!empty($name) && (file_exists('./images/blog/'.$name))) {
-            return unlink('./images/blog/'.$name);
+        if (!empty($name) && (file_exists('./images/blog/' . $name))) {
+            return unlink('./images/blog/' . $name);
         }
     }
 }

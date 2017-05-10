@@ -26,10 +26,6 @@ class ProductsController extends Controller
     {
         $name = $request->get('name');
 
-        // $offices      = Office::select('id', 'city')->get();
-        // $ordersLocked = Orders::isLocked();
-        // $filterOffice = $ordersLocked ? $ordersLocked : Office::getOfficeId($request->get('city'));
-
         $format = 'list';
         if (empty($request->get('format')) || ($request->get('format') == 'cards')) {
             $format = 'cards';
@@ -38,21 +34,16 @@ class ProductsController extends Controller
         $count = 9;
         $offPaginate = false;
 
-        // top products
-        // $where = [['show_my', 1], ['office_id', $filterOffice]];
-
         // поиск по названию
         if (!empty($name)) {
-            $products = Products::where('title', 'LIKE', '%'.$name.'%')->orderBy('rating', 'DESC')->paginate($count);
+            $products = Products::where('show_my', 1)->andWhere('title', 'LIKE', '%'.$name.'%')->orderBy('rating', 'DESC')->paginate($count);
         } else {
             $products = Products::where('show_my', 1)->orderBy('rating', 'DESC')->take($count)->get();
             $offPaginate = true;
         }
+        $result   = Products::getViewProducts($products);
 
         $metatags = Metatags::where([['type', 'menu'], ['slug', 'products']])->first();
-
-        // преобразование данных для отображения
-        $result   = Products::viewDataJson($products);
         $metatags = Metatags::getViewData($metatags);
 
         $data = [
@@ -73,13 +64,10 @@ class ProductsController extends Controller
             'data'     => $data,
             'products' => $products,
             'result'   => $result,
-            // 'offices'  => $offices,
             'menu_id'  => null,
             'format'   => $format,
             'metatags' => $metatags,
-            // 'filterCity'   => $filterOffice,
-            // 'ordersLocked' => $ordersLocked,
-            'query' => $request->except('page'),
+            'query'    => $request->except('page'),
             'offPaginate' => $offPaginate,
         ]);
     }
@@ -109,9 +97,6 @@ class ProductsController extends Controller
         $name = $request->get('name');
         $page = $request->get('page')-1;
 
-        // $ordersLocked = Orders::isLocked();
-        // $city = $ordersLocked ? $ordersLocked : Office::getOfficeId($request->get('city'));
-
         $count = 9;
         $page  = empty($page) ? 0 : $count * $page;
 
@@ -135,10 +120,6 @@ class ProductsController extends Controller
         if (!empty($name)) {
             $where[] = ['title', 'LIKE', '%'.$name.'%'];
         }
-        // поиск по городу
-        // if (!empty($city)) {
-        //     $where[] = ['office_id', $city];
-        // }
 
         if (empty($menu) && empty($name)) {
             $total = $count;
@@ -152,8 +133,7 @@ class ProductsController extends Controller
                             ->skip($page)
                             ->get();
 
-        // преобразование данных для отображения
-        $products = Products::viewDataJson($products);
+        $products = Products::getViewProducts($products);
 
         if (empty($products)) {
             return response()->json(['status' => 'bad', 'message' => trans('products.products-missing')]);
@@ -171,7 +151,7 @@ class ProductsController extends Controller
         $id = $request->input('id');
         $product = Products::where('id', $id)->first();
 
-        if (empty($id) || empty($product)) {
+        if (empty($product)) {
             return response()->json(['status' => 'bad', 'error' => 'empty', 'message' => trans('products.products-missing')]);
         }
 
@@ -183,10 +163,6 @@ class ProductsController extends Controller
             $order->status    = Orders::STATUS_NOT_ACCEPTED;
             $order->office_id = $product->office_id;
         }
-
-        // if (!empty($order->office_id) && ($order->office_id != $product->office_id)) {
-        //     return response()->json(['status' => 'bad', 'error' => 'empty', 'message' => trans('products.products-missing')]);
-        // }
 
         if (!$order->save()) {
             return response()->json(['status' => 'bad', 'error' => 'empty', 'message' => trans('products.order-not-found')]);
@@ -215,16 +191,11 @@ class ProductsController extends Controller
             $order = Orders::where([['user_id', Auth::guard(null)->user()->id], ['formed', 0]])->first();
 
             if (empty($order)) {
-                $order = new Orders();
-                $order->user_id = Auth::guard(null)->user()->id;
-                $order->formed = 0;
-                $order->save();
-
-                return response()->json(['status' => 'ok', 'data' => 0]);
+                return response()->json(['status' => 'ok', 'data' => []]);
             }
 
             $products = $order->products()->get();
-            $products = Products::viewDataJson($products);
+            $products = Products::getViewProducts($products);
 
             return response()->json(['status' => 'ok', 'data' => $products]);
         } else {
@@ -323,7 +294,7 @@ class ProductsController extends Controller
             $order->total_cost = $sum;
             $order->created_at = time();
 
-            if ($order->update()) {
+            if ($order->save()) {
                 session()->flash('success', trans('products.order-complete'));
             } else {
                 session()->flash('error', trans('products.order-error-complete'));

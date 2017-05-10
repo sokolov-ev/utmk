@@ -543,7 +543,7 @@ button {
 }
 
 .orange-point {
-    margin-left: 15px;
+    margin-left: 25px;
     position: relative;
 }
 
@@ -551,7 +551,7 @@ button {
     color: #e1704b;
     content: "♦";
     font-size: 30px;
-    left: -17px;
+    left: -25px;
     line-height: 20px;
     position: absolute;
 }
@@ -565,7 +565,7 @@ button {
     color: #626262;
     content: "♦";
     font-size: 30px;
-    left: -17px;
+    left: -25px;
     line-height: 20px;
     position: absolute;
 }

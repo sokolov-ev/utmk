@@ -5,16 +5,12 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 
 use App;
+use Language;
 
 class ReferenceSection extends Model
 {
     protected $table = 'reference_section';
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
         'slug',
         'slug_full_path',
@@ -26,14 +22,11 @@ class ReferenceSection extends Model
         'weight',
     ];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
     protected $hidden = [];
 
     protected $dateFormat = 'U';
+
+    ///////////
 
     public function subsection()
     {
@@ -49,42 +42,20 @@ class ReferenceSection extends Model
     {
         $section = ReferenceSection::where('slug', $slug)->first();
 
-        if (!$section) {
-            $array['id']   = '';
-            $array['slug'] = '';
+        if (empty($section)) {
+            $section = new ReferenceSection();
 
-            $array['title_en'] = '';
-            $array['title_ru'] = '';
-            $array['title_uk'] = '';
-
-            $array['body_small_en'] = '';
-            $array['body_small_ru'] = '';
-            $array['body_small_uk'] = '';
-
-            $array['body_en'] = '';
-            $array['body_ru'] = '';
-            $array['body_uk'] = '';
-
-            return $array;
+            $section->title      = Language::getEmptyJson();
+            $section->body_small = Language::getEmptyJson();
+            $section->body       = Language::getEmptyJson();
         }
 
         $array['id']   = $section->id;
         $array['slug'] = $section->slug;
 
-        $title = json_decode($section->title, true);
-        $array['title_en'] = $title['en'];
-        $array['title_ru'] = $title['ru'];
-        $array['title_uk'] = $title['uk'];
-
-        $bodySmall = json_decode($section->body_small, true);
-        $array['body_small_en'] = $bodySmall['en'];
-        $array['body_small_ru'] = $bodySmall['ru'];
-        $array['body_small_uk'] = $bodySmall['uk'];
-
-        $body = json_decode($section->body, true);
-        $array['body_en'] = $body['en'];
-        $array['body_ru'] = $body['ru'];
-        $array['body_uk'] = $body['uk'];
+        $array['title']      = json_decode($section->title, true);
+        $array['body_small'] = json_decode($section->body_small, true);
+        $array['body']       = json_decode($section->body, true);
 
         return $array;
     }
@@ -98,49 +69,29 @@ class ReferenceSection extends Model
         }
 
         if (!empty($section['section'])) {
-            $title = json_decode($section['section']['title'], true);
-            $title = array_filter($title);
-            $array['parent']['name'] = empty($title[App::getLocale()]) ? current($title) : $title[App::getLocale()];
+            $array['parent']['name'] = Language::getArraySoft($section['section']['title']);
             $array['parent']['slug'] = $section['section']['slug_full_path'];
         }
 
-        $array['slug'] = $section['slug_full_path'];
-
-        $title = json_decode($section['title'], true);
-        $title = array_filter($title);
-        $array['title'] = empty($title[App::getLocale()]) ? current($title) : $title[App::getLocale()];
-
-        $body = json_decode($section['body'], true);
-        $body = array_filter($body);
-        $array['body'] = empty($body[App::getLocale()]) ? current($body) : $body[App::getLocale()];
-
+        $array['slug']  = $section['slug_full_path'];
+        $array['title'] = Language::getArraySoft($section['title']);
+        $array['body']  = Language::getArraySoft($section['body']);
+        
         return $array;
     }
 
     public static function setSection($data) 
     {
-        $section = ReferenceSection::where('slug', $data['slug'])->first();
+        $section = ReferenceSection::where('id', $data['id'])->first();
 
-        if (!$section) {
+        if (empty($section)) {
             $section = new ReferenceSection();
         }
 
-        $section->slug = $data['slug'];
-
-        $title['en'] = $data['title_en'];
-        $title['ru'] = $data['title_ru'];
-        $title['uk'] = $data['title_uk'];
-        $section->title = json_encode($title, JSON_UNESCAPED_UNICODE);
-
-        $bodySmall['en'] = $data['body_small_en'];
-        $bodySmall['ru'] = $data['body_small_ru'];
-        $bodySmall['uk'] = $data['body_small_uk'];
-        $section->body_small = json_encode($bodySmall, JSON_UNESCAPED_UNICODE);
-
-        $body['en'] = $data['body_en'];
-        $body['ru'] = $data['body_ru'];
-        $body['uk'] = $data['body_uk'];
-        $section->body = json_encode($body, JSON_UNESCAPED_UNICODE);
+        $section->slug       = str_slug($data['slug'], '-');
+        $section->title      = json_encode($data['title'], JSON_UNESCAPED_UNICODE);
+        $section->body_small = json_encode($data['body_small'], JSON_UNESCAPED_UNICODE);
+        $section->body       = json_encode($data['body'], JSON_UNESCAPED_UNICODE);
 
         return $section->save();
     }
@@ -151,8 +102,8 @@ class ReferenceSection extends Model
         $sections = ReferenceSection::orderBy('weight', 'asc')->get();
 
         foreach ($sections->toArray() as $key => $section) {
-            $result[$key]['id'] = $section['id'];
-            $result[$key]['slug'] = $section['slug'];
+            $result[$key]['id']     = $section['id'];
+            $result[$key]['slug']   = $section['slug'];
             $result[$key]['weight'] = $section['weight'];
             $result[$key]['parent'] = $section['parent_id'];
 
@@ -173,20 +124,13 @@ class ReferenceSection extends Model
         foreach ($sections->toArray() as $key => $section) {
             $result[$key]['slug_full_path'] = $section['slug_full_path'];
 
-            $title = json_decode($section['title'], true);
-            $title = array_filter($title);
-            $result[$key]['title'] = empty($title[App::getLocale()]) ? current($title) : $title[App::getLocale()];
-    
-            $body_small = json_decode($section['body_small'], true);
-            $body_small = array_filter($body_small);
-            $result[$key]['body_small'] = empty($body_small[App::getLocale()]) ? current($body_small) : $body_small[App::getLocale()];
+            $result[$key]['title']      = Language::getArraySoft($section['title']);
+            $result[$key]['body_small'] = Language::getArraySoft($section['body_small']);
 
             foreach ($section['subsection'] as $subsection) {
                 $temp['slug_full_path'] = $subsection['slug_full_path'];
 
-                $titleSub = json_decode($subsection['title'], true);
-                $titleSub = array_filter($titleSub);
-                $temp['title'] = empty($titleSub[App::getLocale()]) ? current($titleSub) : $titleSub[App::getLocale()];
+                $temp['title'] = Language::getArraySoft($subsection['title']);
 
                 $result[$key]['subsection'][] = $temp;
             }
