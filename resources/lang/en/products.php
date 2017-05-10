@@ -59,6 +59,7 @@ return [
     'brinell_hardness' => 'Brinell Hardness',
 
     'advert' => [
-        'message' => 'Dear customers! <br> The prices at our website  are for retailers .Are you a wholesale buyer? So call us and our sales department will give you a personal discount!'
+        'title' => 'Dear customers!',
+        'message' => 'The prices at our website  are for retailers. Are you a wholesale buyer? <br>So call us and our sales department will give you a personal discount!',
     ],
 ];
