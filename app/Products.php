@@ -15,8 +15,11 @@ class Products extends Model
     protected $fillable = [
         'menu_id',
         'office_id',
+        
         'slug',
         'title',
+        'description',
+
         'rating',
         'show_my',
         'creator_id',
@@ -32,6 +35,7 @@ class Products extends Model
         'coating',
         'view',
         'brinell_hardness',
+        
         'in_stock'
     ];
 
@@ -117,6 +121,7 @@ class Products extends Model
         $array['images'] = $product->imagesEdit->toArray();
 
         $array['title']       = json_decode($product->title, true);
+        $array['description'] = json_decode($product->description, true);
         $array['steel_grade'] = json_decode($product->steel_grade, true);
         $array['sawing']      = json_decode($product->sawing, true);
         $array['standard']    = json_decode($product->standard, true);
@@ -159,6 +164,8 @@ class Products extends Model
         $product->in_stock  = (!empty($data['in_stock']) && ($data['in_stock'] == 'on')) ? 1 : 0;
 
         $product->title       = json_encode($data['title'], JSON_UNESCAPED_UNICODE);
+        $product->description = json_encode($data['description'], JSON_UNESCAPED_UNICODE);
+
         $product->steel_grade = json_encode($data['steel_grade'], JSON_UNESCAPED_UNICODE);
         $product->sawing      = json_encode($data['sawing'], JSON_UNESCAPED_UNICODE);
         $product->standard    = json_encode($data['standard'], JSON_UNESCAPED_UNICODE);
@@ -196,6 +203,7 @@ class Products extends Model
         $array['id']     = $product->id;
         $array['images'] = self::getImages($product->images->toArray());
         $array['title']  = Language::getArraySoft($product->title);
+        $array['description'] = Language::getArraySoft($product->description);
 
         $array['work_link'] = $locale . $product->menu->full_path_slug . '/' . $product->slug;
 

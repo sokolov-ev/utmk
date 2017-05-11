@@ -47,8 +47,9 @@ class ImportController extends Controller
                 $result = [];
 
                 foreach ($menu->products as $key => $product) {
-                    $result[$key]['id'] = $product->id;
+                    $result[$key]['id']   = $product->id;
                     $result[$key]['Name'] = Language::getArrayStrict($product->title, $lang);
+                    $result[$key]['Description_product']= Language::getArrayStrict($product->description, $lang);
                     $result[$key]['Slug'] = $product->slug;
                     $result[$key]['Cost'] = $product->prices[0]['price'];
                     $result[$key]['Unit'] = $product->prices[0]['type'];
@@ -103,6 +104,7 @@ class ImportController extends Controller
                 $data = [
                     'id' => null,
                     'name' => null,
+                    'description_product' => null,
                     'slug' => null,
                     'cost' => null,
                     'unit' => null,
@@ -130,6 +132,7 @@ class ImportController extends Controller
                 if ($product) {
 
                     $dataPro['title'] = Language::set($product->title, $data['name'], $lang);
+                    $dataPro['description'] = Language::set($product->description, $data['description_product'], $lang);
                     
                     $dataPro['slug']        = str_slug($data['slug'], '-');
                     $dataPro['in_stock']    = $data['in_stock'];

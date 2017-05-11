@@ -10,11 +10,10 @@ use Illuminate\Routing\Controller;
 use App;
 use App\Menu;
 use App\Metatags;
-// use App\Office;
-// use App\Orders;
 use App\Products;
 use App\Redirects;
 use App\Rating;
+use SchemaOrg;
 
 class RouteController extends Controller
 {
@@ -63,40 +62,16 @@ class RouteController extends Controller
                 abort(404);
             } else {
 
-                $menu    = Menu::getBreadcrumbs($product->menu_id);
+                $menu = Menu::getBreadcrumbs($product->menu_id);
+                $schemaBreadcrumb = SchemaOrg::breadcrumbProduct($menu, $locale);
+
                 $product = Products::converData($product);
                 $rating  = Rating::getRating($product['id']);
 
+                $schemaProduct = SchemaOrg::product($product, $rating);
+
                 $metatags = Metatags::where([['type', 'product'], ['slug', $slug]])->first();
                 $metatags = Metatags::getViewData($metatags);
-
-                $jsonLD = [
-                    "@context" => "http://schema.org",
-                    "@type" => "BreadcrumbList",
-                    "itemListElement" => [
-                        [
-                            "@type" => "ListItem",
-                            "position" => 1,
-                            "item" => [
-                                "@id"  => route('products-index'),
-                                "name" => trans('index.menu.products')
-                            ]
-                        ]
-                    ]
-                ];
-
-                foreach ($menu as $key => $item) {
-                    $chit = [
-                            "@type" => "ListItem",
-                            "position" => $key + 2,
-                            "item" => [
-                                "@id"  => url($locale.$item['slug']),
-                                "name" => $item['name']
-                            ]
-                        ];
-
-                    $jsonLD["itemListElement"][] = $chit;
-                }
 
                 $data = [
                     'steel_grade',
@@ -118,8 +93,9 @@ class RouteController extends Controller
                     'menu'     => $menu,
                     'metatags' => $metatags,
                     'locale'   => $locale,
-                    'jsonLD'   => $jsonLD,
                     'rating'   => $rating,
+                    'schemaProduct' => $schemaProduct,
+                    'schemaBreadcrumb' => $schemaBreadcrumb,
                 ]);
             }
         }
@@ -147,34 +123,7 @@ class RouteController extends Controller
         $metatags = Metatags::getViewData($metatags);
 
         $breadcrumbs = Menu::getBreadcrumbs($item['id']);
-
-        $jsonLD = [
-            "@context" => "http://schema.org",
-            "@type" => "BreadcrumbList",
-            "itemListElement" => [
-                [
-                    "@type" => "ListItem",
-                    "position" => 1,
-                    "item" => [
-                        "@id"  => route('products-index'),
-                        "name" => trans('index.menu.products')
-                    ]
-                ]
-            ]
-        ];
-
-        foreach ($breadcrumbs as $key => $item) {
-            $chit = [
-                    "@type" => "ListItem",
-                    "position" => $key + 2,
-                    "item" => [
-                        "@id"  => url($locale.$item['slug']),
-                        "name" => $item['name']
-                    ]
-                ];
-
-            $jsonLD["itemListElement"][] = $chit;
-        }
+        $jsonLD  = SchemaOrg::breadcrumbProduct($breadcrumbs, $locale);
 
         $data = [
             'steel_grade',
@@ -194,12 +143,9 @@ class RouteController extends Controller
             'data'     => $data,
             'products' => $products,
             'result'   => $result,
-            // 'offices'  => $offices,
             'menu_id'  => $item['id'],
             'format'   => $format,
             'metatags' => $metatags,
-            // 'filterCity'   => $filterOffice,
-            // 'ordersLocked' => $ordersLocked,
             'query'        => $request->except('page'),
             'offPaginate'  => false,
             'breadcrumbs'  => $breadcrumbs,
