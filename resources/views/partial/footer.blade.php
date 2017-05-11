@@ -110,6 +110,16 @@
                             </div>
                         </div>
                     </li>
+                    <li>
+                        <div class="row">
+                            <div class="col-sm-2 col-xs-1">
+                                <i class="fa fa-linkedin" aria-hidden="true"></i>
+                            </div>
+                            <div class="col-sm-10 col-xs-10">
+                                <a class="footer-link" target="_blank" href="https://www.linkedin.com/company/yutmk" title="Linkedin">Linkedin</a>
+                            </div>
+                        </div>
+                    </li>
                 </ul>
             </div>
 

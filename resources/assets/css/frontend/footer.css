@@ -43,7 +43,7 @@
 
 .footer .col-right {
   border-right: 1px solid #fff;
-  height: 230px;
+  height: 250px;
 }
 @media(max-width:767px) {
   .footer .col-right { height: auto; }
