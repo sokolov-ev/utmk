@@ -13,7 +13,7 @@
     <!-- Schema.org markup (Google) -->
     <meta itemprop="name" content="{{ $metatags['title'] }}">
     <meta itemprop="description" content="{{ $metatags['description'] }}">
-    <meta itemprop="image" content="{{ url('/') }}/images/products/{{ $product['images'][0] }}">
+    <meta itemprop="image" content="{{ url('/') . $product['images'][0] }}">
 
     <!-- Twitter Card markup-->
     <meta name="twitter:card" content="summary_large_image">
@@ -22,21 +22,24 @@
     <meta name="twitter:description" content="{{ $metatags['description'] }}">
     <meta name="twitter:creator" content="">
     <!-- Twitter summary card with large image must be at least 280x150px -->
-    <meta name="twitter:image" content="{{ url('/') }}/images/products/{{ $product['images'][0] }}">
+    <meta name="twitter:image" content="{{ url('/') . $product['images'][0] }}">
     <meta name="twitter:image:alt" content="">
 
     <!-- Open Graph markup (Facebook, Pinterest) -->
     <meta property="og:title" content="{{ $metatags['title'] }}" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="{{ url()->current() }}" />
-    <meta property="og:image" content="{{ url('/') }}/images/products/{{ $product['images'][0] }}" />
+    <meta property="og:image" content="{{ url('/') . $product['images'][0] }}" />
     <meta property="og:description" content="{{ $metatags['description'] }}" />
     <meta property="og:site_name" content="Metall Vsem" />
 
     <script type="application/ld+json"> 
-        {!! json_encode($jsonLD) !!}
+        {!! json_encode($schemaBreadcrumb) !!}
     </script>
 
+    <script type="application/ld+json"> 
+        {!! json_encode($schemaProduct) !!}
+    </script>
 @endsection
 
 @section('css')
@@ -115,6 +118,14 @@
                     </span>
                 </div>
             </div>
+
+            @if(!empty($product['description']))
+                <div class="wow slideInRight">
+                    <span class="text-16">
+                        {{ $product['description'] }}
+                    </span>
+                </div>
+            @endif
 
             @foreach ($data as $element)
                 @if($product[$element])

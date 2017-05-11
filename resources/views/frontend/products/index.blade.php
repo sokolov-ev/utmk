@@ -53,12 +53,18 @@
 
 {{ csrf_field() }}
 
-<section class="container">
+<section class="container text-center">
     <div class="padding-block-2-2 hidden-xs"></div>
     <div class="padding-block-2-2">
-        <span class="text-gray-16">
+        <div class="padding-block-0-1">
+            <div class="text-black-h3 font-up">
+                {{ trans('products.advert.title') }}
+            </div>            
+        </div>
+        
+        <div class="text-orange">
             {!! trans('products.advert.message') !!}
-        </span>
+        </div>
     </div>
     <div class="padding-block-2-2 hidden-xs"></div>
 </section>

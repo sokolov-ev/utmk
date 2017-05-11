@@ -218,7 +218,8 @@ return [
 
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
 
-        'Language' => App\Helpers\Language::class,
+        'Language'  => App\Helpers\Language::class,
+        'SchemaOrg' => App\Helpers\SchemaOrg::class,
     ],
 
 ];

@@ -76,9 +76,7 @@
 
                         <hr>
 
-                        <!-- TITLE -->
                         @include('backend.site.partial.input-edit', ['name' => 'title', 'title' => 'Заголовок', 'data' => $product['title']])
-                        <!-- /TITLE -->
 
                         <div class="form-group{{ $errors->has('slug') ? ' has-error' : '' }}">
                             <label for="slug" class="control-label">Slug (отображение в адресной строке)</label>
@@ -216,18 +214,8 @@
                             @endif
 
                         </div>
-
-                        <div class="form-group{{ $errors->has('rating') ? ' has-error' : '' }}">
-                            <label for="rating" class="control-label">Рейтинг</label>
-
-                            <input id="rating" type="text" class="form-control" name="rating" value="{{ old('rating', $product['rating']) }}">
-
-                            @if ($errors->has('rating'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('rating') }}</strong>
-                                </span>
-                            @endif
-                        </div>
+                        
+                        @include('backend.site.partial.textarea-edit', ['name' => 'description', 'title' => 'Описание', 'data' => $product['description']])
 
                         @include('backend.site.partial.input-edit', ['name' => 'steel_grade', 'title' => 'Марка стали', 'data' => $product['steel_grade']])
                         @include('backend.site.partial.input-edit', ['name' => 'standard', 'title' => 'Стандарт', 'data' => $product['standard']])
@@ -240,6 +228,18 @@
                         @include('backend.site.partial.input-edit', ['name' => 'coating', 'title' => 'Покрытие', 'data' => $product['coating']])
                         @include('backend.site.partial.input-edit', ['name' => 'view', 'title' => 'Вид', 'data' => $product['view']])
                         @include('backend.site.partial.input-edit', ['name' => 'brinell_hardness', 'title' => 'Твердость Бринелль', 'data' => $product['brinell_hardness']])
+
+                        <div class="form-group{{ $errors->has('rating') ? ' has-error' : '' }}">
+                            <label for="rating" class="control-label">Рейтинг</label>
+
+                            <input id="rating" type="text" class="form-control" name="rating" value="{{ old('rating', $product['rating']) }}">
+
+                            @if ($errors->has('rating'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('rating') }}</strong>
+                                </span>
+                            @endif
+                        </div>
 
                     </div>
                 </div>

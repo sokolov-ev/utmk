@@ -170,18 +170,7 @@
                             @endif
                         </div>
 
-
-                        <div class="form-group{{ $errors->has('rating') ? ' has-error' : '' }}">
-                            <label for="rating" class="control-label">Рейтинг</label>
-
-                            <input id="rating" type="text" class="form-control" name="rating" value="{{ old('rating') }}">
-
-                            @if ($errors->has('rating'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('rating') }}</strong>
-                                </span>
-                            @endif
-                        </div>
+                        @include('backend.site.partial.textarea-add', ['name' => 'description', 'title' => 'Описание'])
 
                         @include('backend.site.partial.input-add', ['name' => 'steel_grade', 'title' => 'Марка стали'])
                         @include('backend.site.partial.input-add', ['name' => 'standard', 'title' => 'Стандарт'])
@@ -194,6 +183,18 @@
                         @include('backend.site.partial.input-add', ['name' => 'coating', 'title' => 'Покрытие'])
                         @include('backend.site.partial.input-add', ['name' => 'view', 'title' => 'Вид'])
                         @include('backend.site.partial.input-add', ['name' => 'brinell_hardness', 'title' => 'Твердость Бринелль'])
+
+                        <div class="form-group{{ $errors->has('rating') ? ' has-error' : '' }}">
+                            <label for="rating" class="control-label">Рейтинг</label>
+
+                            <input id="rating" type="text" class="form-control" name="rating" value="{{ old('rating') }}">
+
+                            @if ($errors->has('rating'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('rating') }}</strong>
+                                </span>
+                            @endif
+                        </div>
 
                     </div>
                 </div>
