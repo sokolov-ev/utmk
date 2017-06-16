@@ -13,7 +13,6 @@ use App;
 use Session;
 use App\Menu;
 use App\Products;
-// use App\Office;
 use App\Orders;
 use App\OrdersProducts;
 use App\Metatags;
@@ -36,7 +35,7 @@ class ProductsController extends Controller
 
         // поиск по названию
         if (!empty($name)) {
-            $products = Products::where('show_my', 1)->andWhere('title', 'LIKE', '%'.$name.'%')->orderBy('rating', 'DESC')->paginate($count);
+            $products = Products::where([['show_my', 1], ['title', 'LIKE', '%' . $name . '%']])->orderBy('rating', 'DESC')->paginate($count);
         } else {
             $products = Products::where('show_my', 1)->orderBy('rating', 'DESC')->take($count)->get();
             $offPaginate = true;
@@ -307,7 +306,7 @@ class ProductsController extends Controller
         }
     }
 
-    public function getRating(Request $request, $id) 
+    public function getRating(Request $request, $id)
     {
         $data = Rating::getRating($id);
 
@@ -316,7 +315,7 @@ class ProductsController extends Controller
         ]);
     }
 
-    public function setRating(Request $request, $id) 
+    public function setRating(Request $request, $id)
     {
         $rating = $request->input('data');
 

@@ -2,9 +2,8 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
-
 use Image;
+use Illuminate\Database\Eloquent\Model;
 
 class Blog extends Model
 {
@@ -49,7 +48,7 @@ class Blog extends Model
 
         if (!empty($img)) {
             $filename = str_slug($img->getClientOriginalName(), '_') . '_' . time() . '.' . $img->getClientOriginalExtension();
-            $path = 'images/blog/' . $filename;
+            $path = './images/blog/' . $filename;
 
             if (Image::make($img->getRealPath())->resize(225, 225)->save($path)) {
                 static::deleteImage($news->image);

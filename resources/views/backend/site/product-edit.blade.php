@@ -88,7 +88,7 @@
                                 </span>
                             @endif
                         </div>
-                        
+
                         <div class="form-group{{ $errors->has('menu_id') ? ' has-error' : '' }}">
                             <label for="menu_id" class="control-label">Раздел меню</label>
 
@@ -128,7 +128,7 @@
                         @else
                             <input type="hidden" name="office_id" id="office_id" value="{{ old('office_id', $offices) }}">
                         @endif
-                        
+
                         <div id="product-prices">
                             <div class="form-group{{ $errors->has('price.0') ? ' has-error' : '' }}" style="margin-bottom: 0;">
                                 <label for="" class="control-label">Цены</label>
@@ -214,7 +214,7 @@
                             @endif
 
                         </div>
-                        
+
                         @include('backend.site.partial.textarea-edit', ['name' => 'description', 'title' => 'Описание', 'data' => $product['description']])
 
                         @include('backend.site.partial.input-edit', ['name' => 'steel_grade', 'title' => 'Марка стали', 'data' => $product['steel_grade']])
@@ -258,7 +258,7 @@
                                     <input type="checkbox" id="show_my" name="show_my" {{ $product['show_my'] ? 'checked=""' : '' }} style="margin: 0 -20px;">
                                     Показывать
                                 </label>
-                            </div>    
+                            </div>
                         </div>
 
                         <button class="btn btn-warning pull-right" type="submit" from="form-edit-product" onclick="saveDescription();">

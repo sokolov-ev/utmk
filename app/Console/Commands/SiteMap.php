@@ -116,7 +116,7 @@ class SiteMap extends Command
 
         foreach ($referenceSection as $section) {
             $title = json_decode($section->title, true);
-            
+
             $url  = '';
             $link = $section->refence_slug;
 
@@ -151,7 +151,7 @@ class SiteMap extends Command
         Log::info('End');
 
         // $result = file_put_contents('public/sitemap.xml', $sitemap);
-        $result = file_put_contents('/home/metallvs/metallvsem.com.ua/www/public/sitemap.xml', $sitemap);
+        $result = file_put_contents('/home/metallvs/utmk.com.ua/www/public/sitemap.xml', $sitemap);
 
         Log::info('Result: '.$result);
 

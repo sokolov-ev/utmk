@@ -15,15 +15,12 @@ class Products extends Model
     protected $fillable = [
         'menu_id',
         'office_id',
-        
         'slug',
         'title',
-        'description',
-
+        'description'
         'rating',
         'show_my',
         'creator_id',
-
         'steel_grade',
         'sawing',
         'standard',
@@ -35,7 +32,6 @@ class Products extends Model
         'coating',
         'view',
         'brinell_hardness',
-        
         'in_stock'
     ];
 
@@ -43,7 +39,6 @@ class Products extends Model
 
     protected $dateFormat = 'U';
 
-    // this is a recommended way to declare event handlers
     protected static function boot()
     {
         parent::boot();
@@ -109,7 +104,7 @@ class Products extends Model
         return $this->belongsTo('App\Orders', 'orders_products', 'order_id', 'product_id');
     }
 
-    public static function getEditData($id) 
+    public static function getEditData($id)
     {
         $product = Products::find($id);
 

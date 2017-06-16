@@ -44,7 +44,7 @@
                         </div>
 
                         <hr>
-                        
+
                         <!-- TITLE -->
                         @include('backend.site.partial.input-add', ['name' => 'title', 'title' => 'Заголовок'])
                         <!-- /TITLE -->
@@ -213,9 +213,9 @@
                                     <input type="checkbox" name="show_my" checked="" style="margin: 0 -20px;">
                                     Показывать
                                 </label>
-                            </div>    
+                            </div>
                         </div>
-                        
+
                         <button class="btn btn-success pull-right" type="submit" onclick="saveDescription();">
                             Добавить
                         </button>

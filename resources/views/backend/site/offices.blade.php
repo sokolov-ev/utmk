@@ -163,5 +163,5 @@
         }
     </script>
 
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAMQhkBZnzMm8RM9L1DnfOCES5Hb2HFtW0&libraries=places&hl=ru" async defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAbN5mOk7ZEFHV-GTQvJBx8cQ7TBhmD2Us&libraries=places&hl=ru" async defer></script>
 @endsection

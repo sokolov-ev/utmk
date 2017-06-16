@@ -26,31 +26,36 @@
 <section class="slider section-padding">
 
     <div id="carousel-example-generic" class="carousel slide carousel-fade" data-ride="carousel">
-        <ol class="carousel-indicators">
-            <li class="active" data-slide-to="0" data-target="#carousel-example-generic"></li>
-            <li class="" data-slide-to="1" data-target="#carousel-example-generic"></li>
-            <li class="" data-slide-to="2" data-target="#carousel-example-generic"></li>
-        </ol>
         <div class="carousel-inner" role="listbox">
+
             <div class="item active">
                 <img alt="First slide" src="/images/slide/slide-01.jpg" data-holder-rendered="true">
                 <div class="carousel-caption ci_caption">
                     <span>We are the best in the steel import and export area.</span>
                 </div>
             </div>
+
             <div class="item">
                 <img alt="Second slide" src="/images/slide/slide-02.jpg" data-holder-rendered="true">
                 <div class="carousel-caption ci_caption">
                     <h1>UTMK Ukraine LLC Company offers wide variety of rolled steel according to low price in Ukraine</h1>
                 </div>
             </div>
+
             <div class="item">
                 <img alt="Third slide" src="/images/slide/slide-03.jpg" data-holder-rendered="true">
                 <div class="carousel-caption ci_caption">
                     <h2>The quality of products is the reason why you should buy steel from us</h2>
                 </div>
             </div>
+
         </div>
+
+        <ol class="carousel-indicators">
+            <li class="active" data-slide-to="0" data-target="#carousel-example-generic"></li>
+            <li class="" data-slide-to="1" data-target="#carousel-example-generic"></li>
+            <li class="" data-slide-to="2" data-target="#carousel-example-generic"></li>
+        </ol>
     </div>
 
 </section>
@@ -196,10 +201,10 @@
                 <div class="row green-section-block">
                     <div class="col-sm-5 col-xs-5">
                         <div class="wow slideInRight">
-                            <img class="green-img" 
-                                 src="/images/green-section/icon-2.png" 
-                                 alt="Rolled tubular products" 
-                                 title="Rolled tubular products" 
+                            <img class="green-img"
+                                 src="/images/green-section/icon-2.png"
+                                 alt="Rolled tubular products"
+                                 title="Rolled tubular products"
                                  style="max-width: 119px;" />
                         </div>
                     </div>
@@ -242,7 +247,7 @@
                             <div class="green-section-title">European Steel</div>
                         </div>
                         <div class="wow slideInRight">
-                            <p class="green-section-body">The assortment of products includes rolled steel delivery from Europe: 
+                            <p class="green-section-body">The assortment of products includes rolled steel delivery from Europe:
                                 <a href="{{ url($locale.'/list-hardox') }}" class="green-section-link-seo" title="Hardox">
                                     Hardox
                                 </a>,

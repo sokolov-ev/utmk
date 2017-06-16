@@ -17,7 +17,7 @@
                 <li><a href="{{ url('administration/offices/index') }}">Филиалы</a></li>
                 <li class="active">{{ $office['title']['ru'] }}</li>
             </ol>
-            
+
             <div class="row">
                 <div class="col-md-8 col-md-offset-2 col-sm-10 col-xs-offset-1 col-xs-12">
 
@@ -28,7 +28,7 @@
                             <label for="type" class="control-label">Тип офиса</label>
 
                             <select id="type" name="type" class="form-control">
-                                @foreach($officeType as $key => $type)                                    
+                                @foreach($officeType as $key => $type)
                                     <option value="{{ $key }}" {{ ($key == old('type', $office['type'])) ? 'selected=""' : "" }}>
                                         {{ trans('offices.officeType.'.$type) }}
                                     </option>
@@ -41,7 +41,7 @@
                                 </span>
                             @endif
                         </div>
-        
+
                         @include('backend.site.partial.input-edit', ['name' => 'title', 'title' => 'Заголовок', 'data' => $office['title']])
                         @include('backend.site.partial.input-edit', ['name' => 'title_short', 'title' => 'Короткий заголовок (на главной)', 'data' => $office['title_short']])
 
@@ -55,7 +55,7 @@
                                 </span>
                             @endif
                         </div>
-                        
+
                         @include('backend.site.partial.textarea-edit', ['name' => 'text_top', 'title' => 'Текст в верху', 'data' => $office['text_top']])
 
                         @include('backend.site.partial.textarea-edit', ['name' => 'description', 'title' => 'Описание', 'data' => $office['description']])
@@ -67,24 +67,24 @@
                                 Адрес <i class="fa fa-spinner fa-pulse fa-fw hidden" aria-hidden="true" id="fa-spinner-load"></i>
                             </label>
 
-                            <input id="address_ru" 
-                                   type="text" 
-                                   name="address[ru]" 
-                                   class="form-control" 
+                            <input id="address_ru"
+                                   type="text"
+                                   name="address[ru]"
+                                   class="form-control"
                                    value="{{ old('address.ru', $office['address']['ru']) }}">
 
-                            <input id="address_en" 
-                                   type="text" 
-                                   name="address[en]" 
-                                   class="form-control" 
-                                   value="{{ old('address.en', $office['address']['en']) }}" 
+                            <input id="address_en"
+                                   type="text"
+                                   name="address[en]"
+                                   class="form-control"
+                                   value="{{ old('address.en', $office['address']['en']) }}"
                                    placeholder="Адрес в транслите">
 
-                            <input id="address_uk" 
-                                   type="text" 
-                                   name="address[uk]" 
-                                   class="form-control" 
-                                   value="{{ old('address.uk', $office['address']['uk']) }}" 
+                            <input id="address_uk"
+                                   type="text"
+                                   name="address[uk]"
+                                   class="form-control"
+                                   value="{{ old('address.uk', $office['address']['uk']) }}"
                                    placeholder="Адрес на украинском">
 
                             <input type="hidden" id="city_en" name="city[en]" value="{{ old('city.en', $office['city']['en']) }}">
@@ -100,11 +100,11 @@
                                 </span>
                             @endif
                         </div>
-                        
+
                         <div id="map" class="office-map"></div>
 
                         <hr>
-                        
+
                         {{-- Контаткты офиса --}}
                         <div id="office-contacts">
                             <div class="form-group{{ $errors->has('contacts_data.0') ? ' has-error' : '' }}" style="margin-bottom: 0;">
@@ -116,7 +116,7 @@
                                     <input type="hidden" id="" name="contacts_id[]" class="contacts-id" value="{{ old('contacts_id.0', $contacts['id'][0]) }}">
                                     <div>
                                         <select id="" name="contacts_type[]" class="form-control contacts-type">
-                                            @foreach($contactType as $key => $type)                                                
+                                            @foreach($contactType as $key => $type)
                                                 <option value="{{ $key }}" {{ ($key == old('contacts_type.0', $contacts['type'][0])) ? 'selected=""' : '' }} >
                                                     {{ trans('offices.contactType.'.$type) }}
                                                 </option>
@@ -389,6 +389,6 @@
         }
     </script>
 
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAMQhkBZnzMm8RM9L1DnfOCES5Hb2HFtW0&libraries=places&callback=initMap&hl=ru" async defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAbN5mOk7ZEFHV-GTQvJBx8cQ7TBhmD2Us&libraries=places&callback=initMap&hl=ru" async defer></script>
 
 @endsection

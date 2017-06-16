@@ -8,12 +8,12 @@
 
     <title>@yield('title')</title>
 
-    <link href="https://plus.google.com/+%D0%9E%D0%9E%D0%9E%D0%AE%D0%A2%D0%9C%D0%9A%D0%9A%D0%B8%D1%97%D0%B2" rel="publisher" />
+    <link href="https://plus.google.com/+%D0%9E%D0%9E%D0%9E%D0%AE%D0%A2%D0%9C%D0%9A%D0%9A%D0%B8%D1%97%D0%B2" rel="publisher">
 
-    <meta name="google-site-verification" content="5ZkMrakvEh1lCyA4eCxke53NFBBCtyMTBFKBWKXyp7Y" />
-    <meta name="p:domain_verify" content="50a81879bc21c0c0b38188e4a7960e14" />
-    <meta name="yandex-verification" content="47760e8501424890" />
-    <meta name="msvalidate.01" content="4BF9163CB9B5B4E32C8E656166BBC30B" />
+    <meta name="google-site-verification" content="12k6QjdJn5pjNq5TNX9H6fuGadyVC399yLGWgAzRcSg">
+    <meta name="p:domain_verify" content="50a81879bc21c0c0b38188e4a7960e14">
+    <meta name="yandex-verification" content="47760e8501424890">
+    <meta name="msvalidate.01" content="4BF9163CB9B5B4E32C8E656166BBC30B">
 
     @yield('meta')
 
@@ -41,12 +41,12 @@
     @yield('css')
 
     <script>
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-      ga('create', 'UA-86822260-1', 'auto');
-      ga('send', 'pageview');
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-100144066-1', 'auto');
+        ga('send', 'pageview');
     </script>
 
     <!-- Yandex.Metrika counter -->
@@ -63,7 +63,7 @@
                         <?php
                             $path = request()->path();
                             $partPath = explode('/', $path);
-                            
+
                             if (in_array($partPath[0], ['en', 'uk'])) {
                                 $path = substr($path, 3, strlen($path)-1);
                             }
@@ -189,7 +189,7 @@
                     </li>
 
                     <li class="about-us"><a href="{{ route('about-us') }}">{{ trans('index.menu.about_us') }}</a></li>
-                    
+
                     <li class="products"><a href="{{ route('products-index') }}">{{ trans('index.menu.products') }}</a></li>
                     <li class="price"><a href="{{ route('prices') }}">{{ trans('index.menu.price') }}</a></li>
 
@@ -248,7 +248,7 @@
     <div class="scroller">
         <i class="fa fa-arrow-circle-up" aria-hidden="true"></i>
     </div>
-    
+
     <link rel="stylesheet" href="https://use.fontawesome.com/0dbe2628bf.css">
 
     <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">

@@ -13,12 +13,12 @@ require('laravel-elixir-minify-html');
 
 elixir(function(mix) {
     // mix.html(
-    //     'storage/framework/views/*', 
-    //     'storage/framework/views/', 
+    //     'storage/framework/views/*',
+    //     'storage/framework/views/',
     //     {
-    //         collapseWhitespace: true, 
-    //         removeAttributeQuotes: true, 
-    //         removeComments: true, 
+    //         collapseWhitespace: true,
+    //         removeAttributeQuotes: true,
+    //         removeComments: true,
     //         minifyJS: true
     //     });
 
@@ -54,7 +54,7 @@ elixir(function(mix) {
 
 
     // СКРИПТЫ ----------------------------------------
-    
+
     mix.scripts('clipboard.js', 'public/js/clipboard.min.js');
     mix.scripts('adminlte.js', 'public/js/adminlte.min.js');
     mix.scripts('mustache.js', 'public/js/mustache.min.js');

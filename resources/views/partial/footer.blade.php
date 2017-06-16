@@ -17,11 +17,6 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('profile', request()->query()) }}" title="{{ trans('index.menu.company_profile') }}">
-                            {{ trans('index.menu.company_profile') }}
-                        </a>
-                    </li>
-                    <li>
                         <a href="{{ route('products-index', request()->query()) }}" title="{{ trans('index.menu.products') }}">
                             {{ trans('index.menu.products') }}
                         </a>
@@ -38,7 +33,7 @@
                     </li>
                 </ul>
             </div>
-            
+
             <div class="col-md-3 col-sm-3 col-right">
                 <p class="footer-title">{{ trans('index.footer.our-services') }}</p>
                 <ul class="list-unstyled footer-link-block">
@@ -128,8 +123,8 @@
                 <ul class="footer-contacts footer-link-block">
                     @foreach ($mainOffice as $contact)
                         <li>
-                            <strong>{{ trans('offices.contactType.'.$contact['type']) }}</strong>: 
-     
+                            <strong>{{ trans('offices.contactType.'.$contact['type']) }}</strong>:
+
                             @if (in_array($contact['type'], ['mobile', 'phone', 'accounting-tel']))
                                 <a href="tel:{{ preg_replace('~\D+~','',$contact['contact']) }}">{{ $contact['contact'] }}</a>
                             @elseif ($contact['type'] == 'email')

@@ -1,37 +1,17 @@
-User-agent: *
+﻿User-agent: *
 
 Disallow: /spravka
 Disallow: /spravka/
 Disallow: /uk/spravka
 Disallow: /uk/spravka/
-
 Disallow: /en/
-
-
 Disallow: /login
-
-
 Disallow: /logout
-
-
 Disallow: /register
-
-
 Disallow: /password/reset
-
-
 Disallow: /password/email
-
-
 Disallow: /my-room/cart
-
-
 Disallow: /my-room/formed-orders
 
-
-
-
-Host: metallvsem.com.ua
-
-
-Sitemap: http://metallvsem.com.ua/sitemap.xml
+Host: utmk.com.ua
+Sitemap: https://utmk.com.ua/sitemap.xml

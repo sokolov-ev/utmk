@@ -11,15 +11,9 @@
 |
 */
 
-// Route::get('/testing','Frontend\TestController@index');
-
 // БЕКЕНД
 Route::get('/administration/login','Adminauth\AuthController@showLoginForm');
 Route::post('/administration/login','Adminauth\AuthController@postLogin');
-
-// Регал админа.
-// Route::get('/administration/register','Adminauth\AuthController@showRegistrationForm');
-// Route::post('/administration/register','Adminauth\AuthController@postRegister');
 
 Route::group(['middleware' => ['adminAuth']], function () {
 
@@ -44,10 +38,7 @@ Route::group(['middleware' => ['adminAuth']], function () {
     Route::post('/administration/product/img/sort', 'Backend\ProductsController@sortImg');
     Route::post('/administration/product/img/delete', 'Backend\ProductsController@deleteImg');
 
-    
-
     Route::group(['middleware' => 'adminPermision:Admin,Moderator'], function() {
-
     // CRUD заказов
         Route::get('/administration/orders', 'Backend\OrdersController@index');
         Route::post('/administration/orders/filtering', 'Backend\OrdersController@filtering');
@@ -56,7 +47,7 @@ Route::group(['middleware' => ['adminAuth']], function () {
         Route::post('/administration/orders/delete', 'Backend\OrdersController@deleteProduct');
         Route::get('/administration/orders/accept/{id}', 'Backend\OrdersController@accept');
         Route::get('/administration/orders/closed/{id}', 'Backend\OrdersController@closed');
-        
+
     });
 
     Route::group(['middleware' => 'adminPermision:Admin'], function() {
@@ -77,7 +68,7 @@ Route::group(['middleware' => ['adminAuth']], function () {
     });
 
     Route::group(['middleware' => 'adminPermision:Admin,SEO'], function() {
-        
+
         Route::get('/administration/spravka/sections', 'Backend\ReferenceController@allSections');
 
         Route::get('/administration/spravka/index/edit', 'Backend\ReferenceController@indexEditForm');
@@ -146,20 +137,17 @@ Route::group(['middleware' => ['adminAuth']], function () {
         Route::get('/administration/offices/edit/{id}', 'Backend\OfficesController@editFormOffice');
         Route::post('/administration/offices/edit/{id}', 'Backend\OfficesController@editOffice');
         Route::delete('/administration/offices', 'Backend\OfficesController@deleteOffice');
-    
+
     // Продукция Exel
         Route::get('/administration/exel', 'Backend\ImportController@index');
         Route::post('/administration/export', 'Backend\ImportController@export');
         Route::post('/administration/import', 'Backend\ImportController@import');
     });
-    
+
 });
 
-
-
-
 // ФРОНТЕНД
-Route::group(['middleware' => ['web', 'redirect-www', 'language-get']], function () {
+Route::group(['middleware' => ['web', 'language-get']], function () {
 
     Route::group(['middleware' => ['language-get']], function () {
 
@@ -196,20 +184,6 @@ Route::group(['middleware' => ['web', 'redirect-www', 'language-get']], function
 
 
     Route::group(['middleware' => ['language']], function () {
-        
-        Route::get('/company-profile', ['as' => 'profile', 'uses' => function(){
-            return redirect('/yutmk-energy', 301);
-        }]);
-
-        Route::get('/home/porezka', function(){
-            return redirect('/porezka', 301);
-        });
-        Route::get('/home/upakovka', function(){
-            return redirect('/upakovka', 301);
-        });
-        Route::get('/home/dostavka', function(){
-            return redirect('/dostavka', 301);
-        });
 
         Route::get('/network-of-offices', ['as' => 'network-of-offices', 'uses' => 'Frontend\IndexController@salesNetwork']);
         Route::get('/office/{slug}', ['as' => 'office', 'uses' => 'Frontend\IndexController@officeView']);
@@ -255,27 +229,12 @@ Route::group(['middleware' => ['web', 'redirect-www', 'language-get']], function
             Route::get('/my-room/cart', ['as' => 'my-cart', 'uses' => 'Frontend\UserController@cart']);
             Route::get('/my-room/formed-orders', ['as' => 'formed-orders', 'uses' => 'Frontend\UserController@formedOrders']);
         });
-    
 
         $locale = Request::segment(1);
 
         if (in_array($locale, ['en', 'uk'])) {
 
             Route::group(['prefix' => $locale], function() {
-
-                Route::get('/company-profile', ['as' => 'profile', 'uses' => function(){
-                    return redirect('/yutmk-energy', 301);
-                }]);
-                
-                Route::get('/home/porezka', function(){
-                    return redirect('/porezka', 301);
-                });
-                Route::get('/home/upakovka', function(){
-                    return redirect('/upakovka', 301);
-                });
-                Route::get('/home/dostavka', function(){
-                    return redirect('/dostavka', 301);
-                });
 
                 Route::get('/network-of-offices', ['as' => 'network-of-offices', 'uses' => 'Frontend\IndexController@salesNetwork']);
                 Route::get('/office/{slug}', ['as' => 'office', 'uses' => 'Frontend\IndexController@officeView']);
@@ -310,7 +269,7 @@ Route::group(['middleware' => ['web', 'redirect-www', 'language-get']], function
                 Route::get('/spravka', ['as' => 'spravka', 'uses' => 'Frontend\ReferenceController@index']);
                 Route::get('/spravka/get-sections', 'Frontend\ReferenceController@referenceSection');
                 Route::get('/spravka/{slug}', 'Frontend\ReferenceController@view')->where('slug', '.+?');
-                
+
                 Route::get('/products', ['as' => 'products-index', 'uses' => 'Frontend\ProductsController@index']);
 
                 // Registration Routes...

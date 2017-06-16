@@ -2,24 +2,19 @@
 
 namespace App\Http\Controllers\Backend;
 
-
-use Illuminate\Http\Request;
-use Illuminate\Routing\Controller;
-use Illuminate\Foundation\Validation\ValidatesRequests;
-
-use DB;
 use App;
 use Auth;
 use Validator;
-
 use App\Menu;
 use App\Admin;
-use App\Locale;
 use App\Office;
 use App\Images;
 use App\Prices;
 use App\Products;
 use App\DataTable;
+use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
+use Illuminate\Foundation\Validation\ValidatesRequests;
 
 class ProductsController extends Controller
 {
@@ -48,6 +43,7 @@ class ProductsController extends Controller
             $city[$product->office_id] = json_decode($product->office->city, true)[App::getLocale()];
         }
 
+        // datasets for filters
         $menu = array_unique($menu);
         $city = array_unique($city);
 
@@ -195,9 +191,9 @@ class ProductsController extends Controller
         if ($product = Products::actionProductNew($id, $request->all())) {
             Images::addImages($product->id, $request->file('images'));
             Prices::editPrices($product->id, $request->all());
-            session()->flash('success', "Данные продукции изменены.");
+            session()->flash('success', 'Данные продукции изменены.');
         } else {
-            session()->flash('error', 'Возникла ошибка при изменении данных продукции.');    
+            session()->flash('error', 'Возникла ошибка при изменении данных продукции.');
         }
 
         return redirect()->back();
@@ -322,7 +318,7 @@ class ProductsController extends Controller
         $product = Products::converData($product);
 
         return response()->json([
-            'status' => 'ok', 
+            'status' => 'ok',
             'product' => $product,
         ]);
     }

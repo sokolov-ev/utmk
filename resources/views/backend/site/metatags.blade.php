@@ -147,7 +147,7 @@
             let data = '';
 
             hideAll(find);
-                
+
             $('.' + find).removeClass('hidden');
 
             $.each($('.' + find).find('li'), function(key, val){

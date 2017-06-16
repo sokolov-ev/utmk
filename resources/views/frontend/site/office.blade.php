@@ -46,7 +46,7 @@
         <h1 class="welcome-text text-center">{{ $office['title'] }}</h1>
     </div>
     <div class="padding-top"></div>
-    
+
     @if (!empty($office['text_top']))
         <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12">
@@ -149,6 +149,6 @@
 
     </script>
 
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAMQhkBZnzMm8RM9L1DnfOCES5Hb2HFtW0&callback=initMap" async defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAbN5mOk7ZEFHV-GTQvJBx8cQ7TBhmD2Us&callback=initMap" async defer></script>
 
 @endsection

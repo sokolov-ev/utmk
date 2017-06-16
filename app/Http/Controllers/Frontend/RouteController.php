@@ -19,7 +19,7 @@ class RouteController extends Controller
 {
     public function index(Request $request, $slug)
     {
-        $redirect = Redirects::where('old', 'LIKE', '%metallvsem.com.ua/' . $slug)->first();
+        $redirect = Redirects::where('old', 'LIKE', '%utmk.com.ua/' . $slug)->first();
         
         if ($redirect) {
             return redirect($redirect['new'], 301);

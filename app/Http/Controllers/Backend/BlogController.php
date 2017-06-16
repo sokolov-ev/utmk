@@ -2,16 +2,14 @@
 
 namespace App\Http\Controllers\Backend;
 
-use Illuminate\Http\Request;
+use Validator;
+use App\Blog;
+use App\DataTable;
 
 use App\Http\Requests;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
-
-use Validator;
-
-use App\DataTable;
-use App\Blog;
 
 class BlogController extends Controller
 {
