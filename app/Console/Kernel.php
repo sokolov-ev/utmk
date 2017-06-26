@@ -15,6 +15,7 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         Commands\DeleteImg::class,
         Commands\SiteMap::class,
+        Commands\MigrateImages::class,
     ];
 
     /**
