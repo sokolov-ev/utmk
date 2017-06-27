@@ -10,7 +10,11 @@ class Blog extends Model
     protected $table = 'blog';
 
     protected $fillable = [
-        'image', 'slug', 'title', 'body', 'show_this', 'published'
+        'slug',
+        'title',
+        'body',
+        'show_this',
+        'published',
     ];
 
     protected $hidden = [];
@@ -22,52 +26,25 @@ class Blog extends Model
     {
         parent::boot();
 
-        static::deleting(function($blog){
-            static::deleteImage($blog->image);
+        static::deleting(function($news){
+            $news->image()->delete();
         });
     }
 
     /////////
 
-    public static function actionNews($id, $data)
+    public function image()
     {
-        if (empty($id)) {
-            $locale = setlocale(LC_TIME, 'ru_RU.UTF-8', 'Rus');
-
-            $news = new Blog();
-            $news->published = strftime('%B %d, %G', time());
-        } else {
-            $news = Blog::find($id);
-
-            if (empty($news)) {
-                return false;
-            }
-        }
-
-        $img = $data['image'];
-
-        if (!empty($img)) {
-            $filename = str_slug($img->getClientOriginalName(), '_') . '_' . time() . '.' . $img->getClientOriginalExtension();
-            $path = './images/blog/' . $filename;
-
-            if (Image::make($img->getRealPath())->resize(225, 225)->save($path)) {
-                static::deleteImage($news->image);
-                $news->image = $filename;
-            }
-        }
-
-        $news->title = $data['title'];
-        $news->slug  = $data['slug'];
-        $news->body  = $data['description'];
-        $news->show_this = !empty($data['show_this']);
-
-        return $news->save();
+        return $this->hasOne('App\Images', 'owner_id')->where('type', 'blog');
     }
 
-    public static function deleteImage($name)
+    public function addImage($images)
     {
-        if (!empty($name) && (file_exists('./images/blog/' . $name))) {
-            return unlink('./images/blog/' . $name);
-        }
+        $image = new Images();
+        $image->width    = 255;
+        $image->height   = 255;
+        $image->type     = 'blog';
+        $image->owner_id = $this->id;
+        $image->addImages([$images]);
     }
 }

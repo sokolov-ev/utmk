@@ -5,13 +5,7 @@
 @endsection
 
 @section('meta')
-
     @include('partial.metatags')
-
-@endsection
-
-@section('css')
-
 @endsection
 
 @section('content')
@@ -26,26 +20,30 @@
 
 <section class="container">
     <div class="news-list">
-        @foreach($news AS $post)
+        @foreach($blog AS $news)
             <div class="row">
                 <div class="col-md-3 col-sm-3 col-xs-12">
-                    @if (!empty($post['image']))
-                        <img src="/images/blog/{{ $post['image'] }}" alt="{{ $post['title'] }}" title="{{ $post['title'] }}" style="width: 100%; height: auto;">
+                    @if (!empty($news->image))
+                        <img src="{{ url('/images/' . $news->image->type . '/' . $news->image->name) }}"
+                             alt="{{ $news->image->name }}"
+                             title="{{ $news->image->name }}"
+                             style="width: 100%; height: auto;">
                     @endif
                 </div>
                 <div class="col-md-9 col-sm-9 col-xs-12">
-                    <a class="text-black-h3" href="{{ url('/blog/'.$post['slug']) }}" title="{{ $post['title'] }}">
-                        {{ $post['title'] }}
+                    <a class="text-black-h3" href="{{ url('/blog/' . $news->slug) }}" title="{{ $news->title }}">
+                        {{ $news->title }}
                     </a>
 
                     <div class="padding-block-0-1">
-                        <span class="text-gray-contact">({{ $post['published'] }})</span>
+                        <span class="text-gray-contact">({{ $news->published }})</span>
                     </div>
 
-                    <p class="text-gray-16 text-justify">{{ str_limit(strip_tags($post['body']), 545, '...') }}</p>
-                    <br/>
+                    <div class="padding-block-0-2">
+                        <div class="text-gray-16 text-justify">{{ str_limit(strip_tags($news->body), 545, '...') }}</div>
+                    </div>
 
-                    <a class="text-orange-20" href="{{ url('/blog/'.$post['slug']) }}" title="{{ $post['title'] }}">
+                    <a class="text-orange-20" href="{{ url('/blog/' . $news->slug) }}" title="{{ $news->title }}">
                         <span class="font-up">Читать далее</span>
                         <span class="fa span-arrow"> >> </span>
                     </a>
@@ -55,7 +53,7 @@
         @endforeach
     </div>
 
-    {{ $news->render() }}
+    {{ $blog->render() }}
 
     <div class="padding-top"></div>
 </section>

@@ -69,6 +69,9 @@ Route::group(['middleware' => ['adminAuth']], function () {
 
     Route::group(['middleware' => 'adminPermision:Admin,SEO'], function() {
 
+        Route::get('/administration/baners', 'Backend\BanersController@index');
+        Route::post('/administration/baners/store', 'Backend\BanersController@store');
+
         Route::get('/administration/spravka/sections', 'Backend\ReferenceController@allSections');
 
         Route::get('/administration/spravka/index/edit', 'Backend\ReferenceController@indexEditForm');
@@ -81,19 +84,12 @@ Route::group(['middleware' => ['adminAuth']], function () {
         Route::get('/administration/spravka/{slug?}', 'Backend\ReferenceController@index');
 
     // CRUD Блог
-        Route::get('/administration/blog', 'Backend\BlogController@index');
-        Route::get('/administration/blog/preview/{slug}', 'Backend\BlogController@preview');
         Route::post('/administration/blog/filtering', 'Backend\BlogController@filtering');
-        Route::get('/administration/blog/add', 'Backend\BlogController@addForm');
-        Route::post('/administration/blog/add', 'Backend\BlogController@add');
-        Route::get('/administration/blog/edit/{id}', 'Backend\BlogController@editForm');
-        Route::put('/administration/blog/edit/{id}', 'Backend\BlogController@edit');
-        Route::delete('/administration/blog', 'Backend\BlogController@delete');
-        Route::get('/administration/blog/delete-image/{id}', 'Backend\BlogController@deleteImg');
+        Route::resource('/administration/blog', 'Backend\BlogController');
 
         Route::get('/administration/images', 'Backend\ImagesController@index');
-        Route::post('/administration/images/add', 'Backend\ImagesController@add');
-        Route::get('/administration/images/delete/{id}', 'Backend\ImagesController@delete');
+        Route::post('/administration/images', 'Backend\ImagesController@store');
+        Route::delete('/administration/images/{id}', 'Backend\ImagesController@destroy');
     //SMS
         Route::get('/administration/sms', 'Backend\ServiceController@sms');
         Route::post('/administration/sms/filtering', 'Backend\ServiceController@smsFiltering');
