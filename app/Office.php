@@ -16,16 +16,16 @@ class Office extends Model
     protected $table = 'offices';
 
     protected $fillable = [
-        'type', 
-        'title', 
-        'title_short', 
-        'slug', 
+        'type',
+        'title',
+        'title_short',
+        'slug',
         'text_top',
-        'description', 
-        'text_bottom', 
-        'address', 
-        'city', 
-        'latitude', 
+        'description',
+        'text_bottom',
+        'address',
+        'city',
+        'latitude',
         'longitude'
     ];
 

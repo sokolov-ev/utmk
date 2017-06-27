@@ -2,14 +2,12 @@
 
 namespace App\Http\Controllers\Backend;
 
-
-use Illuminate\Http\Request;
-use Illuminate\Routing\Controller;
-
 use Auth;
 use App\Admin;
 use App\Office;
 use App\Contacts;
+use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 
 class EmployeeController extends Controller
 {

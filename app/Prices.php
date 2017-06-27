@@ -48,19 +48,6 @@ class Prices extends Model
         return $result;
     }
 
-    public static function createPrice($productId, $price, $type)
-    {
-        foreach ($price as $key => $value) {
-            if (!empty($type[$key])) {
-                $prices = new Prices();
-                $prices->product_id = $productId;
-                $prices->price      = $value;
-                $prices->type       = $type[$key];
-                $prices->save();
-            }
-        }
-    }
-
     public static function editPrices($productId, $data)
     {
         $id    = $data['price_id'];

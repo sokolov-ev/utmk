@@ -16,7 +16,7 @@ class ReferenceController extends Controller
 {
     use ValidatesRequests;
 
-    public function index($slug = '') 
+    public function index($slug = '')
     {
         $reference = ReferenceSection::getSection($slug);
 
@@ -47,14 +47,14 @@ class ReferenceController extends Controller
         return redirect('/administration/spravka');
     }
 
-    public function allSections() 
+    public function allSections()
     {
         $sections = ReferenceSection::allSections();
 
         return response()->json($sections);
     }
 
-    public function setSection(Request $request) 
+    public function setSection(Request $request)
     {
         $this->validatorSection($request);
 
@@ -72,7 +72,7 @@ class ReferenceController extends Controller
         return redirect('/administration/spravka');
     }
 
-    public function sortSection(Request $request) 
+    public function sortSection(Request $request)
     {
         $id     = $request->input('id');
         $weight = $request->input('weight');
@@ -104,7 +104,7 @@ class ReferenceController extends Controller
     public function delete($id)
     {
         $section = ReferenceSection::find($id);
-        
+
         if (empty($section)) {
             session()->flash('error', 'Секция не найдена');
             return redirect('/administration/spravka');
