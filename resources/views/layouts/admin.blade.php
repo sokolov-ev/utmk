@@ -5,7 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>@yield('title')</title>
+    <title>
+        @yield('title')
+    </title>
 
     <!-- Fonts -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
@@ -125,22 +127,14 @@
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
-
             @include('partial.flash-messages')
 
             @yield('content')
-
         </div>
         <!-- content-wrapper -->
 
         <!-- Main Footer -->
         <footer class="main-footer">
-            <!-- To the right -->
-            <!--
-                <div class="pull-right hidden-xs">
-                    Anything you want
-                </div>
-            -->
             <!-- Default to the left -->
             <strong>Авторские права &copy; {{ date('Y') }} <a href="#">ТОВ "ЮТМК" Україна</a>.</strong> Все права защищены.
         </footer>
