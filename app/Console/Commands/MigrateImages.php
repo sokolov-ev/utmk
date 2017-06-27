@@ -44,6 +44,8 @@ class MigrateImages extends Command
                 $image->link     = '';
                 $image->text     = '';
                 $image->save();
+                   $news->body = str_replace("images/other", "images/blog", $news->body);
+                   $news->save();
             }
         }
 
