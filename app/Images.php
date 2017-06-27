@@ -2,78 +2,75 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
-
 use Image;
+use Illuminate\Database\Eloquent\Model;
 
 class Images extends Model
 {
     protected $table = 'images';
 
+    public $width  = 0;
+    public $height = 0;
+
     protected $fillable = [
-        'product_id', 'type', 'weight', 'name'
+        'name',
+        'type',
+        'weight',
+        'owner_id',
+        'link',
+        'text',
     ];
 
     protected $hidden = [];
 
     protected $dateFormat = 'U';
 
+    protected $attributes = [
+        'name'     => '',
+        'type'     => 'other',
+        'weight'   => 0,
+        'owner_id' => 0,
+        'link'     => '',
+        'text'     => '',
+    ];
+
     // this is a recommended way to declare event handlers
     protected static function boot()
     {
         parent::boot();
-
         static::deleting(function($image){
             if (!empty($image->name)) {
-                if (file_exists('./images/products/' . $image->name)) {
-                    
-                    unlink('./images/products/' . $image->name);
-
-                } else if (file_exists('./images/other/' . $image->name)) {
-
-                    unlink('./images/other/' . $image->name);
-
+                if (file_exists('./images/' . $image->type . '/' . $image->name)) {
+                    unlink('./images/' . $image->type . '/' . $image->name);
                 }
             }
         });
     }
 
-    public function product()
+    /**
+     * The function of adding images
+     * @var array images [{image}]
+     */
+    public function addImages($images)
     {
-        return $this->belongsTo('App\Products', 'product_id');
-    }
+        foreach ($images as $img) {
+            $filename = \md5($img->getClientOriginalName() . time()) . '.' . $img->getClientOriginalExtension();
+            $path     = 'images/' . $this->type . '/' . $filename;
 
-    public static function addImages($id, $images)
-    {
-        if (!empty($images[0])) {
-            foreach ($images as $img) {
-                $filename  = str_slug($img->getClientOriginalName(), '_') . '_' . time() . '.' . $img->getClientOriginalExtension();
-                $path = 'images/products/' . $filename;
-
-                if (Image::make($img->getRealPath())->resize(370, 270)->save($path)) {
-                    $imgModel = new Images();
-                    $imgModel->type = 'product';
-                    $imgModel->product_id = $id;
-                    $imgModel->name = $filename;
-                    $imgModel->save();
-                }
+            if (!empty($this->width) && !empty($this->height)) {
+                $result = Image::make($img->getRealPath())->resize($this->width, $this->height)->save($path);
+            } else {
+                $result = Image::make($img->getRealPath())->save($path);
             }
-        }
-    }
 
-    public static function addImagesLinck($images)
-    {
-        if (!empty($images[0])) {
-            foreach ($images as $img) {
-                $filename  = str_slug($img->getClientOriginalName(), '_') . '_' . time() . '.' . $img->getClientOriginalExtension();
-                $path = 'images/other/' . $filename;
-
-                if (Image::make($img->getRealPath())->save($path)) {
-                    $imgModel = new Images();
-                    $imgModel->type = 'other';
-                    $imgModel->name = $filename;
-                    $imgModel->save();
-                }
+            if ($result) {
+                $image = new Images();
+                $image->name     = $filename;
+                $image->type     = $this->type;
+                $image->owner_id = $this->owner_id;
+                $image->link     = $this->linck;
+                $image->text     = $this->text;
+                $image->save();
             }
         }
     }

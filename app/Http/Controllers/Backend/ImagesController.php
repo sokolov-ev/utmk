@@ -2,32 +2,33 @@
 
 namespace App\Http\Controllers\Backend;
 
-use Illuminate\Http\Request;
-
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
-
 use App\Images;
+use App\Http\Requests;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class ImagesController extends Controller
 {
     public function index()
     {
-        $images = Images::where('type', 'other')->orderBy('created_at', 'DESC')->get();
+        $images['blog'] = Images::where([['owner_id', 0], ['type', 'blog']])->orderBy('created_at', 'DESC')->get();
+        $images['reference'] = Images::where([['owner_id', 0], ['type', 'reference']])->orderBy('created_at', 'DESC')->get();
 
         return view('backend.images.index', [
-            'images' => $images
+            'images' => $images,
         ]);
     }
 
-    public function add(Request $request)
+    public function store(Request $request)
     {
-        Images::addImagesLinck($request->file('images'));
+        $image = new Images();
+        $image->type = $request->input('type');
+        $image->addImages($request->file('images'));
 
         return redirect()->back();
     }
 
-    public function delete($id)
+    public function destroy($id)
     {
         $image = Images::findOrFail($id);
 
