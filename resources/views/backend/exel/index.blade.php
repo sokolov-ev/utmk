@@ -27,21 +27,22 @@
                             </select>
                         </div>
                         <div class="col-md-9">
-                            <select class="form-control" id="menu" name="menu">
-                                @foreach ($menu as $item)
-                                    <option value="{{ $item['id'] }}">{{ json_decode($item['name'], true)['ru'] }}</option>
-                                @endforeach
-                            </select>
+                            <div class="input-group">
+                                <select class="form-control" id="menu" name="menu">
+                                    @foreach ($menu as $item)
+                                        <option value="{{ $item['id'] }}">{{ json_decode($item['name'], true)['ru'] }}</option>
+                                    @endforeach
+                                </select>
+                                <span class="input-group-btn">
+                                    <button class="btn btn-success pull-right" type="submit">
+                                        Экспорт
+                                    </button>
+                                </span>
+                            </div>
                         </div>
                     </div>
-                    <br>
-                    <div class="form-group">
-                        <button class="btn btn-success pull-right" type="submit">
-                            Экспорт
-                        </button>
-                    </div>
                 </form>
-                
+
                 <div class="clearfix"></div>
                 <hr>
 

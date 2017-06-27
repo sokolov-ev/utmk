@@ -27,25 +27,29 @@ class ProductsController extends Controller
 
     public function index(Request $request)
     {
-        $id = $request->input('id');
-        $menu = [];
-        $city = [];
-        $isAdmin = Auth::guard('admin')->user()->role == Admin::ROLE_ADMIN;
+        $id        = $request->input('id');
+        $menu      = [];
+        $city      = [];
+        $isAdmin   = Auth::guard('admin')->user()->role == Admin::ROLE_ADMIN;
+        $office_id = Auth::guard('admin')->user()->office_id;
+
+        $result = Menu::select('id', 'name')->get();
+        $menu   = [];
+
+        foreach ($result as $item) {
+            $menu[$item->id] = json_decode($item->name, true)[App::getLocale()];
+        }
 
         if ($isAdmin) {
-            $products = Products::all();
+            $result = Office::select('id', 'city')->get();
         } else {
-            $products = Products::where('office_id', Auth::guard('admin')->user()->office_id)->get();
+            $result = Office::select('id', 'city')->where('id', $office_id)->get();
         }
+        $city   = [];
 
-        foreach ($products as $key => $product) {
-            $menu[$product->menu_id]   = json_decode($product->menu->name, true)[App::getLocale()];
-            $city[$product->office_id] = json_decode($product->office->city, true)[App::getLocale()];
+        foreach ($result as $item) {
+            $city[$item->id] = json_decode($item->city, true)[App::getLocale()];
         }
-
-        // datasets for filters
-        $menu = array_unique($menu);
-        $city = array_unique($city);
 
         return view('backend.site.products', [
             'id'      => $id,
@@ -138,15 +142,20 @@ class ProductsController extends Controller
     {
         $this->validator($request, 'add');
 
-        if ($product = Products::actionProductNew(null, $request->all())) {
-            Images::addImages($product->id, $request->file('images'));
-            Prices::createPrice($product->id, $request->input('price'), $request->input('price_type'));
-            session()->flash('success', "Продукция добавлена.");
-            return redirect('/administration/products');
+        $product = new Products();
+        $product->creator_id = Auth::guard('admin')->user()->id;
+        $product->setData($request->all());
+
+        if (!$product->save()) {
+            session()->flash('error', 'Возникла ошибка при добавлении продукции.');
+            return redirect()->back();
         }
 
-        session()->flash('error', 'Возникла ошибка при добавлении продукции.');
-        return redirect()->back();
+        $product->addImage($request->file('images'));
+        $product->addPrice($request->input('price'), $request->input('price_type'));
+
+        session()->flash('success', 'Продукция добавлена');
+        return redirect('/administration/products');
     }
 
     public function editForm($id)
@@ -188,15 +197,17 @@ class ProductsController extends Controller
             }
         }
 
-        if ($product = Products::actionProductNew($id, $request->all())) {
-            Images::addImages($product->id, $request->file('images'));
-            Prices::editPrices($product->id, $request->all());
-            session()->flash('success', 'Данные продукции изменены.');
-        } else {
-            session()->flash('error', 'Возникла ошибка при изменении данных продукции.');
-        }
+        $product = Products::findOrFail($id);
 
-        return redirect()->back();
+        // if ($product = Products::actionProductNew($id, $request->all())) {
+        //     Images::addImages($product->id, $request->file('images'));
+        //     Prices::editPrices($product->id, $request->all());
+        //     session()->flash('success', 'Данные продукции изменены.');
+        // } else {
+        //     session()->flash('error', 'Возникла ошибка при изменении данных продукции.');
+        // }
+
+        // return redirect()->back();
     }
 
     public function delete(Request $request)
@@ -228,18 +239,15 @@ class ProductsController extends Controller
         $data['slug'] = str_slug($data['slug'], '-');
 
         $validator = Validator::make($data, [
-            'images.*' => 'image',
-
-            'slug' => 'required|unique:products,slug,'.$id,
-
-            'title.en' => 'string|min:3',
-            'title.ru' => 'string|min:3',
-            'title.uk' => 'string|min:3',
-
-            'price.*' => 'required|numeric',
-            'price_type.*' => 'required_with:'.Prices::listMeasures(),
-
-            'rating' => 'integer',
+            'images.*'     => 'image',
+            'menu_id'      => 'required|exists:menu,id',
+            'slug'         => 'required|unique:products,slug,' . $id,
+            'title.en'     => 'string|min:3',
+            'title.ru'     => 'string|min:3',
+            'title.uk'     => 'string|min:3',
+            'price.*'      => 'required|numeric',
+            'rating'       => 'integer',
+            'price_type.*' => 'required_with:' . Prices::listMeasures(),
         ]);
 
         $validator->after(function($validator) use ($request, $action) {
@@ -254,10 +262,7 @@ class ProductsController extends Controller
 
         if ($validator->fails()) {
             session()->flash('error', $validator->errors()->first());
-
-            $this->throwValidationException(
-                $request, $validator
-            );
+            $this->throwValidationException($request, $validator);
         }
     }
 

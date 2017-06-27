@@ -20,7 +20,7 @@ class RouteController extends Controller
     public function index(Request $request, $slug)
     {
         $redirect = Redirects::where('old', 'LIKE', '%utmk.com.ua/' . $slug)->first();
-        
+
         if ($redirect) {
             return redirect($redirect['new'], 301);
         }
@@ -51,6 +51,21 @@ class RouteController extends Controller
             $locale = '';
         }
 
+        $data = [
+            'steel_grade',
+            'standard',
+            'sawing',
+            'diameter',
+            'height',
+            'width',
+            'thickness',
+            'section',
+            'coating',
+            'view',
+            'brinell_hardness',
+            'class',
+        ];
+
         $item = ($item = Menu::where('full_path_slug', $slug)->first()) ? $item->toArray() : null;
 
         if (null === $item) {
@@ -73,28 +88,14 @@ class RouteController extends Controller
                 $metatags = Metatags::where([['type', 'product'], ['slug', $slug]])->first();
                 $metatags = Metatags::getViewData($metatags);
 
-                $data = [
-                    'steel_grade',
-                    'standard',
-                    'sawing',
-                    'diameter',
-                    'height',
-                    'width',
-                    'thickness',
-                    'section',
-                    'coating',
-                    'view',
-                    'brinell_hardness',
-                ];
-
                 return view('frontend.products.view', [
-                    'data'     => $data,
-                    'product'  => $product,
-                    'menu'     => $menu,
-                    'metatags' => $metatags,
-                    'locale'   => $locale,
-                    'rating'   => $rating,
-                    'schemaProduct' => $schemaProduct,
+                    'data'             => $data,
+                    'product'          => $product,
+                    'menu'             => $menu,
+                    'metatags'         => $metatags,
+                    'locale'           => $locale,
+                    'rating'           => $rating,
+                    'schemaProduct'    => $schemaProduct,
                     'schemaBreadcrumb' => $schemaBreadcrumb,
                 ]);
             }
@@ -115,7 +116,7 @@ class RouteController extends Controller
                             ->orderBy('rating', 'DESC')
                             ->paginate(9);
 
-        $result   = Products::getViewProducts($products);
+        $result = Products::getViewProducts($products);
 
         $slug = array_pop($part);
 
@@ -125,33 +126,19 @@ class RouteController extends Controller
         $breadcrumbs = Menu::getBreadcrumbs($item['id']);
         $jsonLD  = SchemaOrg::breadcrumbProduct($breadcrumbs, $locale);
 
-        $data = [
-            'steel_grade',
-            'standard',
-            'sawing',
-            'diameter',
-            'height',
-            'width',
-            'thickness',
-            'section',
-            'coating',
-            'view',
-            'brinell_hardness',
-        ];
-
         return view('frontend.products.index', [
-            'data'     => $data,
-            'products' => $products,
-            'result'   => $result,
-            'menu_id'  => $item['id'],
-            'format'   => $format,
-            'metatags' => $metatags,
-            'query'        => $request->except('page'),
-            'offPaginate'  => false,
-            'breadcrumbs'  => $breadcrumbs,
-            'locale'       => $locale,
-            'jsonLD'       => $jsonLD,
-            'page'         => $page,
+            'data'        => $data,
+            'products'    => $products,
+            'result'      => $result,
+            'menu_id'     => $item['id'],
+            'format'      => $format,
+            'metatags'    => $metatags,
+            'query'       => $request->except('page'),
+            'offPaginate' => false,
+            'breadcrumbs' => $breadcrumbs,
+            'locale'      => $locale,
+            'jsonLD'      => $jsonLD,
+            'page'        => $page,
         ]);
     }
 

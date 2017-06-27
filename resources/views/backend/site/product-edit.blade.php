@@ -228,6 +228,7 @@
                         @include('backend.site.partial.input-edit', ['name' => 'coating', 'title' => 'Покрытие', 'data' => $product['coating']])
                         @include('backend.site.partial.input-edit', ['name' => 'view', 'title' => 'Вид', 'data' => $product['view']])
                         @include('backend.site.partial.input-edit', ['name' => 'brinell_hardness', 'title' => 'Твердость Бринелль', 'data' => $product['brinell_hardness']])
+                        @include('backend.site.partial.input-edit', ['name' => 'class', 'title' => 'Класс', 'data' => $product['class']])
 
                         <div class="form-group{{ $errors->has('rating') ? ' has-error' : '' }}">
                             <label for="rating" class="control-label">Рейтинг</label>

@@ -183,6 +183,7 @@
                         @include('backend.site.partial.input-add', ['name' => 'coating', 'title' => 'Покрытие'])
                         @include('backend.site.partial.input-add', ['name' => 'view', 'title' => 'Вид'])
                         @include('backend.site.partial.input-add', ['name' => 'brinell_hardness', 'title' => 'Твердость Бринелль'])
+                        @include('backend.site.partial.input-add', ['name' => 'class', 'title' => 'Класс'])
 
                         <div class="form-group{{ $errors->has('rating') ? ' has-error' : '' }}">
                             <label for="rating" class="control-label">Рейтинг</label>

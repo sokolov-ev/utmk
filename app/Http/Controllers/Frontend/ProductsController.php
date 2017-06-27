@@ -57,16 +57,17 @@ class ProductsController extends Controller
             'coating',
             'view',
             'brinell_hardness',
+            'class',
         ];
 
         return view('frontend.products.index', [
-            'data'     => $data,
-            'products' => $products,
-            'result'   => $result,
-            'menu_id'  => null,
-            'format'   => $format,
-            'metatags' => $metatags,
-            'query'    => $request->except('page'),
+            'data'        => $data,
+            'products'    => $products,
+            'result'      => $result,
+            'menu_id'     => null,
+            'format'      => $format,
+            'metatags'    => $metatags,
+            'query'       => $request->except('page'),
             'offPaginate' => $offPaginate,
         ]);
     }
@@ -286,10 +287,10 @@ class ProductsController extends Controller
                 $sum += $price->price * $price->pivot->quantity;
             }
 
-            $order->formed   = 1;
-            $order->status   = Orders::STATUS_NOT_ACCEPTED;
-            $order->wish     = $request->input('wish');
-            $order->contacts = $request->input('contacts');
+            $order->formed     = 1;
+            $order->status     = Orders::STATUS_NOT_ACCEPTED;
+            $order->wish       = $request->input('wish');
+            $order->contacts   = $request->input('contacts');
             $order->total_cost = $sum;
             $order->created_at = time();
 
