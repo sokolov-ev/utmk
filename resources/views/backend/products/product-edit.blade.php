@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('title')
-    Редактирование: {{ $product['title']['ru'] }}
+    Редактирование: {{ $product->title['ru'] }}
 @endsection
 
 @section('css')
@@ -13,22 +13,20 @@
 <section class="content container">
     <div class="box box-warning">
         <div class="box-header">
-            <h3 class="box-title pull-left clearfix">Редактирование: {{ $product['title']['ru'] }}</h3>
+            <h3 class="box-title pull-left clearfix">{{ $product->title['ru'] }}</h3>
         </div>
         <div class="box-body">
 
             <ol class="breadcrumb">
                 <li><a href="{{ url('administration/products') }}">Продукция</a></li>
-                <li class="active">Редактирование: {{ $product['title']['ru'] }}</li>
+                <li class="active">Редактирование: {{ $product->title['ru'] }}</li>
             </ol>
 
             <div class="hidden language" data-lang="{{ App::getLocale() }}"></div>
 
-            <form id="form-edit-product" role="form" method="POST" action="{{ url('administration/product/edit/'.$product['id']) }}" enctype="multipart/form-data">
+            <form id="form-edit-product" role="form" method="POST" action="{{ url('/administration/products/' . $product->id) }}" enctype="multipart/form-data">
                 {{ csrf_field() }}
-                <input type="hidden" name="_method" value="PUT">
-                <input type="hidden" name="id" value="{{ old('id', $product['id']) }}">
-
+                {{ method_field('PUT') }}
 
                 <div class="row">
                     <div class="col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-12">
@@ -52,15 +50,17 @@
                                 @foreach ($product['images'] as $img)
                                     <div id="preview-{{ $img['id'] }}" data-img="{{ $img['id'] }}" class="pull-left file-preview-body">
                                         <div class="file-preview-frame">
-                                            <img src="/images/products/{{ $img['name'] }}"
-                                                 alt="{{ $img['name'] }}"
-                                                 class="file-preview-image">
+                                            <img src="/images/{{ $img['type'] }}/{{ $img['name'] }}" alt="{{ $img['name'] }}" class="file-preview-image">
 
                                             <div class="file-thumbnail-footer">
-                                                <button class="btn btn-danger btn-xs pull-left delete-img" data-id="{{ $img['id'] }}" type="button">
-                                                        <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                                <button class="btn btn-danger btn-xs pull-left"
+                                                        type="button"
+                                                        data-target="#delete-modal"
+                                                        data-toggle="modal"
+                                                        data-id="{{ $img['id'] }}">
+                                                            <i class="fa fa-trash-o" aria-hidden="true"></i>
                                                 </button>
-                                                <a class="btn btn-primary btn-xs pull-right" href="{{ url('/administration/product/img/download/'.$img['id']) }}">
+                                                <a class="btn btn-primary btn-xs pull-right" href="{{ url('/administration/images/' . $img['id']) }}">
                                                     <i class="fa fa-download" aria-hidden="true"></i>
                                                 </a>
                                                 <div class="pull-left">
@@ -273,6 +273,8 @@
     </div>
 </section>
 
+@include('partial.delete-modal')
+
 @endsection
 
 @section('scripts')
@@ -292,29 +294,33 @@
             allowedFileExtensions: ["jpg", "jpeg", "png", "bmp", "gif", "svg"],
         });
 
-        $('.delete-img').click(function(event){
-            var id = $(this).data('id');
-            $.post('/administration/product/img/delete', {id: id}, function(response){
-                if (response.status == 'ok') {
-                    $('#preview-'+id).remove();
-                }
-            }, 'json');
+        $(".content").on('click', '[data-target="#delete-modal"]', function(event){
+            $("#modal-title").text("Удаление изображения");
+            $("#modal-delete-form").prop('action', '/administration/images/' + $(this).data('id'));
+            $("#delete-id").val($(this).data('id'));
+            $(".delete-name").text("изображение");
         });
 
         $('.img-weight').sortable({
             stop: function(event, ui) {
-                var id     = [];
-                var rows   = $('.img-weight').find('.file-preview-body');
-                var weight = [];
+                let id     = [];
+                let rows   = $('.img-weight').find('.file-preview-body');
+                let weight = [];
 
                 $.each(rows, function(key, val){
-                    weight.push(key+1);
+                    weight.push(key + 1);
                     id.push($(val).data('img'));
                 });
 
-                $.post('/administration/product/img/sort', {id: id, weight: weight}, function(response){
-                    console.log(response);
-                }, 'json');
+                $.ajax({
+                    url: '/administration/images',
+                    type: 'PUT',
+                    data: {id: id, weight: weight},
+                    dataType: 'json',
+                    success: function(result) {
+                        console.log(response);
+                    }
+                });
             }
         });
 

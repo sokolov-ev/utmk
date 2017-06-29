@@ -46,11 +46,7 @@ class Products extends Model
 
         static::deleting(function($product){
             $product->images()->delete();
-            $prices = Prices::where('product_id', $product->id)->get();
-
-            foreach ($prices as $key => $price) {
-                $price->delete();
-            }
+            $product->prices()->delete();
         });
     }
 
@@ -76,19 +72,24 @@ class Products extends Model
         return $this->hasOne('App\Admin', 'id', 'creator_id');
     }
 
-    public function imagesEdit()
-    {
-        return $this->hasMany('App\Images', 'product_id', 'id')->orderBy('weight', 'ASC');
-    }
+    // public function imagesEdit()
+    // {
+    //     return $this->hasMany('App\Images', 'product_id', 'id')->orderBy('weight', 'ASC');
+    // }
+
+    // public function images()
+    // {
+    //     return $this->hasMany('App\Images', 'product_id', 'id')->select('name')->orderBy('weight', 'ASC');
+    // }
 
     public function images()
     {
-        return $this->hasMany('App\Images', 'product_id', 'id')->select('name')->orderBy('weight', 'ASC');
+        return $this->hasMany('App\Images', 'owner_id')->where('type', 'products')->orderBy('weight', 'ASC');
     }
 
     public function prices()
     {
-        return $this->hasMany('App\Prices', 'product_id', 'id');
+        return $this->hasMany('App\Prices', 'product_id');
     }
 
     public function price()
@@ -101,33 +102,23 @@ class Products extends Model
         return $this->belongsTo('App\Orders', 'orders_products', 'order_id', 'product_id');
     }
 
-    public static function getEditData($id)
+    public function getEditData()
     {
-        $product = Products::find($id);
-
-        if (empty($product)) {
-            return false;
-        }
-
-        $array = $product->toArray();
-
-        $array['images']           = $product->imagesEdit->toArray();
-        $array['title']            = json_decode($product->title, true);
-        $array['description']      = json_decode($product->description, true);
-        $array['steel_grade']      = json_decode($product->steel_grade, true);
-        $array['sawing']           = json_decode($product->sawing, true);
-        $array['standard']         = json_decode($product->standard, true);
-        $array['diameter']         = json_decode($product->diameter, true);
-        $array['height']           = json_decode($product->height, true);
-        $array['width']            = json_decode($product->width, true);
-        $array['thickness']        = json_decode($product->thickness, true);
-        $array['section']          = json_decode($product->section, true);
-        $array['coating']          = json_decode($product->coating, true);
-        $array['view']             = json_decode($product->view, true);
-        $array['brinell_hardness'] = json_decode($product->brinell_hardness, true);
-        $array['class']            = json_decode($product->class, true);
-
-        return $array;
+        $this->images           = $this->images->toArray();
+        $this->title            = json_decode($this->title, true);
+        $this->description      = json_decode($this->description, true);
+        $this->steel_grade      = json_decode($this->steel_grade, true);
+        $this->sawing           = json_decode($this->sawing, true);
+        $this->standard         = json_decode($this->standard, true);
+        $this->diameter         = json_decode($this->diameter, true);
+        $this->height           = json_decode($this->height, true);
+        $this->width            = json_decode($this->width, true);
+        $this->thickness        = json_decode($this->thickness, true);
+        $this->section          = json_decode($this->section, true);
+        $this->coating          = json_decode($this->coating, true);
+        $this->view             = json_decode($this->view, true);
+        $this->brinell_hardness = json_decode($this->brinell_hardness, true);
+        $this->class            = json_decode($this->class, true);
     }
 
     public function setData($data)
@@ -164,6 +155,25 @@ class Products extends Model
         $image->addImages($images);
     }
 
+    public function getEditPrices()
+    {
+        $prices = $this->prices;
+
+        $result = [
+            'id'    => [],
+            'price' => [],
+            'type'  => [],
+        ];
+
+        foreach ($prices as $price) {
+            $result['id'][]    = $price->id;
+            $result['price'][] = $price->price;
+            $result['type'][]  = $price->type;
+        }
+
+        return $result;
+    }
+
     public function addPrice($price, $type)
     {
         foreach ($price as $key => $value) {
@@ -177,79 +187,58 @@ class Products extends Model
         }
     }
 
-    public static function getViewProducts($products)
+    public function getImagesLink()
     {
+        $images = $this->images;
         $result = [];
 
-        foreach ($products as $product) {
-            $result[] = self::converData($product);
+        foreach ($images as $image) {
+            $result[] = '/images/' . $image->type . '/' . $image->name;
         }
 
         return $result;
     }
 
-    protected static function converData($product)
+    public function editPrice($data)
     {
-        $locale = in_array(App::getLocale(), ['en', 'uk']) ? '/' . App::getLocale() : '';
+        $id    = $data['price_id'];
+        $price = $data['price'];
+        $type  = $data['price_type'];
+        $oldId = [];
 
-        $array['id']          = $product->id;
-        $array['images']      = self::getImages($product->images->toArray());
-        $array['title']       = Language::getArraySoft($product->title);
-        $array['description'] = Language::getArraySoft($product->description);
-
-        $array['work_link'] = $locale . $product->menu->full_path_slug . '/' . $product->slug;
-
-        $array['office_id']    = $product->office->id; // admin panel view
-        $array['office_title'] = Language::getArraySoft($product->office->title);
-        $array['office_linck'] = $locale . '/office/' . $product->office->slug;
-
-        $priceArray = $product->prices->toArray();
-
-        $array['prices'] = self::getPrices($priceArray);
-
-        $agreed = array_filter($priceArray, function($innerArray) {
-            return $innerArray['type'] == 'agreed';
-        });
-
-        $array['prices_type'] = $agreed ? true : false;
-
-        // parameters for the order
-        $array['quantity']     = empty($product->pivot->quantity) ? null : $product->pivot->quantity;
-        $array['price_id']     = empty($product->pivot->price_id) ? null : $product->pivot->price_id;
-        $array['bonds']        = empty($product->pivot->id) ? null : $product->pivot->id;
-        $array['order_prices'] = self::getOrderPrices($priceArray); // it needs improvement
-
-        $array['in_stock'] = $product->in_stock;
-
-        $array['steel_grade']      = Language::getArraySoft($product->steel_grade);
-        $array['sawing']           = Language::getArraySoft($product->sawing);
-        $array['standard']         = Language::getArraySoft($product->standard);
-        $array['diameter']         = Language::getArraySoft($product->diameter);
-        $array['height']           = Language::getArraySoft($product->height);
-        $array['width']            = Language::getArraySoft($product->width);
-        $array['thickness']        = Language::getArraySoft($product->thickness);
-        $array['section']          = Language::getArraySoft($product->section);
-        $array['coating']          = Language::getArraySoft($product->coating);
-        $array['view']             = Language::getArraySoft($product->view);
-        $array['brinell_hardness'] = Language::getArraySoft($product->brinell_hardness);
-        $array['class']            = Language::getArraySoft($product->class);
-
-        return $array;
-    }
-
-    protected static function getImages($images)
-    {
-        $result = [];
-
-        foreach ($images as $img) {
-            $result[] = '/images/products/' . $img['name'];
+        foreach ($this->prices as $priceId) {
+            $oldId[] = $priceId['id'];
         }
 
-        return $result;
+        $difference = array_diff($oldId, $id);
+
+        Prices::destroy($difference);
+
+        $update = array_filter($id);
+        $updatePrice = [];
+        $updateType  = [];
+
+        foreach ($update as $key => $updateId) {
+            if (!empty($type[$key])) {
+                Prices::where('id', $updateId)->update(['price' => $price[$key], 'type' => $type[$key]]);
+            }
+        }
+
+        $save = array_keys($id, '');
+        $savePrice = [];
+        $saveType  = [];
+
+        foreach ($save as $key => $saveId) {
+            $savePrice[] = $price[$saveId];
+            $saveType[]  = $type[$saveId];
+        }
+
+        $this->addPrice($savePrice, $saveType);
     }
 
-    protected static function getPrices($prices)
+    public function getPrices()
     {
+        $prices = $this->prices;
         $result = [];
 
         foreach ($prices as $price) {
@@ -266,8 +255,9 @@ class Products extends Model
         return $result;
     }
 
-    public static function getOrderPrices($prices)
+    public function getOrderPrices()
     {
+        $prices = $this->prices;
         $result = [];
 
         foreach ($prices as $price) {
@@ -277,5 +267,56 @@ class Products extends Model
         }
 
         return $result;
+    }
+
+    public static function getViewProducts($products)
+    {
+        $result = [];
+
+        foreach ($products as $product) {
+            $result[] = $product->getViewData();
+        }
+
+        return $result;
+    }
+
+    public function getViewData()
+    {
+        $locale = in_array(App::getLocale(), ['en', 'uk']) ? '/' . App::getLocale() : '';
+
+        $array['id']           = $this->id;
+        $array['images']       = $this->getImagesLink();
+        $array['title']        = Language::getArraySoft($this->title);
+        $array['description']  = Language::getArraySoft($this->description);
+
+        $array['work_link']    = $locale . $this->menu->full_path_slug . '/' . $this->slug;
+
+        $array['office_id']    = $this->office->id; // admin panel view
+        $array['office_title'] = Language::getArraySoft($this->office->title);
+        $array['office_linck'] = $locale . '/office/' . $this->office->slug;
+
+        $array['prices']       = $this->getPrices();
+        $array['prices_type']  = collect($array['prices'])->contains('type', 'agreed') ? true : false;
+
+        $array['quantity']     = empty($this->pivot->quantity) ? null : $this->pivot->quantity;
+        $array['price_id']     = empty($this->pivot->price_id) ? null : $this->pivot->price_id;
+        $array['bonds']        = empty($this->pivot->id) ? null : $this->pivot->id;
+        $array['order_prices'] = $this->getOrderPrices(); // it needs improvement
+
+        $array['in_stock']         = $this->in_stock;
+        $array['steel_grade']      = Language::getArraySoft($this->steel_grade);
+        $array['sawing']           = Language::getArraySoft($this->sawing);
+        $array['standard']         = Language::getArraySoft($this->standard);
+        $array['diameter']         = Language::getArraySoft($this->diameter);
+        $array['height']           = Language::getArraySoft($this->height);
+        $array['width']            = Language::getArraySoft($this->width);
+        $array['thickness']        = Language::getArraySoft($this->thickness);
+        $array['section']          = Language::getArraySoft($this->section);
+        $array['coating']          = Language::getArraySoft($this->coating);
+        $array['view']             = Language::getArraySoft($this->view);
+        $array['brinell_hardness'] = Language::getArraySoft($this->brinell_hardness);
+        $array['class']            = Language::getArraySoft($this->class);
+
+        return $array;
     }
 }

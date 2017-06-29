@@ -32,12 +32,49 @@ class ImagesController extends Controller
     {
         $image = Images::findOrFail($id);
 
+        if ($image->type == 'products') {
+            $count = Images::where([['owner_id', $image->owner_id], ['type', 'products']])->count();
+            if (1 == $count) {
+                session()->flash('warning', 'Невозможно удалить последнее изображение');
+                return redirect()->back();
+            }
+        }
+
         if ($image->delete()) {
-            session()->flash('success', 'Изображение удалено.');
+            session()->flash('success', 'Изображение удалено');
         } else {
-            session()->flash('error', 'Возникла ошибка при удалении изображения.');
+            session()->flash('error', 'Возникла ошибка при удалении изображения');
         }
 
         return redirect()->back();
+    }
+
+    public function download($id)
+    {
+        $image = Images::findOrFail($id);
+
+        return response()->download('images/' . $image->type . '/' . $image->name);
+    }
+
+    public function sort(Request $request)
+    {
+        $id     = $request->input('id');
+        $weight = $request->input('weight');
+
+        if (empty($id) || empty($weight)) {
+            return response()->json([
+                'success' => false,
+                'errors'  => ['Недостаточно данных для сортировки'],
+            ]);
+        }
+
+        foreach ($id as $key => $value) {
+            Images::where('id', $value)->update(['weight' => $weight[$key]]);
+        }
+
+        return response()->json([
+            'success' => true,
+            'errors'  => [],
+        ]);
     }
 }

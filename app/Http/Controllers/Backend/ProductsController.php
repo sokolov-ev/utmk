@@ -5,10 +5,10 @@ namespace App\Http\Controllers\Backend;
 use App;
 use Auth;
 use Validator;
+use App\Rating;
 use App\Menu;
 use App\Admin;
 use App\Office;
-use App\Images;
 use App\Prices;
 use App\Products;
 use App\DataTable;
@@ -25,9 +25,8 @@ class ProductsController extends Controller
         $this->middleware('language');
     }
 
-    public function index(Request $request)
+    public function index()
     {
-        $id        = $request->input('id');
         $menu      = [];
         $city      = [];
         $isAdmin   = Auth::guard('admin')->user()->role == Admin::ROLE_ADMIN;
@@ -52,7 +51,6 @@ class ProductsController extends Controller
         }
 
         return view('backend.site.products', [
-            'id'      => $id,
             'menu'    => $menu,
             'city'    => $city,
             'isAdmin' => $isAdmin,
@@ -117,7 +115,7 @@ class ProductsController extends Controller
         ]);
     }
 
-    public function addForm()
+    public function create()
     {
         $menu      = Menu::select('id', 'name AS text')->where('parent_exist', 0)->orderBy('weight', 'ASC')->get();
         $isAdmin   = Auth::guard('admin')->user()->role == Admin::ROLE_ADMIN;
@@ -138,9 +136,9 @@ class ProductsController extends Controller
         ]);
     }
 
-    public function add(Request $request)
+    public function store(Request $request)
     {
-        $this->validator($request, 'add');
+        $this->validator($request, 'add', null);
 
         $product = new Products();
         $product->creator_id = Auth::guard('admin')->user()->id;
@@ -158,19 +156,22 @@ class ProductsController extends Controller
         return redirect('/administration/products');
     }
 
-    public function editForm($id)
+    public function edit($products)
     {
-        $product   = Products::getEditData($id);
+        $product = Products::findOrFail($products);
+        $product->getEditData();
+
         $menu      = Menu::select('id', 'name AS text')->where('parent_exist', 0)->orderBy('weight', 'ASC')->get();
         $isAdmin   = Auth::guard('admin')->user()->role == Admin::ROLE_ADMIN;
+        $prices    = $product->getEditPrices();
         $priceType = Prices::getMeasures();
-        $prices    = Prices::parseData($product["id"]);
+
         $offices   = null;
 
         if ($isAdmin) {
             $offices = Office::select('id', 'title AS text')->get();
         } else {
-            if ($product['office_id'] != Auth::guard('admin')->user()->office_id) {
+            if ($product->office_id != Auth::guard('admin')->user()->office_id) {
                 return response()->view('errors.403');
             }
 
@@ -178,63 +179,66 @@ class ProductsController extends Controller
         }
 
         return view('backend.site.product-edit', [
-            'menu'      => $menu,
-            'offices'   => $offices,
             'product'   => $product,
+            'menu'      => $menu,
             'isAdmin'   => $isAdmin,
-            'priceType' => $priceType,
             'prices'    => $prices,
+            'priceType' => $priceType,
+            'offices'   => $offices,
         ]);
     }
 
-    public function edit(Request $request, $id)
+    public function update(Request $request, $products)
     {
-        $this->validator($request, 'edit');
-
-        if ( Auth::guard('admin')->user()->role != Admin::ROLE_ADMIN ) {
-            if ( $request->input('office_id') != Auth::guard('admin')->user()->office_id ) {
+        if (Auth::guard('admin')->user()->role != Admin::ROLE_ADMIN) {
+            if ($request->input('office_id') != Auth::guard('admin')->user()->office_id) {
                 return response()->view('errors.403');
             }
         }
 
-        $product = Products::findOrFail($id);
+        $this->validator($request, 'edit', $products);
 
-        // if ($product = Products::actionProductNew($id, $request->all())) {
-        //     Images::addImages($product->id, $request->file('images'));
-        //     Prices::editPrices($product->id, $request->all());
-        //     session()->flash('success', 'Данные продукции изменены.');
-        // } else {
-        //     session()->flash('error', 'Возникла ошибка при изменении данных продукции.');
-        // }
+        $data = $request->all();
 
-        // return redirect()->back();
-    }
+        $product = Products::findOrFail($products);
+        $product->setData($data);
 
-    public function delete(Request $request)
-    {
-        $user    = Auth::guard('admin')->user();
-        $product = Products::find($request->input('id'));
-
-        if (empty($product)) {
-            session()->flash('error', 'Продукция не найдена.');
+        if (!$product->save()) {
+            session()->flash('error', 'Возникла ошибка при изменении данных продукции');
+            return redirect()->back();
         }
 
-        if ( ($user->role == Admin::ROLE_ADMIN) || ($product->office_id == $user->office_id) ) {
-            if ($product->delete()) {
-                session()->flash('success', 'Продукция удалена.');
-            } else {
-                session()->flash('error', 'Возникла ошибка при удалении продукции.');
+        if ($request->file('images')[0]) {
+            $product->addImage($request->file('images'));
+        }
+
+        $product->editPrice($request->only('price_id', 'price', 'price_type'));
+
+        session()->flash('success', 'Данные продукции изменены');
+        return redirect()->back();
+    }
+
+    public function destroy(Request $request)
+    {
+        if (Auth::guard('admin')->user()->role != Admin::ROLE_ADMIN) {
+            if ($product->office_id != Auth::guard('admin')->user()->office_id) {
+                return response()->view('errors.403');
             }
-        } else {
-            session()->flash('warning', 'Нет доступа.');
         }
 
-        return redirect('/administration/products');
+        $product = Products::findOrFail($request->input('id'));
+
+        if ($product->delete()) {
+            session()->flash('success', 'Продукция удалена');
+            return redirect('/administration/products');
+        }
+
+        session()->flash('error', 'Возникла ошибка при удалении продукции');
+        return redirect()->back();
     }
 
-    protected function validator($request, $action)
+    protected function validator($request, $action, $id)
     {
-        $id = $request->input('id');
         $data = $request->all();
         $data['slug'] = str_slug($data['slug'], '-');
 
@@ -252,11 +256,11 @@ class ProductsController extends Controller
 
         $validator->after(function($validator) use ($request, $action) {
             if ( ($action == 'add') && empty($request->file('images')[0])) {
-                $validator->errors()->add('images.0', 'Загрузите хотя бы одно изображение.');
+                $validator->errors()->add('images.0', 'Загрузите хотя бы одно изображение');
             }
 
             if ( empty($request->input('title.en')) && empty($request->input('title.ru')) && empty($request->input('title.uk')) )  {
-                $validator->errors()->add('title.ru', 'Поле "Заголовок" обязательно для заполнения.');
+                $validator->errors()->add('title.ru', 'Поле "Заголовок" обязательно для заполнения');
             }
         });
 
@@ -266,65 +270,32 @@ class ProductsController extends Controller
         }
     }
 
-    public function downloadImg($id)
-    {
-        $img = Images::find($id);
-
-        if ( empty($img) ) {
-            session()->flash('error', 'Изображение не найдено.');
-            return redirect()->back();
-        }
-
-        return response()->download('images/products/'.$img->name);
-    }
-
-    public function sortImg(Request $request)
-    {
-        if (empty($request->input('id')) || empty($request->input('weight'))) {
-            return response()->json(['status' => 'bad', 'message' => 'Недостаточно данных для сортировки.']);
-        }
-
-        $weight = $request->input('weight');
-
-        foreach ($request->input('id') as $key => $id) {
-            Images::where('id', $id)->update(['weight' => $weight[$key]]);
-        }
-
-        return response()->json(['status' => 'ok', 'message' => 'ok.']);
-    }
-
-    public function deleteImg(Request $request)
-    {
-        $user = Auth::guard('admin')->user();
-        $img  = Images::find($request->input('id'));
-
-        if (empty($img)) {
-            return response()->json(['status' => 'bad', 'message' => 'Изображение не найдено.']);
-        }
-
-        if ( Images::where('product_id', $img->product_id)->count() == 1 ) {
-            return response()->json(['status' => 'bad', 'message' => 'Невозможно удалить последнее изображение.']);
-        }
-
-        if ( ($user->role == Admin::ROLE_ADMIN) || ($img->office_id == $user->office_id) ) {
-            if ($img->delete()) {
-                return response()->json(['status' => 'ok', 'message' => 'Изображение удалено.']);
-            } else {
-                return response()->json(['status' => 'bad', 'message' => 'Возникла ошибка при удалении изображения.']);
-            }
-        } else {
-            return response()->json(['status' => 'bad', 'message' => 'Нет доступа.']);
-        }
-    }
-
-    public function getProduct($id)
+    public function show($id)
     {
         $product = Products::findOrFail($id);
-        $product = Products::converData($product);
+        $product = $product->getViewData();
+        $rating  = Rating::getRating($product['id']);
 
-        return response()->json([
-            'status' => 'ok',
+        $data = [
+            'steel_grade',
+            'standard',
+            'sawing',
+            'diameter',
+            'height',
+            'width',
+            'thickness',
+            'section',
+            'coating',
+            'view',
+            'brinell_hardness',
+            'class',
+        ];
+
+        return view('backend.products.product-view', [
+            'data'    => $data,
+            'rating'  => $rating,
             'product' => $product,
         ]);
     }
+
 }

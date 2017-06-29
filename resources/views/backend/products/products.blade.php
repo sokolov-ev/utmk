@@ -111,6 +111,9 @@
     {{-- Модальное окно удаления филиала/модератора/продукции --}}
     @include('partial.delete-modal')
 
+    {{-- Подгружаем шаблон для mustache --}}
+    @include('partial.product-template')
+
 @section('scripts')
 
     <script src="{{ elixir('js/jqueryTable.min.js') }}"></script>
@@ -167,9 +170,10 @@
                     "targets": columns.length,
                     "sortable": false,
                     "render": function(date, type, full) {
-                        return '<a class="btn btn-default btn-xs" href="/administration/products/' + full.id + '"> \
-                                       <i class="fa fa-eye" aria-hidden="true"></i> \
-                                </a> \
+                        return '<button class="btn btn-default btn-xs view-product" \
+                                        data-id="' + full.id + '"> \
+                                            <i class="fa fa-eye" aria-hidden="true"></i> \
+                                </button> \
                                 <a class="btn btn-warning btn-xs" \
                                    href="/administration/products/' + full.id + '/edit" \
                                    alt="Редактировать" \
@@ -205,6 +209,34 @@
                 }
             });
         });
+
+        $('table').on('click', '.view-product', function () {
+            let tut = this;
+            let id  = $(tut).data('id');
+
+            if ($(tut).closest('tr').next(".data-product")[0] == undefined) {
+                $(tut).find('i').removeClass('fa-eye').addClass('fa-eye-slash');
+
+                $.get('/administration/products/get/' + id, function(response) {
+                    if (response.status == 'ok') {
+                        let template = $('#product-template').html();
+                        Mustache.parse(template);
+
+                        $.each(response.product.prices, function(key, item) {
+                            response.product.prices[key].type_view = item.type_view == 'agreed';
+                        });
+
+                        let product = Mustache.render(template, response);
+
+                        $(tut).closest('tr').after('<tr class="data-product" style="display: none;"><td colspan="10">' + product + '</td></tr>');
+                        $('.data-product').fadeIn(800);
+                    }
+                });
+            } else {
+                $(tut).find('i').addClass('fa-eye').removeClass('fa-eye-slash');
+                $(tut).closest('tr').next(".data-product")[0].remove();
+            }
+        } );
 
         $("table").on('click', '[data-target="#delete-modal"]', function(event){
             $("#modal-title").text("Удаление продукции");

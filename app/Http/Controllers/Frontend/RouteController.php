@@ -2,18 +2,16 @@
 
 namespace App\Http\Controllers\Frontend;
 
-
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use Illuminate\Routing\Controller;
-
 use App;
+use SchemaOrg;
 use App\Menu;
 use App\Metatags;
 use App\Products;
 use App\Redirects;
 use App\Rating;
-use SchemaOrg;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Routing\Controller;
 
 class RouteController extends Controller
 {
@@ -71,34 +69,29 @@ class RouteController extends Controller
         if (null === $item) {
             $slug = array_pop($part);
 
-            $product = Products::where('slug', $slug)->first();
+            $product = Products::where('slug', $slug)->firstOrFail();
 
-            if (empty($product)) {
-                abort(404);
-            } else {
+            $menu = Menu::getBreadcrumbs($product->menu_id);
+            $schemaBreadcrumb = SchemaOrg::breadcrumbProduct($menu, $locale);
 
-                $menu = Menu::getBreadcrumbs($product->menu_id);
-                $schemaBreadcrumb = SchemaOrg::breadcrumbProduct($menu, $locale);
+            $rating  = Rating::getRating($product->id);
+            $schemaProduct = SchemaOrg::product($product, $rating);
 
-                $product = Products::converData($product);
-                $rating  = Rating::getRating($product['id']);
+            $metatags = Metatags::where([['type', 'product'], ['slug', $slug]])->first();
+            $metatags = Metatags::getViewData($metatags);
 
-                $schemaProduct = SchemaOrg::product($product, $rating);
+            $product = $product->getViewData();
 
-                $metatags = Metatags::where([['type', 'product'], ['slug', $slug]])->first();
-                $metatags = Metatags::getViewData($metatags);
-
-                return view('frontend.products.view', [
-                    'data'             => $data,
-                    'product'          => $product,
-                    'menu'             => $menu,
-                    'metatags'         => $metatags,
-                    'locale'           => $locale,
-                    'rating'           => $rating,
-                    'schemaProduct'    => $schemaProduct,
-                    'schemaBreadcrumb' => $schemaBreadcrumb,
-                ]);
-            }
+            return view('frontend.products.view', [
+                'data'             => $data,
+                'product'          => $product,
+                'menu'             => $menu,
+                'metatags'         => $metatags,
+                'locale'           => $locale,
+                'rating'           => $rating,
+                'schemaProduct'    => $schemaProduct,
+                'schemaBreadcrumb' => $schemaBreadcrumb,
+            ]);
         }
 
         $format = 'list';
