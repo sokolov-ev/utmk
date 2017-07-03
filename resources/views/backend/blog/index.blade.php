@@ -52,7 +52,6 @@
 
 @endsection
 
-    {{-- Модальное окно удаления филиала/модератора/продукции --}}
     @include('partial.delete-modal')
 
 @section('scripts')
