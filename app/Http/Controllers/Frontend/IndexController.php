@@ -2,30 +2,33 @@
 
 namespace App\Http\Controllers\Frontend;
 
-
+use App;
+use TurboSms;
+use Validator;
+use JsValidator;
+use App\Images;
+use App\Office;
+use App\Sendsms;
+use App\Metatags;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
-
-use App;
-use Validator;
-use JsValidator;
-
-use TurboSms;
-use App\Sendsms;
-
-use App\Office;
-use App\Metatags;
 
 class IndexController extends Controller
 {
 
     public function index()
     {
+        $slides = Images::where('type', 'slider-index')->orderBy('weight', 'ASC')->get();
+        $slides = Images::viewDataArray($slides);
+
         $metatags = Metatags::where([['type', 'article'], ['slug', 'home']])->first();
         $metatags = Metatags::getViewData($metatags);
 
-        return view('frontend.site.'.App::getLocale().'_index', ['metatags' => $metatags]);
+        return view('frontend.site.'.App::getLocale().'_index', [
+            'slides'   => $slides,
+            'metatags' => $metatags,
+        ]);
     }
 
     public function nashaPolitika()
