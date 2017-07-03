@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App;
 use SchemaOrg;
 use App\Menu;
+use App\Images;
 use App\Metatags;
 use App\Products;
 use App\Redirects;
@@ -119,6 +120,12 @@ class RouteController extends Controller
         $breadcrumbs = Menu::getBreadcrumbs($item['id']);
         $jsonLD  = SchemaOrg::breadcrumbProduct($breadcrumbs, $locale);
 
+        $banersSmall = Images::where('type', 'slider-small')->orderBy('weight', 'ASC')->get();
+        $banersSmall = Images::viewDataArray($banersSmall);
+
+        $banersLarge = Images::where('type', 'slider-large')->orderBy('weight', 'ASC')->get();
+        $banersLarge = Images::viewDataArray($banersLarge);
+
         return view('frontend.products.index', [
             'data'        => $data,
             'products'    => $products,
@@ -132,6 +139,8 @@ class RouteController extends Controller
             'locale'      => $locale,
             'jsonLD'      => $jsonLD,
             'page'        => $page,
+            'banersSmall' => $banersSmall,
+            'banersLarge' => $banersLarge,
         ]);
     }
 

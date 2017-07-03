@@ -89,6 +89,11 @@
   margin: 0;
   padding: 0;
 }
+
+.ci_caption a {
+  color: #fff;
+}
+
 @media(max-width:1024px) {
   .ci_caption {
     left: 10%;

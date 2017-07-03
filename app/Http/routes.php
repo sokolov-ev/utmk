@@ -23,18 +23,6 @@ Route::group(['middleware' => ['adminAuth']], function () {
     Route::post('/administration/products/filtering', 'Backend\ProductsController@filtering');
     Route::resource('/administration/products', 'Backend\ProductsController');
 
-    // Route::get('/administration/products', 'Backend\ProductsController@index');
-    // Route::post('/administration/products/filtering', 'Backend\ProductsController@filtering');
-    // Route::get('/administration/products/get/{id}', 'Backend\ProductsController@getProduct');
-    // Route::get('/administration/product/add', 'Backend\ProductsController@addForm');
-    // Route::post('administration/product/add', 'Backend\ProductsController@add');
-    // Route::get('/administration/product/edit/{id}', 'Backend\ProductsController@editForm');
-    // Route::put('/administration/product/edit/{id}', 'Backend\ProductsController@edit');
-    // Route::delete('/administration/products', 'Backend\ProductsController@delete');
-    // Route::get('/administration/product/img/download/{id}', 'Backend\ProductsController@downloadImg');
-    // Route::post('/administration/product/img/sort', 'Backend\ProductsController@sortImg');
-    // Route::post('/administration/product/img/delete', 'Backend\ProductsController@deleteImg');
-
     Route::group(['middleware' => 'adminPermision:Admin,Moderator'], function() {
         Route::get('/administration/orders', 'Backend\OrdersController@index');
         Route::post('/administration/orders/filtering', 'Backend\OrdersController@filtering');
@@ -64,8 +52,9 @@ Route::group(['middleware' => ['adminAuth']], function () {
 
     Route::group(['middleware' => 'adminPermision:Admin,SEO'], function() {
 
-        Route::get('/administration/baners', 'Backend\BanersController@index');
-        Route::post('/administration/baners/store', 'Backend\BanersController@store');
+        Route::resource('/administration/baners', 'Backend\BanersController');
+        // Route::get('/administration/baners', 'Backend\BanersController@index');
+        // Route::post('/administration/baners', 'Backend\BanersController@store');
 
         Route::get('/administration/spravka/sections', 'Backend\ReferenceController@allSections');
 
