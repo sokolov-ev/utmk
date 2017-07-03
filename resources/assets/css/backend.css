@@ -337,3 +337,15 @@ div.dataTables_length select {
 .metatags .edit-input {
   margin-bottom: 10px;
 }
+
+.image-manager .thumbnail img {
+  width: 100%;
+  max-height: 200px;
+}
+
+.thumbnail .caption {
+  padding: 3px 0 0 0;
+  position: relative;
+  display: flow-root;
+  color: #333;
+}

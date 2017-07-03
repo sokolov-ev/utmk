@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers\Backend;
 
-use Illuminate\Http\Request;
-
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
-
 use App;
 use App\Documents;
+use App\Http\Requests;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class DocumentsController extends Controller
 {

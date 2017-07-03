@@ -2,22 +2,20 @@
 
 namespace App\Http\Controllers\Frontend;
 
-use Illuminate\Http\Request;
-use Illuminate\Routing\Controller;
-
-use Illuminate\Support\Facades\Auth;
-
-use Illuminate\Pagination\Paginator;
-
 use App;
 use Session;
-use App\Menu;
-use App\Products;
-use App\Orders;
-use App\OrdersProducts;
-use App\Metatags;
-use App\Rating;
 use Validator;
+use App\Menu;
+use App\Images;
+use App\Rating;
+use App\Orders;
+use App\Products;
+use App\Metatags;
+use App\OrdersProducts;
+use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Pagination\Paginator;
 
 class ProductsController extends Controller
 {
@@ -45,6 +43,12 @@ class ProductsController extends Controller
         $metatags = Metatags::where([['type', 'menu'], ['slug', 'products']])->first();
         $metatags = Metatags::getViewData($metatags);
 
+        $banersSmall = Images::where('type', 'slider-small')->orderBy('weight', 'ASC')->get();
+        $banersSmall = Images::viewDataArray($banersSmall);
+
+        $banersLarge = Images::where('type', 'slider-large')->orderBy('weight', 'ASC')->get();
+        $banersLarge = Images::viewDataArray($banersLarge);
+
         $data = [
             'steel_grade',
             'standard',
@@ -57,17 +61,20 @@ class ProductsController extends Controller
             'coating',
             'view',
             'brinell_hardness',
+            'class',
         ];
 
         return view('frontend.products.index', [
-            'data'     => $data,
-            'products' => $products,
-            'result'   => $result,
-            'menu_id'  => null,
-            'format'   => $format,
-            'metatags' => $metatags,
-            'query'    => $request->except('page'),
+            'data'        => $data,
+            'products'    => $products,
+            'result'      => $result,
+            'menu_id'     => null,
+            'format'      => $format,
+            'metatags'    => $metatags,
+            'query'       => $request->except('page'),
             'offPaginate' => $offPaginate,
+            'banersSmall' => $banersSmall,
+            'banersLarge' => $banersLarge,
         ]);
     }
 
@@ -286,10 +293,10 @@ class ProductsController extends Controller
                 $sum += $price->price * $price->pivot->quantity;
             }
 
-            $order->formed   = 1;
-            $order->status   = Orders::STATUS_NOT_ACCEPTED;
-            $order->wish     = $request->input('wish');
-            $order->contacts = $request->input('contacts');
+            $order->formed     = 1;
+            $order->status     = Orders::STATUS_NOT_ACCEPTED;
+            $order->wish       = $request->input('wish');
+            $order->contacts   = $request->input('contacts');
             $order->total_cost = $sum;
             $order->created_at = time();
 

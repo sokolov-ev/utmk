@@ -17,29 +17,13 @@ Route::post('/administration/login','Adminauth\AuthController@postLogin');
 
 Route::group(['middleware' => ['adminAuth']], function () {
 
-    Route::get('/administration/logout','Adminauth\AuthController@logout');
     Route::get('/administration', 'Backend\EmployeeController@view');
+    Route::get('/administration/logout','Adminauth\AuthController@logout');
 
-// CRUD продукции и изображений продукции
-    Route::get('/administration/products', 'Backend\ProductsController@index');
     Route::post('/administration/products/filtering', 'Backend\ProductsController@filtering');
-
-    Route::get('/administration/products/get/{id}', 'Backend\ProductsController@getProduct');
-
-    Route::get('/administration/product/add', 'Backend\ProductsController@addForm');
-    Route::post('administration/product/add', 'Backend\ProductsController@add');
-
-    Route::get('/administration/product/edit/{id}', 'Backend\ProductsController@editForm');
-    Route::put('/administration/product/edit/{id}', 'Backend\ProductsController@edit');
-
-    Route::delete('/administration/products', 'Backend\ProductsController@delete');
-
-    Route::get('/administration/product/img/download/{id}', 'Backend\ProductsController@downloadImg');
-    Route::post('/administration/product/img/sort', 'Backend\ProductsController@sortImg');
-    Route::post('/administration/product/img/delete', 'Backend\ProductsController@deleteImg');
+    Route::resource('/administration/products', 'Backend\ProductsController');
 
     Route::group(['middleware' => 'adminPermision:Admin,Moderator'], function() {
-    // CRUD заказов
         Route::get('/administration/orders', 'Backend\OrdersController@index');
         Route::post('/administration/orders/filtering', 'Backend\OrdersController@filtering');
         Route::get('/administration/orders/view/{id}', 'Backend\OrdersController@view');
@@ -47,7 +31,6 @@ Route::group(['middleware' => ['adminAuth']], function () {
         Route::post('/administration/orders/delete', 'Backend\OrdersController@deleteProduct');
         Route::get('/administration/orders/accept/{id}', 'Backend\OrdersController@accept');
         Route::get('/administration/orders/closed/{id}', 'Backend\OrdersController@closed');
-
     });
 
     Route::group(['middleware' => 'adminPermision:Admin'], function() {
@@ -69,6 +52,10 @@ Route::group(['middleware' => ['adminAuth']], function () {
 
     Route::group(['middleware' => 'adminPermision:Admin,SEO'], function() {
 
+        Route::resource('/administration/baners', 'Backend\BanersController');
+        // Route::get('/administration/baners', 'Backend\BanersController@index');
+        // Route::post('/administration/baners', 'Backend\BanersController@store');
+
         Route::get('/administration/spravka/sections', 'Backend\ReferenceController@allSections');
 
         Route::get('/administration/spravka/index/edit', 'Backend\ReferenceController@indexEditForm');
@@ -81,19 +68,14 @@ Route::group(['middleware' => ['adminAuth']], function () {
         Route::get('/administration/spravka/{slug?}', 'Backend\ReferenceController@index');
 
     // CRUD Блог
-        Route::get('/administration/blog', 'Backend\BlogController@index');
-        Route::get('/administration/blog/preview/{slug}', 'Backend\BlogController@preview');
         Route::post('/administration/blog/filtering', 'Backend\BlogController@filtering');
-        Route::get('/administration/blog/add', 'Backend\BlogController@addForm');
-        Route::post('/administration/blog/add', 'Backend\BlogController@add');
-        Route::get('/administration/blog/edit/{id}', 'Backend\BlogController@editForm');
-        Route::put('/administration/blog/edit/{id}', 'Backend\BlogController@edit');
-        Route::delete('/administration/blog', 'Backend\BlogController@delete');
-        Route::get('/administration/blog/delete-image/{id}', 'Backend\BlogController@deleteImg');
+        Route::resource('/administration/blog', 'Backend\BlogController');
 
         Route::get('/administration/images', 'Backend\ImagesController@index');
-        Route::post('/administration/images/add', 'Backend\ImagesController@add');
-        Route::get('/administration/images/delete/{id}', 'Backend\ImagesController@delete');
+        Route::get('/administration/images/{id}', 'Backend\ImagesController@download');
+        Route::put('/administration/images', 'Backend\ImagesController@sort');
+        Route::post('/administration/images', 'Backend\ImagesController@store');
+        Route::delete('/administration/images/{id}', 'Backend\ImagesController@destroy');
     //SMS
         Route::get('/administration/sms', 'Backend\ServiceController@sms');
         Route::post('/administration/sms/filtering', 'Backend\ServiceController@smsFiltering');

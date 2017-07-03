@@ -12,7 +12,7 @@
             <h3 class="box-title pull-left clearfix">Новости компании</h3>
             {{ csrf_field() }}
             <div class="pull-right">
-                <a class="btn btn-success btn-sm" href="{{ url('/administration/blog/add') }}">
+                <a class="btn btn-success btn-sm" href="{{ url('/administration/blog/create') }}">
                     <i class="fa fa-plus" aria-hidden="true"></i> Добавить новость
                 </a>
             </div>
@@ -52,7 +52,6 @@
 
 @endsection
 
-    {{-- Модальное окно удаления филиала/модератора/продукции --}}
     @include('partial.delete-modal')
 
 @section('scripts')
@@ -114,20 +113,20 @@
                     "sortable": false,
                     "render": function(date, type, full) {
                         return '<a class="btn btn-default btn-xs" \
-                                   href="/administration/blog/preview/'+full.slug+'" \
+                                   href="/administration/blog/' + full.id + '" \
                                    title="Предосмотр"> \
                                        <i class="fa fa-eye" aria-hidden="true"></i> \
                                 </a> \
                                 <a class="btn btn-warning btn-xs" \
-                                   href="/administration/blog/edit/'+full.id+'" \
+                                   href="/administration/blog/' + full.id + '/edit" \
                                    title="Редактировать"> \
                                        <i class="fa fa-pencil" aria-hidden="true"></i> \
                                 </a> \
                                 <button class="btn btn-danger btn-xs" \
                                         data-target="#delete-modal" \
                                         data-toggle="modal" \
-                                        data-id="'+full.id+'" \
-                                        data-name="'+full.title+'"> \
+                                        data-id="' + full.id + '" \
+                                        data-name="' + full.title + '"> \
                                             <i class="fa fa-trash-o" aria-hidden="true"></i> \
                                 </button>';
                     }
@@ -177,8 +176,8 @@
         } );
 
         $("table").on('click', '[data-target="#delete-modal"]', function(event){
-            $("#modal-title").text("Удаление продукции");
-            $("#modal-delete-form").prop('action', '/administration/blog');
+            $("#modal-title").text("Удаление новости в блоге");
+            $("#modal-delete-form").prop('action', '/administration/blog/' + $(this).data('id'));
             $("#delete-id").val($(this).data('id'));
             $(".delete-name").text($(this).data('name'));
         });

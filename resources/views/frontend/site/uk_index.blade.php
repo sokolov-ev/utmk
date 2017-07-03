@@ -32,24 +32,21 @@
             <li class="" data-slide-to="2" data-target="#carousel-example-generic"></li>
         </ol>
         <div class="carousel-inner" role="listbox">
-            <div class="item active">
-                <img alt="First slide" src="/images/slide/slide-01.jpg" data-holder-rendered="true">
-                <div class="carousel-caption ci_caption">
-                    <span>Ми кращі в області імпорту та експорту металу</span>
+            @foreach ($slides as $key => $slide)
+                <div class="item {{ (0 == $key) ? 'active' : '' }}">
+                    @if ($slide->link)
+                        <a href="{{ $slide->link }}">
+                            <img alt="{{ $slide->text }}" src="{{ url('/images/' . $slide->type . '/' . $slide->name) }}" data-holder-rendered="true">
+                        </a>
+                    @else
+                        <img alt="{{ $slide->text }}" src="{{ url('/images/' . $slide->type . '/' . $slide->name) }}" data-holder-rendered="true">
+                    @endif
+
+                    <div class="carousel-caption ci_caption">
+                        {!! $slide->text !!}
+                    </div>
                 </div>
-            </div>
-            <div class="item">
-                <img alt="Second slide" src="/images/slide/slide-02.jpg" data-holder-rendered="true">
-                <div class="carousel-caption ci_caption">
-                    <h1>Широкий вибір металопрокату по низькій ціні у Львові та Україні</h1>
-                </div>
-            </div>
-            <div class="item">
-                <img alt="Third slide" src="/images/slide/slide-03.jpg" data-holder-rendered="true">
-                <div class="carousel-caption ci_caption">
-                    <h2>Якість продукції - головна причина, чому варто купити метал саме в нас</h2>
-                </div>
-            </div>
+            @endforeach
         </div>
     </div>
 

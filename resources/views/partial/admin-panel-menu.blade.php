@@ -1,12 +1,6 @@
-@if ( (Auth::guard('admin')->user()->role == 'SEO') || (Auth::guard('admin')->user()->role == 'SEO') )
+@if ( (Auth::guard('admin')->user()->role == 'SEO') || (Auth::guard('admin')->user()->role == 'Admin') )
 
     @if (Auth::guard('admin')->user()->role == 'Admin')
-        <li>
-            <a href="{{ url('/administration/sms') }}">
-                <i class="fa fa-commenting-o" aria-hidden="true"></i>
-                <span>TurboSMS</span>
-            </a>
-        </li>
         <li class="treeview">
             <a href="#"><i class="fa fa-users"></i> <span>Пользователи</span>
                 <span class="pull-right-container">
@@ -17,6 +11,13 @@
                 <li><a href="{{ url('/administration/moderators') }}">Менеджеры</a></li>
                 <li><a href="{{ url('/administration/clients') }}">Клиенты</a></li>
             </ul>
+        </li>
+
+        <li>
+            <a href="{{ url('/administration/sms') }}">
+                <i class="fa fa-commenting-o" aria-hidden="true"></i>
+                <span>TurboSMS</span>
+            </a>
         </li>
 
         <li>
@@ -37,22 +38,16 @@
     </li>
 
     <li class="treeview">
-        <a href="#"><i class="fa fa-newspaper-o" aria-hidden="true"></i> <span>Блог</span>
+        <a href="#"><i class="fa fa-newspaper-o" aria-hidden="true"></i> <span>Статьи</span>
             <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
             </span>
         </a>
         <ul class="treeview-menu">
-            <li><a href="{{ url('/administration/blog') }}">Редактор блога</a></li>
+            <li><a href="{{ url('/administration/blog') }}">Блог</a></li>
+            <li><a href="{{ url('/administration/spravka') }}">Справочник</a>
             <li><a href="{{ url('/administration/images') }}">Загрузка изображений</a></li>
         </ul>
-    </li>
-
-    <li>
-        <a href="{{ url('/administration/spravka') }}">
-            <i class="fa fa-book" aria-hidden="true"></i>
-            <span>Справочник</span>
-        </a>
     </li>
 
     <li>
@@ -70,24 +65,23 @@
     </li>
 
     <li>
-        <a href="{{ url('/administration/menu') }}">
-            <i class="fa fa-list-ol"></i>
-            <span>Каталог продукции</span>
+        <a href="{{ url('/administration/baners') }}">
+            <i class="fa fa-barcode" aria-hidden="true"></i>
+            <span>Банеры</span>
         </a>
     </li>
 
-    <li>
-        <a href="{{ url('/administration/products') }}">
-            <i class="fa fa-shopping-cart"></i>
-            <span>Продукция</span>
+    <li class="treeview">
+        <a href="#"><i class="fa fa-newspaper-o" aria-hidden="true"></i> <span>Продукция</span>
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+            </span>
         </a>
-    </li>
-
-    <li>
-        <a href="{{ url('/administration/exel') }}">
-            <i class="fa fa-file-excel-o" aria-hidden="true"></i>
-            <span>Продукция Exel</span>
-        </a>
+        <ul class="treeview-menu">
+            <li><a href="{{ url('/administration/menu') }}">Категории</a></li>
+            <li><a href="{{ url('/administration/products') }}">Каталог</a>
+            <li><a href="{{ url('/administration/exel') }}">Exel</a></li>
+        </ul>
     </li>
 
 @endif

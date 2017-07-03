@@ -22,14 +22,14 @@
                 <li class="active">Добавление новости</li>
             </ol>
 
-            <form id="form-news-add" role="form" method="POST" action="{{ url('/administration/blog/add') }}" enctype="multipart/form-data">
+            <form id="form-news-add" role="form" method="POST" action="{{ url('/administration/blog') }}" enctype="multipart/form-data">
                 {{ csrf_field() }}
 
                 <div class="row">
                     <div class="col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-12">
 
                         <div class="form-group{{ $errors->has('image') ? ' has-error' : '' }}">
-                            <label for="images" class="control-label">Изображение</label>
+                            <label for="image" class="control-label">Изображение</label>
 
                             <input type="file" id="image" name="image" class="file-loading" data-show-upload="false" data-show-caption="true">
 
@@ -64,12 +64,12 @@
                             @endif
                         </div>
 
-                        <div class="form-group{{ $errors->has('description') ? ' has-error' : '' }}">
-                            <textarea id="description" name="description" class="form-control" rows="9">{{ old('description') }}</textarea>
+                        <div class="form-group{{ $errors->has('body') ? ' has-error' : '' }}">
+                            <textarea id="body" name="body" class="form-control" rows="9">{{ old('body') }}</textarea>
 
-                            @if ($errors->has('description'))
+                            @if ($errors->has('body'))
                                 <span class="help-block">
-                                    <strong>{{ $errors->first('description') }}</strong>
+                                    <strong>{{ $errors->first('body') }}</strong>
                                 </span>
                             @endif
                         </div>
@@ -81,7 +81,7 @@
                             </label>
                         </div>
 
-                        <button class="btn btn-success pull-right" type="submit" onclick="saveDescription();">
+                        <button class="btn btn-success pull-right" type="submit" onclick="saveBody();">
                             Добавить
                         </button>
 
@@ -107,17 +107,26 @@
             allowedFileExtensions: ['jpg', 'jpeg', 'png', 'bmp', 'gif', 'svg'],
         });
 
-        var description = tinyMCE.init({
-                selector: '#description',
-                language: 'ru',
-                plugins: 'textcolor colorpicker advlist autolink link image media lists charmap table preview',
-                toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | forecolor backcolor'
-            });
+        var body = tinyMCE.init({
+            selector: '#body',
+            language: 'ru',
+            plugins: 'textcolor colorpicker advlist autolink link image media lists charmap table preview',
+            toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | forecolor backcolor'
+        });
 
-        function saveDescription()
-        {
-            description.triggerSave();
+        function saveBody() {
+            body.triggerSave();
         }
+
+        $(document).ready(function() {
+            $('iframe').removeAttr('title');
+        });
+
+        $(document).tooltip({
+            content: function () {
+                return $(this).prop('title');
+            }
+        });
     </script>
 
 @endsection

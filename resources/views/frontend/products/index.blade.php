@@ -34,7 +34,7 @@
     <meta property="og:site_name" content="Metall Vsem" />
 
     @if(!empty($jsonLD))
-    <script type="application/ld+json"> 
+    <script type="application/ld+json">
         {!! json_encode($jsonLD) !!}
     </script>
     @endif
@@ -59,9 +59,9 @@
         <div class="padding-block-0-1">
             <div class="text-black-h3 font-up">
                 {{ trans('products.advert.title') }}
-            </div>            
+            </div>
         </div>
-        
+
         <div class="text-orange">
             {!! trans('products.advert.message') !!}
         </div>
@@ -106,7 +106,7 @@
 </section>
 
 <section class="container">
-    
+
     <div class="padding-block-2-2">
         <div class="row">
             <div class="col-md-3 col-sm-12 col-xs-12">
@@ -114,7 +114,7 @@
             </div>
             <div class="col-md-9 col-sm-12 col-xs-12">
                 <h1 class="h1-tag">{{ $metatags['h1'] }}</h1>
-                
+
                 @if(!empty($breadcrumbs))
                     <ul class="breadcrumb">
                         <li>
@@ -146,7 +146,52 @@
                 <div class="menu-selected hidden" data-id="{{ $menu_id }}"> </div>
                 <ul class="list-unstyled catalog" id="catalog-content"> </ul>
             </div>
-            <div class="padding-top"> </div>
+
+            <div class="padding-block-2-2">
+                <div class="product-sliders-small">
+                    <div id="carousel-slider-small" class="carousel slide carousel-fade" data-ride="carousel">
+                        <div class="carousel-inner" role="listbox">
+                            @foreach ($banersSmall as $key => $slide)
+                                <div class="item {{ (0 == $key) ? 'active' : '' }}">
+                                    @if ($slide->link)
+                                        <a href="{{ $slide->link }}">
+                                            <img alt="{{ $slide->text }}" src="{{ url('/images/' . $slide->type . '/' . $slide->name) }}" data-holder-rendered="true">
+                                        </a>
+                                    @else
+                                        <img alt="{{ $slide->text }}" src="{{ url('/images/' . $slide->type . '/' . $slide->name) }}" data-holder-rendered="true">
+                                    @endif
+
+                                    <div class="carousel-caption ci_caption">
+                                        {!! $slide->text !!}
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-sliders-large">
+                    <div id="carousel-slider-large" class="carousel slide carousel-fade" data-ride="carousel">
+                        <div class="carousel-inner" role="listbox">
+                            @foreach ($banersLarge as $key => $slide)
+                                <div class="item {{ (0 == $key) ? 'active' : '' }}">
+                                    @if ($slide->link)
+                                        <a href="{{ $slide->link }}">
+                                            <img alt="{{ $slide->text }}" src="{{ url('/images/' . $slide->type . '/' . $slide->name) }}" data-holder-rendered="true">
+                                        </a>
+                                    @else
+                                        <img alt="{{ $slide->text }}" src="{{ url('/images/' . $slide->type . '/' . $slide->name) }}" data-holder-rendered="true">
+                                    @endif
+
+                                    <div class="carousel-caption ci_caption">
+                                        {!! $slide->text !!}
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="col-md-9 col-sm-12 col-xs-12">
 
@@ -167,11 +212,11 @@
 
                                     <div class="padding-block-1-2">
                                         @foreach ($data as $element)
-                                            @if($product[$element])                                                
+                                            @if($product[$element])
                                                 <span class="text-16">
                                                     <strong>{{ trans('products.' . $element) }}</strong>: {{ $product[$element] }}
                                                 </span><br>
-                                            @endif    
+                                            @endif
                                         @endforeach
                                     </div>
                                 </div>

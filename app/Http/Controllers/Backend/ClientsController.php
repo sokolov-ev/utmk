@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers\Backend;
 
-
-use Illuminate\Http\Request;
-use Illuminate\Routing\Controller;
-
 use Validator;
 use App\User;
 use App\DataTable;
+use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 
 class ClientsController extends Controller
 {
@@ -25,13 +23,13 @@ class ClientsController extends Controller
         $data = $request->all();
 
         $validator = Validator::make($data, [
-                        'id'   => 'exists:users,id',
-                        'username'  => 'required|max:255',
-                        'company'   => 'required|max:255|unique:users,company,'.$id.',deleted_at,NULL',
-                        'email'     => 'required|email|max:255|unique:users,email,'.$id.',deleted_at,NULL',
-                        'phone'     => 'required|max:255|unique:users,phone,'.$id.',deleted_at,NULL',
-                        'note_user' => 'string',
-                    ]);
+            'id'        => 'exists:users,id',
+            'username'  => 'required|max:255',
+            'company'   => 'required|max:255|unique:users,company,' . $id . ',deleted_at,NULL',
+            'email'     => 'required|email|max:255|unique:users,email,' . $id . ',deleted_at,NULL',
+            'phone'     => 'required|max:255|unique:users,phone,' . $id . ',deleted_at,NULL',
+            'note_user' => 'string',
+        ]);
 
         if ($validator->fails()) {
             session()->flash('error', 'Возникла ошибка при обновлении данных клиента.');
@@ -48,7 +46,7 @@ class ClientsController extends Controller
         $client->phone     = $data['phone'];
         $client->note_user = $data['note_user'];
 
-        if (!empty($data['password'])) {
+        if (! empty($data['password'])) {
             $client->password = bcrypt($data['password']);
         }
 
@@ -91,15 +89,15 @@ class ClientsController extends Controller
         $totalFiltered = $totalData;
 
         foreach ($clients as $client) {
-            $temp['id'] = (string) $client->id;
-            $temp['username'] = $client->username;
-            $temp['company'] = $client->company;
-            $temp['email'] = $client->email;
-            $temp['phone'] = $client->phone;
-            $temp['comments'] = empty($client->note_user) ? e('<i class="text-danger">(комментарии отсутствуют)</i>') : $client->note_user;
+            $temp['id']            = (string) $client->id;
+            $temp['username']      = $client->username;
+            $temp['company']       = $client->company;
+            $temp['email']         = $client->email;
+            $temp['phone']         = $client->phone;
+            $temp['comments']      = empty($client->note_user) ? e('<i class="text-danger">(комментарии отсутствуют)</i>') : $client->note_user;
             $temp['edit_comments'] = $client->note_user;
-            $temp['activity'] = empty($client->activity) ? "<i class='text-danger'>(нет данных)</i>" : date("Y-m-d H:i", $client->activity);
-            $temp['created_at'] = empty($client->created_at) ? "<i class='text-danger'>(нет данных)</i>" : date("Y-m-d H:i", $client->created_at->getTimestamp());
+            $temp['activity']      = empty($client->activity) ? "<i class='text-danger'>(нет данных)</i>" : date("Y-m-d H:i", $client->activity);
+            $temp['created_at']    = empty($client->created_at) ? "<i class='text-danger'>(нет данных)</i>" : date("Y-m-d H:i", $client->created_at->getTimestamp());
 
             $result[] = $temp;
         }
@@ -107,11 +105,11 @@ class ClientsController extends Controller
         $totalFiltered = count($result);
 
         return response()->json([
+            "draw"   => $request->get("draw"),
+            "data"   => $result,
             "status" => "ok",
-            "draw" => $request->get("draw"),
-            "recordsTotal" => (string) $totalFiltered,
+            "recordsTotal"    => (string) $totalFiltered,
             "recordsFiltered" => (string) $totalData,
-            "data" => $result,
         ]);
     }
 }

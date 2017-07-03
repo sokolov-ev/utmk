@@ -1,5 +1,4 @@
 var elixir = require('laravel-elixir');
-require('laravel-elixir-minify-html');
 /*
  |--------------------------------------------------------------------------
  | Elixir Asset Management
@@ -12,17 +11,7 @@ require('laravel-elixir-minify-html');
  */
 
 elixir(function(mix) {
-    // mix.html(
-    //     'storage/framework/views/*',
-    //     'storage/framework/views/',
-    //     {
-    //         collapseWhitespace: true,
-    //         removeAttributeQuotes: true,
-    //         removeComments: true,
-    //         minifyJS: true
-    //     });
 
-    // СТИЛИ ----------------------------------------
     mix.styles([
         'animate.css',
         'magnific-popup.css',
@@ -51,9 +40,6 @@ elixir(function(mix) {
     mix.styles([
         'fileinput.css',
     ], 'public/css/fileinput.min.css');
-
-
-    // СКРИПТЫ ----------------------------------------
 
     mix.scripts('clipboard.js', 'public/js/clipboard.min.js');
     mix.scripts('adminlte.js', 'public/js/adminlte.min.js');
@@ -114,8 +100,4 @@ elixir(function(mix) {
         'js/clipboard.min.js',
         'js/jquery.rateyo.js',
     ]);
-
-    // mix.browserSync({
-    //     proxy: 'metallvsem.dev'
-    // });
 });

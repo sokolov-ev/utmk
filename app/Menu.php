@@ -18,7 +18,12 @@ class Menu extends Model
      * @var array
      */
     protected $fillable = [
-        'parent_id', 'parent_exist', 'weight', 'name', 'slug', 'full_path_slug'
+        'name',
+        'slug',
+        'weight',
+        'parent_id',
+        'parent_exist',
+        'full_path_slug',
     ];
 
     /**

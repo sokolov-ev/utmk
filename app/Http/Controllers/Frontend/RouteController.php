@@ -2,25 +2,24 @@
 
 namespace App\Http\Controllers\Frontend;
 
-
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use Illuminate\Routing\Controller;
-
 use App;
+use SchemaOrg;
 use App\Menu;
+use App\Images;
 use App\Metatags;
 use App\Products;
 use App\Redirects;
 use App\Rating;
-use SchemaOrg;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Routing\Controller;
 
 class RouteController extends Controller
 {
     public function index(Request $request, $slug)
     {
         $redirect = Redirects::where('old', 'LIKE', '%utmk.com.ua/' . $slug)->first();
-        
+
         if ($redirect) {
             return redirect($redirect['new'], 301);
         }
@@ -51,53 +50,49 @@ class RouteController extends Controller
             $locale = '';
         }
 
+        $data = [
+            'steel_grade',
+            'standard',
+            'sawing',
+            'diameter',
+            'height',
+            'width',
+            'thickness',
+            'section',
+            'coating',
+            'view',
+            'brinell_hardness',
+            'class',
+        ];
+
         $item = ($item = Menu::where('full_path_slug', $slug)->first()) ? $item->toArray() : null;
 
         if (null === $item) {
             $slug = array_pop($part);
 
-            $product = Products::where('slug', $slug)->first();
+            $product = Products::where('slug', $slug)->firstOrFail();
 
-            if (empty($product)) {
-                abort(404);
-            } else {
+            $menu = Menu::getBreadcrumbs($product->menu_id);
+            $schemaBreadcrumb = SchemaOrg::breadcrumbProduct($menu, $locale);
 
-                $menu = Menu::getBreadcrumbs($product->menu_id);
-                $schemaBreadcrumb = SchemaOrg::breadcrumbProduct($menu, $locale);
+            $rating  = Rating::getRating($product->id);
+            $schemaProduct = SchemaOrg::product($product, $rating);
 
-                $product = Products::converData($product);
-                $rating  = Rating::getRating($product['id']);
+            $metatags = Metatags::where([['type', 'product'], ['slug', $slug]])->first();
+            $metatags = Metatags::getViewData($metatags);
 
-                $schemaProduct = SchemaOrg::product($product, $rating);
+            $product = $product->getViewData();
 
-                $metatags = Metatags::where([['type', 'product'], ['slug', $slug]])->first();
-                $metatags = Metatags::getViewData($metatags);
-
-                $data = [
-                    'steel_grade',
-                    'standard',
-                    'sawing',
-                    'diameter',
-                    'height',
-                    'width',
-                    'thickness',
-                    'section',
-                    'coating',
-                    'view',
-                    'brinell_hardness',
-                ];
-
-                return view('frontend.products.view', [
-                    'data'     => $data,
-                    'product'  => $product,
-                    'menu'     => $menu,
-                    'metatags' => $metatags,
-                    'locale'   => $locale,
-                    'rating'   => $rating,
-                    'schemaProduct' => $schemaProduct,
-                    'schemaBreadcrumb' => $schemaBreadcrumb,
-                ]);
-            }
+            return view('frontend.products.view', [
+                'data'             => $data,
+                'product'          => $product,
+                'menu'             => $menu,
+                'metatags'         => $metatags,
+                'locale'           => $locale,
+                'rating'           => $rating,
+                'schemaProduct'    => $schemaProduct,
+                'schemaBreadcrumb' => $schemaBreadcrumb,
+            ]);
         }
 
         $format = 'list';
@@ -115,7 +110,7 @@ class RouteController extends Controller
                             ->orderBy('rating', 'DESC')
                             ->paginate(9);
 
-        $result   = Products::getViewProducts($products);
+        $result = Products::getViewProducts($products);
 
         $slug = array_pop($part);
 
@@ -125,33 +120,27 @@ class RouteController extends Controller
         $breadcrumbs = Menu::getBreadcrumbs($item['id']);
         $jsonLD  = SchemaOrg::breadcrumbProduct($breadcrumbs, $locale);
 
-        $data = [
-            'steel_grade',
-            'standard',
-            'sawing',
-            'diameter',
-            'height',
-            'width',
-            'thickness',
-            'section',
-            'coating',
-            'view',
-            'brinell_hardness',
-        ];
+        $banersSmall = Images::where('type', 'slider-small')->orderBy('weight', 'ASC')->get();
+        $banersSmall = Images::viewDataArray($banersSmall);
+
+        $banersLarge = Images::where('type', 'slider-large')->orderBy('weight', 'ASC')->get();
+        $banersLarge = Images::viewDataArray($banersLarge);
 
         return view('frontend.products.index', [
-            'data'     => $data,
-            'products' => $products,
-            'result'   => $result,
-            'menu_id'  => $item['id'],
-            'format'   => $format,
-            'metatags' => $metatags,
-            'query'        => $request->except('page'),
-            'offPaginate'  => false,
-            'breadcrumbs'  => $breadcrumbs,
-            'locale'       => $locale,
-            'jsonLD'       => $jsonLD,
-            'page'         => $page,
+            'data'        => $data,
+            'products'    => $products,
+            'result'      => $result,
+            'menu_id'     => $item['id'],
+            'format'      => $format,
+            'metatags'    => $metatags,
+            'query'       => $request->except('page'),
+            'offPaginate' => false,
+            'breadcrumbs' => $breadcrumbs,
+            'locale'      => $locale,
+            'jsonLD'      => $jsonLD,
+            'page'        => $page,
+            'banersSmall' => $banersSmall,
+            'banersLarge' => $banersLarge,
         ]);
     }
 

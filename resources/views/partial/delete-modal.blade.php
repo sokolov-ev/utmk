@@ -12,8 +12,8 @@
                 Вы действительно хотите удалить: "<strong class="delete-name"></strong>"
 
                 <form role="form" method="POST" action="" id="modal-delete-form">
-                    <input type="hidden" name="_method" value="DELETE">
                     {{ csrf_field() }}
+                    {{ method_field('DELETE') }}
                     <input type="hidden" id="delete-id" name="id" value="">
                 </form>
             </div>

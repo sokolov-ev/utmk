@@ -33,11 +33,11 @@
     <meta property="og:description" content="{{ $metatags['description'] }}" />
     <meta property="og:site_name" content="Metall Vsem" />
 
-    <script type="application/ld+json"> 
+    <script type="application/ld+json">
         {!! json_encode($schemaBreadcrumb) !!}
     </script>
 
-    <script type="application/ld+json"> 
+    <script type="application/ld+json">
         {!! json_encode($schemaProduct) !!}
     </script>
 @endsection
@@ -49,7 +49,7 @@
 @section('content')
 
 <section class="container">
-    
+
     <div class="padding-top"></div>
     <div class="wow slideInRight">
         <h1 class="welcome-text text-center">{{ $product['title'] }}</h1>
@@ -111,7 +111,7 @@
         <div class="col-md-7 col-sm-7 col-xs-12">
             <div class="wow slideInRight">
                 <div class="padding-block-0-1">
-                    <div id="rateYo"></div> 
+                    <div id="rateYo"></div>
                     <span class="text-16" style="display: inline-block; vertical-align: text-bottom;">
                         <span class="appraisal">{{ $rating['appraisal'] }}</span>
                         ({{ trans('products.vote') }}: <span class="appraisal-count">{{ $rating['count'] }}</span>)
@@ -134,7 +134,7 @@
                             <strong>{{ trans('products.'.$element) }}</strong>: {{ $product[$element] }}
                         </span>
                     </div>
-                @endif    
+                @endif
             @endforeach
 
             <div class="wow slideInRight">
@@ -149,7 +149,7 @@
                     {{ $product['office_title'] }}
                 </a>
             </div>
-           
+
             @foreach($product['prices'] as $price)
                 <div class="margin-bottom-5">
                     @if ($price['type_view'] == 'agreed')
@@ -174,7 +174,7 @@
                     @endif
                 </div>
             @endforeach
-    
+
             @if (!$product['prices_type'])
                 <div class="padding-block-2-2">
                     <button type="button" class="btn btn-success add-cart pull-right" data-id="{{ $product['id'] }}">
@@ -232,7 +232,7 @@
         });
 
         $( "#rateYo" ).tooltip({ show: { effect: "blind", duration: 800 } });
-        
+
         $(document).ready(function() {
             let id = $('#productid').data('id');
 
