@@ -19,6 +19,7 @@ class MigrateImages extends Command
     {
         $changeType = DB::select("UPDATE `images` SET `type`='blog' WHERE `type` = 'other';");
         $changeType = DB::select("UPDATE `images` SET `type`='products' WHERE `type` = 'product';");
+        $changeType = DB::select("UPDATE `images` SET `link`='{\"en\":\"\", \"ru\":\"\", \"uk\":\"\"}', `text`='{\"en\":\"\", \"ru\":\"\", \"uk\":\"\"}' WHERE 1");
 
         $blog = Images::where('type', 'blog')->get();
         $old = './public/images/other/';
